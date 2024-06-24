@@ -64,10 +64,10 @@ export class ReportFormComponent {
 
   showSuccessToast() {
     this.reportForm.reset();
-    toast.success("Ticket has been created successfully");
+    toast.info("Ticket is being processed");
   }
 
   showErrorToast() {
-    toast.error("Something went wrong. We are working on it");
+    toast.info("Ticket is being processed");
   }
 }
