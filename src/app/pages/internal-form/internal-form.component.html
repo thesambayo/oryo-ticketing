@@ -1,0 +1,203 @@
+<div class="py-8">
+  <img src="logo.png" alt="image" class="w-32 h-10 mx-auto mb-5" />
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div
+      class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md mx-auto"
+    >
+      <div class="flex flex-col space-y-1.5 p-6">
+        <h3
+          class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
+        >
+          @switch (currentStep) {
+						@case (0) {
+          		<span>Customer information</span>
+          	}
+						@case (1) {
+          		<span>Issue details</span>
+          	}
+						@default {
+          		<span>Ticket details</span>
+          	}
+					}
+        </h3>
+        <!-- <p class="text-sm text-muted-foreground">
+          Let us know how we can help you.
+        </p> -->
+      </div>
+
+      <!-- customer details -->
+      @if (currentStep === 0) {
+      <div class="p-6 grid gap-5">
+        <div class="grid gap-2">
+          <label hlmLabel for="name">
+            <span>Name</span>
+          </label>
+          <input class="w-full" hlmInput id="name" formControlName="name" />
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="email">
+            <span>Email</span>
+          </label>
+          <input
+            class="w-full"
+            hlmInput
+            id="email"
+            type="email"
+            formControlName="email"
+          />
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="phone">
+            <span>Phone number</span>
+          </label>
+          <input class="w-full" hlmInput id="phone" formControlName="phone" />
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="company">
+            <span>Company name</span>
+          </label>
+          <input
+            class="w-full"
+            hlmInput
+            id="company"
+            formControlName="company"
+          />
+        </div>
+      </div>
+      }
+
+      <!-- issue details -->
+      @if (currentStep === 1) {
+      <div class="p-6 grid gap-5">
+        <div class="grid gap-2">
+          <label hlmLabel for="subject">
+            <span>Subject</span>
+          </label>
+          <input
+            hlmInput
+            id="subject"
+            class="w-full"
+            formControlName="subject"
+          />
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="issue-type"> Issue Type </label>
+          <brn-select
+            class="inline-block"
+            formControlName="issueType"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option value="Incident Management">
+                Incident Management
+              </hlm-option>
+              <hlm-option value="Problem Management">
+                Problem Management
+              </hlm-option>
+              <hlm-option value="Change Management">
+                Change Management
+              </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="description">Description</label>
+          <textarea
+            hlmInput
+            formControlName="description"
+            id="description"
+            class="min-h-32 w-full"
+            placeholder="Describe the issue you're facing"
+          ></textarea>
+        </div>
+
+        <!-- attachments here -->
+      </div>
+      }
+
+      <!-- ticket details -->
+      @if (currentStep === 2) {
+      <div class="p-6 grid gap-5">
+        <div class="grid gap-2">
+          <label hlmLabel for="ticketId">
+            <span>Ticket ID</span>
+          </label>
+          <input
+            class="w-full"
+            id="ticketId"
+            formControlName="ticketId"
+            hlmInput
+            readonly
+          />
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="status"> Status </label>
+          <brn-select
+            class="inline-block"
+            formControlName="status"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option value="open"> Open </hlm-option>
+              <hlm-option value="in-progress"> In Progress </hlm-option>
+              <hlm-option value="close"> Close </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
+
+        <div class="grid gap-2">
+          <label hlmLabel for="priority"> Priority </label>
+          <brn-select
+            class="inline-block"
+            formControlName="priority"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option value="high"> High </hlm-option>
+              <hlm-option value="medium"> Medium </hlm-option>
+              <hlm-option value="low"> Low </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
+      </div>
+      }
+
+      <div class="items-center p-6 flex gap-5">
+        <button
+          hlmBtn
+          type="button"
+          class="w-full"
+          variant="secondary"
+          (click)="handlePreviousStep()"
+          [disabled]="currentStep === 0"
+        >
+          Previous
+        </button>
+        <button
+          hlmBtn
+          class="w-full"
+          [type]="currentStep === 2 ? 'submit' : 'button'"
+          (click)="handleNextStep()"
+          [disabled]="!currentStepValidity"
+        >
+          {{ currentStep === 2 ? "Create ticket" : "Next" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

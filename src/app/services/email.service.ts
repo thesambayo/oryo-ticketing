@@ -17,13 +17,19 @@ export interface EmailFields {
 export class EmailService {
   http = inject(HttpClient);
 
-  sendEmail(emailFields: EmailFields) {
+
+
+  public generateTicketId(): string {
+    return nanoid(10);
+  }
+
+  public sendEmail(emailFields: EmailFields) {
     const ticketId = nanoid(10);
     this.sendEmailToSupport(emailFields, ticketId).subscribe();
     return this.sendEmailToReporter(emailFields, ticketId);
   }
 
-  sendEmailToSupport(emailFields: EmailFields, ticketId: string) {
+  private sendEmailToSupport(emailFields: EmailFields, ticketId: string) {
     const data = {
       service_id: 'service_uvhcsmo',
       template_id: 'template_ocvvsec', // replace with email to support template
@@ -42,7 +48,7 @@ export class EmailService {
     return this.http.post('https://api.emailjs.com/api/v1.0/email/send', data);
   }
 
-  sendEmailToReporter(emailFields: EmailFields, ticketId: string) {
+  private sendEmailToReporter(emailFields: EmailFields, ticketId: string) {
     const data = {
       service_id: 'service_uvhcsmo',
       template_id: 'template_u4rjzet',

@@ -1,13 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormGroup, Validators, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { toast } from 'ngx-sonner';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
-import { toast } from 'ngx-sonner';
-import { HlmButtonDirective } from '../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
-import { HlmInputDirective } from '../../../libs/ui/ui-input-helm/src/lib/hlm-input.directive';
-import { HlmLabelDirective } from '../../../libs/ui/ui-label-helm/src/lib/hlm-label.directive';
-import { HlmToasterComponent } from '../../../libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component';
-import { CommonModule } from '@angular/common';
+import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { EmailFields, EmailService } from '../../services/email.service';
 
 @Component({
@@ -15,7 +14,6 @@ import { EmailFields, EmailService } from '../../services/email.service';
   standalone: true,
   imports: [
     HlmButtonDirective,
-    HlmToasterComponent,
     HlmInputDirective,
     HlmLabelDirective,
     BrnSelectImports,

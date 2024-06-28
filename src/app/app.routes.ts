@@ -11,6 +11,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./pages/report-form/report-form.component').then(m => m.ReportFormComponent)
 	},
 	{
+		path: 'internal-form',
+		loadComponent: () => import('./pages/internal-form/internal-form.component').then(m => m.InternalFormComponent)
+	},
+	{
 		path: 'ticket-view',
 		loadComponent: () => import('./pages/ticket-view/ticket-view.component').then(m => m.TicketViewComponent)
 	},
