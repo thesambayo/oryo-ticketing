@@ -35,6 +35,7 @@ export class InternalFormComponent {
   _emailService = inject(EmailService);
   isSendingEmail = false;
   currentStep = InternalFormSteps.CustomerDetails;
+  InternalFormSteps = InternalFormSteps;
 
 
   reportForm = new FormGroup({

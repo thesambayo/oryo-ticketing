@@ -9,10 +9,10 @@
           class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
         >
           @switch (currentStep) {
-						@case (0) {
+						@case (InternalFormSteps.CustomerDetails) {
           		<span>Customer information</span>
           	}
-						@case (1) {
+						@case (InternalFormSteps.IssueDetails) {
           		<span>Issue details</span>
           	}
 						@default {
@@ -25,8 +25,7 @@
         </p> -->
       </div>
 
-      <!-- customer details -->
-      @if (currentStep === 0) {
+      @if (currentStep === InternalFormSteps.CustomerDetails) {
       <div class="p-6 grid gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="name">
@@ -69,8 +68,7 @@
       </div>
       }
 
-      <!-- issue details -->
-      @if (currentStep === 1) {
+      @if (currentStep === InternalFormSteps.IssueDetails) {
       <div class="p-6 grid gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="subject">
@@ -123,8 +121,7 @@
       </div>
       }
 
-      <!-- ticket details -->
-      @if (currentStep === 2) {
+      @if (currentStep === InternalFormSteps.TicketDetails) {
       <div class="p-6 grid gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="ticketId">
@@ -184,18 +181,18 @@
           class="w-full"
           variant="secondary"
           (click)="handlePreviousStep()"
-          [disabled]="currentStep === 0"
+          [disabled]="currentStep === InternalFormSteps.CustomerDetails"
         >
           Previous
         </button>
         <button
           hlmBtn
           class="w-full"
-          [type]="currentStep === 2 ? 'submit' : 'button'"
+          [type]="currentStep === InternalFormSteps.TicketDetails ? 'submit' : 'button'"
           (click)="handleNextStep()"
           [disabled]="!currentStepValidity"
         >
-          {{ currentStep === 2 ? "Create ticket" : "Next" }}
+          {{ currentStep === InternalFormSteps.TicketDetails ? "Create ticket" : "Next" }}
         </button>
       </div>
     </div>
