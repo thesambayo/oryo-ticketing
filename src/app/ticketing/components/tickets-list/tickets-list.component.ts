@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-tickets-list',
+  selector: 'oryo-tickets-list',
   standalone: true,
   imports: [],
   templateUrl: './tickets-list.component.html',

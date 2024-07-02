@@ -29,7 +29,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "oryo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",

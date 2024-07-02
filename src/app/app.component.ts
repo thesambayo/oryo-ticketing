@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
 
 @Component({
-  selector: 'app-root',
+  selector: 'oryo-root',
   standalone: true,
   templateUrl: './app.component.html',
   imports: [RouterOutlet, HlmToasterComponent],

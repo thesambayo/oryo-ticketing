@@ -8,19 +8,20 @@ export const routes: Routes = [
 	},
 	{
 		path: 'report-form',
-		loadComponent: () => import('./pages/report-form/report-form.component').then(m => m.ReportFormComponent)
+		loadComponent: () => import('./report-form/report-form.component').then(m => m.ReportFormComponent)
 	},
 	{
 		path: 'internal-form',
-		loadComponent: () => import('./pages/internal-form/internal-form.component').then(m => m.InternalFormComponent)
+		loadComponent: () => import('./internal-form/internal-form.component').then(m => m.InternalFormComponent)
 	},
 	{
-		path: 'ticket-view',
-		loadComponent: () => import('./pages/ticket-view/ticket-view.component').then(m => m.TicketViewComponent)
+		path: 'tickets',
+		loadChildren: () => import('./ticketing/tickets-routes').then(m => m.ticketsRoutes)
 	},
 	{
-		path: 'tickets-list',
-		loadComponent: () => import('./pages/tickets-list/tickets-list.component').then(m => m.TicketsListComponent)
+		path: 'customers',
+		loadChildren: () => import('./customers/customers-routes').then(m => m.customersRoutes)
 	}
 
 ];
+

@@ -7,7 +7,7 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { EmailFields, EmailService } from '../../services/email.service';
+import { EmailFields, EmailService } from '../services/email.service';
 
 enum InternalFormSteps {
   CustomerDetails,
@@ -16,7 +16,7 @@ enum InternalFormSteps {
 }
 
 @Component({
-  selector: 'app-internal-form',
+  selector: 'oryo-internal-form',
   standalone: true,
   imports: [
     HlmButtonDirective,
