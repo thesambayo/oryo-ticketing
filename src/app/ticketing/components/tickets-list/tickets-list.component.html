@@ -1,1 +1,84 @@
-<p>tickets-list works!</p>
+<div class="flex items-center justify-between">
+  <div class="font-bold text-blue-900">
+    <p class="text-sm">Hi Mohammed</p>
+    <h3 class="text-3xl">Tickets</h3>
+  </div>
+  <div class="flex items-center gap-x-2.5">
+    <!-- <div class="relative">
+			<hlm-icon size="sm" class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground" name="lucideSearch" />
+      <input
+        class="w-80 bg-white pl-8"
+        hlmInput
+        placeholder="Search"
+        type="Search"
+      />
+    </div> -->
+    <div
+      class="bg-white text-muted-foreground rounded-full size-8 flex items-center justify-center"
+    >
+      <hlm-icon size="sm" name="lucideBell" />
+    </div>
+    <hlm-avatar variant="small">
+      <img
+        src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600"
+        alt="spartan logo. Resembling a spartanic shield"
+        hlmAvatarImage
+      />
+      <span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+    </hlm-avatar>
+  </div>
+</div>
+
+<div class="w-full overflow-x-auto mt-20 bg-white rounded-xl">
+  <hlm-table class="w-full min-w-[500px]">
+    <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
+    <hlm-trow class="uppercase">
+      <hlm-th class="w-52">Ticket ID</hlm-th>
+      <hlm-th class="w-60">Customer</hlm-th>
+      <hlm-th class="flex-1">Subject</hlm-th>
+      <hlm-th class="flex-1">Priority</hlm-th>
+      <hlm-th class="flex-1">Status</hlm-th>
+      <!-- <hlm-th class="w-40">Status</hlm-th> -->
+      <hlm-th class="justify-start w-40">Actions</hlm-th>
+    </hlm-trow>
+    @for (ticket of _tickets; track ticket.id) {
+    <hlm-trow>
+      <hlm-td truncate class="font-medium w-52">
+        <p class="text-foreground font-medium">{{ ticket.id }}</p>
+        <p class="text-muted-foreground lowercase">
+          {{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
+        </p>
+      </hlm-td>
+      <hlm-td class="w-60 flex flex-col items-start">
+        <p class="text-foreground font-medium">{{ ticket.customerName }}</p>
+        <p class="text-muted-foreground">{{ ticket.companyName }}</p>
+      </hlm-td>
+      <hlm-td class="flex-1">{{ ticket.subject }}</hlm-td>
+      <hlm-td class="flex-1">
+        <p
+          class="text-sm uppercase tracking-tighter"
+          [ngClass]="{
+            'text-yellow-500': ticket.priority === 'HIGH',
+            'text-blue-500': ticket.priority === 'LOW',
+            'text-black': ticket.priority === 'MEDIUM',
+            'text-red-500': ticket.priority === 'URGENT',
+          }"
+        >
+          {{ ticket.priority | ticketPriorityDisplay }}
+        </p>
+        <!-- <div hlmBadge [variant]="getPriorityVariant(ticket.priority)">
+          {{ ticket.priority | ticketPriorityDisplay }}
+        </div> -->
+      </hlm-td>
+      <hlm-td class="flex-1">
+        <div hlmBadge [variant]="getStatusVariant(ticket.status)">
+          {{ ticket.status | ticketStatusDisplay }}
+        </div>
+      </hlm-td>
+      <hlm-td class="justify-start w-40">
+        <hlm-icon size="sm" name="lucideMoreHorizontal" />
+      </hlm-td>
+    </hlm-trow>
+    }
+  </hlm-table>
+</div>

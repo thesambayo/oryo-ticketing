@@ -11,6 +11,9 @@ export const badgeVariants = cva(
 				default: 'bg-primary border-transparent text-primary-foreground',
 				secondary: 'bg-secondary border-transparent text-secondary-foreground',
 				destructive: 'bg-destructive border-transparent text-destructive-foreground',
+				warning: 'bg-yellow-100 border-transparent text-yellow-600',
+				info: 'bg-blue-100 border-transparent text-blue-600',
+				success: 'bg-green-100 border-transparent text-green-600',
 				outline: 'text-foreground border-border',
 			},
 			size: {
@@ -44,6 +47,7 @@ export const badgeVariants = cva(
 	},
 );
 type badgeVariants = VariantProps<typeof badgeVariants>;
+export type HlmBadgeVariant = NonNullable<badgeVariants['variant']>;
 
 @Directive({
 	selector: '[hlmBadge]',
