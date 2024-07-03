@@ -18,7 +18,7 @@
     >
       <hlm-icon size="sm" name="lucideBell" />
     </div>
-    <hlm-avatar variant="small">
+    <hlm-avatar class="size-8">
       <img
         src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600"
         alt="spartan logo. Resembling a spartanic shield"
@@ -41,10 +41,10 @@
       <!-- <hlm-th class="w-40">Status</hlm-th> -->
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
-    @for (ticket of _tickets; track ticket.id) {
+    @for (ticket of _tickets(); track ticket.id) {
     <hlm-trow>
       <hlm-td truncate class="font-medium w-52">
-        <p class="text-foreground font-medium">{{ ticket.id }}</p>
+        <p class="text-foreground font-medium">{{ ticket.ticketId }}</p>
         <p class="text-muted-foreground lowercase">
           {{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
         </p>
@@ -79,6 +79,8 @@
         <hlm-icon size="sm" name="lucideMoreHorizontal" />
       </hlm-td>
     </hlm-trow>
+    } @empty {
+    <hlm-caption>No tickets found</hlm-caption>
     }
   </hlm-table>
 </div>

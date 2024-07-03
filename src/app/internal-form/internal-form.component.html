@@ -190,9 +190,13 @@
           class="w-full"
           [type]="currentStep === InternalFormSteps.TicketDetails ? 'submit' : 'button'"
           (click)="handleNextStep()"
-          [disabled]="!currentStepValidity"
+          [disabled]="!currentStepValidity || isSendingEmail"
         >
-          {{ currentStep === InternalFormSteps.TicketDetails ? "Create ticket" : "Next" }}
+          @if (isSendingEmail) {
+            {{ currentStep === InternalFormSteps.TicketDetails ? "Create ticket" : "Next" }}
+          } @else {
+            Loading...
+          }
         </button>
       </div>
     </div>

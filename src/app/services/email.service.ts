@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { nanoid } from 'nanoid';
+import { TicketsService } from '../ticketing/services/tickets.service';
 
 export interface EmailFields {
   name: string;
@@ -8,14 +9,15 @@ export interface EmailFields {
   company: string;
   issueType: string;
   description: string;
-
+  // add more items to this interface as needed
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
-  http = inject(HttpClient);
+  _http = inject(HttpClient);
+  _ticketsService = inject(TicketsService);
 
 
 
@@ -45,10 +47,10 @@ export class EmailService {
       }
     };
 
-    return this.http.post('https://api.emailjs.com/api/v1.0/email/send', data);
+    return this._http.post('https://api.emailjs.com/api/v1.0/email/send', data);
   }
 
-  private sendEmailToReporter(emailFields: EmailFields, ticketId: string) {
+  public sendEmailToReporter(emailFields: EmailFields, ticketId: string) {
     const data = {
       service_id: 'service_uvhcsmo',
       template_id: 'template_u4rjzet',
@@ -60,6 +62,6 @@ export class EmailService {
       }
     };
 
-    return this.http.post('https://api.emailjs.com/api/v1.0/email/send', data);
+    return this._http.post('https://api.emailjs.com/api/v1.0/email/send', data);
   }
 }

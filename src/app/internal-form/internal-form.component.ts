@@ -86,16 +86,29 @@ export class InternalFormComponent {
   resetFormValues() {
     this.reportForm.reset();
     this.reportForm.patchValue({
-      ticketId: this._emailService.generateTicketId()
+      ticketId: this._emailService.generateTicketId(),
     })
 
   }
 
   onSubmit() {
-    console.log(this.reportForm.value)
-    this.showSuccessToast();
-    this.resetFormValues();
-    this.currentStep = InternalFormSteps.CustomerDetails;
+    // console.log(this.reportForm.value);
+    this.isSendingEmail = true;
+    this._emailService.sendEmail(this.reportForm.value as EmailFields).subscribe({
+      next: (_res) => {
+        this.showSuccessToast();
+        this.resetFormValues();
+        this.isSendingEmail = false;
+        this.currentStep = InternalFormSteps.CustomerDetails;
+      },
+      error: (_err) => {
+        this.showSuccessToast();
+        this.resetFormValues();
+        this.isSendingEmail = false;
+        this.currentStep = InternalFormSteps.CustomerDetails;
+      }
+    });
+
   }
 
   showSuccessToast() {
