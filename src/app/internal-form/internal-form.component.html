@@ -8,17 +8,13 @@
         <h3
           class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
         >
-          @switch (currentStep) {
-						@case (InternalFormSteps.CustomerDetails) {
-          		<span>Customer information</span>
-          	}
-						@case (InternalFormSteps.IssueDetails) {
-          		<span>Issue details</span>
-          	}
-						@default {
-          		<span>Ticket details</span>
-          	}
-					}
+          @switch (currentStep) { @case (InternalFormSteps.CustomerDetails) {
+          <span>Customer information</span>
+          } @case (InternalFormSteps.IssueDetails) {
+          <span>Issue details</span>
+          } @default {
+          <span>Ticket details</span>
+          } }
         </h3>
         <!-- <p class="text-sm text-muted-foreground">
           Let us know how we can help you.
@@ -66,9 +62,7 @@
           />
         </div>
       </div>
-      }
-
-      @if (currentStep === InternalFormSteps.IssueDetails) {
+      } @if (currentStep === InternalFormSteps.IssueDetails) {
       <div class="p-6 grid gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="subject">
@@ -119,9 +113,7 @@
 
         <!-- attachments here -->
       </div>
-      }
-
-      @if (currentStep === InternalFormSteps.TicketDetails) {
+      } @if (currentStep === InternalFormSteps.TicketDetails) {
       <div class="p-6 grid gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="ticketId">
@@ -188,14 +180,20 @@
         <button
           hlmBtn
           class="w-full"
-          [type]="currentStep === InternalFormSteps.TicketDetails ? 'submit' : 'button'"
+          [type]="
+            currentStep === InternalFormSteps.TicketDetails
+              ? 'submit'
+              : 'button'
+          "
           (click)="handleNextStep()"
           [disabled]="!currentStepValidity || isSendingEmail"
         >
-          @if (isSendingEmail) {
-            {{ currentStep === InternalFormSteps.TicketDetails ? "Create ticket" : "Next" }}
-          } @else {
-            Loading...
+          @if (isSendingEmail) { Loading... } @else {
+          {{
+            currentStep === InternalFormSteps.TicketDetails
+              ? "Create ticket"
+              : "Next"
+          }}
           }
         </button>
       </div>
