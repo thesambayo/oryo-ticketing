@@ -1,9 +1,10 @@
 <div class="py-8">
-  <img src="logo.png" alt="image" class="w-32 h-10 mx-auto mb-5">
+  <img src="logo.png" alt="image" class="w-32 h-10 mx-auto mb-5" />
   <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
     <div
-      class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md mx-auto"
+      class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-2xl mx-auto"
     >
+      <!-- form title -->
       <div class="flex flex-col space-y-1.5 p-6">
         <h3
           class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
@@ -16,23 +17,25 @@
       </div>
 
       <div class="p-6 grid gap-5">
-        <div class="grid gap-2">
-          <label hlmLabel for="name">
-            <span>Name</span>
-          </label>
-          <input class="w-full" hlmInput id="name" formControlName="name" />
-        </div>
-
-        <div class="grid gap-2">
-          <label hlmLabel for="company">
-            <span>Company name</span>
-          </label>
-          <input
-            class="w-full"
-            hlmInput
-            id="company"
-            formControlName="company"
-          />
+        <!-- user info -->
+        <div class="grid grid-cols-2 gap-5">
+          <div class="grid gap-2">
+            <label hlmLabel for="name">
+              <span>Name</span>
+            </label>
+            <input class="w-full" hlmInput id="name" formControlName="name" />
+          </div>
+          <div class="grid gap-2">
+            <label hlmLabel for="company">
+              <span>Company name</span>
+            </label>
+            <input
+              class="w-full"
+              hlmInput
+              id="company"
+              formControlName="company"
+            />
+          </div>
         </div>
 
         <div class="grid gap-2">
@@ -49,21 +52,25 @@
         </div>
 
         <div class="grid gap-2">
-          <label hlmLabel for="issue-type"> Issue Type </label>
-          <brn-select
-            class="inline-block"
-            placeholder="Select an option"
+          <label hlmLabel for="issue-type">Support task issue</label>
+          <brn-radio-group
+            class="mb-4 font-mono text-sm font-medium space-y-1"
             formControlName="issueType"
+            hlm
           >
-            <hlm-select-trigger class="w-full">
-              <hlm-select-value />
-            </hlm-select-trigger>
-            <hlm-select-content>
-              <hlm-option value="Incident Management">Incident Management</hlm-option>
-              <hlm-option value="Problem Management">Problem Management</hlm-option>
-              <hlm-option value="Change Management">Change Management</hlm-option>
-            </hlm-select-content>
-          </brn-select>
+            <brn-radio hlm value="Missing fuel logs">
+              <hlm-radio-indicator indicator />
+              Missing fuel logs
+            </brn-radio>
+            <brn-radio hlm value="Missing truck locations">
+              <hlm-radio-indicator indicator />
+              Missing truck locations
+            </brn-radio>
+            <brn-radio hlm value="Missing records">
+              <hlm-radio-indicator indicator />
+              Missing records
+            </brn-radio>
+          </brn-radio-group>
         </div>
 
         <div class="grid gap-2">

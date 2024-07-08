@@ -2,27 +2,16 @@
   <img src="logo.png" alt="image" class="w-32 h-10 mx-auto mb-5" />
   <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
     <div
-      class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-md mx-auto"
+      class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-3xl mx-auto"
     >
       <div class="flex flex-col space-y-1.5 p-6">
         <h3
           class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight"
         >
-          @switch (currentStep) { @case (InternalFormSteps.CustomerDetails) {
-          <span>Customer information</span>
-          } @case (InternalFormSteps.IssueDetails) {
-          <span>Issue details</span>
-          } @default {
-          <span>Ticket details</span>
-          } }
+          Ticket details
         </h3>
-        <!-- <p class="text-sm text-muted-foreground">
-          Let us know how we can help you.
-        </p> -->
       </div>
-
-      @if (currentStep === InternalFormSteps.CustomerDetails) {
-      <div class="p-6 grid gap-5">
+      <div class="p-6 grid md:grid-cols-2 gap-5">
         <div class="grid gap-2">
           <label hlmLabel for="name">
             <span>Name</span>
@@ -42,7 +31,6 @@
             formControlName="email"
           />
         </div>
-
         <div class="grid gap-2">
           <label hlmLabel for="phone">
             <span>Phone number</span>
@@ -61,45 +49,27 @@
             formControlName="company"
           />
         </div>
-      </div>
-      } @if (currentStep === InternalFormSteps.IssueDetails) {
-      <div class="p-6 grid gap-5">
         <div class="grid gap-2">
-          <label hlmLabel for="subject">
-            <span>Subject</span>
-          </label>
-          <input
-            hlmInput
-            id="subject"
-            class="w-full"
-            formControlName="subject"
-          />
-        </div>
-
-        <div class="grid gap-2">
-          <label hlmLabel for="issue-type"> Issue Type </label>
-          <brn-select
-            class="inline-block"
+          <label hlmLabel for="issue-type">Support task issue</label>
+          <brn-radio-group
+            class="mb-4 font-mono text-sm font-medium space-y-1"
             formControlName="issueType"
-            placeholder="Select an option"
+            hlm
           >
-            <hlm-select-trigger class="w-full">
-              <hlm-select-value />
-            </hlm-select-trigger>
-            <hlm-select-content>
-              <hlm-option value="Incident Management">
-                Incident Management
-              </hlm-option>
-              <hlm-option value="Problem Management">
-                Problem Management
-              </hlm-option>
-              <hlm-option value="Change Management">
-                Change Management
-              </hlm-option>
-            </hlm-select-content>
-          </brn-select>
+            <brn-radio hlm value="Missing fuel logs">
+              <hlm-radio-indicator indicator />
+              Missing fuel logs
+            </brn-radio>
+            <brn-radio hlm value="Missing truck locations">
+              <hlm-radio-indicator indicator />
+              Missing truck locations
+            </brn-radio>
+            <brn-radio hlm value="Missing records">
+              <hlm-radio-indicator indicator />
+              Missing records
+            </brn-radio>
+          </brn-radio-group>
         </div>
-
         <div class="grid gap-2">
           <label hlmLabel for="description">Description</label>
           <textarea
@@ -110,17 +80,12 @@
             placeholder="Describe the issue you're facing"
           ></textarea>
         </div>
-
-        <!-- attachments here -->
-      </div>
-      } @if (currentStep === InternalFormSteps.TicketDetails) {
-      <div class="p-6 grid gap-5">
-        <div class="grid gap-2">
+        <div class="grid gap-2 col-span-2">
           <label hlmLabel for="ticketId">
             <span>Ticket ID</span>
           </label>
           <input
-            class="w-full"
+            class="w-full bg-muted pointer-events-none"
             id="ticketId"
             formControlName="ticketId"
             hlmInput
@@ -164,37 +129,15 @@
           </brn-select>
         </div>
       </div>
-      }
 
       <div class="items-center p-6 flex gap-5">
         <button
           hlmBtn
-          type="button"
           class="w-full"
-          variant="secondary"
-          (click)="handlePreviousStep()"
-          [disabled]="currentStep === InternalFormSteps.CustomerDetails"
+          type="submit"
+          [disabled]="reportForm.invalid || isSendingEmail"
         >
-          Previous
-        </button>
-        <button
-          hlmBtn
-          class="w-full"
-          [type]="
-            currentStep === InternalFormSteps.TicketDetails
-              ? 'submit'
-              : 'button'
-          "
-          (click)="handleNextStep()"
-          [disabled]="!currentStepValidity || isSendingEmail"
-        >
-          @if (isSendingEmail) { Loading... } @else {
-          {{
-            currentStep === InternalFormSteps.TicketDetails
-              ? "Create ticket"
-              : "Next"
-          }}
-          }
+          {{ isSendingEmail ? "Loading..." : "Create ticket" }}
         </button>
       </div>
     </div>

@@ -7,13 +7,15 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
+import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { EmailFields, EmailService } from '../services/email.service';
 
-enum InternalFormSteps {
-  CustomerDetails,
-  IssueDetails,
-  TicketDetails
-}
+// enum InternalFormSteps {
+//   CustomerDetails,
+//   IssueDetails,
+//   TicketDetails
+// }
 
 @Component({
   selector: 'oryo-internal-form',
@@ -26,7 +28,12 @@ enum InternalFormSteps {
     HlmSelectImports,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrnRadioGroupComponent,
+    BrnRadioComponent,
+    HlmRadioIndicatorComponent,
+    HlmRadioDirective,
+    HlmRadioGroupDirective,
   ],
   templateUrl: './internal-form.component.html',
   styleUrl: './internal-form.component.css'
@@ -34,8 +41,8 @@ enum InternalFormSteps {
 export class InternalFormComponent {
   _emailService = inject(EmailService);
   isSendingEmail = false;
-  currentStep = InternalFormSteps.CustomerDetails;
-  InternalFormSteps = InternalFormSteps;
+  // currentStep = InternalFormSteps.CustomerDetails;
+  // InternalFormSteps = InternalFormSteps;
 
 
   reportForm = new FormGroup({
@@ -46,42 +53,16 @@ export class InternalFormComponent {
     company: new FormControl('', Validators.required),
 
     // issue details
-    subject: new FormControl('', Validators.required),
+    // subject: new FormControl('', Validators.required),
     issueType: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     attachments: new FormControl(''),
 
     // ticket details
     ticketId: new FormControl(this._emailService.generateTicketId(), Validators.required),
-    status: new FormControl('', Validators.required),
-    priority: new FormControl('', Validators.required),
+    status: new FormControl('open', Validators.required),
+    priority: new FormControl('medium', Validators.required),
   });
-
-  get currentStepValidity(): boolean {
-    if (this.currentStep === InternalFormSteps.CustomerDetails) {
-      return this.reportForm.controls.name.valid &&
-        this.reportForm.controls.email.valid &&
-        this.reportForm.controls.company.valid &&
-        this.reportForm.controls.phone.valid;
-    }
-    if (this.currentStep === InternalFormSteps.IssueDetails) {
-      return this.reportForm.controls.subject.valid &&
-        this.reportForm.controls.description.valid &&
-        this.reportForm.controls.issueType.valid &&
-        this.reportForm.controls.attachments.valid;
-    }
-    return this.reportForm.valid;
-
-  }
-
-  handlePreviousStep() {
-    this.currentStep--;
-  }
-
-  handleNextStep() {
-    if (this.currentStep === InternalFormSteps.TicketDetails) return;
-    this.currentStep++;
-  }
 
   resetFormValues() {
     this.reportForm.reset();
@@ -92,20 +73,17 @@ export class InternalFormComponent {
   }
 
   onSubmit() {
-    // console.log(this.reportForm.value);
     this.isSendingEmail = true;
     this._emailService.sendEmail(this.reportForm.value as EmailFields).subscribe({
       next: (_res) => {
         this.showSuccessToast();
         this.resetFormValues();
         this.isSendingEmail = false;
-        this.currentStep = InternalFormSteps.CustomerDetails;
       },
       error: (_err) => {
         this.showSuccessToast();
         this.resetFormValues();
         this.isSendingEmail = false;
-        this.currentStep = InternalFormSteps.CustomerDetails;
       }
     });
 

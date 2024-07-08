@@ -8,6 +8,8 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { EmailFields, EmailService } from '../services/email.service';
+import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
+import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 
 @Component({
   selector: 'oryo-report-form',
@@ -20,7 +22,12 @@ import { EmailFields, EmailService } from '../services/email.service';
     HlmSelectImports,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrnRadioGroupComponent,
+    BrnRadioComponent,
+    HlmRadioIndicatorComponent,
+    HlmRadioDirective,
+    HlmRadioGroupDirective,
   ],
   templateUrl: './report-form.component.html',
   styleUrl: './report-form.component.css'

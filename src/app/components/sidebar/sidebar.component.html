@@ -11,64 +11,51 @@
 
 <div class="px-5">
   <div class="space-y-4">
-    <a
-      hlmBtn
-      class="bg-oryo-green w-full justify-start gap-3"
-      routerLink="/"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page"
-    >
-      <hlm-icon size="base" name="lucideLayoutGrid" />
-      Dashboard
-    </a>
-    <a
-      hlmBtn
-      variant="ghost"
-      class="w-full justify-start gap-3"
-      routerLink="/tickets"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page"
-    >
-      <hlm-icon size="base" name="lucideTicket" />
-      Tickets
-    </a>
-    <a
-      hlmBtn
-      variant="ghost"
-      class="w-full justify-start gap-3"
-      routerLink="/customers"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page"
-    >
-      <hlm-icon size="base" name="lucideUsers" />
-      Customers
-    </a>
+    @for (navItem of mainNavigationItems; track navItem.label) {
+      <a
+        hlmBtn
+        variant="ghost"
+        class="w-full justify-start gap-3"
+        [routerLink]="navItem.routerLink"
+        routerLinkActive="bg-oryo-green text-white hover:bg-oryo-green/95 hover:text-white"
+        [routerLinkActiveOptions]="{exact: true}"
+        ariaCurrentWhenActive="page"
+      >
+        <hlm-icon size="base" [name]="navItem.icon" />
+        <span>{{ navItem.label }}</span>
+      </a>
+    }
   </div>
 
   <brn-separator hlmSeparator class="mt-12 mb-8" />
 
   <div class="space-y-4">
-    <a
-      hlmBtn
-      variant="ghost"
-      class="w-full justify-start gap-3"
-      routerLink="/profile"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page"
-    >
-      <hlm-icon size="base" name="lucideUser2" />
-      Profile
-    </a>
-    <a
-      hlmBtn
-      variant="ghost"
-      class="w-full justify-start gap-3"
-      routerLink="/tickets"
-      routerLinkActive="activebutton"
-      ariaCurrentWhenActive="page"
-    >
-      <hlm-icon size="base" name="lucideLogOut" />
-      Logout
-    </a>
+    @for (navItem of otherNavigationItems; track navItem.label) {
+      @if (navItem.routerLink) {
+        <a
+          hlmBtn
+          variant="ghost"
+          class="w-full justify-start gap-3"
+          [routerLink]="navItem.routerLink"
+          routerLinkActive="activebutton"
+          ariaCurrentWhenActive="page"
+        >
+          <hlm-icon size="base" [name]="navItem.icon" />
+          <span>{{ navItem.label }}</span>
+        </a>
+
+      }
+      @if (navItem.action) {
+        <a
+          hlmBtn
+          variant="ghost"
+          (click)="navItem.action()"
+          class="w-full justify-start gap-3 cursor-pointer"
+        >
+          <hlm-icon size="base" [name]="navItem.icon" />
+          <span>{{ navItem.label }}</span>
+        </a>
+      }
+    }
   </div>
 </div>
