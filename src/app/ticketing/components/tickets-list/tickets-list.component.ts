@@ -17,10 +17,10 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmPopoverContentDirective, HlmPopoverCloseDirective } from '@spartan-ng/ui-popover-helm';
 import {
-  BrnPopoverCloseDirective,
   BrnPopoverComponent,
-  BrnPopoverContentDirective,
   BrnPopoverTriggerDirective,
+  BrnPopoverContentDirective,
+  BrnPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-brain';
 import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioIndicatorComponent, HlmRadioDirective, HlmRadioGroupDirective } from '@spartan-ng/ui-radiogroup-helm';
@@ -29,6 +29,7 @@ import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-n
 import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogHeaderComponent, HlmDialogFooterComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective } from '@spartan-ng/ui-dialog-helm';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { CreateTicketComponent } from '../create-ticket/create-ticket.component';
 
 
 @Component({
@@ -80,6 +81,8 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
     HlmDialogDescriptionDirective,
     BrnSelectImports,
     HlmSelectImports,
+
+    CreateTicketComponent,
   ],
   providers: [provideIcons({ lucideBell, lucideSearch, lucideMoreHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
   templateUrl: './tickets-list.component.html',
