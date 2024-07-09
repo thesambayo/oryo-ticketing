@@ -61,7 +61,7 @@ export class InternalFormComponent {
     // ticket details
     ticketId: new FormControl(this._emailService.generateTicketId(), Validators.required),
     status: new FormControl('open', Validators.required),
-    priority: new FormControl('medium', Validators.required),
+    priority: new FormControl('high', Validators.required),
   });
 
   resetFormValues() {

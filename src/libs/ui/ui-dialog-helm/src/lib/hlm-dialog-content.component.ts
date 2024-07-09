@@ -25,7 +25,7 @@ import { HlmDialogCloseDirective } from './hlm-dialog-close.directive';
 
 		<button brnDialogClose hlm>
 			<span class="sr-only">Close</span>
-			<hlm-icon class="flex w-4 h-4" size="none" name="lucideX" />
+			<hlm-icon class="flex size-4" size="none" name="lucideX" />
 		</button>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
