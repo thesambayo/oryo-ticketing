@@ -27,6 +27,8 @@ import { HlmRadioIndicatorComponent, HlmRadioDirective, HlmRadioGroupDirective }
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
 import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogHeaderComponent, HlmDialogFooterComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective } from '@spartan-ng/ui-dialog-helm';
+import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
+import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
 
 @Component({
@@ -76,6 +78,8 @@ import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogHeaderComponent
     HlmDialogFooterComponent,
     HlmDialogTitleDirective,
     HlmDialogDescriptionDirective,
+    BrnSelectImports,
+    HlmSelectImports,
   ],
   providers: [provideIcons({ lucideBell, lucideSearch, lucideMoreHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
   templateUrl: './tickets-list.component.html',

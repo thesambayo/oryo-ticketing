@@ -4,7 +4,10 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 module.exports = {
   // presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')], 
   content: [
-    "./src/**/*.{html,ts}",
+    './src/**/*.{html,ts}',
+    // './src/index.html',
+    // './src/app/**/*.{html,ts}',
+    // './src/libs/ui/**/*.{html,ts}',
   ],
 	theme: {
 		container: {
