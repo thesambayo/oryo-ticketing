@@ -19,7 +19,6 @@ export const routes: Routes = [
 			}
 		]
 	},
-
 	{
 		path: 'report-form',
 		loadComponent: () => import('./report-form/report-form.component').then(m => m.ReportFormComponent)

@@ -2,17 +2,20 @@ import { HlmBadgeVariant } from "@spartan-ng/ui-badge-helm";
 
 export interface TicketItem {
   id: string;
-  ticketId: string;
-  customerName: string;
-  customerEmail: string;
-  companyName: string;
+  reporterName: string;
+  reporterEmail: string;
+  reporterCompany: string;
   subject: string;
-  priority: TicketItemPriority;
-  status: TicketItemStatus
   description: string;
+  priority: TicketItemPriority;
+  status: TicketItemStatus;
+
   attachments: string[];
   dateCreated: string;
   dateResolved: string;
+  assignee?: string;
+  dateUpdated?: string;
+  category?: string;
 }
 
 export enum TicketItemStatus {
@@ -48,7 +51,6 @@ export function getStatusVariant(status: TicketItemStatus): HlmBadgeVariant {
     default:
       return 'warning';
   }
-
 }
 
 
@@ -83,71 +85,20 @@ export function getPriorityVariant(priority: TicketItemPriority): HlmBadgeVarian
   }
 }
 
-// add to a mock service
-// protected _tickets: TicketItem[] = [
-//   {
-//     id: 'T001',
-//     customerName: 'John Doe',
-//     customerEmail: 'john.doe@example.com',
-//     companyName: 'ABC Company',
-//     subject: 'Issue with login',
-//     priority: TicketItemPriority.URGENT,
-//     status: TicketItemStatus.OPEN,
-//     description: 'I am unable to login to my account.',
-//     attachments: ['file1.pdf', 'file2.png'],
-//     dateCreated: '2022-01-01',
-//     dateResolved: ''
-//   },
-//   {
-//     id: 'T002',
-//     customerName: 'Jane Smith',
-//     customerEmail: 'jane.smith@example.com',
-//     companyName: 'XYZ Corporation',
-//     subject: 'Payment not processed',
-//     priority: TicketItemPriority.MEDIUM,
-//     status: TicketItemStatus.IN_PROGRESS,
-//     description: 'I made a payment but it has not been processed yet.',
-//     attachments: [],
-//     dateCreated: '2022-01-02',
-//     dateResolved: ''
-//   },
-//   {
-//     id: 'T003',
-//     customerName: 'Mike Johnson',
-//     customerEmail: 'mike.johnson@example.com',
-//     companyName: '123 Industries',
-//     subject: 'Product not delivered',
-//     priority: TicketItemPriority.LOW,
-//     status: TicketItemStatus.CANCELLED,
-//     description: 'I ordered a product but it has not been delivered yet.',
-//     attachments: ['file3.docx'],
-//     dateCreated: '2022-01-03',
-//     dateResolved: ''
-//   },
-//   {
-//     id: 'T004',
-//     customerName: 'Sarah Williams',
-//     customerEmail: 'sarah.williams@example.com',
-//     companyName: 'ABC Company',
-//     subject: 'Bug in the system',
-//     priority: TicketItemPriority.HIGH,
-//     status: TicketItemStatus.RESOLVED,
-//     description: 'I found a bug in the system.',
-//     attachments: [],
-//     dateCreated: '2022-01-04',
-//     dateResolved: '2022-01-05'
-//   },
-//   {
-//     id: 'T005',
-//     customerName: 'David Brown',
-//     customerEmail: 'david.brown@example.com',
-//     companyName: 'XYZ Corporation',
-//     subject: 'Feature request',
-//     priority: TicketItemPriority.MEDIUM,
-//     status: TicketItemStatus.CLOSED,
-//     description: 'I have a feature request for the application.',
-//     attachments: ['file4.jpg', 'file5.txt'],
-//     dateCreated: '2022-01-05',
-//     dateResolved: '2022-01-06'
-//   }
-// ];
+export interface CreateTicketItemPayload {
+  // with validation for BE
+  reporterName: string; // non empty
+  reporterEmail: string; // non empty and is an email
+  reporterCompany: string; // non-empty
+  priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
+  status?: TicketItemStatus; // set a default in db [can be within list of registered values]
+
+  subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
+  description: string; // non empty and not more than 500 bytes long
+  // minimum requirement to create a ticket above
+
+  category?: string; // incident, problem etc [can be within list of registered values]
+  attachments?: string[];
+  assignee?: string; // when not-empty is only an oryo email
+  // should have a created by field that when not-empty is only an oryo email
+}

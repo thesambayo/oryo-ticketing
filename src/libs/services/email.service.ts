@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { nanoid } from 'nanoid';
-import { TicketsService } from '../ticketing/services/tickets.service';
+import { TicketsService } from '../../app/ticketing/services/tickets.service';
 
 export interface EmailFields {
   name: string;
@@ -9,6 +9,7 @@ export interface EmailFields {
   company: string;
   issueType: string;
   description: string;
+	ticketId: string
   // add more items to this interface as needed
 }
 
@@ -26,18 +27,17 @@ export class EmailService {
   }
 
   public sendEmail(emailFields: EmailFields) {
-    const ticketId = nanoid(10);
-    this.sendEmailToSupport(emailFields, ticketId).subscribe();
-    return this.sendEmailToReporter(emailFields, ticketId);
+    this.sendEmailToSupport(emailFields).subscribe();
+    return this.sendEmailToReporter(emailFields);
   }
 
-  private sendEmailToSupport(emailFields: EmailFields, ticketId: string) {
+  private sendEmailToSupport(emailFields: EmailFields) {
     const data = {
       service_id: 'service_uvhcsmo',
       template_id: 'template_ocvvsec', // replace with email to support template
       user_id: 'ODUehXBQt0jEW90d4',
       template_params: {
-        ticket_id: ticketId,
+        ticket_id: emailFields.ticketId,
         reporter_name: emailFields.name,
         reporter_email: emailFields.email,
 
@@ -50,13 +50,13 @@ export class EmailService {
     return this._http.post('https://api.emailjs.com/api/v1.0/email/send', data);
   }
 
-  public sendEmailToReporter(emailFields: EmailFields, ticketId: string) {
+  public sendEmailToReporter(emailFields: EmailFields) {
     const data = {
       service_id: 'service_uvhcsmo',
       template_id: 'template_u4rjzet',
       user_id: 'ODUehXBQt0jEW90d4',
       template_params: {
-        ticket_id: ticketId,
+        ticket_id: emailFields.ticketId,
         reporter_name: emailFields.name,
         reporter_email: emailFields.email,
       }

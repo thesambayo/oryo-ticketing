@@ -51,35 +51,40 @@
           />
         </div>
 
-        <div class="grid gap-2">
-          <label hlmLabel for="issue-type">Support task issue</label>
-          <brn-radio-group
-            class="mb-4 font-mono text-sm font-medium space-y-1"
-            formControlName="issueType"
-            hlm
-          >
-            <brn-radio hlm value="Missing fuel logs">
-              <hlm-radio-indicator indicator />
-              Fuel logs
-            </brn-radio>
-            <brn-radio hlm value="Missing truck locations">
-              <hlm-radio-indicator indicator />
-              Truck locations
-            </brn-radio>
-            <brn-radio hlm value="Missing records">
-              <hlm-radio-indicator indicator />
-              Tank records
-            </brn-radio>
-            <brn-radio hlm value="AI cameras">
-              <hlm-radio-indicator indicator />
-              AI cameras
-            </brn-radio>
-            <brn-radio hlm value="GPS tracking">
-              <hlm-radio-indicator indicator />
-              GPS tracking
-            </brn-radio>
-          </brn-radio-group>
-        </div>
+				<div class="space-y-2">
+					<label hlmLabel for="subject">Support task issue</label>
+					<brn-radio-group
+						id="subject"
+						class="mb-4 font-mono text-sm font-medium space-y-0.5"
+						formControlName="subject"
+						hlm
+					>
+						<brn-radio hlm value="Missing fuel logs">
+							<hlm-radio-indicator indicator />
+							Fuel logs
+						</brn-radio>
+						<brn-radio hlm value="Missing truck locations">
+							<hlm-radio-indicator indicator />
+							Truck locations
+						</brn-radio>
+						<brn-radio hlm value="Tank reports">
+							<hlm-radio-indicator indicator />
+							Tank reports
+						</brn-radio>
+						<brn-radio hlm value="AI cameras">
+							<hlm-radio-indicator indicator />
+							AI cameras
+						</brn-radio>
+						<brn-radio hlm value="GPS tracking">
+							<hlm-radio-indicator indicator />
+							GPS tracking
+						</brn-radio>
+						<brn-radio hlm value="Decommission">
+							<hlm-radio-indicator indicator />
+							Decommission
+						</brn-radio>
+					</brn-radio-group>
+				</div>
 
         <div class="grid gap-2">
           <label hlmLabel for="description">Description</label>

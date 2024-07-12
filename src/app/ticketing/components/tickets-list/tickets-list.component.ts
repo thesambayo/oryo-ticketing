@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { lucideBell, lucideChevronsUpDown, lucideFilter, lucideMoreHorizontal, lucidePlus, lucideSearch } from '@ng-icons/lucide';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
@@ -9,7 +9,6 @@ import { TicketItem, getPriorityVariant, getStatusVariant } from '../../models/t
 import { TicketPriorityDisplayPipe } from '../../pipes/ticket-priority-display.pipe';
 import { TicketStatusDisplayPipe } from '../../pipes/ticket-status-display.pipe';
 import { TicketsService } from '../../services/tickets.service';
-import { ticketItems } from './tickets-list.constants';
 import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
@@ -17,10 +16,10 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmPopoverContentDirective, HlmPopoverCloseDirective } from '@spartan-ng/ui-popover-helm';
 import {
-  BrnPopoverComponent,
-  BrnPopoverTriggerDirective,
-  BrnPopoverContentDirective,
-  BrnPopoverCloseDirective,
+	BrnPopoverComponent,
+	BrnPopoverTriggerDirective,
+	BrnPopoverContentDirective,
+	BrnPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-brain';
 import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioIndicatorComponent, HlmRadioDirective, HlmRadioGroupDirective } from '@spartan-ng/ui-radiogroup-helm';
@@ -30,77 +29,97 @@ import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogHeaderComponent
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { CreateTicketComponent } from '../create-ticket/create-ticket.component';
+import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
+import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 
 
 @Component({
-  selector: 'oryo-tickets-list',
-  standalone: true,
-  imports: [
-    HlmButtonDirective,
-    HlmIconComponent,
-    HlmInputDirective,
-    HlmTableComponent,
-    HlmTrowComponent,
-    HlmThComponent,
-    HlmCheckboxComponent,
-    HlmTdComponent,
-    HlmCaptionComponent,
-    HlmBadgeDirective,
-    DatePipe,
-    NgClass,
-    TicketPriorityDisplayPipe,
-    TicketStatusDisplayPipe,
+	selector: 'oryo-tickets-list',
+	standalone: true,
+	imports: [
+		HlmButtonDirective,
+		HlmIconComponent,
+		HlmInputDirective,
+		HlmTableComponent,
+		HlmTrowComponent,
+		HlmThComponent,
+		HlmCheckboxComponent,
+		HlmTdComponent,
+		HlmCaptionComponent,
+		HlmBadgeDirective,
+		DatePipe,
+		LeftPaddingPipe,
+		NgClass,
+		TicketPriorityDisplayPipe,
+		TicketStatusDisplayPipe,
 
-    HlmMenuModule,
-    BrnMenuTriggerDirective,
+		HlmMenuModule,
+		BrnMenuTriggerDirective,
 
 
-    BrnPopoverComponent,
-    BrnPopoverTriggerDirective,
-    BrnPopoverContentDirective,
-    BrnPopoverCloseDirective,
-    HlmPopoverContentDirective,
-    HlmPopoverCloseDirective,
-    HlmLabelDirective,
+		BrnPopoverComponent,
+		BrnPopoverTriggerDirective,
+		BrnPopoverContentDirective,
+		BrnPopoverCloseDirective,
+		HlmPopoverContentDirective,
+		HlmPopoverCloseDirective,
+		HlmLabelDirective,
 
-    BrnRadioGroupComponent,
-    BrnRadioComponent,
-    HlmRadioIndicatorComponent,
-    HlmRadioDirective,
-    HlmRadioGroupDirective,
-    HlmSmallDirective,
+		BrnRadioGroupComponent,
+		BrnRadioComponent,
+		HlmRadioIndicatorComponent,
+		HlmRadioDirective,
+		HlmRadioGroupDirective,
+		HlmSmallDirective,
 
-    BrnDialogTriggerDirective,
-    BrnDialogContentDirective,
+		BrnDialogTriggerDirective,
+		BrnDialogContentDirective,
 
-    HlmDialogComponent,
-    HlmDialogContentComponent,
-    HlmDialogHeaderComponent,
-    HlmDialogFooterComponent,
-    HlmDialogTitleDirective,
-    HlmDialogDescriptionDirective,
-    BrnSelectImports,
-    HlmSelectImports,
+		HlmDialogComponent,
+		HlmDialogContentComponent,
+		HlmDialogHeaderComponent,
+		HlmDialogFooterComponent,
+		HlmDialogTitleDirective,
+		HlmDialogDescriptionDirective,
+		BrnSelectImports,
+		HlmSelectImports,
 
-    CreateTicketComponent,
-  ],
-  providers: [provideIcons({ lucideBell, lucideSearch, lucideMoreHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
-  templateUrl: './tickets-list.component.html',
-  styleUrl: './tickets-list.component.css'
+		CreateTicketComponent,
+		HlmSpinnerComponent
+	],
+	providers: [provideIcons({ lucideBell, lucideSearch, lucideMoreHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
+	templateUrl: './tickets-list.component.html',
+	styleUrl: './tickets-list.component.css'
 })
 export class TicketsListComponent implements OnInit {
-  getStatusVariant = getStatusVariant;
-  getPriorityVariant = getPriorityVariant;
-  // _supbaseService = inject(SupabaseService);
-  _ticketsService = inject(TicketsService);
+	getStatusVariant = getStatusVariant;
+	getPriorityVariant = getPriorityVariant;
+	_ticketsService = inject(TicketsService);
 
-  _tickets = signal<TicketItem[]>(ticketItems);
+	isLoading = signal<boolean>(false);
+	_tickets = signal<TicketItem[]>([]);
 
-  ngOnInit(): void {
-    // this._ticketsService.getTickets().then((data) => {
-    //   if (data) {
-    //     this._tickets.set(data);
-    //   }
-    // });
-  }
+	ngOnInit(): void {
+		this.getAllTickets();
+		// this._ticketsService.getTickets().then((data) => {
+		//   if (data) {
+		//     this._tickets.set(data);
+		//   }
+		// });
+	}
+
+	getAllTickets() {
+		this.isLoading.set(true);
+		this._ticketsService.getTickets().subscribe({
+			next: (res) => {
+				this.isLoading.set(false);
+				this._tickets.set(res.data);
+			},
+			error: () => {
+				this.isLoading.set(false);
+			}
+		})
+	}
+
+
 }

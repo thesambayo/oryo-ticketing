@@ -9,13 +9,7 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
-import { EmailFields, EmailService } from '../services/email.service';
-
-// enum InternalFormSteps {
-//   CustomerDetails,
-//   IssueDetails,
-//   TicketDetails
-// }
+import { EmailFields, EmailService } from '../../libs/services/email.service';
 
 @Component({
   selector: 'oryo-internal-form',
@@ -41,8 +35,6 @@ import { EmailFields, EmailService } from '../services/email.service';
 export class InternalFormComponent {
   _emailService = inject(EmailService);
   isSendingEmail = false;
-  // currentStep = InternalFormSteps.CustomerDetails;
-  // InternalFormSteps = InternalFormSteps;
 
 
   reportForm = new FormGroup({
@@ -59,16 +51,12 @@ export class InternalFormComponent {
     attachments: new FormControl(''),
 
     // ticket details
-    ticketId: new FormControl(this._emailService.generateTicketId(), Validators.required),
     status: new FormControl('open', Validators.required),
     priority: new FormControl('high', Validators.required),
   });
 
   resetFormValues() {
     this.reportForm.reset();
-    this.reportForm.patchValue({
-      ticketId: this._emailService.generateTicketId(),
-    })
 
   }
 
@@ -86,7 +74,6 @@ export class InternalFormComponent {
         this.isSendingEmail = false;
       }
     });
-
   }
 
   showSuccessToast() {

@@ -1,38 +1,55 @@
 import { Injectable, inject } from '@angular/core';
-import { SupabaseService } from '../../services/supabase.service';
-import { TicketItem, TicketItemPriority, TicketItemStatus } from '../models/ticket-item';
+import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus } from '../models/ticket-item';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../../../libs/models/model';
+
+const LOCAL_DEV_BD = "http://localhost:5800/v1"
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class TicketsService {
-  _supabaseClient = inject(SupabaseService);
+	_http = inject(HttpClient);
 
-  // defaultTicketItem: TicketItem = {
-  //   id: '', // nanoid(10),
-  //   subject: '',
-  //   description: '',
-  //   priority: TicketItemPriority.MEDIUM,
-  //   status: TicketItemStatus.OPEN,
-  //   ticketId: '',
-  //   customerName: '',
-  //   customerEmail: '',
-  //   companyName: '',
-  //   attachments: [],
-  //   dateCreated: '',
-  //   dateResolved: ''
-  // }
-  constructor() { }
+	constructor() { }
 
-  async getTickets() {
-    const { data, error } =  await this._supabaseClient.supabaseClient.from('tickets').select();
-    if (error) {
-      return undefined;
-    }
-    return data as TicketItem[];
-  }
+	padNumber(value: string, length: number, padCharacter: string = '0'): string {
+		let processedValue = typeof value === 'number' ? String(value) : value;
+		if (processedValue.length >= length) {
+			return processedValue;
+		}
 
-  async createTicket(ticket: TicketItem) {
-    await this._supabaseClient.supabaseClient.from('tickets').insert(ticket);
-  }
+		while (processedValue.length < length) {
+			processedValue = padCharacter + processedValue;
+		}
+
+		return processedValue;
+	}
+
+	getTickets() {
+		return this._http.get<ApiResponse<TicketItem[]>>(`${LOCAL_DEV_BD}/tickets`)
+	}
+
+	// should handle ticket creation from both reporting and internal forms
+	createTicket(ticket: CreateTicketItemPayload) {
+		const payload: CreateTicketItemPayload = {
+			...ticket,
+			priority: ticket.priority ?? TicketItemPriority.HIGH,
+			status: ticket.status ?? TicketItemStatus.OPEN,
+		}
+		// call api
+
+		return this._http.post<ApiResponse<TicketItem>>(`${LOCAL_DEV_BD}/tickets/`, payload);
+	}
+
+	getTicket(id: number) {
+		return this._http.get<ApiResponse<TicketItem>>(`${LOCAL_DEV_BD}/tickets/${id}`);
+	}
+
+	updateTicket(id: number, ticket: CreateTicketItemPayload) {
+		return this._http.put<ApiResponse<TicketItem>>(`${LOCAL_DEV_BD}/tickets/${id}`, ticket);
+	}
+
+
+
 }

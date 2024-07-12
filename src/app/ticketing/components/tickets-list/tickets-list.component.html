@@ -84,7 +84,7 @@
         </div>
       </brn-popover>
 
-      <oryo-create-ticket />
+      <oryo-create-ticket (ticketCreated)="getAllTickets()"></oryo-create-ticket>
     </div>
   </div>
 
@@ -95,84 +95,88 @@
         <hlm-checkbox />
       </hlm-th>
       <hlm-th class="w-52">Ticket ID</hlm-th>
-      <hlm-th class="w-60">Customer</hlm-th>
-      <hlm-th class="max-w-56 w-full">Subject</hlm-th>
-      <hlm-th class="flex-1">Priority</hlm-th>
-      <hlm-th class="flex-1">Status</hlm-th>
+      <hlm-th class="flex-1">Customer</hlm-th>
+      <hlm-th class="w-56">Subject</hlm-th>
+      <hlm-th class="w-32">Priority</hlm-th>
+      <hlm-th class="w-32">Status</hlm-th>
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
-    @for (ticket of _tickets(); track ticket.id) {
-    <hlm-trow>
-      <hlm-td truncate class="font-medium w-fit">
-        <hlm-checkbox />
-      </hlm-td>
-      <hlm-td truncate class="font-medium w-52">
-        <p class="text-foreground font-medium">{{ ticket.ticketId }}</p>
-        <p class="text-muted-foreground lowercase">
-          {{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
-        </p>
-      </hlm-td>
-      <hlm-td class="w-60 flex flex-col items-start">
-        <p class="text-foreground font-medium">{{ ticket.customerName }}</p>
-        <p class="text-muted-foreground">{{ ticket.companyName }}</p>
-      </hlm-td>
-      <hlm-td class="max-w-56 w-full">
-        <span class="truncate">{{ ticket.subject }}</span>
-      </hlm-td>
-      <hlm-td class="flex-1">
-        <p
-          class="text-sm uppercase tracking-tighter"
-          [ngClass]="{
-            'text-yellow-500': ticket.priority === 'HIGH',
-            'text-blue-500': ticket.priority === 'LOW',
-            'text-black': ticket.priority === 'MEDIUM',
-            'text-red-500': ticket.priority === 'URGENT',
-          }"
-        >
-          {{ ticket.priority | ticketPriorityDisplay }}
-        </p>
-        <!-- <div hlmBadge [variant]="getPriorityVariant(ticket.priority)">
-          {{ ticket.priority | ticketPriorityDisplay }}
-        </div> -->
-      </hlm-td>
-      <hlm-td class="flex-1">
-        <div hlmBadge [variant]="getStatusVariant(ticket.status)">
-          {{ ticket.status | ticketStatusDisplay }}
-        </div>
-      </hlm-td>
-      <hlm-td class="justify-start w-40">
-        <button
-          hlmBtn
-          variant="ghost"
-          class="size-6 p-0.5"
-          align="center"
-          [brnMenuTriggerFor]="menu"
-        >
-          <hlm-icon class="size-4" name="lucideMoreHorizontal" />
-        </button>
-        <ng-template #menu>
-          <hlm-menu>
-            <hlm-menu-label>Actions</hlm-menu-label>
-            <hlm-menu-separator />
-            <hlm-menu-group>
-              <button hlmMenuItem>View ticket</button>
-              <button hlmMenuItem>Edit ticket</button>
-            </hlm-menu-group>
-            <hlm-menu-separator />
-            <hlm-menu-group>
-              <button
-                hlmMenuItem
-                class="text-destructive hover:text-destructive"
-              >
-                Delete ticket
-              </button>
-            </hlm-menu-group>
-          </hlm-menu>
-        </ng-template>
-      </hlm-td>
-    </hlm-trow>
-    } @empty {
-    <hlm-caption>No tickets found</hlm-caption>
-    }
+		
+		@if (isLoading()) {
+			<hlm-caption class="m-0 py-10">
+				<hlm-spinner class="size-5" />
+			</hlm-caption>
+		} @else {
+			@for (ticket of _tickets(); track ticket.id) {
+			<hlm-trow>
+				<hlm-td truncate class="font-medium w-fit">
+					<hlm-checkbox />
+				</hlm-td>
+				<hlm-td truncate class="font-medium w-52">
+					<p class="text-foreground font-medium">TK{{ ticket.id | leftPadding: 6 }}</p>
+					<p class="text-muted-foreground lowercase">
+						{{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
+					</p>
+				</hlm-td>
+				<hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
+					<p class="text-foreground font-medium">{{ ticket.reporterName }}</p>
+					<p class="text-muted-foreground">{{ ticket.reporterCompany }}</p>
+				</hlm-td>
+				<hlm-td class="w-56">
+					<span class="truncate">{{ ticket.subject }}</span>
+				</hlm-td>
+				<hlm-td class="w-32">
+					<p
+						class="text-sm uppercase tracking-tighter"
+						[ngClass]="{
+							'text-yellow-500': ticket.priority === 'HIGH',
+							'text-blue-500': ticket.priority === 'LOW',
+							'text-black': ticket.priority === 'MEDIUM',
+							'text-red-500': ticket.priority === 'URGENT',
+						}"
+					>
+						{{ ticket.priority | ticketPriorityDisplay }}
+					</p>
+				</hlm-td>
+				<hlm-td class="w-32">
+					<div hlmBadge [variant]="getStatusVariant(ticket.status)">
+						{{ ticket.status | ticketStatusDisplay }}
+					</div>
+				</hlm-td>
+				<hlm-td class="justify-start w-40">
+					<button
+						hlmBtn
+						variant="ghost"
+						class="size-6 p-0.5"
+						align="center"
+						[brnMenuTriggerFor]="menu"
+					>
+						<hlm-icon class="size-4" name="lucideMoreHorizontal" />
+					</button>
+					<ng-template #menu>
+						<hlm-menu>
+							<!-- <hlm-menu-label>Actions</hlm-menu-label>
+							<hlm-menu-separator /> -->
+							<hlm-menu-group>
+								<button hlmMenuItem>Assign ticket</button>
+								<button hlmMenuItem>View ticket</button>
+							</hlm-menu-group>
+							<hlm-menu-separator />
+							<hlm-menu-group>
+								<button
+									hlmMenuItem
+									class="text-destructive hover:text-destructive"
+								>
+									Close ticket
+								</button>
+							</hlm-menu-group>
+						</hlm-menu>
+					</ng-template>
+				</hlm-td>
+			</hlm-trow>
+			} @empty {
+				<hlm-caption class="m-0 py-10">No tickets found</hlm-caption>
+			}
+		}
   </hlm-table>
 </div>
