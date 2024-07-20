@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { nanoid } from 'nanoid';
-import { TicketsService } from '../../app/ticketing/services/tickets.service';
+import { TicketsService } from '../../help-desk/ticketing/services/tickets.service';
 
 export interface EmailFields {
   name: string;
