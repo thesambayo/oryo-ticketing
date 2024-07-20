@@ -10,5 +10,5 @@ import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'ticketing';
+  title = 'oryo internal tools';
 }

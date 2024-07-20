@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'ticketing' title`, () => {
+  it(`should have the 'oryo internal tools' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ticketing');
+    expect(app.title).toEqual('oryo internal tools');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ticketing');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, oryo internal tools');
   });
 });
