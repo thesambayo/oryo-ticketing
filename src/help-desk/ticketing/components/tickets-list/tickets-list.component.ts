@@ -1,6 +1,6 @@
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { lucideBell, lucideChevronsUpDown, lucideFilter, lucideMoreHorizontal, lucidePlus, lucideSearch } from '@ng-icons/lucide';
+import { lucideBell, lucideChevronsUpDown, lucideFilter, lucideMoveHorizontal, lucidePlus, lucideSearch } from '@ng-icons/lucide';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
@@ -87,7 +87,7 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 		CreateTicketComponent,
 		HlmSpinnerComponent
 	],
-	providers: [provideIcons({ lucideBell, lucideSearch, lucideMoreHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
+	providers: [provideIcons({ lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
 	templateUrl: './tickets-list.component.html',
 	styleUrl: './tickets-list.component.css'
 })

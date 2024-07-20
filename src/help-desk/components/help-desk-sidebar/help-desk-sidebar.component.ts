@@ -4,7 +4,7 @@ import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { lucideChevronRight, lucideLayoutGrid, lucideLogOut, lucideTicket, lucideUser2, lucideUsers } from '@ng-icons/lucide';
+import { lucideChevronRight, lucideLayoutGrid, lucideLogOut, lucideTicket, lucideUser, lucideUsers } from '@ng-icons/lucide';
 
 interface NavItem {
   label: string;
@@ -17,7 +17,7 @@ interface NavItem {
   selector: 'oryo-help-desk-sidebar',
   standalone: true,
   imports: [HlmSeparatorDirective, BrnSeparatorComponent, HlmButtonDirective, RouterLink, RouterLinkActive, HlmIconComponent],
-  providers: [provideIcons({ lucideLayoutGrid, lucideUsers, lucideLogOut, lucideUser2, lucideTicket })],
+  providers: [provideIcons({ lucideLayoutGrid, lucideUsers, lucideLogOut, lucideUser, lucideTicket })],
   templateUrl: './help-desk-sidebar.component.html',
   styleUrl: './help-desk-sidebar.component.css'
 })
@@ -37,14 +37,14 @@ export class HelpDeskSidebarComponent {
     {
       label: 'Customers',
       routerLink: '/help-desk/customers',
-      icon: 'lucideUsers',
+      icon: 'lucideUser',
     },
   ];
   otherNavigationItems: NavItem[] = [
     {
       label: 'Profile',
       routerLink: '/help-desk/profile',
-      icon: 'lucideUser2',
+      icon: 'lucideUser',
     },
     {
       label: 'Log Out',
