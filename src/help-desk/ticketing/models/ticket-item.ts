@@ -5,17 +5,30 @@ export interface TicketItem {
   reporterName: string;
   reporterEmail: string;
   reporterCompany: string;
-  subject: string;
-  description: string;
   priorityId: TicketItemPriority;
   statusId: TicketItemStatus;
+  subject: string;
+  description: string;
+  category: string;
+  assigneeId: number;
 
-  attachments: string[];
-  dateCreated: string;
-  dateResolved: string;
-  assignee?: string;
-  dateUpdated?: string;
-  category?: string;
+  createdAt: string;
+  resolvedAt?: string;
+  updatedAt?: string;
+	version: number;
+
+	// "id": 8,
+	// "reporterName": "Samuel adebayo",
+	// "reporterEmail": "sambayo28@gmail.com",
+	// "reporterCompany": "Samuel's inc",
+	// "priorityId": 2,
+	// "statusId": 2,
+	// "subject": "fuel logs",
+	// "description": "We have not been getting fuel logs for the past two days",
+	// "category": "problem",
+	// "createdAt": "2024-07-23T05:35:40+01:00",
+	// "assigneeId": 1,
+	// "version": 1
 }
 
 export enum TicketItemStatus {

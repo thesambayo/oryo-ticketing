@@ -11,8 +11,8 @@ export const ticketItems: TicketItem[] = [
     status: TicketItemStatus.OPEN,
     description: "Unable to login with the provided credentials.",
     attachments: ["screenshot1.png"],
-    dateCreated: "2024-07-01T10:30:00Z",
-    dateResolved: ""
+    createdAt: "2024-07-01T10:30:00Z",
+    resolvedAt: ""
   },
   {
     id: "2",
@@ -24,8 +24,8 @@ export const ticketItems: TicketItem[] = [
     status: TicketItemStatus.IN_PROGRESS,
     description: "Receiving an error message when trying to process payments.",
     attachments: ["errorlog.txt", "screenshot2.png"],
-    dateCreated: "2024-07-02T11:00:00Z",
-    dateResolved: ""
+    createdAt: "2024-07-02T11:00:00Z",
+    resolvedAt: ""
   },
   {
     id: "3",
@@ -37,8 +37,8 @@ export const ticketItems: TicketItem[] = [
     status: TicketItemStatus.RESOLVED,
     description: "Request to add a new chart to the dashboard.",
     attachments: [],
-    dateCreated: "2024-06-28T09:15:00Z",
-    dateResolved: "2024-07-03T14:30:00Z"
+    createdAt: "2024-06-28T09:15:00Z",
+    resolvedAt: "2024-07-03T14:30:00Z"
   },
   {
     id: "4",
@@ -50,7 +50,7 @@ export const ticketItems: TicketItem[] = [
     status: TicketItemStatus.CLOSED,
     description: "The application is running slower than usual.",
     attachments: ["performance_report.pdf"],
-    dateCreated: "2024-06-25T08:45:00Z",
-    dateResolved: "2024-07-01T16:00:00Z"
+    createdAt: "2024-06-25T08:45:00Z",
+    resolvedAt: "2024-07-01T16:00:00Z"
   }
 ];

@@ -115,7 +115,7 @@
 				<hlm-td truncate class="font-medium w-52">
 					<p class="text-foreground font-medium">#{{ ticket.id | leftPadding: 6 }}</p>
 					<p class="text-muted-foreground lowercase">
-						{{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
+						{{ ticket.createdAt| date : "dd/MM/yyyy h:mma" }}
 					</p>
 				</hlm-td>
 				<hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
