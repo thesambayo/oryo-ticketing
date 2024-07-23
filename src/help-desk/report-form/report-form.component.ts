@@ -11,7 +11,6 @@ import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiog
 import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { TicketsService } from '../ticketing/services/tickets.service';
 import { CreateTicketItemPayload, TicketItem } from '../ticketing/models/ticket-item';
-import { EmailService } from '../../libs/services/email.service';
 
 @Component({
 	selector: 'oryo-report-form',
@@ -38,7 +37,6 @@ import { EmailService } from '../../libs/services/email.service';
 
 export class ReportFormComponent {
 
-	_emailService = inject(EmailService);
 	_ticketsService = inject(TicketsService);
 
 	isSendingEmail = false;

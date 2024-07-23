@@ -54,7 +54,7 @@ export class HelpDeskSidebarComponent {
   ];
 
   logOutUser() {
-    console.log("loggin our user")
+    console.log("loggin out user")
     // Log out user
   }
 

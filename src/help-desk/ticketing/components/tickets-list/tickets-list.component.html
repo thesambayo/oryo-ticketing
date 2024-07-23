@@ -19,7 +19,7 @@
       <input
         hlmInput
         class="w-96 pl-8 bg-muted"
-        placeholder="Search for clients,ticket id, staff..."
+        placeholder="Search for reporter name..."
         type="Search"
       />
     </div>
@@ -95,10 +95,11 @@
         <hlm-checkbox />
       </hlm-th>
       <hlm-th class="w-52">Ticket ID</hlm-th>
-      <hlm-th class="flex-1">Customer</hlm-th>
-      <hlm-th class="w-56">Subject</hlm-th>
-      <hlm-th class="w-32">Priority</hlm-th>
-      <hlm-th class="w-32">Status</hlm-th>
+      <hlm-th class="flex-1 min-w-40">Customer</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Subject</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Priority</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Status</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Assignee</hlm-th>
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
 		
@@ -118,14 +119,14 @@
 						{{ ticket.createdAt| date : "dd/MM/yyyy h:mma" }}
 					</p>
 				</hlm-td>
-				<hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
-					<p class="text-foreground font-medium">{{ ticket.reporterName }}</p>
-					<p class="text-muted-foreground">{{ ticket.reporterCompany }}</p>
+				<hlm-td class="flex-1 min-w-40 flex flex-col items-start whitespace-nowrap">
+					<p class="text-foreground font-medium truncate">{{ ticket.reporterName }}</p>
+					<p class="text-muted-foreground truncate">{{ ticket.reporterCompany }}</p>
 				</hlm-td>
-				<hlm-td class="w-56">
+				<hlm-td class="flex-1 min-w-20">
 					<span class="truncate">{{ ticket.subject }}</span>
 				</hlm-td>
-				<hlm-td class="w-32">
+				<hlm-td class="flex-1 min-w-20">
 					<p
 						class="text-sm uppercase tracking-tighter"
 						[ngClass]="{
@@ -138,38 +139,40 @@
 						{{ ticket.priorityId | ticketPriorityDisplay }}
 					</p>
 				</hlm-td>
-				<hlm-td class="w-32">
+				<hlm-td class="flex-1 min-w-20">
 					<div hlmBadge [variant]="getStatusVariant(ticket.statusId)">
 						{{ ticket.statusId | ticketStatusDisplay }}
 					</div>
 				</hlm-td>
+				<hlm-td class="flex-1 min-w-20">
+					{{ticket.assigneeId}}
+				</hlm-td>
 				<hlm-td class="justify-start w-40">
 					<button
 						hlmBtn
+						align="center"
 						variant="ghost"
 						class="size-6 p-0.5"
-						align="center"
 						[brnMenuTriggerFor]="menu"
 					>
-						<hlm-icon class="size-4" name="lucideMoveHorizontal" />
+						<hlm-icon class="size-4" name="lucideEllipsisVertical" />
 					</button>
 					<ng-template #menu>
 						<hlm-menu>
 							<!-- <hlm-menu-label>Actions</hlm-menu-label>
 							<hlm-menu-separator /> -->
 							<hlm-menu-group>
-								<button hlmMenuItem>Assign ticket</button>
+								<button hlmMenuItem (triggered)="activeTicket.set(ticket)">Assign ticket</button>
 								<button hlmMenuItem>View ticket</button>
 							</hlm-menu-group>
-							<hlm-menu-separator />
-							<hlm-menu-group>
-								<button
-									hlmMenuItem
-									class="text-destructive hover:text-destructive"
-								>
-									Close ticket
-								</button>
-							</hlm-menu-group>
+							@if (ticket.statusId !== TicketsStatuses.CLOSED) {
+								<hlm-menu-separator />
+								<hlm-menu-group>
+									<button hlmMenuItem class="text-destructive hover:text-destructive">
+										Close ticket
+									</button>
+								</hlm-menu-group>
+							}
 						</hlm-menu>
 					</ng-template>
 				</hlm-td>
@@ -180,3 +183,11 @@
 		}
   </hlm-table>
 </div>
+
+
+<oryo-assign-ticket
+	[ticket]="activeTicket()"
+	(ticketAssigned)="getAllTickets()"
+	(closeDialog)="activeTicket.set(undefined)"
+>
+</oryo-assign-ticket>

@@ -9,7 +9,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
-import { EmailFields, EmailService } from '../../libs/services/email.service';
 
 @Component({
   selector: 'oryo-internal-form',
@@ -33,7 +32,6 @@ import { EmailFields, EmailService } from '../../libs/services/email.service';
   styleUrl: './internal-form.component.css'
 })
 export class InternalFormComponent {
-  _emailService = inject(EmailService);
   isSendingEmail = false;
 
 
@@ -62,18 +60,6 @@ export class InternalFormComponent {
 
   onSubmit() {
     this.isSendingEmail = true;
-    this._emailService.sendEmail(this.reportForm.value as EmailFields).subscribe({
-      next: (_res) => {
-        this.showSuccessToast();
-        this.resetFormValues();
-        this.isSendingEmail = false;
-      },
-      error: (_err) => {
-        this.showSuccessToast();
-        this.resetFormValues();
-        this.isSendingEmail = false;
-      }
-    });
   }
 
   showSuccessToast() {

@@ -1,6 +1,6 @@
-import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { lucideBell, lucideChevronsUpDown, lucideFilter, lucideMoveHorizontal, lucidePlus, lucideSearch } from '@ng-icons/lucide';
+import { lucideBell, lucideChevronsUpDown, lucideFilter, lucideEllipsisVertical, lucidePlus, lucideSearch } from '@ng-icons/lucide';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
@@ -31,6 +31,7 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { CreateTicketComponent } from '../create-ticket/create-ticket.component';
 import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
 import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
+import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
 
 
 @Component({
@@ -84,10 +85,11 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 		BrnSelectImports,
 		HlmSelectImports,
 
+		HlmSpinnerComponent,
+		AssignTicketComponent,
 		CreateTicketComponent,
-		HlmSpinnerComponent
 	],
-	providers: [provideIcons({ lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter })],
+	providers: [provideIcons({ lucideBell, lucideSearch, lucideEllipsisVertical, lucidePlus, lucideChevronsUpDown, lucideFilter })],
 	templateUrl: './tickets-list.component.html',
 	styleUrl: './tickets-list.component.css'
 })
@@ -101,14 +103,10 @@ export class TicketsListComponent implements OnInit {
 
 	isLoading = signal<boolean>(false);
 	_tickets = signal<TicketItem[]>([]);
+	activeTicket = signal<TicketItem | undefined>(undefined);
 
 	ngOnInit(): void {
 		this.getAllTickets();
-		// this._ticketsService.getTickets().then((data) => {
-		//   if (data) {
-		//     this._tickets.set(data);
-		//   }
-		// });
 	}
 
 	getAllTickets() {
@@ -123,6 +121,7 @@ export class TicketsListComponent implements OnInit {
 			}
 		})
 	}
+
 
 
 }

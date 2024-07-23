@@ -1,7 +1,7 @@
 import { HlmBadgeVariant } from "@spartan-ng/ui-badge-helm";
 
 export interface TicketItem {
-  id: string;
+  id: number;
   reporterName: string;
   reporterEmail: string;
   reporterCompany: string;
@@ -16,19 +16,6 @@ export interface TicketItem {
   resolvedAt?: string;
   updatedAt?: string;
 	version: number;
-
-	// "id": 8,
-	// "reporterName": "Samuel adebayo",
-	// "reporterEmail": "sambayo28@gmail.com",
-	// "reporterCompany": "Samuel's inc",
-	// "priorityId": 2,
-	// "statusId": 2,
-	// "subject": "fuel logs",
-	// "description": "We have not been getting fuel logs for the past two days",
-	// "category": "problem",
-	// "createdAt": "2024-07-23T05:35:40+01:00",
-	// "assigneeId": 1,
-	// "version": 1
 }
 
 export enum TicketItemStatus {
