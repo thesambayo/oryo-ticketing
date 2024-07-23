@@ -59,38 +59,19 @@ export class ReportFormComponent {
 			subject: this.reportForm.value.subject!,
 			description: this.reportForm.value.description!,
 			category: "PROBLEM_MANAGEMENT",
-			attachments: [],
-			assignee: ""
+			assignee: 1
 		};
 		this.isSendingEmail = true;
 		this._ticketsService.createTicket(payload).subscribe({
 			next: (res) => {
 				this.isSendingEmail = false;
-				this.showSuccessToast();
-				this.sendEmail(res.data);
+				this.reportForm.reset();
+				toast.info("Ticket is being processed", {id: "report form"});
 			},
 			error: () => {
 				this.isSendingEmail = false;
-				this.showSuccessToast();
+				toast.error("Error submitting ticket", {id: "report form error"});
 			}
 		})
-	}
-
-	sendEmail(ticket: TicketItem) {
-		this._emailService.sendEmail({
-			company: ticket.reporterCompany,
-			description: ticket.description,
-			email: ticket.reporterEmail,
-			issueType: ticket.subject,
-			name: ticket.reporterName,
-			ticketId: this._ticketsService.padNumber(ticket.id, 6),
-		}).subscribe({
-			next: () => this.showSuccessToast()
-		})
-	}
-
-	showSuccessToast() {
-		this.reportForm.reset();
-		toast.info("Ticket is being processed", {id: "report form"});
 	}
 }

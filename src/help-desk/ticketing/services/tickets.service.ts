@@ -36,10 +36,9 @@ export class TicketsService {
 			...ticket,
 			priority: ticket.priority ?? TicketItemPriority.HIGH,
 			status: ticket.status ?? TicketItemStatus.OPEN,
+			assignee: 1 // should default to a staff with permissionn of servicedesk:manager
 		}
-		// call api
-
-		return this._http.post<ApiResponse<TicketItem>>(`${LOCAL_DEV_BD}/tickets/`, payload);
+		return this._http.post<ApiResponse<TicketItem>>(`${LOCAL_DEV_BD}/tickets`, payload);
 	}
 
 	getTicket(id: number) {

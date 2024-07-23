@@ -5,7 +5,7 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmCaptionComponent, HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
-import { TicketItem, getPriorityVariant, getStatusVariant } from '../../models/ticket-item';
+import { TicketItem, TicketItemPriority, TicketItemStatus, getPriorityVariant, getStatusVariant } from '../../models/ticket-item';
 import { TicketPriorityDisplayPipe } from '../../pipes/ticket-priority-display.pipe';
 import { TicketStatusDisplayPipe } from '../../pipes/ticket-status-display.pipe';
 import { TicketsService } from '../../services/tickets.service';
@@ -92,6 +92,9 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 	styleUrl: './tickets-list.component.css'
 })
 export class TicketsListComponent implements OnInit {
+	readonly TicketsStatuses = TicketItemStatus;
+	readonly TicketsPriorities = TicketItemPriority;
+
 	getStatusVariant = getStatusVariant;
 	getPriorityVariant = getPriorityVariant;
 	_ticketsService = inject(TicketsService);

@@ -7,8 +7,8 @@ export interface TicketItem {
   reporterCompany: string;
   subject: string;
   description: string;
-  priority: TicketItemPriority;
-  status: TicketItemStatus;
+  priorityId: TicketItemPriority;
+  statusId: TicketItemStatus;
 
   attachments: string[];
   dateCreated: string;
@@ -19,11 +19,17 @@ export interface TicketItem {
 }
 
 export enum TicketItemStatus {
-  OPEN = 'OPEN',
-  CLOSED = 'CLOSED',
-  CANCELLED = 'CANCELLED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  RESOLVED = 'RESOLVED',
+  OPEN = 1,
+  CLOSED,
+  CANCELLED,
+  IN_PROGRESS, 
+  RESOLVED 
+	// update db to send name instead of id
+  // OPEN = 'OPEN',
+  // CLOSED = 'CLOSED',
+  // CANCELLED = 'CANCELLED',
+  // IN_PROGRESS = 'IN_PROGRESS',
+  // RESOLVED = 'RESOLVED',
 }
 
 export const statusDisplay: { [key in TicketItemStatus]: string } = {
@@ -34,7 +40,7 @@ export const statusDisplay: { [key in TicketItemStatus]: string } = {
   [TicketItemStatus.CANCELLED]: 'Cancelled',
 };
 
-export function getDisplayStatus(status?: string): string {
+export function getDisplayStatus(status?: number): string {
   return status ? statusDisplay[status as keyof typeof statusDisplay] : '';
 }
 
@@ -55,10 +61,10 @@ export function getStatusVariant(status: TicketItemStatus): HlmBadgeVariant {
 
 
 export enum TicketItemPriority {
-  URGENT = 'URGENT',
-  HIGH = 'HIGH',
-  MEDIUM = 'MEDIUM',
-  LOW = 'LOW',
+  URGENT = 1,
+  HIGH,
+  MEDIUM,
+  LOW,
 }
 
 export const priorityDisplay: { [key in TicketItemPriority]: string } = {
@@ -68,7 +74,7 @@ export const priorityDisplay: { [key in TicketItemPriority]: string } = {
   [TicketItemPriority.LOW]: 'Low',
 };
 
-export function getDisplayPriority(priority?: string): string {
+export function getDisplayPriority(priority?: number): string {
   return priority ? priorityDisplay[priority as keyof typeof priorityDisplay] : '';
 }
 
@@ -98,7 +104,25 @@ export interface CreateTicketItemPayload {
   // minimum requirement to create a ticket above
 
   category?: string; // incident, problem etc [can be within list of registered values]
-  attachments?: string[];
-  assignee?: string; // when not-empty is only an oryo email
+  assignee?: number; // when not-empty is only an oryo email
+  // assignee?: string; // when not-empty is only an oryo email
+  // attachments?: string[]; later scatters
   // should have a created by field that when not-empty is only an oryo email
 }
+// export interface CreateTicketItemPayload {
+//   // with validation for BE
+//   reporterName: string; // non empty
+//   reporterEmail: string; // non empty and is an email
+//   reporterCompany: string; // non-empty
+//   priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
+//   status?: TicketItemStatus; // set a default in db [can be within list of registered values]
+
+//   subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
+//   description: string; // non empty and not more than 500 bytes long
+//   // minimum requirement to create a ticket above
+
+//   category?: string; // incident, problem etc [can be within list of registered values]
+//   attachments?: string[];
+//   assignee?: string; // when not-empty is only an oryo email
+//   // should have a created by field that when not-empty is only an oryo email
+// }

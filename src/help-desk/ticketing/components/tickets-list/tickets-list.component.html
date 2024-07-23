@@ -113,7 +113,7 @@
 					<hlm-checkbox />
 				</hlm-td>
 				<hlm-td truncate class="font-medium w-52">
-					<p class="text-foreground font-medium">TK{{ ticket.id | leftPadding: 6 }}</p>
+					<p class="text-foreground font-medium">#{{ ticket.id | leftPadding: 6 }}</p>
 					<p class="text-muted-foreground lowercase">
 						{{ ticket.dateCreated | date : "dd/MM/yyyy h:mma" }}
 					</p>
@@ -129,18 +129,18 @@
 					<p
 						class="text-sm uppercase tracking-tighter"
 						[ngClass]="{
-							'text-yellow-500': ticket.priority === 'HIGH',
-							'text-blue-500': ticket.priority === 'LOW',
-							'text-black': ticket.priority === 'MEDIUM',
-							'text-red-500': ticket.priority === 'URGENT',
+							'text-yellow-500': ticket.priorityId === TicketsPriorities.HIGH,
+							'text-blue-500': ticket.priorityId === TicketsPriorities.MEDIUM,
+							'text-black': ticket.priorityId === TicketsPriorities.LOW,
+							'text-red-500': ticket.priorityId === TicketsPriorities.URGENT
 						}"
 					>
-						{{ ticket.priority | ticketPriorityDisplay }}
+						{{ ticket.priorityId | ticketPriorityDisplay }}
 					</p>
 				</hlm-td>
 				<hlm-td class="w-32">
-					<div hlmBadge [variant]="getStatusVariant(ticket.status)">
-						{{ ticket.status | ticketStatusDisplay }}
+					<div hlmBadge [variant]="getStatusVariant(ticket.statusId)">
+						{{ ticket.statusId | ticketStatusDisplay }}
 					</div>
 				</hlm-td>
 				<hlm-td class="justify-start w-40">

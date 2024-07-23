@@ -76,7 +76,7 @@ export class CreateTicketComponent {
 		subject: this._fb.nonNullable.control('', Validators.required),
 		category: this._fb.nonNullable.control('', Validators.required),
 		description: this._fb.nonNullable.control('', Validators.required),
-		attachments: this._fb.nonNullable.control<string[]>([]),
+		// attachments: this._fb.nonNullable.control<string[]>([]),
 		assignee: this._fb.nonNullable.control(""),
 	});
 
@@ -97,13 +97,15 @@ export class CreateTicketComponent {
 			reporterName: this.createTicketForm.controls.reporterName.value,
 			reporterEmail: this.createTicketForm.controls.reporterEmail.value,
 			reporterCompany: this.createTicketForm.controls.reporterCompany.value,
-			status: this.createTicketForm.controls.status.value as TicketItemStatus,
-			priority: this.createTicketForm.controls.priority.value as TicketItemPriority,
+			// status: this.createTicketForm.controls.status.value as TicketItemStatus,
+			status: 1,
+			priority: 1 as TicketItemPriority,
+			// priority: this.createTicketForm.controls.priority.value as TicketItemPriority,
 			subject: this.createTicketForm.controls.subject.value,
 			description: this.createTicketForm.controls.description.value,
 			category: this.createTicketForm.controls.category.value,
-			attachments: this.createTicketForm.controls.attachments.value,
-			assignee: this.createTicketForm.controls.assignee.value,
+			assignee: 3,
+			// assignee: this.createTicketForm.controls.assignee.value,
 		}
 
 		this.isCreatingTicket.set(true);
