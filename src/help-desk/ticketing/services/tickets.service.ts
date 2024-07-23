@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus } from '../models/ticket-item';
+import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus, UpdateTicketItemPayload } from '../models/ticket-item';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../../libs/models/model';
 import { environment } from '../../../environments/environment.development';
@@ -32,7 +32,7 @@ export class TicketsService {
 		return this._http.get<ApiResponse<TicketItem>>(`${this.apiURL}/tickets/${id}`);
 	}
 
-	updateTicket(id: number, ticket: CreateTicketItemPayload) {
+	updateTicket(id: number, ticket: UpdateTicketItemPayload) {
 		return this._http.patch<ApiResponse<TicketItem>>(`${this.apiURL}/tickets/${id}`, ticket);
 	}
 

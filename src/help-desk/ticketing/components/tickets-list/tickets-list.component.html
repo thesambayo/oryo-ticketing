@@ -100,6 +100,7 @@
       <hlm-th class="flex-1 min-w-20">Priority</hlm-th>
       <hlm-th class="flex-1 min-w-20">Status</hlm-th>
       <hlm-th class="flex-1 min-w-20">Assignee</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Resolution Date</hlm-th>
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
 		
@@ -130,22 +131,29 @@
 					<p
 						class="text-sm uppercase tracking-tighter"
 						[ngClass]="{
-							'text-yellow-500': ticket.priorityId === TicketsPriorities.HIGH,
-							'text-blue-500': ticket.priorityId === TicketsPriorities.MEDIUM,
-							'text-black': ticket.priorityId === TicketsPriorities.LOW,
-							'text-red-500': ticket.priorityId === TicketsPriorities.URGENT
+							'text-yellow-500': ticket.priority === TicketsPriorities.HIGH,
+							'text-blue-500': ticket.priority === TicketsPriorities.MEDIUM,
+							'text-black': ticket.priority === TicketsPriorities.LOW,
+							'text-red-500': ticket.priority === TicketsPriorities.URGENT
 						}"
 					>
-						{{ ticket.priorityId | ticketPriorityDisplay }}
+						{{ ticket.priority | ticketPriorityDisplay }}
 					</p>
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
-					<div hlmBadge [variant]="getStatusVariant(ticket.statusId)">
-						{{ ticket.statusId | ticketStatusDisplay }}
+					<div hlmBadge [variant]="getStatusVariant(ticket.status)">
+						{{ ticket.status | ticketStatusDisplay }}
 					</div>
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
-					{{ticket.assigneeId}}
+					{{ticket.assigneeName}}
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-20">
+					@if (ticket.expectedResolvedAt.Valid) {
+						<span>{{ticket.expectedResolvedAt.Time | date}}</span>
+					} @else {
+						<span>-</span>
+					}
 				</hlm-td>
 				<hlm-td class="justify-start w-40">
 					<button
@@ -162,13 +170,17 @@
 							<!-- <hlm-menu-label>Actions</hlm-menu-label>
 							<hlm-menu-separator /> -->
 							<hlm-menu-group>
-								<button hlmMenuItem (triggered)="activeTicket.set(ticket)">Assign ticket</button>
+								<button hlmMenuItem (triggered)="activeTicket.set(ticket)">Reassign ticket</button>
 								<button hlmMenuItem>View ticket</button>
 							</hlm-menu-group>
-							@if (ticket.statusId !== TicketsStatuses.CLOSED) {
+							@if (ticket.status !== TicketsStatuses.CLOSED) {
 								<hlm-menu-separator />
 								<hlm-menu-group>
-									<button hlmMenuItem class="text-destructive hover:text-destructive">
+									<button
+										hlmMenuItem
+										class="text-destructive hover:text-destructive"
+										(triggered)="closeTicket(ticket.id)"
+									>
 										Close ticket
 									</button>
 								</hlm-menu-group>

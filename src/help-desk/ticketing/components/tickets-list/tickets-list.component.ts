@@ -5,7 +5,7 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmCaptionComponent, HlmTableComponent, HlmTdComponent, HlmThComponent, HlmTrowComponent } from '@spartan-ng/ui-table-helm';
-import { TicketItem, TicketItemPriority, TicketItemStatus, getPriorityVariant, getStatusVariant } from '../../models/ticket-item';
+import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus, getPriorityVariant, getStatusVariant } from '../../models/ticket-item';
 import { TicketPriorityDisplayPipe } from '../../pipes/ticket-priority-display.pipe';
 import { TicketStatusDisplayPipe } from '../../pipes/ticket-status-display.pipe';
 import { TicketsService } from '../../services/tickets.service';
@@ -32,6 +32,7 @@ import { CreateTicketComponent } from '../create-ticket/create-ticket.component'
 import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
 import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
+import { toast } from 'ngx-sonner';
 
 
 @Component({
@@ -118,6 +119,25 @@ export class TicketsListComponent implements OnInit {
 			},
 			error: () => {
 				this.isLoading.set(false);
+			}
+		})
+	}
+
+	closeTicket(ticketId: number) {
+		const payload = {
+			status: TicketItemStatus.CLOSED
+		} as CreateTicketItemPayload;
+		this._ticketsService.updateTicket(ticketId, payload).subscribe({
+			next: (res) => {
+				this.getAllTickets();
+				toast.success("Ticket closed successfully", {
+					id: "close-ticket-success"
+				});
+			},
+			error: (err) => {
+				toast.success("Close ticket failed", {
+					id: "close-ticket-failure"
+				});
 			}
 		})
 	}
