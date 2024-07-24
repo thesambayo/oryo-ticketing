@@ -33,12 +33,25 @@ import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
 import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
 import { toast } from 'ngx-sonner';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
 	selector: 'oryo-tickets-list',
 	standalone: true,
 	imports: [
+		NgClass,
+		DatePipe,
+		RouterLink,
+		LeftPaddingPipe,
+		TicketStatusDisplayPipe,
+		TicketPriorityDisplayPipe,
+		AssignTicketComponent,
+		CreateTicketComponent,
+
+
+		HlmSpinnerComponent,
+
 		HlmButtonDirective,
 		HlmIconComponent,
 		HlmInputDirective,
@@ -49,11 +62,6 @@ import { toast } from 'ngx-sonner';
 		HlmTdComponent,
 		HlmCaptionComponent,
 		HlmBadgeDirective,
-		DatePipe,
-		LeftPaddingPipe,
-		NgClass,
-		TicketPriorityDisplayPipe,
-		TicketStatusDisplayPipe,
 
 		HlmMenuModule,
 		BrnMenuTriggerDirective,
@@ -85,10 +93,6 @@ import { toast } from 'ngx-sonner';
 		HlmDialogDescriptionDirective,
 		BrnSelectImports,
 		HlmSelectImports,
-
-		HlmSpinnerComponent,
-		AssignTicketComponent,
-		CreateTicketComponent,
 	],
 	providers: [provideIcons({ lucideBell, lucideSearch, lucideEllipsisVertical, lucidePlus, lucideChevronsUpDown, lucideFilter })],
 	templateUrl: './tickets-list.component.html',

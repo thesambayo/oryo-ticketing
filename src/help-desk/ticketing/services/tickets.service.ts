@@ -3,6 +3,7 @@ import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStat
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../../libs/models/model';
 import { environment } from '../../../environments/environment.development';
+import { map } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -29,7 +30,9 @@ export class TicketsService {
 	}
 
 	getTicket(id: number) {
-		return this._http.get<ApiResponse<TicketItem>>(`${this.apiURL}/tickets/${id}`);
+		return this._http.get<ApiResponse<TicketItem>>(`${this.apiURL}/tickets/${id}`).pipe(
+			map((res) => res.data)
+		);
 	}
 
 	updateTicket(id: number, ticket: UpdateTicketItemPayload) {

@@ -171,7 +171,7 @@
 							<hlm-menu-separator /> -->
 							<hlm-menu-group>
 								<button hlmMenuItem (triggered)="activeTicket.set(ticket)">Reassign ticket</button>
-								<button hlmMenuItem>View ticket</button>
+								<button hlmMenuItem [routerLink]="'/help-desk/tickets/'+ticket.id">View ticket</button>
 							</hlm-menu-group>
 							@if (ticket.status !== TicketsStatuses.CLOSED) {
 								<hlm-menu-separator />
