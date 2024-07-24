@@ -1,4 +1,4 @@
-<div class="w-full overflow-x-auto mt-20 bg-white rounded-xl">
+<div class="w-full overflow-x-auto bg-white rounded-xl">
   <!--  -->
   <div class="flex items-center justify-between p-4">
     <button
@@ -115,7 +115,14 @@
 					<hlm-checkbox />
 				</hlm-td>
 				<hlm-td truncate class="font-medium w-52">
-					<p class="text-foreground font-medium">#{{ ticket.id | leftPadding: 6 }}</p>
+					<a
+						hlmBtn
+						variant="link"
+						[routerLink]="'/help-desk/tickets/'+ticket.id"
+						class="text-foreground font-medium p-0 h-fit hover:cursor-pointer"
+					>
+						#{{ ticket.id | leftPadding: 6 }}
+					</a>
 					<p class="text-muted-foreground lowercase">
 						{{ ticket.createdAt| date : "dd/MM/yyyy h:mma" }}
 					</p>

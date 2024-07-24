@@ -1,25 +1,77 @@
 @let ticket = ticketItem();
 @if (ticket) {
-	<div class="flex justify-between items-center mt-20">
-		<div class="flex items-center gap-5">
-			<div class="flex items-center gap-2">
+	<div class="flex justify-between items-center">
+		<div class="flex items-center gap-5 text-xs">
+			<div class="flex items-center gap-1.5">
 				<p>Customer name</p>
 				<span class="text-muted-foreground">{{ticket.reporterName}}</span>
 			</div>
-			<p>Company name Dangote</p>
-			<p>Start Date 21 June 2024 - 12:55 pm</p>
-			<p>End Date 12 July 2024 - 12:55 pm</p>
-			<p>Tracking ID 9348fjr73</p>
+			<div class="flex items-center gap-1.5">
+				<p>Company name</p>
+				<span class="text-muted-foreground">{{ticket.reporterCompany}}</span>
+			</div>
+			<div class="flex items-center gap-1.5">
+				<p>Created date</p>
+				<span class="text-muted-foreground lowercase">{{ ticket.createdAt| date : "MMM dd, yyyy '-' hh:mm a" }}</span>
+			</div>
+			<div class="flex items-center gap-1.5">
+				<p>Resolved date</p>
+				<span class="text-muted-foreground lowercase">
+					@if (ticket.resolvedAt.Valid) {
+						{{ ticket.resolvedAt.Time| date : "MMM dd, yyyy '-' hh:mm a" }}
+					} @else {
+						-
+					}
+				</span>
+			</div>
 		</div>
 		<button hlmBtn class="gap-2" size="sm">
 			<span>Mark resolved</span>
 		</button>
 	</div>
 	
-	<div class="w-full overflow-x-auto mt-20 bg-white rounded-xl">
-	
+	<div class="mt-5 grid grid-cols-6 gap-5 *:bg-background *:rounded-xl *:p-5 *:text-sm">
+		<div class="col-span-4">
+			<!-- subject -->
+			 <div>
+				<h3 class="font-semibold text-muted-foreground tracking-tight">
+					Subject
+				</h3>
+				<p>{{ticket.subject}}</p>
+			 </div>
+			 <!-- problem -->
+			 <div class="mt-8">
+				<h3 class="font-semibold text-muted-foreground tracking-tight">
+					Problem statement
+				</h3>
+				<p>{{ticket.description}}</p>
+			 </div>
+
+
+
+		</div>
+
+		<div class="col-span-2">
+			<h3 class="text-base font-semibold tracking-tight">
+				Information
+			</h3>
+
+			<div class="mt-5 divide-y *:py-2">
+				<div class="space-y-0.5">
+					<p class="text-muted-foreground">Assigned to</p>
+					<p>{{ticket.assigneeName}}</p>
+				</div>
+				<div class="space-y-0.5">
+					<p class="text-muted-foreground">Priority</p>
+					<p>{{ticket.priority}}</p>
+				</div>
+				<div class="space-y-0.5">
+					<p class="text-muted-foreground">Status</p>
+					<p>{{ticket.status}}</p>
+				</div>
+			</div>
+		</div>
 	</div>
-	<!-- <ng-container [ngTemplateOutlet]="ticketViewContent"></ng-container> -->
 } @else {
 	<p>Ticket not available</p>
 }
@@ -27,7 +79,6 @@
 
 
 
-<ng-template #ticketViewContent>
-
-</ng-template>
+<!-- <ng-container [ngTemplateOutlet]="ticketViewContent"></ng-container> -->
+<!-- <ng-template #ticketViewContent></ng-template> -->
 

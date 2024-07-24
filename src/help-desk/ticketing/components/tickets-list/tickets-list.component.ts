@@ -34,6 +34,7 @@ import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
 import { toast } from 'ngx-sonner';
 import { RouterLink } from '@angular/router';
+import { TopbarService } from '../../../core/services/topbar.service';
 
 
 @Component({
@@ -104,6 +105,7 @@ export class TicketsListComponent implements OnInit {
 
 	getStatusVariant = getStatusVariant;
 	getPriorityVariant = getPriorityVariant;
+	_topbarService = inject(TopbarService);
 	_ticketsService = inject(TicketsService);
 
 	isLoading = signal<boolean>(false);
@@ -111,6 +113,11 @@ export class TicketsListComponent implements OnInit {
 	activeTicket = signal<TicketItem | undefined>(undefined);
 
 	ngOnInit(): void {
+		this._topbarService.updateTopbarDetails({
+			...this._topbarService.topbarDetails(),
+			title: "Tickets",
+			backRoute: undefined,
+		});
 		this.getAllTickets();
 	}
 
