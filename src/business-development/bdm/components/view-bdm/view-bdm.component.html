@@ -1,0 +1,377 @@
+<section class="pt-5">
+  <div
+    class="rounded-md p-1 w-fit flex justify-center items-center gap-1 bg-white shadow-sm cursor-pointer mb-2"
+    (click)="goBack()"
+  >
+    <ng-icon name="lucideArrowLeftFromLine"></ng-icon>
+    Back
+  </div>
+
+  <div class="flex flex-wrap mt-4 pt-1 pr-3 mb-3">
+    <section class="w-full bg-white rounded-md p-3" hlmCard>
+      <div hlmCardHeader class="flex justify-between items-center p-3">
+        <h3 hlmCardTitle class="font-bold">Finances</h3>
+      </div>
+      <div hlmCardContent class="bg-white">
+        <form action="">
+          <div class="mb-4">
+            <div class="flex gap-1 items-center justify-center">
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Budget</label
+                >
+                <input
+                  type="tel"
+                  id="company-name"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  placeholder="0"
+                  name="budget"
+                  (change)="handleInput($event)"
+                  (keyup)="ontxtBudget($event)"
+                  appOnlyNumbers
+                />
+              </div>
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Project Value</label
+                >
+                <input
+                  type="tel"
+                  id="company-name"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  placeholder="0"
+                  appOnlyNumbers
+                  name="target"
+                  (change)="handleInput($event)"
+                />
+              </div>
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Negotation Value</label
+                >
+                <input
+                  type="tel"
+                  id="company-name"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  placeholder="0"
+                  (keyup)="ontxtTarget($event)"
+                  appOnlyNumbers
+                  name="actual_target"
+                  (change)="handleInput($event)"
+                />
+              </div>
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Inital payment Value(%)</label
+                >
+                <input
+                  type="number"
+                  id="company-name"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  (keyup)="ontxtPercentage($event)"
+                  placeholder="%"
+                  name="percentage_to_pay"
+                  (change)="handleInput($event)"
+                />
+              </div>
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Outstanding Balance</label
+                >
+                <input
+                  type="tel"
+                  id="company-name"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  placeholder="0"
+                  [value]="leftAmount || 0 | number : '1.0' : 'en-US'"
+                  readonly
+                  appOnlyNumbers
+                  name="oustanding_balance"
+                />
+              </div>
+              <div class="mb-4">
+                <label for="company-name" class="block text-gray-700 text-sm"
+                  >Invoice</label
+                >
+                <input
+                  type="tel"
+                  id="company-name"
+                  readonly
+                  [value]="payableAmount || 0 | number : '1.0' : 'en-US'"
+                  class="mt-1 p-2 w-full border rounded-md"
+                  placeholder="0"
+                  appOnlyNumbers
+                  name="generated_invoice"
+                />
+              </div>
+            </div>
+            <div>
+              @if (target) {
+              <small
+                class="rounded-md"
+                style="background-color: #fee7e7; color: #f50a0a; padding: 3px"
+              >
+                Outstanding Budget : {{ target | number : "1.0" : "en-US" }}
+              </small>
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-6/12">
+      <div class="flex flex-wrap pt-1 pr-3">
+        <section class="w-full bg-white rounded-md p-3" hlmCard>
+          <div hlmCardHeader class="flex justify-between items-center p-3">
+            <h3 hlmCardTitle class="font-bold">Company</h3>
+            <div class="flex gap-2">
+              <button
+                hlmBtn
+                variant="outline"
+                class="border-none shadow-sm bg-primary text-white"
+                size="sm"
+                (click)="onToggle()"
+              >
+                @if (!isEditing()) {
+                <span>Edit</span>
+                }@else {
+                <span>View</span>
+                }
+              </button>
+            </div>
+          </div>
+          <div hlmCardContent class="bg-white">
+            <div class="flex flex-wrap">
+              <form
+                class="space-y-4"
+                [formGroup]="createCompantForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyName">
+                      <span>Company Name</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">{{ "OryoLTD" }}</div>
+                    }@else {
+                    <input
+                      hlmInput
+                      class="w-full"
+                      id="companyName"
+                      formControlName="name"
+                    />
+                    }
+                  </div>
+
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyEmail">
+                      <span>Email</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">{{ "oekundayo@oryoltd.com" }}</div>
+                    }@else {
+                    <input
+                      class="w-full"
+                      hlmInput
+                      id="companyEmail"
+                      type="email"
+                      formControlName="email"
+                    />
+                    }
+                  </div>
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyEmail">
+                      <span>Phone Number</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">{{ "08112345678" }}</div>
+                    }@else {
+                    <input
+                      class="w-full"
+                      hlmInput
+                      id="companyEmail"
+                      type="tel"
+                      formControlName="phone"
+                    />
+                    }
+                  </div>
+
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyEmail">
+                      <span>Location</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">
+                      {{ "79a Samuel Adedoyin St, VI Lagos" }}
+                    </div>
+                    }@else {
+                    <input
+                      class="w-full"
+                      hlmInput
+                      id="companyEmail"
+                      type="text"
+                      formControlName="location"
+                    />
+                    }
+                  </div>
+
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyEmail">
+                      <span>Product Offered</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">{{ "Fleet Management" }}</div>
+                    }@else {
+                    <brn-select
+                      class="w-full"
+                      placeholder="Select an option"
+                      formControlName="pto"
+                    >
+                      <hlm-select-trigger class="w-56">
+                        <hlm-select-value />
+                      </hlm-select-trigger>
+                      <hlm-select-content class="w-56">
+                        <hlm-option value="Fleet Management"
+                          >Fleet Management</hlm-option
+                        >
+                        <hlm-option value="Vision">Vision</hlm-option>
+                        <hlm-option value="Generator">Generator</hlm-option>
+                        <hlm-option value="Fuel">Fuel</hlm-option>
+                      </hlm-select-content>
+                    </brn-select>
+                    }
+                  </div>
+                </div>
+                @if (isEditing()) {
+                <hlm-dialog-footer>
+                  <button
+                    hlmBtn
+                    type="submit"
+                    class="w-full"
+                    [disabled]="createCompantForm.invalid || isCreating()"
+                  >
+                    {{ isCreating() ? "Loading..." : "Update" }}
+                  </button>
+                </hlm-dialog-footer>
+                }
+              </form>
+            </div>
+          </div>
+          <!-- <div hlmCardFooter class="justify-between">
+                          <button hlmBtn variant="ghost">Cancel</button>
+                          <button hlmBtn>Create</button>
+                      </div> -->
+        </section>
+      </div>
+    </div>
+
+    <div class="w-full md:w-6/12">
+      <div class="flex flex-wrap pt-1">
+        <section class="w-full bg-white rounded-md" hlmCard>
+          <div hlmCardHeader class="flex justify-between items-center p-3">
+            <h3 hlmCardTitle class="font-bold">Opportunity</h3>
+            <oryo-create-activity></oryo-create-activity>
+          </div>
+          <div hlmCardContent class="bg-white h-dvh">
+            <!-- Activity Comments Section -->
+            <div class="p-6 w-full mx-auto">
+              <!-- <div class="flex justify-between items-center mb-4">
+                  <h2 class="text-xl font-bold">Activity</h2>
+                </div> -->
+              @if (_loading()) {
+              <div class="space-y-4">
+                <div class="flex items-center p-4 m-4 w-fit space-x-4">
+                  <hlm-skeleton class="w-12 h-12 rounded-full" />
+                  <div class="space-y-2">
+                    <hlm-skeleton class="h-4 w-[250px]" />
+                    <hlm-skeleton class="h-4 w-[200px]" />
+                  </div>
+                </div>
+                <div class="flex items-center p-4 m-4 w-fit space-x-4">
+                  <hlm-skeleton class="w-12 h-12 rounded-full" />
+                  <div class="space-y-2">
+                    <hlm-skeleton class="h-4 w-[250px]" />
+                    <hlm-skeleton class="h-4 w-[200px]" />
+                  </div>
+                </div>
+              </div>
+              }@else {
+              <div class="space-y-4">
+                <!-- Comment 1 -->
+                <div class="flex space-x-3">
+                  <div
+                    class="bg-orange-200 rounded-full w-8 h-8 flex items-center justify-center"
+                  >
+                    <span class="text-orange-600 font-bold">EA</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                      <h4 class="font-bold">Emmanuel Amadiegwu</h4>
+                      <span class="text-gray-500 text-sm"
+                        >July 11, 2024 at 1:27 PM</span
+                      >
+                    </div>
+                    <p class="text-gray-700 text-sm">
+                      Kayode Oshona Yeah for this task, it’s for work request.
+                      but when testing work order you can test this for work
+                      order there.
+                    </p>
+                  </div>
+                </div>
+                <!-- Comment 2 -->
+                <div class="flex space-x-3">
+                  <div
+                    class="bg-blue-200 rounded-full w-8 h-8 flex items-center justify-center"
+                  >
+                    <span class="text-blue-600 font-bold">KO</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                      <h4 class="font-bold">Kayode Oshona</h4>
+                      <span class="text-gray-500 text-sm"
+                        >July 11, 2024 at 12:17 PM</span
+                      >
+                    </div>
+                    <p class="text-gray-700 text-sm">
+                      also this notification is just for WR atm right not WO?
+                    </p>
+                  </div>
+                </div>
+                <!-- Comment 3 -->
+                <div class="flex space-x-3">
+                  <div
+                    class="bg-blue-200 rounded-full w-8 h-8 flex items-center justify-center"
+                  >
+                    <span class="text-blue-600 font-bold">KO</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                      <h4 class="font-bold">Kayode Oshona</h4>
+                      <span class="text-gray-500 text-sm"
+                        >July 11, 2024 at 12:17 PM</span
+                      >
+                    </div>
+                    <p class="text-gray-700 text-sm">
+                      Check resource label is missing the WR 1283 has a resource
+                      but it's not displaying
+                    </p>
+                    <img
+                      src="https://i.sstatic.net/y9DpT.jpg"
+                      alt="Resource Label Issue"
+                      class="mt-2 border rounded"
+                    />
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

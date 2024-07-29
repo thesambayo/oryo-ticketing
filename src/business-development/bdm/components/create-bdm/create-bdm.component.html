@@ -1,0 +1,109 @@
+<!-- (stateChanged)="handleOpenCreateFormDialog($event)" -->
+<hlm-dialog
+		[state]="openCreateCompanyForm() ? 'open' : 'closed'"
+		(stateChanged)="$event === 'closed' && openCreateCompanyForm.set(false)"
+		>
+	<button hlmBtn class="gap-2" size="sm" (click)="openCreateCompanyForm.set(true)">
+		<hlm-icon class="size-3.5" name="lucidePlus" />
+		<span>Create</span>
+	</button>
+	<!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
+		<hlm-icon class="size-3.5" name="lucidePlus" />
+		<span>Create ticket {{ openCreateTicketForm() }}</span>
+	</button> -->
+	<hlm-dialog-content
+		class="w-screen max-w-2xl"
+		*brnDialogContent="let ctx"
+	>
+		<hlm-dialog-header>
+			<h3 hlmDialogTitle>Create Leads</h3>
+		</hlm-dialog-header>
+
+		<form class="space-y-4" [formGroup]="createCompantForm" (ngSubmit)="onSubmit()">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+				<div class="space-y-2">
+					<label hlmLabel for="companyName">
+						<span>Company Name</span>
+					</label>
+					<input hlmInput class="w-full" id="companyName" formControlName="name" />
+				</div>
+
+				<div class="space-y-2">
+					<label hlmLabel for="companyEmail">
+						<span>Email</span>
+					</label>
+					<input
+						class="w-full"
+						hlmInput
+						id="companyEmail"
+						type="email"
+						formControlName="email"
+					/>
+				</div>
+
+				<!-- <div class="space-y-2">
+					<label hlmLabel for="companyEmail">
+						<span>Branch</span>
+					</label>
+					<input
+						class="w-full"
+						hlmInput
+						id="companyEmail"
+						type="text"
+						formControlName="branch"
+					/>
+				</div> -->
+
+				<div class="space-y-2">
+					<label hlmLabel for="companyEmail">
+						<span>Phone Number</span>
+					</label>
+					<input
+						class="w-full"
+						hlmInput
+						id="companyEmail"
+						type="tel"
+						formControlName="phone"
+					/>
+				</div>
+
+				<div class="space-y-2">
+					<label hlmLabel for="companyEmail">
+						<span>Location</span>
+					</label>
+					<input
+						class="w-full"
+						hlmInput
+						id="companyEmail"
+						type="text"
+						formControlName="location"
+					/>
+				</div>
+
+				<div class="space-y-2">
+					<label hlmLabel for="companyEmail">
+						<span>Product Offered</span>
+					</label>
+					<brn-select class="w-full" placeholder="Select an option"
+                    formControlName="pto">
+                        <hlm-select-trigger class="w-56">
+                          <hlm-select-value />
+                        </hlm-select-trigger>
+                        <hlm-select-content class="w-56">
+                          <hlm-option value="Fleet Management">Fleet Management</hlm-option>
+                          <hlm-option value="Vision">Vision</hlm-option>
+                          <hlm-option value="Generator">Generator</hlm-option>
+                          <hlm-option value="Fuel">Fuel</hlm-option>
+                        </hlm-select-content>
+                      </brn-select>
+				</div>
+			</div>
+
+			<hlm-dialog-footer>
+				<button hlmBtn type="submit" class="w-full" [disabled]="createCompantForm.invalid || isCreatingTicket()">
+					{{ isCreatingTicket() ? "Loading..." : "Create" }}
+				</button>
+			</hlm-dialog-footer>
+		</form>
+	</hlm-dialog-content>
+</hlm-dialog>
