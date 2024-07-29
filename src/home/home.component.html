@@ -1,0 +1,81 @@
+<div class="flex justify-between items-center p-6 bg-white shadow-md">
+  <div>
+    <img src="../../main-logo.svg" alt="" class="w-24" />
+    <!-- <span class="text-2xl font-bold text-green-600">RYO</> -->
+  </div>
+  <div class="flex items-center space-x-4">
+    <button class="bg-green-600 text-white px-4 py-2 rounded">
+      Help Center
+    </button>
+    <div
+      class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"
+    >
+      <hlm-avatar class="size-8">
+        <img
+          src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="spartan logo. Resembling a spartanic shield"
+          hlmAvatarImage
+        />
+        <span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
+      </hlm-avatar>
+    </div>
+  </div>
+</div>
+<div class="container mx-auto mt-10">
+  <div class="text-center">
+    <h1 class="text-1xl font-semibold text-primary mb-4">
+      <span>
+        <!-- <img src="../../waving-hand-sign.svg" alt="" /> -->
+        Hello Muhammad
+    </span>
+    </h1>
+    <p class="text-lg">Kindly choose your preferred module</p>
+  </div>
+  <div class="grid grid-cols-3 gap-6 mt-10">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+      <img
+        src="../../noc-dashboard-icon.svg"
+        alt="NOC Dashboard"
+        class="mx-auto mb-4"
+      />
+      <h2 class="text-xl font-medium">NOC Dashboard</h2>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+      <img
+        src="../../service-desk-icon.svg"
+        alt="Service Desk Module"
+        class="mx-auto mb-4"
+      />
+      <h2 class="text-xl font-medium">Service Desk Module</h2>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+      <img
+        src="../../finance-icon.svg"
+        alt="Finance & Procurement"
+        class="mx-auto mb-4"
+      />
+      <h2 class="text-xl font-medium">svg & Procurement</h2>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer"
+    [routerLink]="['/business-development']" routerLinkActive="router-link-active" >
+      <img
+        src="../../business-development-icon.svg"
+        alt="Business Development"
+        class="mx-auto mb-4"
+      />
+      <h2 class="text-xl font-medium">Business Development</h2>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+      <img src="../../hr-icon.svg" alt="HR Module" class="mx-auto mb-4" />
+      <h2 class="text-xl font-medium">HR Module</h2>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+      <img
+        src="../../project-management-icon.svg"
+        alt="Project Management"
+        class="mx-auto mb-4"
+      />
+      <h2 class="text-xl font-medium">Project Management</h2>
+    </div>
+  </div>
+</div>
