@@ -9,7 +9,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
 import { LeftPaddingPipe } from '../../../../../../libs/pipes/left-padding.pipe';
-import { EmailService } from '../../../../../../libs/services/email.service';
 import { HlmButtonDirective } from '../../../../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmDialogContentComponent } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-content.component';
 import { HlmDialogDescriptionDirective } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-description.directive';
@@ -64,7 +63,6 @@ export class CreateActivityComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
-	_emailService = inject(EmailService);
 	_ticketsService = inject(TicketsService);
 
 	// component variables
@@ -80,17 +78,6 @@ export class CreateActivityComponent {
 		technicalProposal: this._fb.nonNullable.control(''),
 		commercials: this._fb.nonNullable.control(''),
 		purchaseOrder: this._fb.nonNullable.control(''),
-		// reporterCompany: this._fb.nonNullable.control('', Validators.required),
-
-		// // issue details
-		// status: this._fb.nonNullable.control('OPEN', Validators.required),
-		// priority: this._fb.nonNullable.control('HIGH', Validators.required),
-
-		// subject: this._fb.nonNullable.control('', Validators.required),
-		// category: this._fb.nonNullable.control('', Validators.required),
-		// description: this._fb.nonNullable.control('', Validators.required),
-		// attachments: this._fb.nonNullable.control<string[]>([]),
-		// assignee: this._fb.nonNullable.control(""),
 	});
 
 	// handleOpenCreateFormDialog(state: BrnDialogState) {
@@ -131,21 +118,6 @@ export class CreateActivityComponent {
 				this.openCreateBranchForm.set(false);
       
     }
-		// this._ticketsService.createTicket(payload).subscribe({
-		// 	next: (res) => {
-		// 		this.ticketCreated.emit();
-		// 		this.isCreatingTicket.set(false);
-		// 		this.openCreateTicketForm.set(false);
-		// 		this.sendEmail(res.data);
-		// 		toast.success("Ticket created successfully", {
-		// 			id: "create-ticket-form-success"
-		// 		});
-		// 	},
-		// 	error: (err) => {
-		// 		this.isCreatingTicket.set(false);
-		// 		console.log(err);
-		// 	}
-		// })
 	}
 
 

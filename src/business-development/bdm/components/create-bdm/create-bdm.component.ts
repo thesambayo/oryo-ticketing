@@ -22,8 +22,7 @@ import { HlmRadioIndicatorComponent } from '../../../../libs/ui/ui-radiogroup-he
 import { HlmRadioDirective } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../help-desk/ticketing/services/tickets.service';
-import { EmailService } from '../../../../libs/services/email.service';
-import {  TicketItemStatus, TicketItemPriority, TicketItem, CreateItemPayload } from '../../models/bdm-item';
+import {  CreateItemPayload } from '../../models/bdm-item';
 import { Router } from '@angular/router';
 
 @Component({
@@ -65,7 +64,6 @@ export class CreateBdmComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
-	_emailService = inject(EmailService);
 	_ticketsService = inject(TicketsService);
   _routes = inject(Router)
 
@@ -82,16 +80,6 @@ export class CreateBdmComponent {
 		phone: this._fb.nonNullable.control('', Validators.required),
 		location: this._fb.nonNullable.control('', Validators.required),
 		pto: this._fb.nonNullable.control('', Validators.required),
-
-		// // issue details
-		// status: this._fb.nonNullable.control('OPEN', Validators.required),
-		// priority: this._fb.nonNullable.control('HIGH', Validators.required),
-
-		// subject: this._fb.nonNullable.control('', Validators.required),
-		// category: this._fb.nonNullable.control('', Validators.required),
-		// description: this._fb.nonNullable.control('', Validators.required),
-		// attachments: this._fb.nonNullable.control<string[]>([]),
-		// assignee: this._fb.nonNullable.control(""),
 	});
 
 	// handleOpenCreateFormDialog(state: BrnDialogState) {

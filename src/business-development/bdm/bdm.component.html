@@ -85,16 +85,12 @@
         </div>
       </brn-popover>
 
-      <oryo-create-bdm (ticketCreated)="getAllTickets()"></oryo-create-bdm>
+      <oryo-create-bdm></oryo-create-bdm>
     </div>
   </div>
 
   <hlm-table class="w-full min-w-[500px]">
-    <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
     <hlm-trow class="uppercase">
-      <!-- <hlm-th class="w-fit">
-          <hlm-checkbox />
-        </hlm-th> -->
       <hlm-th class="w-52"> ID</hlm-th>
       <hlm-th class="flex-1">Company Name</hlm-th>
       <hlm-th class="w-56">PTO</hlm-th>
@@ -117,7 +113,7 @@
           BDM{{ item.id | leftPadding : 6 }}
         </p>
         <p class="text-muted-foreground lowercase">
-          {{ item.dateCreated | date : "dd/MM/yyyy h:mma" }}
+          {{ item.createdAt| date : "dd/MM/yyyy h:mma" }}
         </p>
       </hlm-td>
       <hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
@@ -133,24 +129,6 @@
       <hlm-td class="w-56">
         <span class="truncate">{{ item.subject }}</span>
       </hlm-td>
-      <!-- <hlm-td class="w-32">
-                      <p
-                          class="text-sm uppercase tracking-tighter"
-                          [ngClass]="{
-                              'text-yellow-500': ticket.priority === 'HIGH',
-                              'text-blue-500': ticket.priority === 'LOW',
-                              'text-black': ticket.priority === 'MEDIUM',
-                              'text-red-500': ticket.priority === 'URGENT',
-                          }"
-                      >
-                          {{ ticket.priority | ticketPriorityDisplay }}
-                      </p>
-                  </hlm-td>
-                  <hlm-td class="w-32">
-                      <div hlmBadge [variant]="getStatusVariant(ticket.status)">
-                          {{ ticket.status | ticketStatusDisplay }}
-                      </div>
-                  </hlm-td> -->
       <hlm-td class="justify-start w-40">
         <button
           hlmBtn

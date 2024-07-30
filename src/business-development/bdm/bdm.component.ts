@@ -27,7 +27,6 @@ import {
 } from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
-import { CreateTicketComponent } from '../../help-desk/ticketing/components/create-ticket/create-ticket.component';
 import { TicketPriorityDisplayPipe } from '../../help-desk/ticketing/pipes/ticket-priority-display.pipe';
 import { TicketStatusDisplayPipe } from '../../help-desk/ticketing/pipes/ticket-status-display.pipe';
 import { LeftPaddingPipe } from '../../libs/pipes/left-padding.pipe';
@@ -59,8 +58,6 @@ import {
   getStatusVariant,
   getPriorityVariant,
   TicketItem,
-  TicketItemPriority,
-  TicketItemStatus,
 } from '../../help-desk/ticketing/models/ticket-item';
 import { TicketsService } from '../../help-desk/ticketing/services/tickets.service';
 import { CreateBdmComponent } from './components/create-bdm/create-bdm.component';
@@ -145,71 +142,6 @@ export class BdmComponent implements OnInit {
   getView = signal<boolean>(false);
 
   ngOnInit(): void {
-    this.getAllTickets();
-    // this._ticketsService.getTickets().then((data) => {
-    //   if (data) {
-    //     this._tickets.set(data);
-    //   }
-    // });
-  }
-
-  getAllTickets() {
-    // this.isLoading.set(true);
-    this._tickets.set([
-      {
-        id: '1',
-        reporterName: 'John Doe',
-        reporterEmail: 'johndoe@example.com',
-        reporterCompany: 'Example Corp',
-        subject: 'Issue with login',
-        priority: TicketItemPriority.HIGH,
-        status: TicketItemStatus.OPEN,
-        description: 'Unable to login with the provided credentials.',
-        attachments: ['screenshot1.png'],
-        dateCreated: '2024-07-01T10:30:00Z',
-        dateResolved: '',
-      },
-      {
-        id: '2',
-        reporterName: 'Jane Smith',
-        reporterEmail: 'janesmith@example.com',
-        reporterCompany: 'Tech Solutions',
-        subject: 'Payment gateway error',
-        priority: TicketItemPriority.URGENT,
-        status: TicketItemStatus.IN_PROGRESS,
-        description:
-          'Receiving an error message when trying to process payments.',
-        attachments: ['errorlog.txt', 'screenshot2.png'],
-        dateCreated: '2024-07-02T11:00:00Z',
-        dateResolved: '',
-      },
-      {
-        id: '3',
-        reporterName: 'Mike Johnson',
-        reporterEmail: 'mikejohnson@example.com',
-        reporterCompany: 'Innovatech',
-        subject: 'Feature request for dashboard',
-        priority: TicketItemPriority.MEDIUM,
-        status: TicketItemStatus.RESOLVED,
-        description: 'Request to add a new chart to the dashboard.',
-        attachments: [],
-        dateCreated: '2024-06-28T09:15:00Z',
-        dateResolved: '2024-07-03T14:30:00Z',
-      },
-      {
-        id: '4',
-        reporterName: 'Emily Davis',
-        reporterEmail: 'emilydavis@example.com',
-        reporterCompany: 'BizWorks',
-        subject: 'Slow performance on app',
-        priority: TicketItemPriority.LOW,
-        status: TicketItemStatus.CLOSED,
-        description: 'The application is running slower than usual.',
-        attachments: ['performance_report.pdf'],
-        dateCreated: '2024-06-25T08:45:00Z',
-        dateResolved: '2024-07-01T16:00:00Z',
-      },
-    ]);
   }
 
   onVeiw(e: any) {
