@@ -15,7 +15,7 @@ import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStat
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../services/tickets.service';
 import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
-import { EmailService } from '../../../../libs/services/email.service';
+import { StaffService } from '../../../core/services/staff.service';
 
 @Component({
 	selector: 'oryo-create-ticket',
@@ -51,13 +51,16 @@ import { EmailService } from '../../../../libs/services/email.service';
 	styleUrl: './create-ticket.component.css'
 })
 export class CreateTicketComponent {
+	readonly TicketsStatuses = TicketItemStatus;
+	readonly TicketsPriorities = TicketItemPriority;
+
 	// declare input and outputs
 	ticketCreated = output();
 
 	// injects
 	_fb = inject(FormBuilder);
-	_emailService = inject(EmailService);
 	_ticketsService = inject(TicketsService);
+	staffList = inject(StaffService).staffList;
 
 	// component variables
 	openCreateTicketForm = signal(false);
@@ -70,21 +73,14 @@ export class CreateTicketComponent {
 		reporterCompany: this._fb.nonNullable.control('', Validators.required),
 
 		// issue details
-		status: this._fb.nonNullable.control('OPEN', Validators.required),
-		priority: this._fb.nonNullable.control('HIGH', Validators.required),
+		status: this._fb.nonNullable.control(this.TicketsStatuses.OPEN, Validators.required),
+		priority: this._fb.nonNullable.control(this.TicketsPriorities.HIGH, Validators.required),
 
 		subject: this._fb.nonNullable.control('', Validators.required),
 		category: this._fb.nonNullable.control('', Validators.required),
 		description: this._fb.nonNullable.control('', Validators.required),
-		attachments: this._fb.nonNullable.control<string[]>([]),
-		assignee: this._fb.nonNullable.control(""),
+		assignee: this._fb.nonNullable.control<number | undefined>(undefined, Validators.required),
 	});
-
-	// handleOpenCreateFormDialog(state: BrnDialogState) {
-	// 	if (state === 'closed') {
-	// 		this.openCreateTicketForm.set(false);
-	// 	}
-	// }
 
 	onSubmit() {
 		if (this.createTicketForm.invalid) {
@@ -97,13 +93,12 @@ export class CreateTicketComponent {
 			reporterName: this.createTicketForm.controls.reporterName.value,
 			reporterEmail: this.createTicketForm.controls.reporterEmail.value,
 			reporterCompany: this.createTicketForm.controls.reporterCompany.value,
-			status: this.createTicketForm.controls.status.value as TicketItemStatus,
-			priority: this.createTicketForm.controls.priority.value as TicketItemPriority,
+			status: this.createTicketForm.controls.status.value,
+			priority: this.createTicketForm.controls.priority.value,
 			subject: this.createTicketForm.controls.subject.value,
 			description: this.createTicketForm.controls.description.value,
 			category: this.createTicketForm.controls.category.value,
-			attachments: this.createTicketForm.controls.attachments.value,
-			assignee: this.createTicketForm.controls.assignee.value,
+			assignee: this.createTicketForm.controls.assignee.value!,
 		}
 
 		this.isCreatingTicket.set(true);
@@ -112,35 +107,15 @@ export class CreateTicketComponent {
 				this.ticketCreated.emit();
 				this.isCreatingTicket.set(false);
 				this.openCreateTicketForm.set(false);
-				this.sendEmail(res.data);
 				toast.success("Ticket created successfully", {
 					id: "create-ticket-form-success"
 				});
 			},
 			error: (err) => {
 				this.isCreatingTicket.set(false);
-				console.log(err);
+				toast.error("Error submitting ticket", {id: "internal-create-ticket-error"});
 			}
 		})
-	}
-
-	sendEmail(ticket: TicketItem) {
-		this._emailService.sendEmail({
-			company: ticket.reporterCompany,
-			description: ticket.description,
-			email: ticket.reporterEmail,
-			issueType: ticket.subject,
-			name: ticket.reporterName,
-			ticketId: this._ticketsService.padNumber(ticket.id, 6),
-		}).subscribe({
-			next: () => this.showSuccessToast()
-		})
-	}
-
-	showSuccessToast() {
-		toast.success("Email sent to client", {
-			id: "create-ticket-form-email-success",
-		});
 	}
 
 }

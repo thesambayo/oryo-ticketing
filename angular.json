@@ -20,7 +20,8 @@
           "standalone": true
         },
         "@schematics/angular:interceptor": {
-          "functional": true
+          "functional": true,
+					"flat": true
         },
         "@schematics/angular:directive": {
           "standalone": true,

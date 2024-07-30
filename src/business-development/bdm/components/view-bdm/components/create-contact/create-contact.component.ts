@@ -9,7 +9,10 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
 import { LeftPaddingPipe } from '../../../../../../libs/pipes/left-padding.pipe';
+<<<<<<< HEAD
 import { EmailService } from '../../../../../../libs/services/email.service';
+=======
+>>>>>>> origin/main
 import { HlmButtonDirective } from '../../../../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmDialogContentComponent } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-content.component';
 import { HlmDialogDescriptionDirective } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-description.directive';
@@ -23,7 +26,11 @@ import { HlmLabelDirective } from '../../../../../../libs/ui/ui-label-helm/src/l
 import { HlmRadioGroupDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-group.directive';
 import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
+<<<<<<< HEAD
 import { CreateItemPayload, CreateViewPayload } from '../../../../models/bdm-item';
+=======
+import { CreateViewPayload } from '../../../../models/bdm-item';
+>>>>>>> origin/main
 
 @Component({
   selector: 'oryo-create-contact',
@@ -64,7 +71,10 @@ export class CreateContactComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
+<<<<<<< HEAD
 	_emailService = inject(EmailService);
+=======
+>>>>>>> origin/main
 	_ticketsService = inject(TicketsService);
 
 	// component variables
@@ -80,6 +90,7 @@ export class CreateContactComponent {
 		phone: this._fb.nonNullable.control('', [Validators.required]),
 		location: this._fb.nonNullable.control('', [Validators.required]),
 		pto: this._fb.nonNullable.control('', [Validators.required]),
+<<<<<<< HEAD
 		// reporterCompany: this._fb.nonNullable.control('', Validators.required),
 
 		// // issue details
@@ -98,6 +109,10 @@ export class CreateContactComponent {
 	// 		this.openCreateTicketForm.set(false);
 	// 	}
 	// }
+=======
+	});
+
+>>>>>>> origin/main
 
 	onSubmit() {
 		if (this.createCompantForm.invalid) {
@@ -126,6 +141,7 @@ export class CreateContactComponent {
 				this.openCreateBranchForm.set(false);
       
     }
+<<<<<<< HEAD
 		// this._ticketsService.createTicket(payload).subscribe({
 		// 	next: (res) => {
 		// 		this.ticketCreated.emit();
@@ -141,6 +157,8 @@ export class CreateContactComponent {
 		// 		console.log(err);
 		// 	}
 		// })
+=======
+>>>>>>> origin/main
 	}
 
 

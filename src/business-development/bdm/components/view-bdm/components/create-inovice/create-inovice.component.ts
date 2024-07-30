@@ -22,8 +22,12 @@ import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogr
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
+<<<<<<< HEAD
 import { EmailService } from '../../../../../../libs/services/email.service';
 import { CreateBudgetPayload, CreateViewPayload } from '../../../../models/bdm-item';
+=======
+import { CreateBudgetPayload } from '../../../../models/bdm-item';
+>>>>>>> origin/main
 import { OnlyNumbersDirective } from '../directives/only-numbers.directive';
 
 @Component({
@@ -72,7 +76,10 @@ export class CreateInoviceComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
+<<<<<<< HEAD
 	_emailService = inject(EmailService);
+=======
+>>>>>>> origin/main
 	_ticketsService = inject(TicketsService);
 
 	// component variables
@@ -89,6 +96,7 @@ export class CreateInoviceComponent {
 		paymentValue: this._fb.nonNullable.control('', [Validators.required]),
 		oustandingBalance: this._fb.nonNullable.control('', [Validators.required]),
 		generatedInvoice: this._fb.nonNullable.control('', [Validators.required]),
+<<<<<<< HEAD
 		// reporterCompany: this._fb.nonNullable.control('', Validators.required),
 
 		// // issue details
@@ -108,6 +116,10 @@ export class CreateInoviceComponent {
 	// 	}
 	// }
 
+=======
+	});
+
+>>>>>>> origin/main
   ontxtBudget(e: any) {
     this.budget = this.formattedNumber(e.target.value);
     console.log(this.budget);
@@ -175,6 +187,7 @@ export class CreateInoviceComponent {
 				this.openCreateBranchForm.set(false);
       
     }
+<<<<<<< HEAD
 		// this._ticketsService.createTicket(payload).subscribe({
 		// 	next: (res) => {
 		// 		this.ticketCreated.emit();
@@ -190,6 +203,8 @@ export class CreateInoviceComponent {
 		// 		console.log(err);
 		// 	}
 		// })
+=======
+>>>>>>> origin/main
 	}
 
 

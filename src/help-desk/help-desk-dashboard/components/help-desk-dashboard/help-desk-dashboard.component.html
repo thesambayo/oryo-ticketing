@@ -1,1 +1,63 @@
-<p>dashboard works!</p>
+@let dashboardInfo = dashboardDetails();
+<div class="grid grid-cols-4 gap-5">
+	<section class="p-6 rounded-2xl bg-card flex items-center gap-5">
+		<div class="size-12 flex items-center justify-center text-[#0A0AF5] bg-[#E7E7FE] rounded-lg">
+			<hlm-icon name="lucideTicket" size="lg" class="rotate-180 stroke-1" />
+		</div>
+		<div>
+			<p class="text-muted-foreground text-sm leading-5 font-medium">Total Tickets</p>
+			<div class="flex items-end gap-5">
+				<p class="text-2xl leading-8 font-semibold">{{dashboardInfo.totalTickets}}</p>
+				<!-- <p class="text-sm leading-5 font-semibold text-green-500 flex items-center">
+					<hlm-icon name="lucideArrowUp" size="sm" />
+					<span>100</span>
+				</p> -->
+			</div>
+		</div>		
+	</section>
+	<section class="p-6 rounded-2xl bg-card flex items-center gap-5">
+		<div class="size-12 flex items-center justify-center text-[#F5850A] bg-[#FEF3E7] rounded-lg">
+			<hlm-icon name="lucideTicket" size="lg" class="rotate-180 stroke-1" />
+		</div>
+		<div>
+			<p class="text-muted-foreground text-sm leading-5 font-medium">Tickets Attended to</p>
+			<div class="flex items-end gap-5">
+				<p class="text-2xl leading-8 font-semibold">{{dashboardInfo.attended}}</p>
+				<!-- <p class="text-sm leading-5 font-semibold text-green-500 flex items-center">
+					<hlm-icon name="lucideArrowUp" size="sm" />
+					<span>100</span>
+				</p> -->
+			</div>
+		</div>		
+	</section>
+	<section class="p-6 rounded-2xl bg-card flex items-center gap-5">
+		<div class="size-12 flex items-center justify-center text-[#F50A0A] bg-[#FEE7E7] rounded-lg">
+			<hlm-icon name="lucideTicket" size="lg" class="rotate-180 stroke-1" />
+		</div>
+		<div>
+			<p class="text-muted-foreground text-sm leading-5 font-medium">Tickets Unattended</p>
+			<div class="flex items-end gap-5">
+				<p class="text-2xl leading-8 font-semibold">{{dashboardInfo.unAttended}}</p>
+				<!-- <p class="text-sm leading-5 font-semibold text-green-500 flex items-center">
+					<hlm-icon name="lucideArrowUp" size="sm" />
+					<span>100</span>
+				</p> -->
+			</div>
+		</div>		
+	</section>
+	<section class="p-6 rounded-2xl bg-card flex items-center gap-5">
+		<div class="size-12 flex items-center justify-center text-[#014C32] bg-[#E7FEF6] rounded-lg">
+			<hlm-icon name="lucideTicket" size="lg" class="rotate-180 stroke-1" />
+		</div>
+		<div>
+			<p class="text-muted-foreground text-sm leading-5 font-medium">Ticket Resolved</p>
+			<div class="flex items-end gap-5">
+				<p class="text-2xl leading-8 font-semibold">{{dashboardInfo.resolved}}</p>
+				<!-- <p class="text-sm leading-5 font-semibold text-green-500 flex items-center">
+					<hlm-icon name="lucideArrowUp" size="sm" />
+					<span>100</span>
+				</p> -->
+			</div>
+		</div>		
+	</section>
+</div>

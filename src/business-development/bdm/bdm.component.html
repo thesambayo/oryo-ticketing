@@ -85,16 +85,24 @@
         </div>
       </brn-popover>
 
+<<<<<<< HEAD
       <oryo-create-bdm (ticketCreated)="getAllTickets()"></oryo-create-bdm>
+=======
+      <oryo-create-bdm></oryo-create-bdm>
+>>>>>>> origin/main
     </div>
   </div>
 
   <hlm-table class="w-full min-w-[500px]">
+<<<<<<< HEAD
     <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
     <hlm-trow class="uppercase">
       <!-- <hlm-th class="w-fit">
           <hlm-checkbox />
         </hlm-th> -->
+=======
+    <hlm-trow class="uppercase">
+>>>>>>> origin/main
       <hlm-th class="w-52"> ID</hlm-th>
       <hlm-th class="flex-1">Company Name</hlm-th>
       <hlm-th class="w-56">PTO</hlm-th>
@@ -117,7 +125,11 @@
           BDM{{ item.id | leftPadding : 6 }}
         </p>
         <p class="text-muted-foreground lowercase">
+<<<<<<< HEAD
           {{ item.dateCreated | date : "dd/MM/yyyy h:mma" }}
+=======
+          {{ item.createdAt| date : "dd/MM/yyyy h:mma" }}
+>>>>>>> origin/main
         </p>
       </hlm-td>
       <hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
@@ -133,6 +145,7 @@
       <hlm-td class="w-56">
         <span class="truncate">{{ item.subject }}</span>
       </hlm-td>
+<<<<<<< HEAD
       <!-- <hlm-td class="w-32">
                       <p
                           class="text-sm uppercase tracking-tighter"
@@ -151,6 +164,8 @@
                           {{ ticket.status | ticketStatusDisplay }}
                       </div>
                   </hlm-td> -->
+=======
+>>>>>>> origin/main
       <hlm-td class="justify-start w-40">
         <button
           hlmBtn

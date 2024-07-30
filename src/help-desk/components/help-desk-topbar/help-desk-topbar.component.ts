@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { lucideBell } from '@ng-icons/lucide';
+import { Component, inject } from '@angular/core';
+import { lucideBell, lucideCircleArrowLeft, lucideCircleChevronLeft } from '@ng-icons/lucide';
 import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective } from '@spartan-ng/ui-avatar-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { TopbarService } from '../../core/services/topbar.service';
+import { InitialsPipe } from '@spartan-ng/ui-avatar-brain';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -12,12 +15,14 @@ import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
     HlmIconComponent,
+		InitialsPipe,
+		RouterLink
   ],
-  providers: [provideIcons({ lucideBell})],
+  providers: [provideIcons({ lucideBell, lucideCircleChevronLeft})],
   templateUrl: './help-desk-topbar.component.html',
   styleUrl: './help-desk-topbar.component.css'
 })
 export class HelpDeskTopbarComponent {
-  // topbar will have a service that will be used to update its content
+  _topbarDetails = inject(TopbarService).topbarDetails;
 
 }

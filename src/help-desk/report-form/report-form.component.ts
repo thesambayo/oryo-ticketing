@@ -10,8 +10,7 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
 import { TicketsService } from '../ticketing/services/tickets.service';
-import { CreateTicketItemPayload, TicketItem } from '../ticketing/models/ticket-item';
-import { EmailService } from '../../libs/services/email.service';
+import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus } from '../ticketing/models/ticket-item';
 
 @Component({
 	selector: 'oryo-report-form',
@@ -38,7 +37,6 @@ import { EmailService } from '../../libs/services/email.service';
 
 export class ReportFormComponent {
 
-	_emailService = inject(EmailService);
 	_ticketsService = inject(TicketsService);
 
 	isSendingEmail = false;
@@ -59,38 +57,21 @@ export class ReportFormComponent {
 			subject: this.reportForm.value.subject!,
 			description: this.reportForm.value.description!,
 			category: "PROBLEM_MANAGEMENT",
-			attachments: [],
-			assignee: ""
+			assignee: 1,
+			priority: TicketItemPriority.HIGH,
+			status: TicketItemStatus.OPEN,
 		};
 		this.isSendingEmail = true;
 		this._ticketsService.createTicket(payload).subscribe({
 			next: (res) => {
 				this.isSendingEmail = false;
-				this.showSuccessToast();
-				this.sendEmail(res.data);
+				this.reportForm.reset();
+				toast.info("Ticket is being processed", {id: "report form"});
 			},
 			error: () => {
 				this.isSendingEmail = false;
-				this.showSuccessToast();
+				toast.error("Error submitting ticket", {id: "report form error"});
 			}
 		})
-	}
-
-	sendEmail(ticket: TicketItem) {
-		this._emailService.sendEmail({
-			company: ticket.reporterCompany,
-			description: ticket.description,
-			email: ticket.reporterEmail,
-			issueType: ticket.subject,
-			name: ticket.reporterName,
-			ticketId: this._ticketsService.padNumber(ticket.id, 6),
-		}).subscribe({
-			next: () => this.showSuccessToast()
-		})
-	}
-
-	showSuccessToast() {
-		this.reportForm.reset();
-		toast.info("Ticket is being processed", {id: "report form"});
 	}
 }

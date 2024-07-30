@@ -9,7 +9,10 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
 import { LeftPaddingPipe } from '../../../../../../libs/pipes/left-padding.pipe';
+<<<<<<< HEAD
 import { EmailService } from '../../../../../../libs/services/email.service';
+=======
+>>>>>>> origin/main
 import { HlmButtonDirective } from '../../../../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmDialogContentComponent } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-content.component';
 import { HlmDialogDescriptionDirective } from '../../../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-description.directive';
@@ -64,7 +67,10 @@ export class CreateActivityComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
+<<<<<<< HEAD
 	_emailService = inject(EmailService);
+=======
+>>>>>>> origin/main
 	_ticketsService = inject(TicketsService);
 
 	// component variables
@@ -80,6 +86,7 @@ export class CreateActivityComponent {
 		technicalProposal: this._fb.nonNullable.control(''),
 		commercials: this._fb.nonNullable.control(''),
 		purchaseOrder: this._fb.nonNullable.control(''),
+<<<<<<< HEAD
 		// reporterCompany: this._fb.nonNullable.control('', Validators.required),
 
 		// // issue details
@@ -91,6 +98,8 @@ export class CreateActivityComponent {
 		// description: this._fb.nonNullable.control('', Validators.required),
 		// attachments: this._fb.nonNullable.control<string[]>([]),
 		// assignee: this._fb.nonNullable.control(""),
+=======
+>>>>>>> origin/main
 	});
 
 	// handleOpenCreateFormDialog(state: BrnDialogState) {
@@ -131,6 +140,7 @@ export class CreateActivityComponent {
 				this.openCreateBranchForm.set(false);
       
     }
+<<<<<<< HEAD
 		// this._ticketsService.createTicket(payload).subscribe({
 		// 	next: (res) => {
 		// 		this.ticketCreated.emit();
@@ -146,6 +156,8 @@ export class CreateActivityComponent {
 		// 		console.log(err);
 		// 	}
 		// })
+=======
+>>>>>>> origin/main
 	}
 
 

@@ -11,10 +11,7 @@
 		<hlm-icon class="size-3.5" name="lucidePlus" />
 		<span>Create ticket {{ openCreateTicketForm() }}</span>
 	</button> -->
-	<hlm-dialog-content
-		class="w-screen max-w-2xl"
-		*brnDialogContent="let ctx"
-	>
+	<hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
 		<hlm-dialog-header>
 			<h3 hlmDialogTitle>Create Ticket</h3>
 		</hlm-dialog-header>
@@ -126,9 +123,11 @@
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>
-							<hlm-option value="OPEN"> Open </hlm-option>
-							<hlm-option value="IN_PROGRESS"> In Progress </hlm-option>
-							<hlm-option value="CLOSED"> Close </hlm-option>
+							<hlm-option [value]="TicketsStatuses.OPEN"> Open </hlm-option>
+							<hlm-option [value]="TicketsStatuses.IN_PROGRESS"> In Progress </hlm-option>
+							<hlm-option [value]="TicketsStatuses.RESOLVED"> Resolved </hlm-option>
+							<hlm-option [value]="TicketsStatuses.CLOSED"> Closed </hlm-option>
+							<hlm-option [value]="TicketsStatuses.CANCELLED"> Cancelled </hlm-option>
 						</hlm-select-content>
 					</brn-select>
 				</div>
@@ -144,10 +143,25 @@
 							<hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>
-							<hlm-option value="URGENT"> Urgent </hlm-option>
-							<hlm-option value="HIGH"> High </hlm-option>
-							<hlm-option value="MEDIUM"> Medium </hlm-option>
-							<hlm-option value="LOW"> Low </hlm-option>
+							<hlm-option [value]="TicketsPriorities.URGENT"> Urgent </hlm-option>
+							<hlm-option [value]="TicketsPriorities.HIGH"> High </hlm-option>
+							<hlm-option [value]="TicketsPriorities.MEDIUM"> Medium </hlm-option>
+							<hlm-option [value]="TicketsPriorities.LOW"> Low </hlm-option>
+						</hlm-select-content>
+					</brn-select>
+				</div>
+				<div class="space-y-2 col-span-2">
+					<label hlmLabel for="status"> Status </label>
+					<brn-select class="block" placeholder="Select a staff" formControlName="assignee">
+						<hlm-select-trigger class="w-full">
+							<hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content>
+							@for (staff of staffList(); track staff.email) {
+								<hlm-option [value]="staff.id">
+									<span>{{staff.name}}</span>
+								</hlm-option>
+							}
 						</hlm-select-content>
 					</brn-select>
 				</div>

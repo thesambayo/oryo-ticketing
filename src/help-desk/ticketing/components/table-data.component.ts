@@ -4,7 +4,7 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
 import { Component, TrackByFunction, computed, effect, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { lucideArrowUpDown, lucideChevronDown, lucideMoveHorizontal } from '@ng-icons/lucide';
+import { lucideArrowUpDown, lucideChevronDown, lucideEllipsisVertical } from '@ng-icons/lucide';
 import { HlmButtonModule } from '@spartan-ng/ui-button-helm';
 import { HlmCheckboxCheckIconComponent, HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
@@ -172,7 +172,7 @@ const PAYMENT_DATA: Payment[] = [
     BrnSelectModule,
 	  HlmSelectModule,
   ],
-  providers: [provideIcons({ lucideChevronDown, lucideMoveHorizontal, lucideArrowUpDown })],
+  providers: [provideIcons({ lucideChevronDown, lucideEllipsisVertical, lucideArrowUpDown })],
   host: {
     class: 'w-full',
   },
@@ -250,7 +250,7 @@ const PAYMENT_DATA: Payment[] = [
         <hlm-th *brnHeaderDef></hlm-th>
         <hlm-td *brnCellDef="let element">
           <button hlmBtn variant="ghost" class="h-6 w-6 p-0.5" align="end" [brnMenuTriggerFor]="menu">
-            <hlm-icon class="size-4" name="lucideMoveHorizontal" />
+            <hlm-icon class="size-4" name="lucideEllipsisVertical" />
           </button>
 
           <ng-template #menu>
@@ -275,7 +275,7 @@ const PAYMENT_DATA: Payment[] = [
       class="flex flex-col justify-between mt-4 sm:flex-row sm:items-center"
       *brnPaginator="let ctx; totalElements: _totalElements(); pageSize: _pageSize(); onStateChange: _onStateChange"
     >
-      <span class="text-sm text-muted-foreground text-sm">{{ _selected().length }} of {{ _totalElements() }} row(s) selected</span>
+      <span class="text-sm text-muted-foreground">{{ _selected().length }} of {{ _totalElements() }} row(s) selected</span>
       <div class="flex mt-2 sm:mt-0">
         <brn-select class="inline-block" placeholder="{{ _availablePageSizes[0] }}" [(ngModel)]="_pageSize">
           <hlm-select-trigger class="inline-flex mr-1 w-15 h-9">

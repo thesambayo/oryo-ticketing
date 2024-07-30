@@ -27,7 +27,10 @@ import {
 } from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+<<<<<<< HEAD
 import { CreateTicketComponent } from '../../help-desk/ticketing/components/create-ticket/create-ticket.component';
+=======
+>>>>>>> origin/main
 import { TicketPriorityDisplayPipe } from '../../help-desk/ticketing/pipes/ticket-priority-display.pipe';
 import { TicketStatusDisplayPipe } from '../../help-desk/ticketing/pipes/ticket-status-display.pipe';
 import { LeftPaddingPipe } from '../../libs/pipes/left-padding.pipe';
@@ -59,8 +62,11 @@ import {
   getStatusVariant,
   getPriorityVariant,
   TicketItem,
+<<<<<<< HEAD
   TicketItemPriority,
   TicketItemStatus,
+=======
+>>>>>>> origin/main
 } from '../../help-desk/ticketing/models/ticket-item';
 import { TicketsService } from '../../help-desk/ticketing/services/tickets.service';
 import { CreateBdmComponent } from './components/create-bdm/create-bdm.component';
@@ -145,6 +151,7 @@ export class BdmComponent implements OnInit {
   getView = signal<boolean>(false);
 
   ngOnInit(): void {
+<<<<<<< HEAD
     this.getAllTickets();
     // this._ticketsService.getTickets().then((data) => {
     //   if (data) {
@@ -210,6 +217,8 @@ export class BdmComponent implements OnInit {
         dateResolved: '2024-07-01T16:00:00Z',
       },
     ]);
+=======
+>>>>>>> origin/main
   }
 
   onVeiw(e: any) {
