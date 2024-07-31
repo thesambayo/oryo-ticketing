@@ -1,7 +1,7 @@
-<!-- (stateChanged)="handleOpenCreateFormDialog($event)" -->
+
 <hlm-dialog
-		[state]="'open'"
-		(stateChanged)="$event === 'closed' && openCreateCompanyForm.set(false)"
+		[state]="showModal() ? 'open' : 'closed'"
+		(stateChanged)="$event === 'closed' && closeLeads.emit()"
 		>
 	<hlm-dialog-content
 		class="w-screen max-w-2xl"

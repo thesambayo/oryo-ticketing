@@ -15,8 +15,7 @@ import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmButtonDirective } from '../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmIconComponent } from '../../../libs/ui/ui-icon-helm/src/lib/hlm-icon.component';
 import { HlmSeparatorDirective } from '../../../libs/ui/ui-separator-helm/src/lib/hlm-separator.directive';
-import { CreateBdmComponent } from '../../bdm/components/create-bdm/create-bdm.component';
-import { Lead } from '../../bdm/models/bdm-item';
+import { CreateLeadsComponent } from '../../bdm/components/create-leads/create-leads.component';
 import { HlmDialogService } from '../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog.service';
 import { CreateBudgetComponent } from '../../bdm/components/create-budget/create-budget.component';
 
@@ -37,7 +36,7 @@ interface NavItem {
     RouterLink,
     RouterLinkActive,
     HlmIconComponent,
-    CreateBdmComponent,
+    CreateLeadsComponent,
   ],
   providers: [
     provideIcons({
@@ -59,6 +58,8 @@ export class BdmSidebarComponent {
 
   _hlmDialogService = inject(HlmDialogService);
 
+	modalInView: 'create-leads' | null = null;
+
   mainNavigationItems: NavItem[] = [
     {
       label: 'Dashboard',
@@ -73,7 +74,7 @@ export class BdmSidebarComponent {
     {
       label: 'Create Leads',
       icon: 'lucideFileArchive',
-      action: () => this.openDynamicComponent(),
+      action: () => this.modalInView = 'create-leads',
     },
     {
       label: 'Report',
@@ -81,6 +82,7 @@ export class BdmSidebarComponent {
       icon: 'lucideProportions',
     },
   ];
+
   otherNavigationItems: NavItem[] = [
     // {
     //   label: 'Start Over',
@@ -96,14 +98,9 @@ export class BdmSidebarComponent {
 
   logOutUser() {
     console.log('loggin our uawe');
-    // Log out user
   }
 
   openBudget() {
     this._hlmDialogService.open(CreateBudgetComponent, {});
-    // Log out user
-  }
-  openDynamicComponent() {
-    this._hlmDialogService.open(CreateBdmComponent, {});
   }
 }
