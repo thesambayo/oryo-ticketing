@@ -14,8 +14,8 @@ export const BusinessDevelopmentRoutes: Routes = [
 				loadComponent: () => import('./bdm/components/view-bdm/view-bdm.component').then(m => m.ViewBdmComponent)
 			},
 			{
-				path: 'leads',
-				loadComponent: () => import('./leads-list/leads-list.component').then(m => m.LeadsListComponent)
+				path: 'report',
+				loadComponent: () => import('./report/report.component').then(m => m.ReportComponent)
 			},
 			{
 				path: 'budget',

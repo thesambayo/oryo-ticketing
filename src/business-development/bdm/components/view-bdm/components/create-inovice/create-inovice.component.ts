@@ -22,8 +22,8 @@ import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogr
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
-import { CreateBudgetPayload } from '../../../../models/bdm-item';
 import { OnlyNumbersDirective } from '../directives/only-numbers.directive';
+import {  BudgetPayload } from '../../../../models/bdm-item';
 
 @Component({
   selector: 'oryo-create-inovice',
@@ -136,7 +136,7 @@ export class CreateInoviceComponent {
 		}
     
 
-		const payload: CreateBudgetPayload = {
+		const payload: BudgetPayload = {
 			budget: this.createCompantForm.controls.budget.value,
 			projectValue: this.createCompantForm.controls.projectValue.value,
 			negotationValue: this.createCompantForm.controls.negotationValue.value,

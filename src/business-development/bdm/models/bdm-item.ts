@@ -1,156 +1,42 @@
 import { HlmBadgeVariant } from '@spartan-ng/ui-badge-helm';
 
-export interface TicketItem {
-  id: string;
-  reporterName: string;
-  reporterEmail: string;
-  reporterCompany: string;
-  subject: string;
-  description: string;
-  priority: TicketItemPriority;
-  status: TicketItemStatus;
-
-  attachments: string[];
-  dateCreated: string;
-  dateResolved: string;
-  assignee?: string;
-  dateUpdated?: string;
-  category?: string;
-}
-
-export enum TicketItemStatus {
-  OPEN = 'OPEN',
-  CLOSED = 'CLOSED',
-  CANCELLED = 'CANCELLED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  RESOLVED = 'RESOLVED',
-}
-
-export const statusDisplay: { [key in TicketItemStatus]: string } = {
-  [TicketItemStatus.OPEN]: 'Open',
-  [TicketItemStatus.IN_PROGRESS]: 'In Progress',
-  [TicketItemStatus.CLOSED]: 'Closed',
-  [TicketItemStatus.RESOLVED]: 'Resolved',
-  [TicketItemStatus.CANCELLED]: 'Cancelled',
-};
-
-export function getDisplayStatus(status?: string): string {
-  return status ? statusDisplay[status as keyof typeof statusDisplay] : '';
-}
-
-export function getStatusVariant(status: TicketItemStatus): HlmBadgeVariant {
-  switch (status) {
-    case TicketItemStatus.CLOSED:
-      return 'secondary';
-    case TicketItemStatus.CANCELLED:
-      return 'destructive';
-    case TicketItemStatus.RESOLVED:
-      return 'success';
-    case TicketItemStatus.IN_PROGRESS:
-      return 'info';
-    default:
-      return 'warning';
-  }
-}
-
-export enum TicketItemPriority {
-  URGENT = 'URGENT',
-  HIGH = 'HIGH',
-  MEDIUM = 'MEDIUM',
-  LOW = 'LOW',
-}
-
-export const priorityDisplay: { [key in TicketItemPriority]: string } = {
-  [TicketItemPriority.URGENT]: 'Urgent',
-  [TicketItemPriority.HIGH]: 'High',
-  [TicketItemPriority.MEDIUM]: 'Medium',
-  [TicketItemPriority.LOW]: 'Low',
-};
-
-export function getDisplayPriority(priority?: string): string {
-  return priority
-    ? priorityDisplay[priority as keyof typeof priorityDisplay]
-    : '';
-}
-
-export function getPriorityVariant(
-  priority: TicketItemPriority
-): HlmBadgeVariant {
-  switch (priority) {
-    case TicketItemPriority.HIGH:
-      return 'warning';
-    case TicketItemPriority.LOW:
-      return 'outline';
-    case TicketItemPriority.MEDIUM:
-      return 'secondary';
-    default:
-      return 'destructive';
-  }
-}
-
-export interface CreateItemPayload {
-  // with validation for BE
+export interface Lead {
+  id: number;
   name: string;
   email: string;
-  // branch: string;
+  customerName: string;
   phone: string;
   location: string;
-  pto: string;
-  // reporterCompany: string; // non-empty
-  // priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
-  // status?: TicketItemStatus; // set a default in db [can be within list of registered values]
-
-  // subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
-  // description: string; // non empty and not more than 500 bytes long
-  // // minimum requirement to create a ticket above
-
-  // category?: string; // incident, problem etc [can be within list of registered values]
-  // attachments?: string[];
-  // assignee?: string; // when not-empty is only an oryo email
-  // should have a created by field that when not-empty is only an oryo email
+  product_offered: string;
+  status: LeadStatus; // LEAD, OPPORTUNITY, KIV, PROJECT, NOT_INTERESTED, POC
+  created_by: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
 }
-
-export interface CreateViewPayload {
-  // with validation for BE
-  name: string;
-  email: string;
-  branch: string;
-  phone: string;
-  location: string;
-  pto: string;
-  // reporterCompany: string; // non-empty
-  // priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
-  // status?: TicketItemStatus; // set a default in db [can be within list of registered values]
-
-  // subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
-  // description: string; // non empty and not more than 500 bytes long
-  // // minimum requirement to create a ticket above
-
-  // category?: string; // incident, problem etc [can be within list of registered values]
-  // attachments?: string[];
-  // assignee?: string; // when not-empty is only an oryo email
-  // should have a created by field that when not-empty is only an oryo email
+ 
+export interface Budget {
+  id: number;
+  staff_assigned: string;
+  target: number;
+  won: number;
+  created_by: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
 }
-export interface CreateBudgetPayload {
-  // with validation for BE
+export interface BudgetPayload {
   budget: string;
   projectValue: string;
   negotationValue: string;
   paymentValue: string;
   oustandingBalance: string;
   generatedInvoice: string;
-  // reporterCompany: string; // non-empty
-  // priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
-  // status?: TicketItemStatus; // set a default in db [can be within list of registered values]
+}
 
-  // subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
-  // description: string; // non empty and not more than 500 bytes long
-  // // minimum requirement to create a ticket above
-
-  // category?: string; // incident, problem etc [can be within list of registered values]
-  // attachments?: string[];
-  // assignee?: string; // when not-empty is only an oryo email
-  // should have a created by field that when not-empty is only an oryo email
+export interface CreateUserBudgetPayload {
+  staffId: number;
+  budget: string;
 }
 export interface CreateActivityPayload {
   // with validation for BE
@@ -160,16 +46,68 @@ export interface CreateActivityPayload {
   technicalProposal: string;
   commercials: string;
   purchaseOrder: string;
-  // reporterCompany: string; // non-empty
-  // priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
-  // status?: TicketItemStatus; // set a default in db [can be within list of registered values]
+}
+export function getDisplayStatus(status?: LeadStatus): string {
+	return status ? statusDisplay[status as keyof typeof statusDisplay] : '';
+}
 
-  // subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
-  // description: string; // non empty and not more than 500 bytes long
-  // // minimum requirement to create a ticket above
 
-  // category?: string; // incident, problem etc [can be within list of registered values]
-  // attachments?: string[];
-  // assignee?: string; // when not-empty is only an oryo email
-  // should have a created by field that when not-empty is only an oryo email
+export enum LeadStatus {
+  LEAD = 'LEAD',
+  OPPORTUNITY = 'OPPORTUNITY',
+  KIV = 'KIV',
+  PROJECT = 'PROJECT',
+  NOT_INTERESTED = 'NOT_INTERESTED',
+  POC = 'POC',
+}
+
+
+
+
+
+
+
+export const statusDisplay: { [key in LeadStatus]: string } = {
+  [LeadStatus.LEAD]: 'Open',
+  [LeadStatus.OPPORTUNITY]: 'In Progress',
+  [LeadStatus.KIV]: 'Closed',
+  [LeadStatus.PROJECT]: 'Resolved',
+  [LeadStatus.NOT_INTERESTED]: 'Cancelled',
+  [LeadStatus.POC]: 'Cancelled',
+};
+
+
+export function getStatusVariant(status: LeadStatus): HlmBadgeVariant {
+  switch (status) {
+    case LeadStatus.LEAD:
+      return 'secondary';
+    case LeadStatus.OPPORTUNITY:
+      return 'destructive';
+    case LeadStatus.KIV:
+      return 'warning';
+    case LeadStatus.PROJECT:
+      return 'success';
+      case LeadStatus.NOT_INTERESTED:
+        return 'destructive';
+        case LeadStatus.POC:
+          return 'info';
+    default:
+      return 'warning';
+  }
+}
+
+
+export interface Report {
+  id: number;
+  staffId: number;
+  name: string;
+  budget: number;
+  negotationBudget: number;
+  leads: number;
+  opportunity: number;
+  won: number; // LEAD, OPPORTUNITY, KIV, PROJECT, NOT_INTERESTED, POC
+  created_by: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
 }

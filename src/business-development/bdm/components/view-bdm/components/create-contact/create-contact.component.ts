@@ -22,7 +22,7 @@ import { HlmLabelDirective } from '../../../../../../libs/ui/ui-label-helm/src/l
 import { HlmRadioGroupDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-group.directive';
 import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
-import { CreateViewPayload } from '../../../../models/bdm-item';
+import { Lead, LeadStatus } from '../../../../models/bdm-item';
 
 @Component({
   selector: 'oryo-create-contact',
@@ -74,7 +74,7 @@ export class CreateContactComponent {
 		// customer details
 		name: this._fb.nonNullable.control('', Validators.required),
 		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
-		branch: this._fb.nonNullable.control('', [Validators.required]),
+		customerName: this._fb.nonNullable.control('', [Validators.required]),
 		phone: this._fb.nonNullable.control('', [Validators.required]),
 		location: this._fb.nonNullable.control('', [Validators.required]),
 		pto: this._fb.nonNullable.control('', [Validators.required]),
@@ -88,13 +88,19 @@ export class CreateContactComponent {
 			})
 		}
 
-		const payload: CreateViewPayload = {
+		const payload: Lead = {
 			name: this.createCompantForm.controls.name.value,
 			email: this.createCompantForm.controls.email.value,
-			branch: this.createCompantForm.controls.branch.value,
+			customerName: this.createCompantForm.controls.customerName.value,
 			phone: this.createCompantForm.controls.phone.value,
 			location: this.createCompantForm.controls.location.value,
-			pto: this.createCompantForm.controls.pto.value,
+			product_offered: this.createCompantForm.controls.pto.value,
+			id: 0,
+			status: LeadStatus.KIV,
+			created_by: '',
+			updated_by: '',
+			created_at: '',
+			updated_at: ''
 		}
 
 		this.isCreatingTicket.set(true);

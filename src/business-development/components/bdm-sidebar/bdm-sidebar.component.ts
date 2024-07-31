@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
@@ -15,6 +15,10 @@ import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmButtonDirective } from '../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmIconComponent } from '../../../libs/ui/ui-icon-helm/src/lib/hlm-icon.component';
 import { HlmSeparatorDirective } from '../../../libs/ui/ui-separator-helm/src/lib/hlm-separator.directive';
+import { CreateBdmComponent } from '../../bdm/components/create-bdm/create-bdm.component';
+import { Lead } from '../../bdm/models/bdm-item';
+import { HlmDialogService } from '../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog.service';
+import { CreateBudgetComponent } from '../../bdm/components/create-budget/create-budget.component';
 
 interface NavItem {
   label: string;
@@ -33,6 +37,7 @@ interface NavItem {
     RouterLink,
     RouterLinkActive,
     HlmIconComponent,
+    CreateBdmComponent,
   ],
   providers: [
     provideIcons({
@@ -50,25 +55,29 @@ interface NavItem {
   styleUrl: './bdm-sidebar.component.css',
 })
 export class BdmSidebarComponent {
+  _leads: boolean = false;
+
+  _hlmDialogService = inject(HlmDialogService);
+
   mainNavigationItems: NavItem[] = [
     {
       label: 'Dashboard',
-      routerLink: '/business-development',
+      routerLink: '/bdm',
       icon: 'lucideLayoutGrid',
     },
-    // {
-    //   label: 'Budget',
-    //   routerLink: '/business-development/budget',
-    //   icon: 'lucideBadgeDollarSign',
-    // },
     {
-      label: 'Leads',
-      routerLink: '/business-development/leads',
+      label: 'Create Budget',
+      action: () => this.openBudget(),
+      icon: 'lucideBadgeDollarSign',
+    },
+    {
+      label: 'Create Leads',
       icon: 'lucideFileArchive',
+      action: () => this.openDynamicComponent(),
     },
     {
       label: 'Report',
-      routerLink: '/',
+      routerLink: '/bdm/report',
       icon: 'lucideProportions',
     },
   ];
@@ -88,5 +97,13 @@ export class BdmSidebarComponent {
   logOutUser() {
     console.log('loggin our uawe');
     // Log out user
+  }
+
+  openBudget() {
+    this._hlmDialogService.open(CreateBudgetComponent, {});
+    // Log out user
+  }
+  openDynamicComponent() {
+    this._hlmDialogService.open(CreateBdmComponent, {});
   }
 }

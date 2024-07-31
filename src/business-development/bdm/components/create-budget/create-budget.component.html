@@ -1,0 +1,48 @@
+<hlm-dialog-header>
+  <h3 hlmDialogTitle>Create Budget</h3>
+</hlm-dialog-header>
+
+<form class="space-y-4 mt-2" [formGroup]="createCompantForm" (ngSubmit)="onSubmit()">
+  <div class="grid grid-cols-1 lg:grid-cols-1 gap-5">
+    <div class="space-y-2">
+      <label hlmLabel for="companyEmail">
+        <span>Name</span>
+      </label>
+      <brn-select
+        class="w-full"
+        placeholder="Select an option"
+        formControlName="staffId"
+      >
+        <hlm-select-trigger class="w-56">
+          <hlm-select-value />
+        </hlm-select-trigger>
+        <hlm-select-content class="w-56">
+          @for (item of _user; track item.id) {
+            <hlm-option [value]="item.name">{{item.name}}</hlm-option>
+          }
+        </hlm-select-content>
+      </brn-select>
+    </div>
+    <div class="space-y-2">
+      <label hlmLabel for="budget">
+        <span>Budget</span>
+      </label>
+      <input
+        class="w-full"
+        hlmInput
+        id="budget"
+        type="text"
+        formControlName="budget"
+      />
+    </div>
+  </div>
+
+  <button
+    hlmBtn
+    type="submit"
+    class="w-full"
+    [disabled]="createCompantForm.invalid || isCreating()"
+  >
+    {{ isCreating() ? "Loading..." : "Add" }}
+  </button>
+</form>
