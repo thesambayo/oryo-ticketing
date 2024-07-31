@@ -3,7 +3,7 @@
 </hlm-dialog-header>
 
 <form class="space-y-4 mt-2" [formGroup]="createCompantForm" (ngSubmit)="onSubmit()">
-  <div class="grid grid-cols-1 lg:grid-cols-1 gap-5">
+  <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 w-[400px]">
     <div class="space-y-2">
       <label hlmLabel for="companyEmail">
         <span>Name</span>
@@ -13,10 +13,10 @@
         placeholder="Select an option"
         formControlName="staffId"
       >
-        <hlm-select-trigger class="w-56">
+        <hlm-select-trigger class="w-full">
           <hlm-select-value />
         </hlm-select-trigger>
-        <hlm-select-content class="w-56">
+        <hlm-select-content class="w-full">
           @for (item of _user; track item.id) {
             <hlm-option [value]="item.name">{{item.name}}</hlm-option>
           }
@@ -33,6 +33,30 @@
         id="budget"
         type="text"
         formControlName="budget"
+      />
+    </div>
+    <div class="space-y-2">
+      <label hlmLabel for="startDate">
+        <span>Start Date</span>
+      </label>
+      <input
+        class="w-full block"
+        hlmInput
+        id="startDate"
+        type="date"
+        formControlName="startDate"
+      />
+    </div>
+    <div class="space-y-2">
+      <label hlmLabel for="endDate">
+        <span>End Date</span>
+      </label>
+      <input
+        class="w-full block"
+        hlmInput
+        id="endDate"
+        type="Date"
+        formControlName="endDate"
       />
     </div>
   </div>

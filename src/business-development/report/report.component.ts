@@ -39,6 +39,7 @@ import { provideIcons } from '@ng-icons/core';
 import { lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter } from '@ng-icons/lucide';
 import { Router } from '@angular/router';
 import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-item';
+import { PercentagePipe } from '../pipes/percentage.pipe';
 
 @Component({
   selector: 'oryo-report',
@@ -64,6 +65,7 @@ import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-it
     HlmMenuModule,
     BrnMenuTriggerDirective,
     DecimalPipe,
+    PercentagePipe,
 
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
@@ -124,7 +126,7 @@ export class ReportComponent implements OnInit {
         staffId: 12,
         name: 'Jide',
         budget: 20000000,
-        negotationBudget: 30000000,
+        negotationBudget: 10000000,
         leads: 7,
         opportunity: 5,
         won: 9,
@@ -137,7 +139,7 @@ export class ReportComponent implements OnInit {
         id: 2,
         staffId: 13,
         name: 'BJ',
-        budget: 20000000,
+        budget: 50000000,
         negotationBudget: 30000000,
         leads: 7,
         opportunity: 5,
@@ -151,8 +153,8 @@ export class ReportComponent implements OnInit {
         id: 3,
         staffId: 14,
         name: 'Samuel',
-        budget: 20000000,
-        negotationBudget: 30000000,
+        budget: 100000000,
+        negotationBudget: 70000000,
         leads: 7,
         opportunity: 5,
         won: 9,
@@ -165,7 +167,7 @@ export class ReportComponent implements OnInit {
         id: 4,
         staffId: 15,
         name: 'Victor',
-        budget: 20000000,
+        budget: 60000000,
         negotationBudget: 30000000,
         leads: 7,
         opportunity: 5,
@@ -179,6 +181,6 @@ export class ReportComponent implements OnInit {
   }
 
   onVeiw(e: any) {
-    this._router.navigate(['bdm', 'view-bdm']);
+    // this._router.navigate(['bdm', 'view-bdm']);
   }
 }
