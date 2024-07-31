@@ -17,30 +17,9 @@
 		<span>Create ticket {{ openCreateTicketForm() }}</span>
 	</button> -->
   <hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
-    <div class="tabs-container mt-5 w-full">
-      <div class="flex justify-between items-center w-full">
         <hlm-dialog-header>
           <h3 hlmDialogTitle>Activity</h3>
         </hlm-dialog-header>
-        <div class="tabs">
-          <button
-            class="tab"
-            [class.active]="activeTab === 'Tab1'"
-            (click)="selectTab('Tab1')"
-          >
-            Update
-          </button>
-          <button
-            class="tab"
-            [class.active]="activeTab === 'Tab2'"
-            (click)="selectTab('Tab2')"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-      @if (activeTab === 'Tab1') {
-      <div id="Tab1" class="tab-content w-full">
         <form
           class="space-y-4"
           [formGroup]="createCompantForm"
@@ -58,77 +37,6 @@
               name="description"
               formControlName="description"
             ></textarea>
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div class="space-y-2">
-              <label hlmLabel for="siteSurvey">
-                <span>Site Survey</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="siteSurvey"
-                name="siteSurvey"
-                formControlName="siteSurvey"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="schematicDesigns">
-                <span>Schematic Designs</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="schematicDesigns"
-                name="schematicDesigns"
-                formControlName="schematicDesigns"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="technicalProposal">
-                <span>Technical Proposal</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="technicalProposal"
-                name="technicalProposal"
-                formControlName="technicalProposal"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="commercials">
-                <span>Commercials(BOM)</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="commercials"
-                name="commercials"
-                formControlName="commercials"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="purchaseOrder">
-                <span>Purchase order(PO)</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="purchaseOrder"
-                name="purchaseOrder"
-                formControlName="purchaseOrder"
-                type="file"
-              />
-            </div>
           </div>
 
           <hlm-dialog-footer>
@@ -142,112 +50,5 @@
             </button>
           </hlm-dialog-footer>
         </form>
-      </div>
-      }@else if (activeTab === 'Tab2') {
-      <div id="Tab2" class="tab-content w-full">
-        <form
-          class="space-y-4"
-          [formGroup]="createCompantForm"
-          (ngSubmit)="onSubmit()"
-        >
-          <div class="space-y-2">
-            <label hlmLabel for="description">
-              <span>Description</span>
-            </label>
-            <textarea
-              class="min-h-[80px] w-full"
-              hlmInput
-              placeholder="Type your message here."
-              id="description"
-              name="description"
-              formControlName="description"
-            ></textarea>
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div class="space-y-2">
-              <label hlmLabel for="siteSurvey">
-                <span>Site Survey</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="siteSurvey"
-                name="siteSurvey"
-                formControlName="siteSurvey"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="schematicDesigns">
-                <span>Schematic Designs</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="schematicDesigns"
-                name="schematicDesigns"
-                formControlName="schematicDesigns"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="technicalProposal">
-                <span>Technical Proposal</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="technicalProposal"
-                name="technicalProposal"
-                formControlName="technicalProposal"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="commercials">
-                <span>Commercials(BOM)</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="commercials"
-                name="commercials"
-                formControlName="commercials"
-                type="file"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label hlmLabel for="purchaseOrder">
-                <span>Purchase order(PO)</span>
-              </label>
-              <input
-                class="w-full"
-                hlmInput
-                id="purchaseOrder"
-                name="purchaseOrder"
-                formControlName="purchaseOrder"
-                type="file"
-              />
-            </div>
-          </div>
-
-          <hlm-dialog-footer>
-            <button
-              hlmBtn
-              type="submit"
-              class="w-full"
-              [disabled]="createCompantForm.invalid || isCreatingTicket()"
-            >
-              {{ isCreatingTicket() ? "Loading..." : "Submit" }}
-            </button>
-          </hlm-dialog-footer>
-        </form>
-      </div>
-      }
-    </div>
   </hlm-dialog-content>
 </hlm-dialog>

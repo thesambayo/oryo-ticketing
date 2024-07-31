@@ -1,8 +1,8 @@
-import { Component, inject, output, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, HostBinding, Input, OnInit, inject, output, signal } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
-import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
+import { BrnDialogTriggerDirective, BrnDialogContentDirective, BrnDialogRef, injectBrnDialogContext } from '@spartan-ng/ui-dialog-brain';
 import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
@@ -22,8 +22,8 @@ import { HlmRadioIndicatorComponent } from '../../../../libs/ui/ui-radiogroup-he
 import { HlmRadioDirective } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../help-desk/ticketing/services/tickets.service';
-import {  CreateItemPayload } from '../../models/bdm-item';
 import { Router } from '@angular/router';
+import { Lead, LeadStatus } from '../../models/bdm-item';
 
 @Component({
   selector: 'oryo-create-bdm',
@@ -52,31 +52,47 @@ import { Router } from '@angular/router';
 		BrnSelectImports,
 		HlmSelectImports,
 		ReactiveFormsModule,
+    FormsModule,
 		LeftPaddingPipe
 	],
 	providers: [provideIcons({ lucidePlus })],
   templateUrl: './create-bdm.component.html',
   styleUrl: './create-bdm.component.css'
 })
-export class CreateBdmComponent {
+export class CreateBdmComponent implements OnInit {
 	// declare input and outputs
 	ticketCreated = output();
+	closeLeads = output();
+  @Input() openLeads: boolean = false;
 
 	// injects
 	_fb = inject(FormBuilder);
-	_ticketsService = inject(TicketsService);
+	// _ticketsService = inject(TicketsService);
   _routes = inject(Router)
+
+  ngOnInit(): void {
+    // handle openLeads signal
+    // if (this.openLeads) {
+    // this.openCreateCompanyForm.set(true);
+    // this.openLeads = false
+		// 		this.closeLeads.emit();
+    // return
+    // } else {
+    //   this.openCreateCompanyForm.set(false);
+    // }
+  }
 
 	// component variables
 	openCreateCompanyForm = signal(false);
 	openCreateBranchForm = signal(false);
 	isCreatingTicket = signal<boolean>(false);
 
+
 	createCompantForm = this._fb.nonNullable.group({
 		// customer details
 		name: this._fb.nonNullable.control('', Validators.required),
 		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
-		// branch: this._fb.nonNullable.control('', Validators.required),
+		customerName: this._fb.nonNullable.control('', Validators.required),
 		phone: this._fb.nonNullable.control('', Validators.required),
 		location: this._fb.nonNullable.control('', Validators.required),
 		pto: this._fb.nonNullable.control('', Validators.required),
@@ -95,14 +111,20 @@ export class CreateBdmComponent {
 			})
 		}
 
-		const payload: CreateItemPayload = {
-			name: this.createCompantForm.controls.name.value,
-			email: this.createCompantForm.controls.email.value,
-			// branch: this.createCompantForm.controls.branch.value,
-			phone: this.createCompantForm.controls.phone.value,
-			location: this.createCompantForm.controls.location.value,
-			pto: this.createCompantForm.controls.pto.value,
-		}
+		const payload: Lead = {
+      name: this.createCompantForm.controls.name.value,
+      email: this.createCompantForm.controls.email.value,
+      customerName: this.createCompantForm.controls.customerName.value,
+      phone: this.createCompantForm.controls.phone.value,
+      location: this.createCompantForm.controls.location.value,
+      product_offered: this.createCompantForm.controls.pto.value,
+      id: 0,
+      status: LeadStatus.PROJECT,
+      created_by: '',
+      updated_by: '',
+      created_at: '',
+      updated_at: ''
+    }
 
 		this.isCreatingTicket.set(true);
     if (payload) {

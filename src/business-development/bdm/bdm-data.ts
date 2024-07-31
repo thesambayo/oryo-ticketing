@@ -1,58 +1,62 @@
 // import { TicketItem, TicketItemPriority, TicketItemStatus } from "";
 
-import { TicketItem, TicketItemPriority, TicketItemStatus } from "./models/bdm-item";
+import { LeadStatus, Lead } from "./models/bdm-item";
 
-export const ticketItems: TicketItem[] = [
+export const bdmItems: Lead[] = [
   {
-    id: "1",
-    reporterName: "John Doe",
-    reporterEmail: "johndoe@example.com",
-    reporterCompany: "Example Corp",
-    subject: "Issue with login",
-    priority: TicketItemPriority.HIGH,
-    status: TicketItemStatus.OPEN,
-    description: "Unable to login with the provided credentials.",
-    attachments: ["screenshot1.png"],
-    dateCreated: "2024-07-01T10:30:00Z",
-    dateResolved: ""
+    id: 1,
+    name: "John INC",
+    email: "johndoe@example.com",
+    customerName: "John Doe",
+    phone: "08112345678",
+    location: "Issue with login",
+    status: LeadStatus.LEAD,
+    product_offered: "Unable to login with the provided credentials.",
+    created_by: "",
+    updated_by: "2024-07-01T10:30:00Z",
+    created_at: "",
+    updated_at: ""
   },
   {
-    id: "2",
-    reporterName: "Jane Smith",
-    reporterEmail: "janesmith@example.com",
-    reporterCompany: "Tech Solutions",
-    subject: "Payment gateway error",
-    priority: TicketItemPriority.URGENT,
-    status: TicketItemStatus.IN_PROGRESS,
-    description: "Receiving an error message when trying to process payments.",
-    attachments: ["errorlog.txt", "screenshot2.png"],
-    dateCreated: "2024-07-02T11:00:00Z",
-    dateResolved: ""
+    id: 2,
+    name: "Jane INC",
+    email: "janesmith@example.com",
+    customerName: "Jane Smith",
+    phone: "08112345678",
+    location: "Tech Solutions",
+    status: LeadStatus.LEAD,
+    product_offered: "Payment gateway error",
+    created_by: "",
+    updated_by: "2024-07-01T10:30:00Z",
+    created_at: "",
+    updated_at: ""
   },
   {
-    id: "3",
-    reporterName: "Mike Johnson",
-    reporterEmail: "mikejohnson@example.com",
-    reporterCompany: "Innovatech",
-    subject: "Feature request for dashboard",
-    priority: TicketItemPriority.MEDIUM,
-    status: TicketItemStatus.RESOLVED,
-    description: "Request to add a new chart to the dashboard.",
-    attachments: [],
-    dateCreated: "2024-06-28T09:15:00Z",
-    dateResolved: "2024-07-03T14:30:00Z"
+    id: 3,
+    name: "Mike INC",
+    email: "mikejohnson@example.com",
+    customerName: "Mike Johnson",
+    phone: "08112345678",
+    location: "Innovatech",
+    status: LeadStatus.LEAD,
+    product_offered: "Feature request for dashboard",
+    created_by: "",
+    updated_by: "2024-07-01T10:30:00Z",
+    created_at: "",
+    updated_at: ""
   },
   {
-    id: "4",
-    reporterName: "Emily Davis",
-    reporterEmail: "emilydavis@example.com",
-    reporterCompany: "BizWorks",
-    subject: "Slow performance on app",
-    priority: TicketItemPriority.LOW,
-    status: TicketItemStatus.CLOSED,
-    description: "The application is running slower than usual.",
-    attachments: ["performance_report.pdf"],
-    dateCreated: "2024-06-25T08:45:00Z",
-    dateResolved: "2024-07-01T16:00:00Z"
+    id: 4,
+    name: "Emily INC",
+    email: "emilydavis@example.com",
+    customerName: "Emily Davis",
+    phone: "08112345678",
+    location: "BizWorks",
+    status: LeadStatus.LEAD,
+    product_offered: "Slow performance on app",
+    created_by: "",
+    updated_by: "2024-07-01T10:30:00Z",
+    created_at: "",
+    updated_at: ""
   }
 ];

@@ -15,8 +15,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HlmButtonDirective } from '../../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmInputDirective } from '../../../../libs/ui/ui-input-helm/src/lib/hlm-input.directive';
 import { HlmLabelDirective } from '../../../../libs/ui/ui-label-helm/src/lib/hlm-label.directive';
-import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
-import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
+import {
+  BrnDialogTriggerDirective,
+  BrnDialogContentDirective,
+} from '@spartan-ng/ui-dialog-brain';
+import {
+  BrnRadioGroupComponent,
+  BrnRadioComponent,
+} from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmDialogContentComponent } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-content.component';
@@ -29,18 +35,18 @@ import { HlmRadioGroupDirective } from '../../../../libs/ui/ui-radiogroup-helm/s
 import { HlmRadioIndicatorComponent } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
-import { CreateItemPayload } from '../../models/bdm-item';
 import { DecimalPipe, Location } from '@angular/common';
 import { OnlyNumbersDirective } from './components/directives/only-numbers.directive';
+import { CreateActivityPayload, Lead, LeadStatus } from '../../models/bdm-item';
 
 @Component({
   selector: 'oryo-view-bdm',
   standalone: true,
   imports: [
     HlmButtonDirective,
-		HlmIconComponent,
-		HlmInputDirective,
-		HlmLabelDirective,
+    HlmIconComponent,
+    HlmInputDirective,
+    HlmLabelDirective,
     HlmTableComponent,
     HlmTrowComponent,
     HlmThComponent,
@@ -52,25 +58,26 @@ import { OnlyNumbersDirective } from './components/directives/only-numbers.direc
     HlmIconComponent,
     NgIconComponent,
     BrnRadioGroupComponent,
-		BrnRadioComponent,
-		HlmRadioIndicatorComponent,
-		HlmRadioDirective,
-		HlmRadioGroupDirective,
+    BrnRadioComponent,
+    HlmRadioIndicatorComponent,
+    HlmRadioDirective,
+    HlmRadioGroupDirective,
 
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
+    BrnDialogTriggerDirective,
+    BrnDialogContentDirective,
 
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		BrnSelectImports,
-		HlmSelectImports,
-		ReactiveFormsModule,
-    OnlyNumbersDirective, DecimalPipe,
-    HlmSkeletonComponent
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogFooterComponent,
+    HlmDialogTitleDirective,
+    HlmDialogDescriptionDirective,
+    BrnSelectImports,
+    HlmSelectImports,
+    ReactiveFormsModule,
+    OnlyNumbersDirective,
+    DecimalPipe,
+    HlmSkeletonComponent,
   ],
   providers: [
     provideIcons({
@@ -83,8 +90,10 @@ import { OnlyNumbersDirective } from './components/directives/only-numbers.direc
 export class ViewBdmComponent {
   getId = Input();
   _loading = signal<boolean>(false);
-	isCreating = signal<boolean>(false);
+  isCreating = signal<boolean>(false);
   isEditing = signal<boolean>(false);
+  isEditingWon = signal<boolean>(false);
+  isCreatingOpportunity = signal<boolean>(false);
 
   budget: any;
   target: any;
@@ -94,9 +103,9 @@ export class ViewBdmComponent {
 
   bdm: { [key: string]: string } = {};
 
-	// injects
-	_fb = inject(FormBuilder);
-  _location = inject(Location)
+  // injects
+  _fb = inject(FormBuilder);
+  _location = inject(Location);
   protected _invoices = [
     {
       name: 'Olumide',
@@ -131,13 +140,37 @@ export class ViewBdmComponent {
       productOffered: 'Generator',
     },
   ];
-  protected _activity: any[] =[]
+  protected _activity: any[] = [];
+
+  protected _won = [
+    {
+      id: 1,
+      name: 'Close',
+    },
+    {
+      id: 2,
+      name: 'KIV',
+    },
+    {
+      id: 3,
+      name: 'Not Interested',
+    },
+    {
+      id: 4,
+      name: 'POC',
+    },
+    {
+      id: 5,
+      name: 'Project',
+    },
+
+  ]
 
   ngOnInit(): void {
-    this._loading.set(true)
+    this._loading.set(true);
     setTimeout(() => {
       this._loading.set(false);
-      this._activity= [
+      this._activity = [
         {
           name: 'Olumide',
           email: 'oekundayo@oryoltd.com',
@@ -175,35 +208,75 @@ export class ViewBdmComponent {
   }
 
   createCompantForm = this._fb.nonNullable.group({
-		// customer details
-		name: this._fb.nonNullable.control('', Validators.required),
-		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
-		// branch: this._fb.nonNullable.control('', Validators.required),
-		phone: this._fb.nonNullable.control('', Validators.required),
-		location: this._fb.nonNullable.control('', Validators.required),
-		pto: this._fb.nonNullable.control('', Validators.required),
+    // customer details
+    name: this._fb.nonNullable.control('', Validators.required),
+    email: this._fb.nonNullable.control('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    customerName: this._fb.nonNullable.control('', Validators.required),
+    phone: this._fb.nonNullable.control('', Validators.required),
+    location: this._fb.nonNullable.control('', Validators.required),
+    pto: this._fb.nonNullable.control('', Validators.required),
+  });
 
-		// // issue details
-		// status: this._fb.nonNullable.control('OPEN', Validators.required),
-		// priority: this._fb.nonNullable.control('HIGH', Validators.required),
+  createOpportunityForm = this._fb.nonNullable.group({
+    // customer details
+    description: this._fb.nonNullable.control('', Validators.required),
+    siteSurvey: this._fb.nonNullable.control(''),
+    schematicDesigns: this._fb.nonNullable.control(''),
+    technicalProposal: this._fb.nonNullable.control(''),
+    commercials: this._fb.nonNullable.control(''),
+    purchaseOrder: this._fb.nonNullable.control(''),
+  });
 
-		// subject: this._fb.nonNullable.control('', Validators.required),
-		// category: this._fb.nonNullable.control('', Validators.required),
-		// description: this._fb.nonNullable.control('', Validators.required),
-		// attachments: this._fb.nonNullable.control<string[]>([]),
-		// assignee: this._fb.nonNullable.control(""),
-	});
+  createWonForm = this._fb.nonNullable.group({
+    // customer details
+    won: this._fb.nonNullable.control(0, Validators.required),
+  });
+  onSubmitOpportunity() {
+    if (this.createOpportunityForm.invalid) {
+      toast.error('Form is invalid. All fields are should be filled', {
+        id: 'invalid-internal-create-ticket-form',
+      });
+    }
+
+    const payload: CreateActivityPayload = {
+      description: this.createOpportunityForm.controls.description.value,
+      siteSurvey: this.createOpportunityForm.controls.siteSurvey.value,
+      schematicDesigns:
+        this.createOpportunityForm.controls.schematicDesigns.value,
+      technicalProposal:
+        this.createOpportunityForm.controls.technicalProposal.value,
+      commercials: this.createOpportunityForm.controls.commercials.value,
+      purchaseOrder: this.createOpportunityForm.controls.purchaseOrder.value,
+    };
+
+    this.isCreatingOpportunity.set(true);
+    if (payload) {
+      toast.success('Success in creation', {
+        id: 'valid-success',
+      });
+    }
+  }
 
   onToggle() {
     if (this.isEditing() === true) {
-      this.isEditing.set(false)
-      return
+      this.isEditing.set(false);
+      return;
     }
-    this.isEditing.set(true)
+    this.isEditing.set(true);
+  }
+  onToggleWon() {
+    if (this.isEditingWon() === true) {
+      this.isEditingWon.set(false);
+      return;
+    }
+    this.isEditingWon.set(true);
   }
 
   goBack() {
-    this._location.back()
+    this._location.back();
   }
 
   ontxtBudget(e: any) {
@@ -252,7 +325,7 @@ export class ViewBdmComponent {
     this.handleInput(payableEvent);
   }
 
-  handleInput(event: any, type?:any) {
+  handleInput(event: any, type?: any) {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value;
     const keyPressed = inputElement.name;
@@ -262,47 +335,51 @@ export class ViewBdmComponent {
     // Use the DecimalPipe to format the value
   }
 
-
   onSubmit() {
-      if (this.createCompantForm.invalid) {
-        toast.error("Form is invalid. All fields are should be filled", {
-          id: "invalid-internal-create-ticket-form"
-        })
-      }
-  
-      const payload: CreateItemPayload = {
-        name: this.createCompantForm.controls.name.value,
-        email: this.createCompantForm.controls.email.value,
-        // branch: this.createCompantForm.controls.branch.value,
-        phone: this.createCompantForm.controls.phone.value,
-        location: this.createCompantForm.controls.location.value,
-        pto: this.createCompantForm.controls.pto.value,
-      }
-  
-      this.isCreating.set(true);
-      if (payload) {
-        toast.success("Success in creation", {
-          id: "valid-success"
-        })
-  
-          this.isCreating.set(false);
-          // this._routes.navigate(['business-development', 'view-bdm'])
-        
-      }
-      // this._ticketsService.createTicket(payload).subscribe({
-      // 	next: (res) => {
-      // 		this.ticketCreated.emit();
-      // 		this.isCreatingTicket.set(false);
-      // 		this.openCreateTicketForm.set(false);
-      // 		this.sendEmail(res.data);
-      // 		toast.success("Ticket created successfully", {
-      // 			id: "create-ticket-form-success"
-      // 		});
-      // 	},
-      // 	error: (err) => {
-      // 		this.isCreatingTicket.set(false);
-      // 		console.log(err);
-      // 	}
-      // })
+    if (this.createCompantForm.invalid) {
+      toast.error('Form is invalid. All fields are should be filled', {
+        id: 'invalid-internal-create-ticket-form',
+      });
     }
+
+    const payload: Lead = {
+      name: this.createCompantForm.controls.name.value,
+      email: this.createCompantForm.controls.email.value,
+      customerName: this.createCompantForm.controls.customerName.value,
+      phone: this.createCompantForm.controls.phone.value,
+      location: this.createCompantForm.controls.location.value,
+      product_offered: this.createCompantForm.controls.pto.value,
+      id: 0,
+      status: LeadStatus.KIV,
+      created_by: '',
+      updated_by: '',
+      created_at: '',
+      updated_at: '',
+    };
+
+    this.isCreating.set(true);
+    if (payload) {
+      toast.success('Success in creation', {
+        id: 'valid-success',
+      });
+
+      this.isCreating.set(false);
+      // this._routes.navigate(['business-development', 'view-bdm'])
+    }
+    // this._ticketsService.createTicket(payload).subscribe({
+    // 	next: (res) => {
+    // 		this.ticketCreated.emit();
+    // 		this.isCreatingTicket.set(false);
+    // 		this.openCreateTicketForm.set(false);
+    // 		this.sendEmail(res.data);
+    // 		toast.success("Ticket created successfully", {
+    // 			id: "create-ticket-form-success"
+    // 		});
+    // 	},
+    // 	error: (err) => {
+    // 		this.isCreatingTicket.set(false);
+    // 		console.log(err);
+    // 	}
+    // })
+  }
 }

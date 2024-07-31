@@ -22,7 +22,7 @@ import { HlmLabelDirective } from '../../../../../../libs/ui/ui-label-helm/src/l
 import { HlmRadioGroupDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-group.directive';
 import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
-import { CreateActivityPayload, CreateViewPayload } from '../../../../models/bdm-item';
+import { CreateActivityPayload, } from '../../../../models/bdm-item';
 
 @Component({
   selector: 'oryo-create-activity',

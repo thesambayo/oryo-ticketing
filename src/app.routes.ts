@@ -19,7 +19,7 @@ export const routes: Routes = [
 		loadChildren: () => import('./help-desk/help-desk.routes').then(m => m.helpDeskRoutes),
 	},
 	{
-		path: 'business-development',
+		path: 'bdm',
 		loadChildren: () => import('./business-development/bdm.routes').then(m => m.BusinessDevelopmentRoutes),
 	}
 

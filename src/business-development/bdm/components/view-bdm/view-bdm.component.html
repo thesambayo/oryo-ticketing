@@ -26,6 +26,8 @@
                   class="mt-1 p-2 w-full border rounded-md"
                   placeholder="0"
                   name="budget"
+                  value="{{ 4000000 | number }}"
+                  disabled
                   (change)="handleInput($event)"
                   (keyup)="ontxtBudget($event)"
                   appOnlyNumbers
@@ -126,7 +128,7 @@
       <div class="flex flex-wrap pt-1 pr-3">
         <section class="w-full bg-white rounded-md p-3" hlmCard>
           <div hlmCardHeader class="flex justify-between items-center p-3">
-            <h3 hlmCardTitle class="font-bold">Company</h3>
+            <h3 hlmCardTitle class="font-bold">Leads</h3>
             <div class="flex gap-2">
               <button
                 hlmBtn
@@ -163,6 +165,21 @@
                       class="w-full"
                       id="companyName"
                       formControlName="name"
+                    />
+                    }
+                  </div>
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyName">
+                      <span>Customer Name</span>
+                    </label>
+                    @if (!isEditing()) {
+                    <div class="text-sm">{{ "Jane Smith" }}</div>
+                    }@else {
+                    <input
+                      hlmInput
+                      class="w-full"
+                      id="companyName"
+                      formControlName="customerName"
                     />
                     }
                   </div>
@@ -267,15 +284,181 @@
                       </div> -->
         </section>
       </div>
+      <div class="flex flex-wrap pt-1 pr-3 mt-2">
+        <section class="w-full bg-white rounded-md p-3" hlmCard>
+          <div hlmCardHeader class="flex justify-between items-center p-3">
+            <h3 hlmCardTitle class="font-bold">Won</h3>
+            <div class="flex gap-2">
+              <button
+                hlmBtn
+                variant="outline"
+                class="border-none shadow-sm bg-primary text-white"
+                size="sm"
+                (click)="onToggleWon()"
+              >
+                @if (!isEditingWon()) {
+                <span>Edit</span>
+                }@else {
+                <span>View</span>
+                }
+              </button>
+            </div>
+          </div>
+          <div hlmCardContent class="bg-white">
+            <div class="flex flex-wrap">
+              <form
+                class="space-y-4"
+                [formGroup]="createWonForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <div class="space-y-2">
+                    <label hlmLabel for="companyEmail">
+                      <!-- <span>Product Offered</span> -->
+                    </label>
+                    @if (!isEditingWon()) {
+                    <div class="text-sm">{{ "Fleet Management" }}</div>
+                    }@else {
+                    <brn-select
+                      class="w-full"
+                      placeholder="Select an option"
+                      formControlName="won"
+                    >
+                      <hlm-select-trigger class="w-56">
+                        <hlm-select-value />
+                      </hlm-select-trigger>
+                      <hlm-select-content class="w-56">
+                        @for (item of _won; track item.id) {
+                        <hlm-option [value]="item.id">{{
+                          item.name
+                        }}</hlm-option>
+                        }
+                      </hlm-select-content>
+                    </brn-select>
+                    }
+                  </div>
+                  @if (isEditingWon()) {
+                    <button
+                      hlmBtn
+                      type="submit"
+                      class="w-fit"
+                      [disabled]="createWonForm.invalid || isCreating()"
+                    >
+                      {{ isCreating() ? "Loading..." : "Update" }}
+                    </button>
+                  }
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- <div hlmCardFooter class="justify-between">
+                          <button hlmBtn variant="ghost">Cancel</button>
+                          <button hlmBtn>Create</button>
+                      </div> -->
+        </section>
+      </div>
     </div>
 
     <div class="w-full md:w-6/12">
       <div class="flex flex-wrap pt-1">
-        <section class="w-full bg-white rounded-md" hlmCard>
-          <div hlmCardHeader class="flex justify-between items-center p-3">
-            <h3 hlmCardTitle class="font-bold">Opportunity</h3>
-            <oryo-create-activity></oryo-create-activity>
-          </div>
+        <section
+          class="w-full bg-white rounded-md h-dvh overflow-y-scroll relative"
+          hlmCard
+        >
+          <form class="space-y-4" [formGroup]="createOpportunityForm">
+            <div
+              hlmCardHeader
+              class="flex justify-between items-center p-3 sticky top-0 bg-white"
+            >
+              <h3 hlmCardTitle class="font-bold">Opportunity</h3>
+              <div class="flex gap-2">
+                <oryo-create-activity></oryo-create-activity>
+                <button
+                  hlmBtn
+                  type="button"
+                  class="w-fit"
+                  (click)="onSubmitOpportunity()"
+                  [disabled]="
+                    createCompantForm.invalid || isCreatingOpportunity()
+                  "
+                >
+                  {{ isCreatingOpportunity() ? "Loading..." : "Submit" }}
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 p-4">
+              <div class="space-y-2">
+                <label hlmLabel for="siteSurvey">
+                  <span>Site Survey</span>
+                </label>
+                <input
+                  class="w-full"
+                  hlmInput
+                  id="siteSurvey"
+                  name="siteSurvey"
+                  formControlName="siteSurvey"
+                  type="file"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label hlmLabel for="schematicDesigns">
+                  <span>Schematic Designs</span>
+                </label>
+                <input
+                  class="w-full"
+                  hlmInput
+                  id="schematicDesigns"
+                  name="schematicDesigns"
+                  formControlName="schematicDesigns"
+                  type="file"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label hlmLabel for="technicalProposal">
+                  <span>Technical Proposal</span>
+                </label>
+                <input
+                  class="w-full"
+                  hlmInput
+                  id="technicalProposal"
+                  name="technicalProposal"
+                  formControlName="technicalProposal"
+                  type="file"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label hlmLabel for="commercials">
+                  <span>Commercials(BOM)</span>
+                </label>
+                <input
+                  class="w-full"
+                  hlmInput
+                  id="commercials"
+                  name="commercials"
+                  formControlName="commercials"
+                  type="file"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label hlmLabel for="purchaseOrder">
+                  <span>Purchase order(PO)</span>
+                </label>
+                <input
+                  class="w-full"
+                  hlmInput
+                  id="purchaseOrder"
+                  name="purchaseOrder"
+                  formControlName="purchaseOrder"
+                  type="file"
+                />
+              </div>
+            </div>
+          </form>
           <div hlmCardContent class="bg-white h-dvh">
             <!-- Activity Comments Section -->
             <div class="p-6 w-full mx-auto">
