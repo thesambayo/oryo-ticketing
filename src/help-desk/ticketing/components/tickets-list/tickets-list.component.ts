@@ -114,7 +114,6 @@ export class TicketsListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._topbarService.updateTopbarDetails({
-			...this._topbarService.topbarDetails(),
 			title: "Tickets",
 			backRoute: undefined,
 		});

@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { AuthService } from '../../../libs/services/auth.service';
 
 interface TopbarDetails {
 	title: string;
@@ -10,15 +11,19 @@ interface TopbarDetails {
 	providedIn: 'root'
 })
 export class TopbarService {
+	_authService = inject(AuthService);
 	topbarDetails = signal<TopbarDetails>({
 		title: "",
-		staffName: "",
+		staffName: this._authService.getLoggedInStaff()?.staff.name ?? "",
 		backRoute: undefined
 	});
 
 
-	updateTopbarDetails(details: TopbarDetails) {
-		this.topbarDetails.set(details);
+	updateTopbarDetails(details: Omit<TopbarDetails, "staffName">) {
+		this.topbarDetails.update((value) => ({
+			...value,
+			...details
+		}))
 	}
 
 

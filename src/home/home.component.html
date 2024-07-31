@@ -40,7 +40,10 @@
       />
       <h2 class="text-xl font-medium">NOC Dashboard</h2>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
+    <div
+			[routerLink]="['/help-desk']"
+			class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer"
+		>
       <img
         src="../../service-desk-icon.svg"
         alt="Service Desk Module"
@@ -57,7 +60,8 @@
       <h2 class="text-xl font-medium">svg & Procurement</h2>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer"
-    [routerLink]="['/business-development']" routerLinkActive="router-link-active" >
+    	[routerLink]="['/business-development']" routerLinkActive="router-link-active"
+		>
       <img
         src="../../business-development-icon.svg"
         alt="Business Development"
