@@ -8,5 +8,6 @@
 		flex: 1;
 		background: hsla(222, 83%, 98%, 1);
 		padding: 36px 24px;
+		overflow-y: scroll;
 	}
 }

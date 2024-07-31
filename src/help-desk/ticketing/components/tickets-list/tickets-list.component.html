@@ -10,7 +10,7 @@
       <span>All tickets ({{ _tickets().length }})</span>
     </button>
 
-    <div class="relative">
+    <!-- <div class="relative">
       <hlm-icon
         size="sm"
         class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground"
@@ -22,14 +22,14 @@
         placeholder="Search for reporter name..."
         type="Search"
       />
-    </div>
+    </div> -->
 
-    <div class="flex items-center gap-2.5">
-      <button hlmBtn variant="outline" class="gap-2" size="sm">
+    <div class="flex items-center justify-end gap-2.5">
+      <!-- <button hlmBtn variant="outline" class="gap-2" size="sm">
         <hlm-icon class="size-3.5" name="lucideFilter" />
         <span>Filter</span>
-      </button>
-      <brn-popover sideOffset="5" closeDelay="100">
+      </button> -->
+      <!-- <brn-popover sideOffset="5" closeDelay="100">
         <button
           hlmBtn
           variant="outline"
@@ -82,7 +82,7 @@
             <button hlmBtn class="gap-2 w-full">Sort</button>
           </div>
         </div>
-      </brn-popover>
+      </brn-popover> -->
 
       <oryo-create-ticket (ticketCreated)="getAllTickets()"></oryo-create-ticket>
     </div>
@@ -91,15 +91,18 @@
   <hlm-table class="w-full min-w-[500px]">
     <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
     <hlm-trow class="uppercase">
-      <hlm-th class="w-fit">
+      <!-- <hlm-th class="w-fit">
         <hlm-checkbox />
-      </hlm-th>
-      <hlm-th class="w-52">Ticket ID</hlm-th>
+      </hlm-th> -->
+      <hlm-th class="w-52">
+				Ticket ID
+			</hlm-th>
       <hlm-th class="flex-1 min-w-40">Customer</hlm-th>
       <hlm-th class="flex-1 min-w-20">Subject</hlm-th>
       <hlm-th class="flex-1 min-w-20">Priority</hlm-th>
       <hlm-th class="flex-1 min-w-20">Status</hlm-th>
       <hlm-th class="flex-1 min-w-20">Assignee</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Created Date</hlm-th>
       <hlm-th class="flex-1 min-w-20">Resolution Date</hlm-th>
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
@@ -111,9 +114,9 @@
 		} @else {
 			@for (ticket of _tickets(); track ticket.id) {
 			<hlm-trow>
-				<hlm-td truncate class="font-medium w-fit">
+				<!-- <hlm-td truncate class="font-medium w-fit">
 					<hlm-checkbox />
-				</hlm-td>
+				</hlm-td> -->
 				<hlm-td truncate class="font-medium w-52">
 					<a
 						hlmBtn
@@ -123,9 +126,9 @@
 					>
 						#{{ ticket.id | leftPadding: 6 }}
 					</a>
-					<p class="text-muted-foreground lowercase">
+					<!-- <p class="text-muted-foreground lowercase">
 						{{ ticket.createdAt| date : "dd/MM/yyyy h:mma" }}
-					</p>
+					</p> -->
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-40 flex flex-col items-start whitespace-nowrap">
 					<p class="text-foreground font-medium truncate">{{ ticket.reporterName }}</p>
@@ -154,6 +157,9 @@
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
 					{{ticket.assigneeName}}
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-20">
+					<span>{{ticket.createdAt | date}}</span>
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
 					@if (ticket.expectedResolvedAt.Valid) {

@@ -116,23 +116,6 @@ export interface CreateTicketItemPayload {
 	// attachments?: string[]; later scatters
 	// should have a created by field that when not-empty is only an oryo email
 }
-// export interface CreateTicketItemPayload {
-//   // with validation for BE
-//   reporterName: string; // non empty
-//   reporterEmail: string; // non empty and is an email
-//   reporterCompany: string; // non-empty
-//   priority?: TicketItemPriority; // set a default in db [can be within list of registered values]
-//   status?: TicketItemStatus; // set a default in db [can be within list of registered values]
-
-//   subject: string; // fuel log, tank issue, gps, etc [can be within list of registered values]
-//   description: string; // non empty and not more than 500 bytes long
-//   // minimum requirement to create a ticket above
-
-//   category?: string; // incident, problem etc [can be within list of registered values]
-//   attachments?: string[];
-//   assignee?: string; // when not-empty is only an oryo email
-//   // should have a created by field that when not-empty is only an oryo email
-// }
 
 export interface UpdateTicketItemPayload {
 	reporterName?: string;
