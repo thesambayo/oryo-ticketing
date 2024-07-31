@@ -27,7 +27,6 @@ export class ViewTicketDetailsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._topbarService.updateTopbarDetails({
-			...this._topbarService.topbarDetails(),
 			title: `Ticket ${this.ticketId}`,
 			backRoute: "/help-desk/tickets",
 		});

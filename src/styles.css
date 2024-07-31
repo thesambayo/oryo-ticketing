@@ -57,3 +57,9 @@
 	--destructive-foreground: 210 20% 98%;
 	--ring: 216 12.2% 83.9%;
 }
+
+body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}

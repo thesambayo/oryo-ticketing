@@ -1,5 +1,18 @@
-export interface LoginPayload {
-    // with validation for BE
-    email: string; // non empty and is an email
-    password: string; // non empty
-  }
+export interface StaffLoginPayload {
+	email: string;
+	password: string;
+}
+
+export interface LoggedInStaff {
+	authentication_token: {
+		token: string;
+		expiry: string;
+	},
+	staff: {
+		id: number;
+		created_at: string;
+		name: string;
+		email: string;
+		activated: boolean;
+	}
+}

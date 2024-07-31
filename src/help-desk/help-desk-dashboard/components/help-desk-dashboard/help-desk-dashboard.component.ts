@@ -23,8 +23,7 @@ export class HelpDeskDashboardComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._topbarService.updateTopbarDetails({
-			staffName: "Muhammed Zanna",
-			title: "Welcome to Service Support",
+			title: "Welcome to Service Desk",
 		})
 	}
 }

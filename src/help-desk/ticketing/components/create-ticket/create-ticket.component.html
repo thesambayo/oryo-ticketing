@@ -4,8 +4,8 @@
 		(stateChanged)="$event === 'closed' && openCreateTicketForm.set(false)"
 		>
 	<button hlmBtn class="gap-2" size="sm" (click)="openCreateTicketForm.set(true)">
-		<hlm-icon class="size-3.5" name="lucidePlus" />
-		<span>Create ticket</span>
+		<hlm-icon class="size-4" name="lucidePlus" />
+		<span>Create</span>
 	</button>
 	<!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
 		<hlm-icon class="size-3.5" name="lucidePlus" />
@@ -13,7 +13,7 @@
 	</button> -->
 	<hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
 		<hlm-dialog-header>
-			<h3 hlmDialogTitle>Create Ticket</h3>
+			<h3 hlmDialogTitle>New ticket form</h3>
 		</hlm-dialog-header>
 
 		<form class="space-y-4" [formGroup]="createTicketForm" (ngSubmit)="onSubmit()">
@@ -63,6 +63,7 @@
 						<hlm-select-content>
 							<hlm-option value="PROBLEM_MANAGEMENT"> Problem Management </hlm-option>
 							<hlm-option value="INCIDENT_MANAGEMENT"> Incident Management </hlm-option>
+							<hlm-option value="CHANGE_MANAGEMENT"> Change Management </hlm-option>
 						</hlm-select-content>
 					</brn-select>
 				</div>

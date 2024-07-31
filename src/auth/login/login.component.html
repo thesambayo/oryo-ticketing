@@ -121,8 +121,9 @@
             hlmLabel
             for="password"
             class="block text-gray-700 font-semibold mb-2"
-            >Password</label
           >
+						Password
+					</label>
           <input
             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             hlmInput
@@ -138,9 +139,9 @@
               id="remember"
               class="mr-2 ring-primary checked:bg-primary"
             />
-            <label for="remember" class="text-gray-600"
-              >Keep me logged in</label
-            >
+            <label for="remember" class="text-gray-600">
+							Keep me logged in
+						</label>
           </div>
           <a href="#" class="text-primary">Forgot Password?</a>
         </div>
@@ -148,8 +149,8 @@
           type="submit"
           class="w-full bg-primary text-white p-3 rounded-lg font-semibold"
         >
-          @if (spinner) {
-          <hlm-spinner />
+          @if (isLoggingIn) {
+          <hlm-spinner size="xs" />
           } @else {
           <span>Sign In</span>
           }
