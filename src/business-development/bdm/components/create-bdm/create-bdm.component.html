@@ -1,16 +1,8 @@
 <!-- (stateChanged)="handleOpenCreateFormDialog($event)" -->
 <hlm-dialog
-		[state]="openCreateCompanyForm() ? 'open' : 'closed'"
+		[state]="'open'"
 		(stateChanged)="$event === 'closed' && openCreateCompanyForm.set(false)"
 		>
-	<button hlmBtn class="gap-2" size="sm" (click)="openCreateCompanyForm.set(true)">
-		<hlm-icon class="size-3.5" name="lucidePlus" />
-		<span>Create</span>
-	</button>
-	<!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
-		<hlm-icon class="size-3.5" name="lucidePlus" />
-		<span>Create ticket {{ openCreateTicketForm() }}</span>
-	</button> -->
 	<hlm-dialog-content
 		class="w-screen max-w-2xl"
 		*brnDialogContent="let ctx"
@@ -27,6 +19,12 @@
 					</label>
 					<input hlmInput class="w-full" id="companyName" formControlName="name" />
 				</div>
+				<div class="space-y-2">
+					<label hlmLabel for="companyName">
+						<span>Customer Name</span>
+					</label>
+					<input hlmInput class="w-full" id="companyName" formControlName="CustomerName" />
+				</div>
 
 				<div class="space-y-2">
 					<label hlmLabel for="companyEmail">
@@ -41,18 +39,6 @@
 					/>
 				</div>
 
-				<!-- <div class="space-y-2">
-					<label hlmLabel for="companyEmail">
-						<span>Branch</span>
-					</label>
-					<input
-						class="w-full"
-						hlmInput
-						id="companyEmail"
-						type="text"
-						formControlName="branch"
-					/>
-				</div> -->
 
 				<div class="space-y-2">
 					<label hlmLabel for="companyEmail">

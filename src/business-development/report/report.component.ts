@@ -1,30 +1,10 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import {
-  lucideBell,
-  lucideSearch,
-  lucideMoveHorizontal,
-  lucidePlus,
-  lucideChevronsUpDown,
-  lucideFilter,
-} from '@ng-icons/lucide';
-import {
-  BrnDialogTriggerDirective,
-  BrnDialogContentDirective,
-} from '@spartan-ng/ui-dialog-brain';
+import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
-import {
-  BrnPopoverComponent,
-  BrnPopoverTriggerDirective,
-  BrnPopoverContentDirective,
-  BrnPopoverCloseDirective,
-} from '@spartan-ng/ui-popover-brain';
-import {
-  BrnRadioGroupComponent,
-  BrnRadioComponent,
-} from '@spartan-ng/ui-radiogroup-brain';
+import { BrnPopoverComponent, BrnPopoverTriggerDirective, BrnPopoverContentDirective, BrnPopoverCloseDirective } from '@spartan-ng/ui-popover-brain';
+import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { TicketPriorityDisplayPipe } from '../../help-desk/ticketing/pipes/ticket-priority-display.pipe';
@@ -54,16 +34,17 @@ import { HlmTdComponent } from '../../libs/ui/ui-table-helm/src/lib/hlm-td.compo
 import { HlmThComponent } from '../../libs/ui/ui-table-helm/src/lib/hlm-th.component';
 import { HlmTrowComponent } from '../../libs/ui/ui-table-helm/src/lib/hlm-trow.component';
 import { HlmSmallDirective } from '../../libs/ui/ui-typography-helm/src/lib/hlm-small.directive';
-import { TicketsService } from '../../help-desk/ticketing/services/tickets.service';
-import { CreateBdmComponent } from './components/create-bdm/create-bdm.component';
-import { ViewBdmComponent } from './components/view-bdm/view-bdm.component';
+import { ViewBdmComponent } from '../bdm/components/view-bdm/view-bdm.component';
+import { provideIcons } from '@ng-icons/core';
+import { lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevronsUpDown, lucideFilter } from '@ng-icons/lucide';
 import { Router } from '@angular/router';
-import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
+import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-item';
 
 @Component({
-  selector: 'oryo-bdm',
+  selector: 'oryo-report',
   standalone: true,
   imports: [
+
     HlmButtonDirective,
     HlmIconComponent,
     HlmInputDirective,
@@ -82,6 +63,7 @@ import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
 
     HlmMenuModule,
     BrnMenuTriggerDirective,
+    DecimalPipe,
 
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
@@ -123,29 +105,29 @@ import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
       lucideFilter,
     }),
   ],
-  templateUrl: './bdm.component.html',
-  styleUrl: './bdm.component.css',
+  templateUrl: './report.component.html',
+  styleUrl: './report.component.css'
 })
-export class BdmComponent implements OnInit {
+export class ReportComponent implements OnInit {
   getStatusVariant = getStatusVariant;
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
 
   isLoading = signal<boolean>(false);
-  _leads = signal<Lead[]>([]);
+  _report = signal<Report[]>([]);
   getView = signal<boolean>(false);
 
   ngOnInit(): void {
-    this._leads.set([
+    this._report.set([
       {
         id: 1,
-        name: 'John INC',
-        email: 'johndoe@example.com',
-        customerName: 'John Doe',
-        phone: '08112345678',
-        location: 'Issue with login',
-        status: LeadStatus.OPPORTUNITY,
-        product_offered: 'Fleet Management',
+        staffId: 12,
+        name: 'Jide',
+        budget: 20000000,
+        negotationBudget: 30000000,
+        leads: 7,
+        opportunity: 5,
+        won: 9,
         created_by: '',
         updated_by: '2024-07-01T10:30:00Z',
         created_at: '2024-07-01T10:30:00Z',
@@ -153,13 +135,13 @@ export class BdmComponent implements OnInit {
       },
       {
         id: 2,
-        name: 'Jane INC',
-        email: 'janesmith@example.com',
-        customerName: 'Jane Smith',
-        phone: '08112345678',
-        location: 'Tech Solutions',
-        status: LeadStatus.PROJECT,
-        product_offered: 'Generator',
+        staffId: 13,
+        name: 'BJ',
+        budget: 20000000,
+        negotationBudget: 30000000,
+        leads: 7,
+        opportunity: 5,
+        won: 9,
         created_by: '',
         updated_by: '2024-07-01T10:30:00Z',
         created_at: '2024-07-01T10:30:00Z',
@@ -167,13 +149,13 @@ export class BdmComponent implements OnInit {
       },
       {
         id: 3,
-        name: 'Mike INC',
-        email: 'mikejohnson@example.com',
-        customerName: 'Mike Johnson',
-        phone: '08112345678',
-        location: 'Innovatech',
-        status: LeadStatus.LEAD,
-        product_offered: 'Vision',
+        staffId: 14,
+        name: 'Samuel',
+        budget: 20000000,
+        negotationBudget: 30000000,
+        leads: 7,
+        opportunity: 5,
+        won: 9,
         created_by: '',
         updated_by: '2024-07-01T10:30:00Z',
         created_at: '2024-07-01T10:30:00Z',
@@ -181,13 +163,13 @@ export class BdmComponent implements OnInit {
       },
       {
         id: 4,
-        name: 'Emily INC',
-        email: 'emilydavis@example.com',
-        customerName: 'Emily Davis',
-        phone: '08112345678',
-        location: 'BizWorks',
-        status: LeadStatus.LEAD,
-        product_offered: 'Fuel',
+        staffId: 15,
+        name: 'Victor',
+        budget: 20000000,
+        negotationBudget: 30000000,
+        leads: 7,
+        opportunity: 5,
+        won: 9,
         created_by: '',
         updated_by: '2024-07-01T10:30:00Z',
         created_at: '2024-07-01T10:30:00Z',

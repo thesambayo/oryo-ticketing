@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-<<<<<<< HEAD
-import { HelpDeskSidebarComponent } from '../../../help-desk/components/help-desk-sidebar/help-desk-sidebar.component';
-import { HelpDeskTopbarComponent } from '../../../help-desk/components/help-desk-topbar/help-desk-topbar.component';
-=======
->>>>>>> origin/main
 import { BdmSidebarComponent } from '../bdm-sidebar/bdm-sidebar.component';
 import { BdmTopbarComponent } from '../bdm-topbar/bdm-topbar.component';
 

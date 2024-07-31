@@ -7,7 +7,7 @@
       class="gap-2 pointer-events-none border-none text-oryo-green"
       size="sm"
     >
-      <span>All Business Development ({{ _tickets().length }})</span>
+      <span>All Business Development ({{ _leads().length }})</span>
     </button>
 
     <div class="relative">
@@ -84,30 +84,16 @@
           </div>
         </div>
       </brn-popover>
-
-<<<<<<< HEAD
-      <oryo-create-bdm (ticketCreated)="getAllTickets()"></oryo-create-bdm>
-=======
-      <oryo-create-bdm></oryo-create-bdm>
->>>>>>> origin/main
     </div>
   </div>
 
   <hlm-table class="w-full min-w-[500px]">
-<<<<<<< HEAD
-    <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
     <hlm-trow class="uppercase">
-      <!-- <hlm-th class="w-fit">
-          <hlm-checkbox />
-        </hlm-th> -->
-=======
-    <hlm-trow class="uppercase">
->>>>>>> origin/main
       <hlm-th class="w-52"> ID</hlm-th>
-      <hlm-th class="flex-1">Company Name</hlm-th>
+      <hlm-th class="w-52">Company Name</hlm-th>
+      <hlm-th class="w-56">Customer Name</hlm-th>
       <hlm-th class="w-56">PTO</hlm-th>
-      <hlm-th class="w-56">Branch Name(HQ)</hlm-th>
-      <hlm-th class="w-56">Location </hlm-th>
+      <hlm-th class="w-56">Status </hlm-th>
       <hlm-th class="justify-start w-40">Actions</hlm-th>
     </hlm-trow>
 
@@ -115,57 +101,34 @@
     <hlm-caption class="m-0 py-10">
       <hlm-spinner class="size-5" />
     </hlm-caption>
-    } @else { @for (item of _tickets(); track item.id) {
+    } @else { @for (item of _leads(); track item.id) {
     <hlm-trow (click)="onVeiw(item)">
       <!-- <hlm-td truncate class="font-medium w-fit">
-                      <hlm-checkbox />
-                  </hlm-td> -->
+                            <hlm-checkbox />
+                        </hlm-td> -->
       <hlm-td truncate class="font-medium w-52">
         <p class="text-foreground font-medium">
           BDM{{ item.id | leftPadding : 6 }}
         </p>
         <p class="text-muted-foreground lowercase">
-<<<<<<< HEAD
-          {{ item.dateCreated | date : "dd/MM/yyyy h:mma" }}
-=======
-          {{ item.createdAt| date : "dd/MM/yyyy h:mma" }}
->>>>>>> origin/main
+          {{ item.created_at | date : "dd/MM/yyyy h:mma" }}
         </p>
       </hlm-td>
       <hlm-td class="flex-1 flex flex-col items-start whitespace-nowrap">
-        <p class="text-foreground font-medium">{{ item.reporterName }}</p>
-        <p class="text-muted-foreground">{{ item.reporterCompany }}</p>
+        <p class="text-foreground font-medium">{{ item.name }}</p>
+        <p class="text-muted-foreground">{{ item.email }}</p>
       </hlm-td>
       <hlm-td class="w-56">
-        <span class="truncate">{{ item.subject }}</span>
+        <span class="truncate">{{ item.customerName }}</span>
       </hlm-td>
       <hlm-td class="w-56">
-        <span class="truncate">{{ item.description }}</span>
+        <span class="truncate">{{ item.product_offered }}</span>
       </hlm-td>
-      <hlm-td class="w-56">
-        <span class="truncate">{{ item.subject }}</span>
+      <hlm-td class="flex-1 min-w-20">
+        <div hlmBadge [variant]="getStatusVariant(item.status)">
+          {{ item.status }}
+        </div>
       </hlm-td>
-<<<<<<< HEAD
-      <!-- <hlm-td class="w-32">
-                      <p
-                          class="text-sm uppercase tracking-tighter"
-                          [ngClass]="{
-                              'text-yellow-500': ticket.priority === 'HIGH',
-                              'text-blue-500': ticket.priority === 'LOW',
-                              'text-black': ticket.priority === 'MEDIUM',
-                              'text-red-500': ticket.priority === 'URGENT',
-                          }"
-                      >
-                          {{ ticket.priority | ticketPriorityDisplay }}
-                      </p>
-                  </hlm-td>
-                  <hlm-td class="w-32">
-                      <div hlmBadge [variant]="getStatusVariant(ticket.status)">
-                          {{ ticket.status | ticketStatusDisplay }}
-                      </div>
-                  </hlm-td> -->
-=======
->>>>>>> origin/main
       <hlm-td class="justify-start w-40">
         <button
           hlmBtn
@@ -179,27 +142,19 @@
         <ng-template #menu>
           <hlm-menu>
             <!-- <hlm-menu-label>Actions</hlm-menu-label>
-                              <hlm-menu-separator /> -->
-            <hlm-menu-group>
+                                    <hlm-menu-separator /> -->
+            <!-- <hlm-menu-group>
               <button hlmMenuItem click="">Update</button>
               <button hlmMenuItem>Log and Activity</button>
               <button hlmMenuItem>Make Payment</button>
-            </hlm-menu-group>
+            </hlm-menu-group> -->
             <hlm-menu-separator />
-            <!-- <hlm-menu-group>
-                                  <button
-                                      hlmMenuItem
-                                      class="text-destructive hover:text-destructive"
-                                  >
-                                      Close ticket
-                                  </button>
-                              </hlm-menu-group> -->
           </hlm-menu>
         </ng-template>
       </hlm-td>
     </hlm-trow>
     } @empty {
-    <hlm-caption class="m-0 py-10">No tickets found</hlm-caption>
+    <hlm-caption class="m-0 py-10">No BDM found</hlm-caption>
     } }
   </hlm-table>
 </div>

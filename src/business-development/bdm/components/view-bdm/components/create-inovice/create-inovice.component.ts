@@ -22,13 +22,8 @@ import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogr
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../../../../../help-desk/ticketing/services/tickets.service';
-<<<<<<< HEAD
-import { EmailService } from '../../../../../../libs/services/email.service';
-import { CreateBudgetPayload, CreateViewPayload } from '../../../../models/bdm-item';
-=======
-import { CreateBudgetPayload } from '../../../../models/bdm-item';
->>>>>>> origin/main
 import { OnlyNumbersDirective } from '../directives/only-numbers.directive';
+import {  BudgetPayload } from '../../../../models/bdm-item';
 
 @Component({
   selector: 'oryo-create-inovice',
@@ -76,10 +71,6 @@ export class CreateInoviceComponent {
 
 	// injects
 	_fb = inject(FormBuilder);
-<<<<<<< HEAD
-	_emailService = inject(EmailService);
-=======
->>>>>>> origin/main
 	_ticketsService = inject(TicketsService);
 
 	// component variables
@@ -96,30 +87,8 @@ export class CreateInoviceComponent {
 		paymentValue: this._fb.nonNullable.control('', [Validators.required]),
 		oustandingBalance: this._fb.nonNullable.control('', [Validators.required]),
 		generatedInvoice: this._fb.nonNullable.control('', [Validators.required]),
-<<<<<<< HEAD
-		// reporterCompany: this._fb.nonNullable.control('', Validators.required),
-
-		// // issue details
-		// status: this._fb.nonNullable.control('OPEN', Validators.required),
-		// priority: this._fb.nonNullable.control('HIGH', Validators.required),
-
-		// subject: this._fb.nonNullable.control('', Validators.required),
-		// category: this._fb.nonNullable.control('', Validators.required),
-		// description: this._fb.nonNullable.control('', Validators.required),
-		// attachments: this._fb.nonNullable.control<string[]>([]),
-		// assignee: this._fb.nonNullable.control(""),
 	});
 
-	// handleOpenCreateFormDialog(state: BrnDialogState) {
-	// 	if (state === 'closed') {
-	// 		this.openCreateTicketForm.set(false);
-	// 	}
-	// }
-
-=======
-	});
-
->>>>>>> origin/main
   ontxtBudget(e: any) {
     this.budget = this.formattedNumber(e.target.value);
     console.log(this.budget);
@@ -167,7 +136,7 @@ export class CreateInoviceComponent {
 		}
     
 
-		const payload: CreateBudgetPayload = {
+		const payload: BudgetPayload = {
 			budget: this.createCompantForm.controls.budget.value,
 			projectValue: this.createCompantForm.controls.projectValue.value,
 			negotationValue: this.createCompantForm.controls.negotationValue.value,
@@ -187,24 +156,6 @@ export class CreateInoviceComponent {
 				this.openCreateBranchForm.set(false);
       
     }
-<<<<<<< HEAD
-		// this._ticketsService.createTicket(payload).subscribe({
-		// 	next: (res) => {
-		// 		this.ticketCreated.emit();
-		// 		this.isCreatingTicket.set(false);
-		// 		this.openCreateTicketForm.set(false);
-		// 		this.sendEmail(res.data);
-		// 		toast.success("Ticket created successfully", {
-		// 			id: "create-ticket-form-success"
-		// 		});
-		// 	},
-		// 	error: (err) => {
-		// 		this.isCreatingTicket.set(false);
-		// 		console.log(err);
-		// 	}
-		// })
-=======
->>>>>>> origin/main
 	}
 
 
