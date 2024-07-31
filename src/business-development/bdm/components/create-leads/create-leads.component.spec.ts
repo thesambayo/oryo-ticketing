@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateBdmComponent } from './create-bdm.component';
+import { CreateLeadsComponent } from './create-leads.component';
 
 describe('CreateBdmComponent', () => {
-  let component: CreateBdmComponent;
-  let fixture: ComponentFixture<CreateBdmComponent>;
+  let component: CreateLeadsComponent;
+  let fixture: ComponentFixture<CreateLeadsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateBdmComponent]
+      imports: [CreateLeadsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateBdmComponent);
+    fixture = TestBed.createComponent(CreateLeadsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

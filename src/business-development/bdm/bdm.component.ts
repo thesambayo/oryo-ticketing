@@ -55,7 +55,7 @@ import { HlmThComponent } from '../../libs/ui/ui-table-helm/src/lib/hlm-th.compo
 import { HlmTrowComponent } from '../../libs/ui/ui-table-helm/src/lib/hlm-trow.component';
 import { HlmSmallDirective } from '../../libs/ui/ui-typography-helm/src/lib/hlm-small.directive';
 import { TicketsService } from '../../help-desk/ticketing/services/tickets.service';
-import { CreateBdmComponent } from './components/create-bdm/create-bdm.component';
+import { CreateLeadsComponent } from './components/create-leads/create-leads.component';
 import { ViewBdmComponent } from './components/view-bdm/view-bdm.component';
 import { Router } from '@angular/router';
 import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
