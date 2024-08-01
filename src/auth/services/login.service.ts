@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { LoggedInStaff, StaffLoginPayload } from '../model/login-item';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiResponse } from '../../libs/models/model';
 import { catchError, tap } from 'rxjs';
