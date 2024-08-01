@@ -38,7 +38,7 @@ export class LoginComponent {
 			password: this.loginForm.value.password!,
 		};
 		this._loginService.login(payload).subscribe({
-			next: (res) => {
+			next: (_res) => {
 				this.isLoggingIn = false;
 				this._router.navigate(['/']);
 			},
