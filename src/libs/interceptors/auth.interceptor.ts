@@ -3,7 +3,8 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 
 const skippedURLs = [
-	"auth/login"
+	"auth/login",
+	"auth/activate",
 ];
 
 // Function to check if the request URL contains any of the skipped URLs

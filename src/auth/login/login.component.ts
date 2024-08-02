@@ -40,10 +40,10 @@ export class LoginComponent {
 		this._loginService.login(payload).subscribe({
 			next: (_res) => {
 				this.isLoggingIn = false;
-				this._router.navigate(['/']);
+				this._router.navigateByUrl("/");
 			},
-			error: (err) => {
-				console.log(err);
+			error: () => {
+				this.isLoggingIn = false;
 			}
 		});
 	}

@@ -12,6 +12,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent),
 	},
 	{
+		path: 'activate/:token',
+		loadComponent: () => import('./auth/activate-staff/activate-staff.component').then(m => m.ActivateStaffComponent),
+	},
+	{
 		path: 'help-desk',
 		loadChildren: () => import('./help-desk/help-desk.routes').then(m => m.helpDeskRoutes),
 		canActivate: [isLoggedInGuard]
