@@ -15,6 +15,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent),
 	},
 	{
+		path: 'rest-password',
+		loadComponent: () => import('./auth/password-rest/password-rest.component').then(m => m.PasswordRestComponent),
+	},
+	{
 		path: 'help-desk',
 		loadChildren: () => import('./help-desk/help-desk.routes').then(m => m.helpDeskRoutes),
 	},

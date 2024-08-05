@@ -76,10 +76,9 @@
                           <hlm-select-value />
                         </hlm-select-trigger>
                         <hlm-select-content class="w-full">
-                          <hlm-option value="Fleet Management">Fleet Management</hlm-option>
-                          <hlm-option value="Vision">Vision</hlm-option>
-                          <hlm-option value="Generator">Generator</hlm-option>
-                          <hlm-option value="Fuel">Fuel</hlm-option>
+							@for (item of _productOffered; track item.id) {
+								<hlm-option [value]="item.id">{{item.name}}</hlm-option>
+							}
                         </hlm-select-content>
                       </brn-select>
 				</div>

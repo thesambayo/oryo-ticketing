@@ -70,6 +70,26 @@ export class CreateLeadsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  protected _productOffered = [
+    {
+      id: 1,
+      name: 'Fleet Management',
+    },
+    {
+      id: 2,
+      name: 'Vision',
+    },
+    {
+      id: 3,
+      name: 'Electronic Control Module',
+    },
+    {
+      id: 4,
+      name: 'Fuel',
+    },
+
+  ]
+
 	// component variables
 	openCreateCompanyForm = signal(false);
 	openCreateBranchForm = signal(false);
