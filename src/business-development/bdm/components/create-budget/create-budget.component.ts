@@ -61,6 +61,8 @@ export class CreateBudgetComponent {
 		// customer details
 		staffId: this._fb.nonNullable.control(0, Validators.required),
 		budget: this._fb.nonNullable.control('', [Validators.required]),
+		startDate: this._fb.nonNullable.control('', [Validators.required]),
+		endDate: this._fb.nonNullable.control('', [Validators.required]),
 	});
 
   onSubmit() {
@@ -73,6 +75,8 @@ export class CreateBudgetComponent {
 		const payload: CreateUserBudgetPayload = {
       staffId: this.createCompantForm.controls.staffId.value,
       budget: this.createCompantForm.controls.budget.value,
+      startDate: this.createCompantForm.controls.startDate.value,
+      endDate: this.createCompantForm.controls.endDate.value,
     }
 
 		this.isCreating.set(true);

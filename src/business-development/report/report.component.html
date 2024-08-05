@@ -1,4 +1,4 @@
-<div class="w-5/6 mt-20 bg-white rounded-xl">
+<div class="w-2/3 mt-20 bg-white rounded-xl">
     <!--  -->
     <div class="flex items-center justify-between p-4">
       <button
@@ -28,10 +28,11 @@
     <div class="overflow-x-auto">
         <hlm-table class=" min-w-max">
           <hlm-trow class="uppercase">
-            <hlm-th class="w-52"> ID</hlm-th>
+            <hlm-th class="w-52"> Staff ID</hlm-th>
             <hlm-th class="w-52">Name</hlm-th>
             <hlm-th class="w-56">Budget</hlm-th>
             <hlm-th class="w-56">Actual Budget</hlm-th>
+            <hlm-th class="w-56">Percentage</hlm-th>
             <hlm-th class="w-52 text-blue-700">Leads</hlm-th>
             <hlm-th class="w-52 text-orange-700">Opportunity</hlm-th>
             <hlm-th class="w-52 text-purple-700">Won</hlm-th>
@@ -60,6 +61,9 @@
             <hlm-td class="w-56">
               <span class="truncate">{{ item.negotationBudget | number }}</span>
             </hlm-td>
+            <hlm-td class="w-56">
+                <span class="truncate">{{ item.won | percentage: item.negotationBudget }}</span>
+              </hlm-td>
             <hlm-td class="w-52">
               <span class="truncate text-blue-700">{{ item.leads | number }}</span>
             </hlm-td>

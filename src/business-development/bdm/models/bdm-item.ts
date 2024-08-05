@@ -14,7 +14,7 @@ export interface Lead {
   created_at: string;
   updated_at: string;
 }
- 
+
 export interface Budget {
   id: number;
   staff_assigned: string;
@@ -37,6 +37,8 @@ export interface BudgetPayload {
 export interface CreateUserBudgetPayload {
   staffId: number;
   budget: string;
+  startDate: string;
+  endDate: string;
 }
 export interface CreateActivityPayload {
   // with validation for BE
@@ -48,9 +50,8 @@ export interface CreateActivityPayload {
   purchaseOrder: string;
 }
 export function getDisplayStatus(status?: LeadStatus): string {
-	return status ? statusDisplay[status as keyof typeof statusDisplay] : '';
+  return status ? statusDisplay[status as keyof typeof statusDisplay] : '';
 }
-
 
 export enum LeadStatus {
   LEAD = 'LEAD',
@@ -61,12 +62,6 @@ export enum LeadStatus {
   POC = 'POC',
 }
 
-
-
-
-
-
-
 export const statusDisplay: { [key in LeadStatus]: string } = {
   [LeadStatus.LEAD]: 'Open',
   [LeadStatus.OPPORTUNITY]: 'In Progress',
@@ -75,7 +70,6 @@ export const statusDisplay: { [key in LeadStatus]: string } = {
   [LeadStatus.NOT_INTERESTED]: 'Cancelled',
   [LeadStatus.POC]: 'Cancelled',
 };
-
 
 export function getStatusVariant(status: LeadStatus): HlmBadgeVariant {
   switch (status) {
@@ -87,15 +81,14 @@ export function getStatusVariant(status: LeadStatus): HlmBadgeVariant {
       return 'warning';
     case LeadStatus.PROJECT:
       return 'success';
-      case LeadStatus.NOT_INTERESTED:
-        return 'destructive';
-        case LeadStatus.POC:
-          return 'info';
+    case LeadStatus.NOT_INTERESTED:
+      return 'destructive';
+    case LeadStatus.POC:
+      return 'info';
     default:
       return 'warning';
   }
 }
-
 
 export interface Report {
   id: number;

@@ -241,23 +241,20 @@
                       <span>Product Offered</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "Fleet Management" }}</div>
+                    <div class="text-sm">{{ "KIV" }}</div>
                     }@else {
                     <brn-select
                       class="w-full"
                       placeholder="Select an option"
                       formControlName="pto"
                     >
-                      <hlm-select-trigger class="w-56">
+                      <hlm-select-trigger class="w-full">
                         <hlm-select-value />
                       </hlm-select-trigger>
-                      <hlm-select-content class="w-56">
-                        <hlm-option value="Fleet Management"
-                          >Fleet Management</hlm-option
-                        >
-                        <hlm-option value="Vision">Vision</hlm-option>
-                        <hlm-option value="Generator">Generator</hlm-option>
-                        <hlm-option value="Fuel">Fuel</hlm-option>
+                      <hlm-select-content class="w-full">
+                        @for (item of _productOffered; track item.id) {
+                            <hlm-option [value]="item.id">{{item.name}}</hlm-option>
+                        }
                       </hlm-select-content>
                     </brn-select>
                     }
