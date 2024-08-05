@@ -1,9 +1,15 @@
 import { Component, inject, output, signal } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
-import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
-import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
+import {
+  BrnDialogTriggerDirective,
+  BrnDialogContentDirective,
+} from '@spartan-ng/ui-dialog-brain';
+import {
+  BrnRadioGroupComponent,
+  BrnRadioComponent,
+} from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { toast } from 'ngx-sonner';
@@ -22,109 +28,123 @@ import { HlmLabelDirective } from '../../../../../../libs/ui/ui-label-helm/src/l
 import { HlmRadioGroupDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-group.directive';
 import { HlmRadioIndicatorComponent } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
-import { CreateActivityPayload, } from '../../../../models/bdm-item';
+import { CreateActivityPayload } from '../../../../models/bdm-item';
+import { AuthService } from '../../../../../../libs/services/auth.service';
 
 @Component({
   selector: 'oryo-create-activity',
   standalone: true,
-	imports: [
-		HlmButtonDirective,
-		HlmIconComponent,
-		HlmInputDirective,
-		HlmLabelDirective,
+  imports: [
+    HlmButtonDirective,
+    HlmIconComponent,
+    HlmInputDirective,
+    HlmLabelDirective,
 
-		BrnRadioGroupComponent,
-		BrnRadioComponent,
-		HlmRadioIndicatorComponent,
-		HlmRadioDirective,
-		HlmRadioGroupDirective,
+    BrnRadioGroupComponent,
+    BrnRadioComponent,
+    HlmRadioIndicatorComponent,
+    HlmRadioDirective,
+    HlmRadioGroupDirective,
 
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
+    BrnDialogTriggerDirective,
+    BrnDialogContentDirective,
 
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		BrnSelectImports,
-		HlmSelectImports,
-		ReactiveFormsModule,
-		LeftPaddingPipe
-	],
-	providers: [provideIcons({ lucidePlus })],
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogFooterComponent,
+    HlmDialogTitleDirective,
+    HlmDialogDescriptionDirective,
+    BrnSelectImports,
+    HlmSelectImports,
+    ReactiveFormsModule,
+    FormsModule,
+    LeftPaddingPipe,
+  ],
+  providers: [provideIcons({ lucidePlus })],
   templateUrl: './create-activity.component.html',
-  styleUrl: './create-activity.component.css'
+  styleUrl: './create-activity.component.css',
 })
 export class CreateActivityComponent {
-	// declare input and outputs
-	ticketCreated = output();
+  // declare input and outputs
+  ticketCreated = output();
 
-	// injects
-	_fb = inject(FormBuilder);
-	_ticketsService = inject(TicketsService);
+  // injects
+  _fb = inject(FormBuilder);
+  _ticketsService = inject(TicketsService);
+  fooof: any;
 
-	// component variables
-	openCreateCompanyForm = signal(false);
-	openCreateBranchForm = signal(false);
-	isCreatingTicket = signal<boolean>(false);
+  // component variables
+  openCreateCompanyForm = signal(false);
+  openCreateBranchForm = signal(false);
+  isCreatingTicket = signal<boolean>(false);
+  staffName = inject(AuthService).getLoggedInStaff()?.staff.name;
 
-	createCompantForm = this._fb.nonNullable.group({
-		// customer details
-		description: this._fb.nonNullable.control('', Validators.required),
-		siteSurvey: this._fb.nonNullable.control(''),
-		schematicDesigns: this._fb.nonNullable.control(''),
-		technicalProposal: this._fb.nonNullable.control(''),
-		commercials: this._fb.nonNullable.control(''),
-		purchaseOrder: this._fb.nonNullable.control(''),
-	});
+  createForm = this._fb.nonNullable.group({
+    description: this._fb.nonNullable.control('', Validators.required),
+  });
 
-	// handleOpenCreateFormDialog(state: BrnDialogState) {
-	// 	if (state === 'closed') {
-	// 		this.openCreateTicketForm.set(false);
-	// 	}
-	// }
   activeTab: string = 'Tab1';
 
   selectTab(tab: string): void {
     this.activeTab = tab;
   }
 
-	onSubmit() {
-		if (this.createCompantForm.invalid) {
-			toast.error("Form is invalid. All fields are should be filled", {
-				id: "invalid-internal-create-ticket-form"
-			})
-		}
+  textInput(e: any){
+	    console.log(e.target.value);
+		this.fooof = e.target.value
+  }
 
-		const payload: CreateActivityPayload = {
-			description: this.createCompantForm.controls.description.value,
-			siteSurvey: this.createCompantForm.controls.siteSurvey.value,
-			schematicDesigns: this.createCompantForm.controls.schematicDesigns.value,
-			technicalProposal: this.createCompantForm.controls.technicalProposal.value,
-			commercials: this.createCompantForm.controls.commercials.value,
-			purchaseOrder: this.createCompantForm.controls.purchaseOrder.value,
-		}
+  onSubmit() {
+    // if (this.createForm.invalid) {
+    //   toast.error('Form is invalid. All fields are should be filleds', {
+    //     id: 'invalid-internal-create-ticket-form',
+    //   });
+    // }
+    // Get the current date and time as an ISO string
+    const newItem = {
+      id: 1, // Replace with the actual ID or data you want
+      name: this.staffName,
+      description: this.fooof,
+      created_by: '', // Add creator's information here if available
+      updated_by: '', // Add updater's information if available
+      created_at: new Date().toISOString(), // Set the current date and time
+      updated_at: '', // Can be set when the object is updated
+    };
 
-		this.isCreatingTicket.set(true);
-    if (payload) {
-      toast.success("Success in creation", {
-				id: "valid-success"
-			})
+	console.log(newItem);
+	
 
-				this.ticketCreated.emit();
-				this.isCreatingTicket.set(false);
-				this.openCreateBranchForm.set(false);
-      
+    // Retrieve the existing array from localStorage or initialize it if it doesn't exist
+    let itemsArray = JSON.parse(localStorage.getItem('items') || '[]');
+
+    // Push the new item into the array
+    itemsArray.push(newItem);
+
+    // Convert the updated array to a JSON string
+    const itemsArrayJson = JSON.stringify(itemsArray);
+
+    // Save the updated array back to localStorage
+    localStorage.setItem('items', itemsArrayJson);
+
+    // Notify the user of success and manage other state
+    // this.isCreating.set(true);
+
+    if (newItem) {
+      toast.success('Success in creation', {
+        id: 'valid-success',
+      });
+
+      this.ticketCreated.emit();
+      this.isCreatingTicket.set(false);
+      this.openCreateCompanyForm.set(false);
+	  this.createForm.reset();
     }
-	}
+  }
 
-
-	showSuccessToast() {
-		toast.success("Email sent to client", {
-			id: "create-ticket-form-email-success",
-		});
-	}
-
+  showSuccessToast() {
+    toast.success('Email sent to client', {
+      id: 'create-ticket-form-email-success',
+    });
+  }
 }

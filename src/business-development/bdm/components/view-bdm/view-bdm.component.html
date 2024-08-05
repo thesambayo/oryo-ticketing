@@ -26,7 +26,7 @@
                   class="mt-1 p-2 w-full border rounded-md"
                   placeholder="0"
                   name="budget"
-                  value="{{ 4000000 | number }}"
+                  value="{{ retrievedPayload.budget }}"
                   disabled
                   (change)="handleInput($event)"
                   (keyup)="ontxtBudget($event)"
@@ -158,7 +158,7 @@
                       <span>Company Name</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "OryoLTD" }}</div>
+                    <div class="text-sm">{{ _staff?.name }}</div>
                     }@else {
                     <input
                       hlmInput
@@ -173,7 +173,7 @@
                       <span>Customer Name</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "Jane Smith" }}</div>
+                    <div class="text-sm">{{ _staff?.customerName }}</div>
                     }@else {
                     <input
                       hlmInput
@@ -189,7 +189,7 @@
                       <span>Email</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "oekundayo@oryoltd.com" }}</div>
+                    <div class="text-sm">{{ _staff?.email }}</div>
                     }@else {
                     <input
                       class="w-full"
@@ -205,7 +205,7 @@
                       <span>Phone Number</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "08112345678" }}</div>
+                    <div class="text-sm">{{ _staff?.phone }}</div>
                     }@else {
                     <input
                       class="w-full"
@@ -223,7 +223,7 @@
                     </label>
                     @if (!isEditing()) {
                     <div class="text-sm">
-                      {{ "79a Samuel Adedoyin St, VI Lagos" }}
+                      {{ _staff?.location }}
                     </div>
                     }@else {
                     <input
@@ -241,7 +241,7 @@
                       <span>Product Offered</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ "KIV" }}</div>
+                    <div class="text-sm">{{ _staff?.product_offered }}</div>
                     }@else {
                     <brn-select
                       class="w-full"
@@ -306,7 +306,7 @@
               <form
                 class="space-y-4"
                 [formGroup]="createWonForm"
-                (ngSubmit)="onSubmit()"
+                (ngSubmit)="onSubmitWon()"
               >
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                   <div class="space-y-2">
@@ -314,7 +314,7 @@
                       <!-- <span>Product Offered</span> -->
                     </label>
                     @if (!isEditingWon()) {
-                    <div class="text-sm">{{ "Fleet Management" }}</div>
+                    <div class="text-sm">{{ "KIV" }}</div>
                     }@else {
                     <brn-select
                       class="w-full"
@@ -369,7 +369,7 @@
             >
               <h3 hlmCardTitle class="font-bold">Opportunity</h3>
               <div class="flex gap-2">
-                <oryo-create-activity></oryo-create-activity>
+                <oryo-create-activity (ticketCreated)="getChanges()"></oryo-create-activity>
                 <button
                   hlmBtn
                   type="button"
@@ -482,70 +482,27 @@
               }@else {
               <div class="space-y-4">
                 <!-- Comment 1 -->
+                 @for (item of storedItems; track $index) {
+
                 <div class="flex space-x-3">
                   <div
                     class="bg-orange-200 rounded-full w-8 h-8 flex items-center justify-center"
                   >
-                    <span class="text-orange-600 font-bold">EA</span>
+                    <span class="text-orange-600 font-bold"></span>
                   </div>
                   <div class="flex-1">
                     <div class="flex justify-between items-center">
-                      <h4 class="font-bold">Emmanuel Amadiegwu</h4>
+                      <h4 class="font-bold">{{item?.name}}</h4>
                       <span class="text-gray-500 text-sm"
-                        >July 11, 2024 at 1:27 PM</span
+                        >{{item?.created_at | date}}</span
                       >
                     </div>
                     <p class="text-gray-700 text-sm">
-                      Kayode Oshona Yeah for this task, it’s for work request.
-                      but when testing work order you can test this for work
-                      order there.
+                      {{item?.description}}
                     </p>
                   </div>
                 </div>
-                <!-- Comment 2 -->
-                <div class="flex space-x-3">
-                  <div
-                    class="bg-blue-200 rounded-full w-8 h-8 flex items-center justify-center"
-                  >
-                    <span class="text-blue-600 font-bold">KO</span>
-                  </div>
-                  <div class="flex-1">
-                    <div class="flex justify-between items-center">
-                      <h4 class="font-bold">Kayode Oshona</h4>
-                      <span class="text-gray-500 text-sm"
-                        >July 11, 2024 at 12:17 PM</span
-                      >
-                    </div>
-                    <p class="text-gray-700 text-sm">
-                      also this notification is just for WR atm right not WO?
-                    </p>
-                  </div>
-                </div>
-                <!-- Comment 3 -->
-                <div class="flex space-x-3">
-                  <div
-                    class="bg-blue-200 rounded-full w-8 h-8 flex items-center justify-center"
-                  >
-                    <span class="text-blue-600 font-bold">KO</span>
-                  </div>
-                  <div class="flex-1">
-                    <div class="flex justify-between items-center">
-                      <h4 class="font-bold">Kayode Oshona</h4>
-                      <span class="text-gray-500 text-sm"
-                        >July 11, 2024 at 12:17 PM</span
-                      >
-                    </div>
-                    <p class="text-gray-700 text-sm">
-                      Check resource label is missing the WR 1283 has a resource
-                      but it's not displaying
-                    </p>
-                    <img
-                      src="https://i.sstatic.net/y9DpT.jpg"
-                      alt="Resource Label Issue"
-                      class="mt-2 border rounded"
-                    />
-                  </div>
-                </div>
+                 }
               </div>
               }
             </div>

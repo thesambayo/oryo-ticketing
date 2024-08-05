@@ -59,6 +59,7 @@ import { CreateLeadsComponent } from './components/create-leads/create-leads.com
 import { ViewBdmComponent } from './components/view-bdm/view-bdm.component';
 import { Router } from '@angular/router';
 import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
+import { HlmDialogService } from './components/services/hlm-dialog.service';
 
 @Component({
   selector: 'oryo-bdm',
@@ -131,9 +132,12 @@ export class BdmComponent implements OnInit {
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
 
+  _log = inject(HlmDialogService);
+
   isLoading = signal<boolean>(false);
   _leads = signal<Lead[]>([]);
   getView = signal<boolean>(false);
+  storedLeads = JSON.parse(localStorage.getItem('leads') || '[]');
 
   ngOnInit(): void {
     this._leads.set([
@@ -197,6 +201,7 @@ export class BdmComponent implements OnInit {
   }
 
   onVeiw(e: any) {
+    this._log.setRes(e)
     this._router.navigate(['bdm', 'view-bdm']);
   }
 }

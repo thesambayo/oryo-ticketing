@@ -10,19 +10,25 @@ import { HlmThComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-th
 import { HlmTrowComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-trow.component';
 import { HlmInputDirective } from '../../../../libs/ui/ui-input-helm/src/lib/hlm-input.directive';
 import { HlmLabelDirective } from '../../../../libs/ui/ui-label-helm/src/lib/hlm-label.directive';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { Budget, CreateUserBudgetPayload } from '../../models/bdm-item';
 import { toast } from 'ngx-sonner';
 import { BrnDialogRef } from '@spartan-ng/ui-dialog-brain';
+import { StaffService } from '../../../../help-desk/core/services/staff.service';
 
 @Component({
   selector: 'oryo-create-budget',
   standalone: true,
   imports: [
-		ReactiveFormsModule,
+    ReactiveFormsModule,
     FormsModule,
     HlmDialogHeaderComponent,
     HlmDialogTitleDirective,
@@ -32,75 +38,83 @@ import { BrnDialogRef } from '@spartan-ng/ui-dialog-brain';
     HlmInputDirective,
     HlmLabelDirective,
 
-		BrnSelectImports,
-		HlmSelectImports,
-
+    BrnSelectImports,
+    HlmSelectImports,
   ],
   templateUrl: './create-budget.component.html',
   styleUrl: './create-budget.component.css',
 })
 export class CreateBudgetComponent {
-
-	_fb = inject(FormBuilder);
-	// _ticketsService = inject(TicketsService);
-  _routes = inject(Router)
+  _fb = inject(FormBuilder);
+  // _ticketsService = inject(TicketsService);
+  _routes = inject(Router);
 
   _dialogRef = inject<BrnDialogRef<CreateUserBudgetPayload>>(BrnDialogRef);
 
-	isCreating= signal<boolean>(false);
+  isCreating = signal<boolean>(false);
+  staffList = inject(StaffService).staffList;
+  retrievedPayload = JSON.parse(localStorage.getItem('userBudget') || '{}');
+
 
   _user = [
     { id: 1, name: 'Jide' },
     { id: 2, name: 'Samuel' },
     { id: 2, name: 'BJ' },
     { id: 2, name: 'Victor' },
+  ];
 
-  ]
-  
   createCompantForm = this._fb.nonNullable.group({
-		// customer details
-		staffId: this._fb.nonNullable.control(0, Validators.required),
-		budget: this._fb.nonNullable.control('', [Validators.required]),
-		startDate: this._fb.nonNullable.control('', [Validators.required]),
-		endDate: this._fb.nonNullable.control('', [Validators.required]),
-	});
+    // customer details
+    staffId: this._fb.nonNullable.control(0, Validators.required),
+    budget: this._fb.nonNullable.control('', [Validators.required]),
+    startDate: this._fb.nonNullable.control('', [Validators.required]),
+    endDate: this._fb.nonNullable.control('', [Validators.required]),
+  });
 
   onSubmit() {
-		if (this.createCompantForm.invalid) {
-			toast.error("Form is invalid. All fields are should be filled", {
-				id: "invalid-internal-create-ticket-form"
-			})
-		}
+    if (this.createCompantForm.invalid) {
+      toast.error('Form is invalid. All fields are should be filled', {
+        id: 'invalid-internal-create-ticket-form',
+      });
+    }
 
-		const payload: CreateUserBudgetPayload = {
+    const payload: CreateUserBudgetPayload = {
       staffId: this.createCompantForm.controls.staffId.value,
       budget: this.createCompantForm.controls.budget.value,
       startDate: this.createCompantForm.controls.startDate.value,
       endDate: this.createCompantForm.controls.endDate.value,
-    }
+    };
 
-		this.isCreating.set(true);
+    this.isCreating.set(true);
+
     if (payload) {
-      toast.success("Success in creation", {
-				id: "valid-success"
-			})
+      // Convert the payload to a JSON string
+      const payloadJson = JSON.stringify(payload);
+
+      // Save the JSON string to localStorage
+      localStorage.setItem('userBudget', payloadJson);
+
+      toast.success('Success in creation', {
+        id: 'valid-success',
+      });
+
       this._dialogRef.close();
     }
 
-		// this._ticketsService.createTicket(payload).subscribe({
-		// 	next: (res) => {
-		// 		this.ticketCreated.emit();
-		// 		this.isCreatingTicket.set(false);
-		// 		this.openCreateTicketForm.set(false);
-		// 		this.sendEmail(res.data);
-		// 		toast.success("Ticket created successfully", {
-		// 			id: "create-ticket-form-success"
-		// 		});
-		// 	},
-		// 	error: (err) => {
-		// 		this.isCreatingTicket.set(false);
-		// 		console.log(err);
-		// 	}
-		// })
-	}
+    // this._ticketsService.createTicket(payload).subscribe({
+    // 	next: (res) => {
+    // 		this.ticketCreated.emit();
+    // 		this.isCreatingTicket.set(false);
+    // 		this.openCreateTicketForm.set(false);
+    // 		this.sendEmail(res.data);
+    // 		toast.success("Ticket created successfully", {
+    // 			id: "create-ticket-form-success"
+    // 		});
+    // 	},
+    // 	error: (err) => {
+    // 		this.isCreatingTicket.set(false);
+    // 		console.log(err);
+    // 	}
+    // })
+  }
 }

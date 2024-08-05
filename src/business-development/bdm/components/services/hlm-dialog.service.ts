@@ -6,4 +6,12 @@ import { Injectable } from '@angular/core';
 export class HlmDialogService {
 
   constructor() { }
+res: any
+  setRes(e: any) {
+    this.res = e;
+  }
+  getRes() {
+    return this.res;
+  }
+
 }
