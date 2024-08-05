@@ -7,6 +7,7 @@ import { HlmAvatarImageDirective } from '../libs/ui/ui-avatar-helm/src/lib/image
 import { HlmIconComponent } from '../libs/ui/ui-icon-helm/src/lib/hlm-icon.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../libs/services/auth.service';
+import { InitialsPipe } from '@spartan-ng/ui-avatar-brain';
 
 @Component({
   selector: 'oryo-home',
@@ -18,7 +19,8 @@ import { AuthService } from '../libs/services/auth.service';
     HlmAvatarFallbackDirective,
     HlmIconComponent,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+		InitialsPipe
   ],
   providers: [provideIcons({ lucideBell})],
   templateUrl: './home.component.html',

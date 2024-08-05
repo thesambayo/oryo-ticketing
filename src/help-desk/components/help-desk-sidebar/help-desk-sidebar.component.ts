@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { lucideChevronRight, lucideLayoutGrid, lucideLogOut, lucideTicket, lucideUser, lucideUsers } from '@ng-icons/lucide';
 
@@ -22,6 +22,7 @@ interface NavItem {
   styleUrl: './help-desk-sidebar.component.css'
 })
 export class HelpDeskSidebarComponent {
+	_router = inject(Router);
 
   mainNavigationItems: NavItem[] = [
     {
@@ -34,28 +35,23 @@ export class HelpDeskSidebarComponent {
       routerLink: '/help-desk/tickets',
       icon: 'lucideTicket',
     },
-    {
-      label: 'Customers',
-      routerLink: '/help-desk/customers',
-      icon: 'lucideUser',
-    },
+    // {
+    //   label: 'Customers',
+    //   routerLink: '/help-desk/customers',
+    //   icon: 'lucideUser',
+    // },
   ];
   otherNavigationItems: NavItem[] = [
+    // {
+    //   label: 'Profile',
+    //   routerLink: '/help-desk/profile',
+    //   icon: 'lucideUser',
+    // },
     {
-      label: 'Profile',
-      routerLink: '/help-desk/profile',
-      icon: 'lucideUser',
-    },
-    {
-      label: 'Log Out',
+      label: 'Main menu',
       icon: 'lucideLogOut',
-      action: () => this.logOutUser(),
+      action: () => this._router.navigateByUrl("/"),
     }
   ];
-
-  logOutUser() {
-    console.log("loggin out user")
-    // Log out user
-  }
 
 }

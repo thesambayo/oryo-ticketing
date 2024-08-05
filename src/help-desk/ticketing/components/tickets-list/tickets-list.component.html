@@ -156,7 +156,7 @@
 					</div>
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
-					{{ticket.assigneeName}}
+					{{ ticket.assigneeName.length ? ticket.assigneeName : "---" }}
 				</hlm-td>
 				<hlm-td class="flex-1 min-w-20">
 					<span>{{ticket.createdAt | date}}</span>
