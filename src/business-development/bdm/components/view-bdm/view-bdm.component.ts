@@ -44,8 +44,10 @@ import {
   Won,
 } from '../../models/bdm-item';
 import { StaffService } from '../../../../help-desk/core/services/staff.service';
-import { HlmDialogService } from '../services/hlm-dialog.service';
+import { HlmtDialogService } from '../services/hlm-dialog.service';
 import { AuthService } from '../../../../libs/services/auth.service';
+import { PrintInoviceComponent } from './components/print-inovice/print-inovice.component';
+import { HlmDialogService } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog.service';
 
 @Component({
   selector: 'oryo-view-bdm',
@@ -119,7 +121,8 @@ export class ViewBdmComponent implements OnInit {
   // injects
   _fb = inject(FormBuilder);
   _location = inject(Location);
-  _log = inject(HlmDialogService);
+  _log = inject(HlmtDialogService);
+  _hlmDialogService = inject(HlmDialogService);
   _staff = this._log.getRes();
   protected _invoices = [
     {
@@ -198,6 +201,11 @@ export class ViewBdmComponent implements OnInit {
     },
   ];
 
+  openInvoce() {
+    this._hlmDialogService.open(PrintInoviceComponent, {
+      contentClass: 'sm:!max-w-full overflow'});
+  }
+
   ngOnInit(): void {
     console.log(this.retrievedPayload, this._staff);
 
@@ -250,6 +258,7 @@ export class ViewBdmComponent implements OnInit {
     }, 3000);
   }
 
+  
   createCompantForm = this._fb.nonNullable.group({
     // customer details
     name: this._fb.nonNullable.control('', Validators.required),
@@ -284,15 +293,8 @@ export class ViewBdmComponent implements OnInit {
       });
     }
 
-    const payload: CreateActivityPayload = {
-      description: this.createOpportunityForm.controls.description.value,
-      siteSurvey: this.createOpportunityForm.controls.siteSurvey.value,
-      schematicDesigns:
-        this.createOpportunityForm.controls.schematicDesigns.value,
-      technicalProposal:
-        this.createOpportunityForm.controls.technicalProposal.value,
-      commercials: this.createOpportunityForm.controls.commercials.value,
-      purchaseOrder: this.createOpportunityForm.controls.purchaseOrder.value,
+    const payload = {
+      won: this.createWonForm.controls.won.value,
     };
 
     this.isCreatingOpportunity.set(true);

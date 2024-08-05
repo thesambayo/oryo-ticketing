@@ -59,7 +59,7 @@ import { CreateLeadsComponent } from './components/create-leads/create-leads.com
 import { ViewBdmComponent } from './components/view-bdm/view-bdm.component';
 import { Router } from '@angular/router';
 import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
-import { HlmDialogService } from './components/services/hlm-dialog.service';
+import { HlmtDialogService } from './components/services/hlm-dialog.service';
 
 @Component({
   selector: 'oryo-bdm',
@@ -132,7 +132,7 @@ export class BdmComponent implements OnInit {
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
 
-  _log = inject(HlmDialogService);
+  _log = inject(HlmtDialogService);
 
   isLoading = signal<boolean>(false);
   _leads = signal<Lead[]>([]);
