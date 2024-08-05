@@ -55,7 +55,6 @@ export class CreateBudgetComponent {
   staffList = inject(StaffService).staffList;
   retrievedPayload = JSON.parse(localStorage.getItem('userBudget') || '{}');
 
-
   _user = [
     { id: 1, name: 'Jide' },
     { id: 2, name: 'Samuel' },
@@ -86,19 +85,30 @@ export class CreateBudgetComponent {
     };
 
     this.isCreating.set(true);
+    // Retrieve the existing array from localStorage or initialize it if it doesn't exist
+    let budgetsArray = JSON.parse(localStorage.getItem('userBudget') || '[]');
+
+    // Add the new payload to the array
+    budgetsArray.push(payload);
+
+    // Convert the array back to a JSON string
+    const budgetsArrayJson = JSON.stringify(budgetsArray);
+
+    // Save the updated array back to localStorage
+    localStorage.setItem('userBudget', budgetsArrayJson);
+
+    // Notify the user of success and close the dialog
+    this.isCreating.set(true);
 
     if (payload) {
-      // Convert the payload to a JSON string
-      const payloadJson = JSON.stringify(payload);
-
-      // Save the JSON string to localStorage
-      localStorage.setItem('userBudget', payloadJson);
-
       toast.success('Success in creation', {
         id: 'valid-success',
       });
 
       this._dialogRef.close();
+
+      // Reset the creating state
+      this.isCreating.set(false);
     }
 
     // this._ticketsService.createTicket(payload).subscribe({

@@ -40,6 +40,7 @@ import { lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevr
 import { Router } from '@angular/router';
 import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-item';
 import { PercentagePipe } from '../pipes/percentage.pipe';
+import { StaffService } from '../../help-desk/core/services/staff.service';
 
 @Component({
   selector: 'oryo-report',
@@ -114,12 +115,17 @@ export class ReportComponent implements OnInit {
   getStatusVariant = getStatusVariant;
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
+  staffList = inject(StaffService).staffList;
 
   isLoading = signal<boolean>(false);
   _report = signal<Report[]>([]);
   getView = signal<boolean>(false);
 
   ngOnInit(): void {
+    for (let i = 0; i < this.staffList.length; i++) {
+      // const element = this.staffList[i];
+      
+    }
     this._report.set([
       {
         id: 1,

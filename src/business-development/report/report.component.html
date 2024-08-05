@@ -7,7 +7,7 @@
         class="gap-2 pointer-events-none border-none text-oryo-green"
         size="sm"
       >
-        <span>All Report ({{ _report().length }})</span>
+        <span>All Report ({{ staffList().length }})</span>
       </button>
   
       <div class="relative">
@@ -42,36 +42,36 @@
           <hlm-caption class="m-0 py-10">
             <hlm-spinner class="size-5" />
           </hlm-caption>
-          } @else { @for (item of _report(); track item.id) {
+          } @else { @for (item of staffList(); track item.id; let i = $index) {
           <hlm-trow (click)="onVeiw(item)">
             <!-- <hlm-td truncate class="font-medium w-fit">
                                   <hlm-checkbox />
                               </hlm-td> -->
             <hlm-td truncate class="font-medium w-52">
               <p class="text-foreground font-medium">
-                #{{ item.staffId | leftPadding : 6 }}
+                #{{ i | leftPadding : 6 }}
               </p>
             </hlm-td>
             <hlm-td class="w-52">
               <p class="text-foreground font-medium">{{ item.name }}</p>
             </hlm-td>
             <hlm-td class="w-56">
-              <span class="truncate">{{ item.budget | number }}</span>
+              <span class="truncate">{{ 0 | number }}</span>
             </hlm-td>
             <hlm-td class="w-56">
-              <span class="truncate">{{ item.negotationBudget | number }}</span>
+              <span class="truncate">{{ 0 | number }}</span>
             </hlm-td>
             <hlm-td class="w-56">
-                <span class="truncate">{{ item.won | percentage: item.negotationBudget }}</span>
+                <span class="truncate">{{ 0 | percentage: 0 }}</span>
               </hlm-td>
             <hlm-td class="w-52">
-              <span class="truncate text-blue-700">{{ item.leads | number }}</span>
+              <span class="truncate text-blue-700">{{ 0 | number }}</span>
             </hlm-td>
             <hlm-td class="w-52">
-              <span class="truncate text-orange-700">{{ item.opportunity | number }}</span>
+              <span class="truncate text-orange-700">{{ 0 | number }}</span>
             </hlm-td>
             <hlm-td class="w-52">
-              <span class="truncate text-purple-700">{{ item.won | number }}</span>
+              <span class="truncate text-purple-700">{{ 0 | number }}</span>
             </hlm-td>
           </hlm-trow>
           } @empty {
