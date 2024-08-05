@@ -1,0 +1,154 @@
+<section class="w-full">
+    <div class="flex justify-between items-center mb-6 max-w-4xl mx-auto p-6">
+      <div>
+        <button
+          type="button"
+          class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-sm"
+          (click)="downloadPDF()"
+        >
+          Download PDF
+        </button>
+      </div>
+    </div>
+    <div id="invoice" class="rounded-lg max-w-4xl mx-auto p-6 bg-white shadow-md">
+      <div class="flex justify-between items-center gap-2 mb-8">
+        <div>
+          <img
+            src="https://oryo-ticketing.vercel.app/logo.png"
+            alt="Logo"
+            class="mx-auto mb-4"
+            style="height: 40px"
+          />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold">ORYO LIMITED</h1>
+          <p class="text-sm">
+            Oryo Building, 79 Samuel Adedoyin Street,
+            <br />
+            Off Ajose Adeogun Street, <br />
+            Victoria Island, Lagos.
+          </p>
+          <p class="text-sm">08062067128</p>
+          <p class="text-sm">{{ "muhammad@oryoltd.com" }}</p>
+        </div>
+        <div class="text-right">
+          <h2 class="text-2xl font-bold">INVOICE</h2>
+          <p class="text-sm">PI #: OL/MPNL/404</p>
+          <p class="text-sm">Submitted On: 25-JUN-2024</p>
+          <p class="text-sm">Agent: Muhammad Zanna</p>
+          <p class="text-sm">Email: muhammad*oryoltd.com</p>
+          <p class="text-sm">Phone: 08062067128</p>
+          <p class="text-sm">VAT%: 7.5</p>
+          <p class="text-sm">Location: QIT</p>
+          <p class="text-sm">TIN: 17852083-0001</p>
+        </div>
+      </div>
+      <div class="mb-8">
+        <h3 class="text-lg font-bold">BILL TO</h3>
+        <p class="text-sm">Company: Mobil Producing Nigeria Limited</p>
+        <p class="text-sm">Contact: Mrs Uzochi Osondu</p>
+        <p class="text-sm">
+          Address: Mobil Producing Nigeria Unltd. 3N64 Mobil House, Lagos Office:
+          +234 909 102 2465
+        </p>
+        <p class="text-sm">Email: uzochi.osondu*exxonmobil.com</p>
+        <p class="text-sm">VAT REG No.</p>
+        <p class="text-sm">SES Number: 1004665804</p>
+      </div>
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th class="py-2">S/N</th>
+            <th class="py-2">ITEM DESCRIPTION</th>
+            <th class="py-2">UOM</th>
+            <th class="py-2">QTY</th>
+            <th class="py-2">UNIT PRICE (USD)</th>
+            <th class="py-2">TOTAL (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-gray-100">
+            <td class="py-2 text-center">1</td>
+            <td class="py-2">
+              Monthly Rentals of Level Monitors, Converters & GPRS communication
+              devices on four PMS storage tanks and fuel controllers at the two
+              PMS dispensing pumps
+            </td>
+            <td class="py-2 text-center">1</td>
+            <td class="py-2 text-center">4</td>
+            <td class="py-2 text-right">$602.50</td>
+            <td class="py-2 text-right">$2,410.00</td>
+          </tr>
+          <tr>
+            <td class="py-2 text-center">2</td>
+            <td class="py-2">
+              Monthly Rentals of Level Monitors, converters & GPRS communication
+              devices on two AGO storage tanks and fuel controller on AGO
+              dispensing Pump in QIT
+            </td>
+            <td class="py-2 text-center">1</td>
+            <td class="py-2 text-center">2</td>
+            <td class="py-2 text-right">$629.59</td>
+            <td class="py-2 text-right">$1,259.18</td>
+          </tr>
+          <tr class="bg-gray-100">
+            <td class="py-2 text-center">3</td>
+            <td class="py-2">
+              Monthly Rentals of Level Monitor, fuel controllers and GPRS units on
+              one Jet Fuel Bowser at QIT
+            </td>
+            <td class="py-2 text-center">1</td>
+            <td class="py-2 text-center">1</td>
+            <td class="py-2 text-right">$998.50</td>
+            <td class="py-2 text-right">$998.50</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="py-2 text-right font-bold">TOTAL</td>
+            <td class="py-2 text-right">$4,667.68</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="py-2 text-right font-bold">TAXES</td>
+            <td class="py-2 text-right">$350.08</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="py-2 text-right font-bold">NET TOTAL</td>
+            <td class="py-2 text-right">$5,017.76</td>
+          </tr>
+          <tr>
+            <td colspan="5" class="py-2 text-right font-bold">Balance Due</td>
+            <td class="py-2 text-right">$5,017.76</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="mt-8">
+        <p class="text-sm">Approved By: MZ</p>
+        <p class="text-sm font-bold">Because Every Mile Counts</p>
+        <p class="text-sm font-bold">Payment Terms:</p>
+        <p class="text-sm">
+          Payment for order must be made within 10 days from date of invoice
+        </p>
+      </div>
+      <div class="mt-8">
+        <h3 class="text-lg font-bold">Oryo Limited</h3>
+        <p class="text-sm">Nigerian Naira (NGN) Account</p>
+        <p class="text-sm">Bank: Access Bank Plc (Formally Diamond Bank)</p>
+        <p class="text-sm">Account Number: Account Number (NGN): 0071184552</p>
+        <p class="text-sm">United States Dollar Account (USD)</p>
+        <p class="text-sm">Oryo Ltd</p>
+        <p class="text-sm">
+          Account Number: Access Bank Plc (Formally Diamond Bank) (USD) 0071222872
+        </p>
+      </div>
+      <div class="mt-8">
+        <h3 class="text-lg font-bold">Communication to Oryo Limited:</h3>
+        <p class="text-sm">
+          Oryo Building, Plot 14B Grace Anjous Drive, Off Adebayo Doherty Road,
+          Off Admiralty Way, Lekki, Phase 1, Lagos
+        </p>
+        <p class="text-sm">H: 08062067128</p>
+        <p class="text-sm">muhammad.com</p>
+      </div>
+    </div>
+  </section>
