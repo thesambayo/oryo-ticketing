@@ -8,19 +8,11 @@ import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
 import { DashboardService } from '../../services/dashboard.service';
 import { getData } from './help-desk-dashboard.constants';
 
-interface ChartOption {
-	title: {
-		text: string;
-	};
-	subtitle: {
-		text: string;
-	};
-	data: any[];
-	series: {
-		type: string;
-		angleKey: string;
-		legendItemKey: string;
-	}[];
+const statusesKey: Record<string, string> = {
+	attended : "Attended",
+	resolved : "Resolved",
+	unAttended : "Unattended",
+	totalTickets : "Total Tickets"
 }
 
 @Component({
@@ -41,7 +33,7 @@ export class HelpDeskDashboardComponent implements OnInit {
 
 	options = computed<any>(() => ({
 		title: {
-			text: "Tickets Statuses",
+			text: "Distribution of Ticket Status",
 		},
 		// subtitle: {
 		// 	text: "In Billion U.S. Dollars",
@@ -63,6 +55,6 @@ export class HelpDeskDashboardComponent implements OnInit {
 	}
 
 	objectToArray(obj: any) {
-		return Object.entries(obj).map(([key, value]) => ({ key, value }));
+		return Object.entries(obj).map(([key, value]) => ({ key: statusesKey[key], value }));
 	}
 }
