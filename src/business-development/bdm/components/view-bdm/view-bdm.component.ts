@@ -203,7 +203,7 @@ export class ViewBdmComponent implements OnInit {
 
   openInvoce() {
     this._hlmDialogService.open(PrintInoviceComponent, {
-      contentClass: 'w-full',});
+      contentClass: 'sm:!max-w-full overflow'});
   }
 
   ngOnInit(): void {
