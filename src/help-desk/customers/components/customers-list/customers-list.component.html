@@ -1,1 +1,32 @@
-<p>customers-list works!</p>
+<div class="w-full overflow-x-auto bg-white rounded-xl">
+  <!--  -->
+  <hlm-table class="w-full min-w-[500px]">
+    <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
+    <hlm-trow class="uppercase">
+      <hlm-th class="flex-1 min-w-40">Customer</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Amount of tickets</hlm-th>
+    </hlm-trow>
+		
+		@if (isLoading()) {
+			<hlm-caption class="m-0 py-10">
+				<hlm-spinner class="size-5" />
+			</hlm-caption>
+		} @else {
+			@for (customer of customers(); track customer.reporterCompany) {
+			<hlm-trow>
+				<!-- <hlm-td truncate class="font-medium w-fit">
+					<hlm-checkbox />
+				</hlm-td> -->
+				<hlm-td class="flex-1 min-w-40 flex flex-col items-start whitespace-nowrap">
+					<p class="text-foreground font-medium truncate">{{ customer.reporterCompany }}</p>
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-20">
+					<span class="truncate">{{ customer.count }}</span>
+				</hlm-td>
+			</hlm-trow>
+			} @empty {
+				<hlm-caption class="m-0 py-10">No customers has created a ticket</hlm-caption>
+			}
+		}
+  </hlm-table>
+</div>

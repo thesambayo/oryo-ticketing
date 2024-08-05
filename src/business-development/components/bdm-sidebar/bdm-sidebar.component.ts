@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideLayoutGrid,
@@ -54,12 +54,12 @@ interface NavItem {
   styleUrl: './bdm-sidebar.component.css',
 })
 export class BdmSidebarComponent {
-  _leads: boolean = false;
-
+	_router = inject(Router);
   _hlmDialogService = inject(HlmDialogService);
-
+	
+	
+	_leads: boolean = false;
 	modalInView: 'create-leads' | null = null;
-
   mainNavigationItems: NavItem[] = [
     {
       label: 'Dashboard',
@@ -89,16 +89,12 @@ export class BdmSidebarComponent {
     //   routerLink: '/help-desk/profile',
     //   icon: 'lucideUser',
     // },
-    // {
-    //   label: 'Log Out',
-    //   icon: 'lucideLogOut',
-    //   action: () => this.logOutUser(),
-    // }
+    {
+      label: 'Main menu',
+      icon: 'lucideLogOut',
+      action: () => this._router.navigateByUrl("/"),
+    }
   ];
-
-  logOutUser() {
-    console.log('loggin our uawe');
-  }
 
   openBudget() {
     this._hlmDialogService.open(CreateBudgetComponent, {});

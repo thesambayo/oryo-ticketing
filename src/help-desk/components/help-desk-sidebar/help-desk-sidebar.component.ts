@@ -35,11 +35,11 @@ export class HelpDeskSidebarComponent {
       routerLink: '/help-desk/tickets',
       icon: 'lucideTicket',
     },
-    // {
-    //   label: 'Customers',
-    //   routerLink: '/help-desk/customers',
-    //   icon: 'lucideUser',
-    // },
+    {
+      label: 'Customers',
+      routerLink: '/help-desk/customers',
+      icon: 'lucideUser',
+    },
   ];
   otherNavigationItems: NavItem[] = [
     // {

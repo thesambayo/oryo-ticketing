@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between">
     <div class="font-bold text-blue-900">
-      <p class="text-sm">Hi {{staffName}}</p>
+      <p class="text-sm text-[#707EAE]">Hi {{_topbarDetails().staffName}}</p>
       <h3 class="text-3xl">Business Development Module</h3>
     </div>
     <div class="flex items-center gap-x-2.5">
@@ -18,13 +18,15 @@
       >
         <hlm-icon size="sm" name="lucideBell" />
       </div>
-      <hlm-avatar class="size-8">
-        <img
-          src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt="spartan logo. Resembling a spartanic shield"
-          hlmAvatarImage
-        />
-        <span class="bg-[#FD005B] text-white" hlmAvatarFallback>RG</span>
-      </hlm-avatar>
+			<hlm-avatar class="size-8">
+				<img
+					src=""
+					alt="spartan logo. Resembling a spartanic shield"
+					hlmAvatarImage
+				/>
+				<span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+					{{_topbarDetails().staffName | initials}}
+				</span>
+			</hlm-avatar>
     </div>
   </div>
