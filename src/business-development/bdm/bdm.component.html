@@ -101,14 +101,14 @@
     <hlm-caption class="m-0 py-10">
       <hlm-spinner class="size-5" />
     </hlm-caption>
-    } @else { @for (item of _leads(); track item.id) {
+    } @else { @for (item of storedLeads; track item.id; let idx = $index ) {
     <hlm-trow (click)="onVeiw(item)">
       <!-- <hlm-td truncate class="font-medium w-fit">
                             <hlm-checkbox />
                         </hlm-td> -->
       <hlm-td truncate class="font-medium w-52">
         <p class="text-foreground font-medium">
-          BDM{{ item.id | leftPadding : 6 }}
+          BDM{{ idx | leftPadding : 6 }}
         </p>
         <p class="text-muted-foreground lowercase">
           {{ item.created_at | date : "dd/MM/yyyy h:mma" }}

@@ -1,9 +1,28 @@
-import { Component, OnInit, inject, input, output, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
 import { lucidePlus } from '@ng-icons/lucide';
-import { BrnDialogTriggerDirective, BrnDialogContentDirective, BrnDialogRef } from '@spartan-ng/ui-dialog-brain';
-import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
+import {
+  BrnDialogTriggerDirective,
+  BrnDialogContentDirective,
+  BrnDialogRef,
+} from '@spartan-ng/ui-dialog-brain';
+import {
+  BrnRadioGroupComponent,
+  BrnRadioComponent,
+} from '@spartan-ng/ui-radiogroup-brain';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
@@ -27,46 +46,46 @@ import { Lead, LeadStatus } from '../../models/bdm-item';
 @Component({
   selector: 'oryo-create-leads',
   standalone: true,
-	imports: [
-		HlmButtonDirective,
-		HlmIconComponent,
-		HlmInputDirective,
-		HlmLabelDirective,
+  imports: [
+    HlmButtonDirective,
+    HlmIconComponent,
+    HlmInputDirective,
+    HlmLabelDirective,
 
-		BrnRadioGroupComponent,
-		BrnRadioComponent,
-		HlmRadioIndicatorComponent,
-		HlmRadioDirective,
-		HlmRadioGroupDirective,
+    BrnRadioGroupComponent,
+    BrnRadioComponent,
+    HlmRadioIndicatorComponent,
+    HlmRadioDirective,
+    HlmRadioGroupDirective,
 
-		BrnDialogTriggerDirective,
-		BrnDialogContentDirective,
+    BrnDialogTriggerDirective,
+    BrnDialogContentDirective,
 
-		HlmDialogComponent,
-		HlmDialogContentComponent,
-		HlmDialogHeaderComponent,
-		HlmDialogFooterComponent,
-		HlmDialogTitleDirective,
-		HlmDialogDescriptionDirective,
-		BrnSelectImports,
-		HlmSelectImports,
-		ReactiveFormsModule,
+    HlmDialogComponent,
+    HlmDialogContentComponent,
+    HlmDialogHeaderComponent,
+    HlmDialogFooterComponent,
+    HlmDialogTitleDirective,
+    HlmDialogDescriptionDirective,
+    BrnSelectImports,
+    HlmSelectImports,
+    ReactiveFormsModule,
     FormsModule,
-		LeftPaddingPipe
-	],
-	providers: [provideIcons({ lucidePlus })],
+    LeftPaddingPipe,
+  ],
+  providers: [provideIcons({ lucidePlus })],
   templateUrl: './create-leads.component.html',
-  styleUrl: './create-leads.component.css'
+  styleUrl: './create-leads.component.css',
 })
 export class CreateLeadsComponent implements OnInit {
-	// declare input and outputs
-	showModal = input<boolean>(false);
-	closeLeads = output();
-	LeadsCreated = output();
+  // declare input and outputs
+  showModal = input<boolean>(false);
+  closeLeads = output();
+  LeadsCreated = output();
 
-	// injects
+  // injects
   _router = inject(Router);
-	private _fb = inject(FormBuilder);
+  private _fb = inject(FormBuilder);
 
   ngOnInit(): void {}
 
@@ -87,32 +106,33 @@ export class CreateLeadsComponent implements OnInit {
       id: 4,
       name: 'Fuel',
     },
+  ];
 
-  ]
+  // component variables
+  openCreateCompanyForm = signal(false);
+  openCreateBranchForm = signal(false);
+  isCreatingTicket = signal<boolean>(false);
 
-	// component variables
-	openCreateCompanyForm = signal(false);
-	openCreateBranchForm = signal(false);
-	isCreatingTicket = signal<boolean>(false);
+  createCompantForm = this._fb.nonNullable.group({
+    name: this._fb.nonNullable.control('', Validators.required),
+    email: this._fb.nonNullable.control('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    customerName: this._fb.nonNullable.control('', Validators.required),
+    phone: this._fb.nonNullable.control('', Validators.required),
+    location: this._fb.nonNullable.control('', Validators.required),
+    pto: this._fb.nonNullable.control('', Validators.required),
+  });
 
+  onSubmit() {
+    if (this.createCompantForm.invalid) {
+      toast.error('Form is invalid. All fields are should be filled', {
+        id: 'invalid-internal-create-leads-form',
+      });
+    }
 
-	createCompantForm = this._fb.nonNullable.group({
-		name: this._fb.nonNullable.control('', Validators.required),
-		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
-		customerName: this._fb.nonNullable.control('', Validators.required),
-		phone: this._fb.nonNullable.control('', Validators.required),
-		location: this._fb.nonNullable.control('', Validators.required),
-		pto: this._fb.nonNullable.control('', Validators.required),
-	});
-
-	onSubmit() {
-		if (this.createCompantForm.invalid) {
-			toast.error("Form is invalid. All fields are should be filled", {
-				id: "invalid-internal-create-leads-form"
-			})
-		}
-
-		const payload: Lead = {
+    const payload: Lead = {
       name: this.createCompantForm.controls.name.value,
       email: this.createCompantForm.controls.email.value,
       customerName: this.createCompantForm.controls.customerName.value,
@@ -120,38 +140,47 @@ export class CreateLeadsComponent implements OnInit {
       location: this.createCompantForm.controls.location.value,
       product_offered: this.createCompantForm.controls.pto.value,
       id: 0,
-      status: LeadStatus.PROJECT,
+      status: LeadStatus.LEAD,
       created_by: '',
       updated_by: '',
-      created_at: '',
-      updated_at: ''
-    }
+      created_at: new Date().toISOString(),
+      updated_at: '',
+    };
 
-		this.isCreatingTicket.set(true);
+    this.isCreatingTicket.set(true);
+
     if (payload) {
-      toast.success("Success in creation", {
-				id: "valid-success"
-			})
+      // Check if 'leads' already exists in localStorage
+      let leadsArray = JSON.parse(localStorage.getItem('leads') || '[]');
 
-				this.LeadsCreated.emit();
-				this.isCreatingTicket.set(false);
-				this.openCreateBranchForm.set(false);
-        this.openCreateCompanyForm.set(false)
-        this._router.navigate(['bdm', 'view-bdm'])
-      
+      // Add the new payload to the array
+      leadsArray.push(payload);
+
+      // Convert the array back to a JSON string and save it in localStorage
+      localStorage.setItem('leads', JSON.stringify(leadsArray));
+
+      // Notify the user of success and proceed with other actions
+      toast.success('Lead successfully created and stored.', {
+        id: 'valid-success',
+      });
+
+      this.LeadsCreated.emit();
+      this.isCreatingTicket.set(false);
+      this.openCreateBranchForm.set(false);
+      this.openCreateCompanyForm.set(false);
+      this._router.navigate(['bdm', 'view-bdm']);
     }
-	}
 
-	log(event: any) {
-		console.log(event);
-	}
+	this.createCompantForm.reset()
+  }
 
-	
+  log(event: any) {
+    console.log(event);
+  }
 
-	showSuccessToast() {
-		toast.success("Email sent to client", {
-			id: "create-leads-form-email-success",
-		});
-	}
-
+  showSuccessToast() {
+    toast.success('Email sent to client', {
+      id: 'create-leads-form-email-success',
+    });
+  }
 }

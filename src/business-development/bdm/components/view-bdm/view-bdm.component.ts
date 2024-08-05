@@ -1,4 +1,4 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, inject, signal } from '@angular/core';
 import { HlmCaptionComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-caption.component';
 import { HlmTableComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-table.component';
 import { HlmTdComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-td.component';
@@ -35,9 +35,17 @@ import { HlmRadioGroupDirective } from '../../../../libs/ui/ui-radiogroup-helm/s
 import { HlmRadioIndicatorComponent } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio-indicator.component';
 import { HlmRadioDirective } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
-import { DecimalPipe, Location } from '@angular/common';
+import { DatePipe, DecimalPipe, Location } from '@angular/common';
 import { OnlyNumbersDirective } from './components/directives/only-numbers.directive';
-import { CreateActivityPayload, Lead, LeadStatus } from '../../models/bdm-item';
+import {
+  CreateActivityPayload,
+  Lead,
+  LeadStatus,
+  Won,
+} from '../../models/bdm-item';
+import { StaffService } from '../../../../help-desk/core/services/staff.service';
+import { HlmDialogService } from '../services/hlm-dialog.service';
+import { AuthService } from '../../../../libs/services/auth.service';
 
 @Component({
   selector: 'oryo-view-bdm',
@@ -63,6 +71,8 @@ import { CreateActivityPayload, Lead, LeadStatus } from '../../models/bdm-item';
     HlmRadioDirective,
     HlmRadioGroupDirective,
 
+    DatePipe,
+
     BrnDialogTriggerDirective,
     BrnDialogContentDirective,
 
@@ -87,13 +97,16 @@ import { CreateActivityPayload, Lead, LeadStatus } from '../../models/bdm-item';
   templateUrl: './view-bdm.component.html',
   styleUrl: './view-bdm.component.css',
 })
-export class ViewBdmComponent {
+export class ViewBdmComponent implements OnInit {
   getId = Input();
   _loading = signal<boolean>(false);
   isCreating = signal<boolean>(false);
   isEditing = signal<boolean>(false);
   isEditingWon = signal<boolean>(false);
   isCreatingOpportunity = signal<boolean>(false);
+  staffName = inject(AuthService).getLoggedInStaff()?.staff.name;
+  retrievedPayload = JSON.parse(localStorage.getItem('userBudget') || '{}');
+  storedItems = JSON.parse(localStorage.getItem('items') || '[]');
 
   budget: any;
   target: any;
@@ -106,6 +119,8 @@ export class ViewBdmComponent {
   // injects
   _fb = inject(FormBuilder);
   _location = inject(Location);
+  _log = inject(HlmDialogService);
+  _staff = this._log.getRes();
   protected _invoices = [
     {
       name: 'Olumide',
@@ -163,8 +178,7 @@ export class ViewBdmComponent {
       id: 5,
       name: 'Project',
     },
-
-  ]
+  ];
   protected _productOffered = [
     {
       id: 1,
@@ -182,10 +196,11 @@ export class ViewBdmComponent {
       id: 4,
       name: 'Fuel',
     },
-
-  ]
+  ];
 
   ngOnInit(): void {
+    console.log(this.retrievedPayload, this._staff);
+
     this._loading.set(true);
     setTimeout(() => {
       this._loading.set(false);
@@ -223,6 +238,15 @@ export class ViewBdmComponent {
           productOffered: 'Generator',
         },
       ];
+    }, 3000);
+  }
+
+  getChanges() {
+    this._loading.set(true);
+    setTimeout(() => {
+      this._loading.set(false);
+
+  this.storedItems = JSON.parse(localStorage.getItem('items') || '[]');
     }, 3000);
   }
 
@@ -383,22 +407,41 @@ export class ViewBdmComponent {
       });
 
       this.isCreating.set(false);
-      // this._routes.navigate(['business-development', 'view-bdm'])
     }
-    // this._ticketsService.createTicket(payload).subscribe({
-    // 	next: (res) => {
-    // 		this.ticketCreated.emit();
-    // 		this.isCreatingTicket.set(false);
-    // 		this.openCreateTicketForm.set(false);
-    // 		this.sendEmail(res.data);
-    // 		toast.success("Ticket created successfully", {
-    // 			id: "create-ticket-form-success"
-    // 		});
-    // 	},
-    // 	error: (err) => {
-    // 		this.isCreatingTicket.set(false);
-    // 		console.log(err);
-    // 	}
-    // })
+  }
+  onSubmitWon() {
+    // Get the current date and time as an ISO string
+    const newItem = {
+      id: 1, // Replace with the actual ID or data you want
+      name: this.staffName,
+      description: this.createWonForm.controls.won.value,
+      created_by: '', // Add creator's information here if available
+      updated_by: '', // Add updater's information if available
+      created_at: new Date().toISOString(), // Set the current date and time
+      updated_at: '', // Can be set when the object is updated
+    };
+
+    // Retrieve the existing array from localStorage or initialize it if it doesn't exist
+    let itemsArray = JSON.parse(localStorage.getItem('items') || '[]');
+
+    // Push the new item into the array
+    itemsArray.push(newItem);
+
+    // Convert the updated array to a JSON string
+    const itemsArrayJson = JSON.stringify(itemsArray);
+
+    // Save the updated array back to localStorage
+    localStorage.setItem('items', itemsArrayJson);
+
+    // Notify the user of success and manage other state
+    this.isCreating.set(true);
+
+    if (newItem) {
+      toast.success('Item successfully added to the list.', {
+        id: 'valid-success',
+      });
+
+      this.isCreating.set(false);
+    }
   }
 }

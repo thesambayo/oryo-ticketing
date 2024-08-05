@@ -34,6 +34,16 @@ export interface BudgetPayload {
   generatedInvoice: string;
 }
 
+export interface Won {
+  // id: number;
+  name: string;
+  description: string;
+  created_by: string;
+  updated_by: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface CreateUserBudgetPayload {
   staffId: number;
   budget: string;
