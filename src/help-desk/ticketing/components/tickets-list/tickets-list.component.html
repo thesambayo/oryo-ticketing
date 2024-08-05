@@ -186,7 +186,53 @@
 								<button hlmMenuItem (triggered)="activeTicket.set(ticket)">Reassign ticket</button>
 								<button hlmMenuItem [routerLink]="'/help-desk/tickets/'+ticket.id">View ticket</button>
 							</hlm-menu-group>
-							@if (ticket.status !== TicketsStatuses.CLOSED) {
+							<hlm-menu-separator />
+
+							<button hlmMenuItem [brnMenuTriggerFor]="share">
+								Update status
+								<hlm-menu-item-sub-indicator />
+							</button>
+							<ng-template #share>
+								<hlm-sub-menu>
+									@if (ticket.status !== TicketsStatuses.OPEN) {
+										<button
+											hlmMenuItem
+											class="text-yellow-600 hover:text-yellow-600"
+											(triggered)="changeTicketStatus(ticket.id, TicketsStatuses.OPEN)"
+										>
+											Open
+										</button>
+									}
+									@if (ticket.status !== TicketsStatuses.IN_PROGRESS) {
+										<button
+											hlmMenuItem
+											class="text-blue-600 hover:text-blue-600"
+											(triggered)="changeTicketStatus(ticket.id, TicketsStatuses.IN_PROGRESS)"
+										>
+											In progress
+										</button>
+									}
+									@if (ticket.status !== TicketsStatuses.RESOLVED && ticket.status !== TicketsStatuses.CLOSED) {
+										<button
+											hlmMenuItem
+											class="text-green-600 hover:text-green-600"
+											(triggered)="changeTicketStatus(ticket.id, TicketsStatuses.RESOLVED)"
+										>
+											Resolve
+										</button>
+									}
+									@if (ticket.status !== TicketsStatuses.CANCELLED) {
+										<button
+											hlmMenuItem
+											class="text-destructive hover:text-destructive"
+											(triggered)="changeTicketStatus(ticket.id, TicketsStatuses.CANCELLED)"
+										>
+											Cancel
+										</button>
+									}
+								</hlm-sub-menu>
+							</ng-template>
+							<!-- @if (ticket.status !== TicketsStatuses.CLOSED) {
 								<hlm-menu-separator />
 								<hlm-menu-group>
 									<button
@@ -197,7 +243,7 @@
 										Close ticket
 									</button>
 								</hlm-menu-group>
-							}
+							} -->
 						</hlm-menu>
 					</ng-template>
 				</hlm-td>

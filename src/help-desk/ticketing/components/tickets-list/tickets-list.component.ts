@@ -49,8 +49,6 @@ import { TopbarService } from '../../../core/services/topbar.service';
 		TicketPriorityDisplayPipe,
 		AssignTicketComponent,
 		CreateTicketComponent,
-
-
 		HlmSpinnerComponent,
 
 		HlmButtonDirective,
@@ -133,10 +131,11 @@ export class TicketsListComponent implements OnInit {
 		})
 	}
 
-	closeTicket(ticketId: number) {
+	changeTicketStatus(ticketId: number, status: TicketItemStatus) {
 		const payload = {
-			status: TicketItemStatus.CLOSED
+			status
 		} as CreateTicketItemPayload;
+
 		this._ticketsService.updateTicket(ticketId, payload).subscribe({
 			next: (res) => {
 				this.getAllTickets();
@@ -151,7 +150,6 @@ export class TicketsListComponent implements OnInit {
 			}
 		})
 	}
-
 
 
 }

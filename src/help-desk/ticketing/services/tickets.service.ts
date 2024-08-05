@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus, UpdateTicketItemPayload } from '../models/ticket-item';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../../libs/models/model';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { map } from 'rxjs';
 
 @Injectable({

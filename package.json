@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=5500",
-    "build": "ng build",
+    "build": "rm -rf dist && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -46,6 +46,7 @@
     "ag-charts-angular": "^10.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^1.2.1",
+    "date-fns": "^3.6.0",
     "embla-carousel-angular": "^14.0.0",
     "nanoid": "^5.0.7",
     "ngx-scrollbar": "^15.1.0",
