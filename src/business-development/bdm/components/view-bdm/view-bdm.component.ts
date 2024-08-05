@@ -165,6 +165,25 @@ export class ViewBdmComponent {
     },
 
   ]
+  protected _productOffered = [
+    {
+      id: 1,
+      name: 'Fleet Management',
+    },
+    {
+      id: 2,
+      name: 'Vision',
+    },
+    {
+      id: 3,
+      name: 'Electronic Control Module',
+    },
+    {
+      id: 4,
+      name: 'Fuel',
+    },
+
+  ]
 
   ngOnInit(): void {
     this._loading.set(true);
