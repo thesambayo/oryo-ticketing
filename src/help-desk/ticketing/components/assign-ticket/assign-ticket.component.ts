@@ -7,7 +7,7 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
-import { StaffService } from '../../../core/services/staff.service';
+import { StaffService } from '../../../../libs/services/staff.service';
 import { TicketsService } from '../../services/tickets.service';
 import { CreateTicketItemPayload, TicketItem } from '../../models/ticket-item';
 import { toast } from 'ngx-sonner';

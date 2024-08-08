@@ -70,17 +70,16 @@
 					<label hlmLabel for="companyEmail">
 						<span>Product Offered</span>
 					</label>
-					<brn-select class="w-full" placeholder="Select an option"
-                    formControlName="pto">
-                        <hlm-select-trigger class="w-full">
-                          <hlm-select-value />
-                        </hlm-select-trigger>
-                        <hlm-select-content class="w-full">
+					  <brn-select class="inline-block w-full" placeholder="Select" [multiple]="true" formControlName="pto">
+						<hlm-select-trigger class="w-56">
+						  <hlm-select-value />
+						</hlm-select-trigger>
+						<hlm-select-content>
 							@for (item of _productOffered; track item.id) {
 								<hlm-option [value]="item.name">{{item.name}}</hlm-option>
 							}
-                        </hlm-select-content>
-                      </brn-select>
+						</hlm-select-content>
+					  </brn-select>
 				</div>
 			</div>
 

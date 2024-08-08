@@ -60,3 +60,40 @@ export const bdmItems: Lead[] = [
     updated_at: ""
   }
 ];
+
+export function getData() {
+  return [
+    {
+      quarter: "Q1'2024",
+      project: 140,
+      kiv: 116,
+      notInterested: 122,
+      poc: 102,
+      close: 20,
+    },
+    {
+      quarter: "Q2'2024",
+      project: 124,
+      kiv: 110,
+      notInterested: 104,
+      poc: 82,
+      close: 30,
+    },
+    {
+      quarter: "Q3'2024",
+      project: 112,
+      kiv: 120,
+      notInterested: 108,
+      poc: 104,
+      close: 36,
+    },
+    {
+      quarter: "Q4'2024",
+      project: 0,
+      kiv: 0,
+      notInterested: 0,
+      poc: 0,
+      close: 0,
+    },
+  ];
+}

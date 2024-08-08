@@ -60,6 +60,8 @@ import { ViewBdmComponent } from './components/view-bdm/view-bdm.component';
 import { Router } from '@angular/router';
 import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
 import { HlmtDialogService } from './components/services/hlm-dialog.service';
+import { AgCharts } from 'ag-charts-angular';
+import { getData } from './bdm-data';
 
 @Component({
   selector: 'oryo-bdm',
@@ -113,6 +115,8 @@ import { HlmtDialogService } from './components/services/hlm-dialog.service';
 
     ViewBdmComponent,
     HlmSpinnerComponent,
+
+    AgCharts,
   ],
   providers: [
     provideIcons({
@@ -139,7 +143,52 @@ export class BdmComponent implements OnInit {
   getView = signal<boolean>(false);
   storedLeads = JSON.parse(localStorage.getItem('leads') || '[]');
 
+  options: any;
+
   ngOnInit(): void {
+    this.options = {
+      title: {
+        text: "Business Development Module",
+      },
+      subtitle: {
+        text: '',
+      },
+      data: getData(),
+      series: [
+        {
+          type: 'bar',
+          xKey: 'quarter',
+          yKey: 'project',
+          yName: 'Project',
+          fill: '#000000',
+    
+        },
+        {
+          type: 'bar',
+          xKey: 'quarter',
+          yKey: 'kiv',
+          yName: 'KIV',
+        },
+        {
+          type: 'bar',
+          xKey: 'quarter',
+          yKey: 'notInterested',
+          yName: 'Not Interested',
+        },
+        {
+          type: 'bar',
+          xKey: 'quarter',
+          yKey: 'poc',
+          yName: 'POC',
+        },
+        {
+          type: 'bar',
+          xKey: 'quarter',
+          yKey: 'close',
+          yName: 'Close',
+        },
+      ],
+    };
     this._leads.set([
       {
         id: 1,
@@ -201,7 +250,7 @@ export class BdmComponent implements OnInit {
   }
 
   onVeiw(e: any) {
-    this._log.setRes(e)
+    this._log.setRes(e);
     this._router.navigate(['bdm', 'view-bdm']);
   }
 }

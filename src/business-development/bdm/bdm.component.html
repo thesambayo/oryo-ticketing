@@ -1,16 +1,19 @@
-<div class="w-[95%] overflow-x-auto mt-20 bg-white rounded-xl">
-  <!--  -->
-  <div class="flex items-center justify-between p-4">
+<section>
+  <ag-charts  class="mt-4 block h-[50vh]" [options]="options"></ag-charts> 
+</section>
+
+<div class="w-full  overflow-x-auto mt-10 bg-white rounded-xl">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between p-4">
     <button
       hlmBtn
       variant="outline"
-      class="gap-2 pointer-events-none border-none text-oryo-green"
+      class="gap-2 pointer-events-none border-none text-oryo-green mb-4 md:mb-0"
       size="sm"
     >
       <span>All Business Development ({{ _leads().length }})</span>
     </button>
 
-    <div class="relative">
+    <div class="relative w-full md:w-auto mb-4 md:mb-0">
       <hlm-icon
         size="sm"
         class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground"
@@ -18,9 +21,9 @@
       />
       <input
         hlmInput
-        class="w-96 pl-8 bg-muted"
-        placeholder="Search for branch,bdm id, company..."
-        type="Search"
+        class="w-full md:w-80 pl-8 bg-muted"
+        placeholder="Search for branch, bdm id, company..."
+        type="search"
       />
     </div>
 
@@ -87,76 +90,69 @@
     </div>
   </div>
 
-  <hlm-table class="w-full ">
-    <hlm-trow class="uppercase">
-      <hlm-th class="w-52"> Company ID</hlm-th>
-      <hlm-th class="w-52">Company Name</hlm-th>
-      <hlm-th class="w-56">Customer Name</hlm-th>
-      <hlm-th class="w-56">PTO</hlm-th>
-      <hlm-th class="w-56">Status </hlm-th>
-      <hlm-th class="w-40">Actions</hlm-th>
-    </hlm-trow>
-
-    @if (isLoading()) {
-    <hlm-caption class="m-0 py-10">
-      <hlm-spinner class="size-5" />
-    </hlm-caption>
-    } @else { @for (item of storedLeads; track item.id; let idx = $index ) {
-    <hlm-trow (click)="onVeiw(item)">
-      <!-- <hlm-td truncate class="font-medium w-fit">
-                            <hlm-checkbox />
-                        </hlm-td> -->
-      <hlm-td truncate class="font-medium w-52">
-        <p class="text-foreground font-medium">
-          BDM{{ idx | leftPadding : 6 }}
-        </p>
-        <p class="text-muted-foreground lowercase">
-          {{ item.created_at | date : "dd/MM/yyyy h:mma" }}
-        </p>
-      </hlm-td>
-      <hlm-td class="w-56">
-        <div class="flex-1 flex flex-col items-start whitespace-nowrap">
+  <div class="w-full overflow-x-auto bg-white rounded-xl">
+    <hlm-table class="w-full min-w-[600px]"> <!-- min-width added for small screens -->
+      <hlm-trow class="uppercase bg-gray-100">
+        <hlm-th class="min-w-[120px]">Company ID</hlm-th>
+        <hlm-th class="min-w-[150px]">Company Name</hlm-th>
+        <hlm-th class="min-w-[150px] hidden sm:flex">Customer Name</hlm-th> <!-- hidden on small screens -->
+        <hlm-th class="min-w-[150px] hidden sm:flex">PTO</hlm-th> <!-- hidden on small screens -->
+        <hlm-th class="min-w-[150px]">Status</hlm-th>
+        <hlm-th class="min-w-[100px]">Actions</hlm-th>
+      </hlm-trow>
+  
+      @if (isLoading()) {
+      <hlm-caption class="m-0 py-10">
+        <hlm-spinner class="size-5" />
+      </hlm-caption>
+      } @else { @for (item of storedLeads; track item.id; let idx = $index ) {
+      <hlm-trow class="cursor-pointer hover:bg-gray-100" (click)="onVeiw(item)">
+        <hlm-td truncate class="font-medium min-w-[120px]">
+          <p class="text-foreground font-medium">
+            BDM{{ idx | leftPadding : 6 }}
+          </p>
+          <p class="text-muted-foreground lowercase text-sm">
+            {{ item.created_at | date : "dd/MM/yyyy h:mma" }}
+          </p>
+        </hlm-td>
+        <hlm-td class="min-w-[150px]">
+          <div class="flex flex-col items-start whitespace-nowrap">
             <p class="text-foreground font-medium">{{ item.name }}</p>
-            <p class="text-muted-foreground">{{ item.email }}</p>
-        </div>
-      </hlm-td>
-      <hlm-td class="w-56">
-        <span class="truncate">{{ item.customerName }}</span>
-      </hlm-td>
-      <hlm-td class="w-56">
-        <span class="truncate">{{ item.product_offered }}</span>
-      </hlm-td>
-      <hlm-td class="w-56">
-        <div hlmBadge [variant]="getStatusVariant(item.status)">
-          {{ item.status }}
-        </div>
-      </hlm-td>
-      <hlm-td class=" w-40">
-        <button
-          hlmBtn
-          variant="ghost"
-          class="size-6 p-0.5"
-          align="center"
-          [brnMenuTriggerFor]="menu"
-        >
-          <hlm-icon class="size-4" name="lucideMoveHorizontal" />
-        </button>
-        <ng-template #menu>
-          <hlm-menu>
-            <!-- <hlm-menu-label>Actions</hlm-menu-label>
-                                    <hlm-menu-separator /> -->
-            <!-- <hlm-menu-group>
-              <button hlmMenuItem click="">Update</button>
-              <button hlmMenuItem>Log and Activity</button>
-              <button hlmMenuItem>Make Payment</button>
-            </hlm-menu-group> -->
-            <hlm-menu-separator />
-          </hlm-menu>
-        </ng-template>
-      </hlm-td>
-    </hlm-trow>
-    } @empty {
-    <hlm-caption class="m-0 py-10">No BDM found</hlm-caption>
-    } }
-  </hlm-table>
+            <p class="text-muted-foreground text-sm">{{ item.email }}</p>
+          </div>
+        </hlm-td>
+        <hlm-td class="min-w-[150px]"> <!-- hidden on small screens -->
+          <span class="truncate">{{ item.customerName }}</span>
+        </hlm-td>
+        <hlm-td class="min-w-[150px] hidden sm:flex"> <!-- hidden on small screens -->
+          <span class="truncate">{{ item.product_offered }}</span>
+        </hlm-td>
+        <hlm-td class="min-w-[150px]">
+          <div hlmBadge [variant]="getStatusVariant(item.status)">
+            {{ item.status }}
+          </div>
+        </hlm-td>
+        <hlm-td class="min-w-[100px]">
+          <button
+            hlmBtn
+            variant="ghost"
+            class="p-0.5"
+            align="center"
+            [brnMenuTriggerFor]="menu"
+          >
+            <hlm-icon class="size-4" name="lucideMoveHorizontal" />
+          </button>
+          <ng-template #menu>
+            <hlm-menu>
+              <hlm-menu-separator />
+            </hlm-menu>
+          </ng-template>
+        </hlm-td>
+      </hlm-trow>
+      } @empty {
+      <hlm-caption class="m-0 py-10">No BDM found</hlm-caption>
+      } }
+    </hlm-table>
+  </div>
+  
 </div>

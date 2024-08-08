@@ -10,6 +10,7 @@ import {
   lucideBadgeDollarSign,
   lucideFileArchive,
   lucideProportions,
+  lucideBanknote,
 } from '@ng-icons/lucide';
 import { BrnSeparatorComponent } from '@spartan-ng/ui-separator-brain';
 import { HlmButtonDirective } from '../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
@@ -45,7 +46,7 @@ interface NavItem {
       lucideLogOut,
       lucideUser,
       lucideTicket,
-      lucideBadgeDollarSign,
+      lucideBanknote,
       lucideFileArchive,
       lucideProportions,
     }),
@@ -69,7 +70,7 @@ export class BdmSidebarComponent {
     {
       label: 'Create Budget',
       action: () => this.openBudget(),
-      icon: 'lucideBadgeDollarSign',
+      icon: 'lucideBanknote',
     },
     {
       label: 'Create Leads',
