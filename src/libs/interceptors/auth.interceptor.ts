@@ -15,6 +15,7 @@ function shouldSkip(requestURL: string) {
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+	console.log(req, "requests")
 	if (shouldSkip(req.url)) {
 		return next(req);
 	}

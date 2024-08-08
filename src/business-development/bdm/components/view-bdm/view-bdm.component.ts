@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  inject,
+  signal,
+} from '@angular/core';
 import { HlmCaptionComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-caption.component';
 import { HlmTableComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-table.component';
 import { HlmTdComponent } from '../../../../libs/ui/ui-table-helm/src/lib/hlm-td.component';
@@ -43,7 +50,7 @@ import {
   LeadStatus,
   Won,
 } from '../../models/bdm-item';
-import { StaffService } from '../../../../help-desk/core/services/staff.service';
+import { StaffService } from '../../../../libs/services/staff.service';
 import { HlmtDialogService } from '../services/hlm-dialog.service';
 import { AuthService } from '../../../../libs/services/auth.service';
 import { PrintInoviceComponent } from './components/print-inovice/print-inovice.component';
@@ -117,6 +124,8 @@ export class ViewBdmComponent implements OnInit {
   actualTarget: any;
 
   bdm: { [key: string]: string } = {};
+
+  @ViewChild('onlyNumbersInput') onlyNumbersDirective!: OnlyNumbersDirective;
 
   // injects
   _fb = inject(FormBuilder);
@@ -203,7 +212,8 @@ export class ViewBdmComponent implements OnInit {
 
   openInvoce() {
     this._hlmDialogService.open(PrintInoviceComponent, {
-      contentClass: 'sm:!max-w-full overflow'});
+      contentClass: 'sm:!max-w-full overflow',
+    });
   }
 
   ngOnInit(): void {
@@ -254,11 +264,10 @@ export class ViewBdmComponent implements OnInit {
     setTimeout(() => {
       this._loading.set(false);
 
-  this.storedItems = JSON.parse(localStorage.getItem('items') || '[]');
+      this.storedItems = JSON.parse(localStorage.getItem('items') || '[]');
     }, 3000);
   }
 
-  
   createCompantForm = this._fb.nonNullable.group({
     // customer details
     name: this._fb.nonNullable.control('', Validators.required),
@@ -274,7 +283,7 @@ export class ViewBdmComponent implements OnInit {
 
   createOpportunityForm = this._fb.nonNullable.group({
     // customer details
-    description: this._fb.nonNullable.control('', Validators.required),
+    // description: this._fb.nonNullable.control('', Validators.required),
     siteSurvey: this._fb.nonNullable.control(''),
     schematicDesigns: this._fb.nonNullable.control(''),
     technicalProposal: this._fb.nonNullable.control(''),
@@ -333,7 +342,7 @@ export class ViewBdmComponent implements OnInit {
   }
 
   formattedNumber(inputNumber: any) {
-    return inputNumber.replace(/[.,]/g, '');
+    return inputNumber.replace(/,/g, '');
   }
 
   ontxtTarget(e: any) {
@@ -347,8 +356,10 @@ export class ViewBdmComponent implements OnInit {
   ontxtPercentage(e: any) {
     let num = this.formattedNumber(e.target.value);
     let amount = this.actualTarget * (num / 100);
-    this.payableAmount = amount;
-    this.leftAmount = this.actualTarget - amount;
+
+    // Format amounts to 2 decimal places
+    this.payableAmount = parseFloat(amount.toFixed(2));
+    this.leftAmount = parseFloat((this.actualTarget - amount).toFixed(2));
     // Create a simulated event object for handleInput
     const amountEvent = {
       target: {
@@ -371,6 +382,7 @@ export class ViewBdmComponent implements OnInit {
   }
 
   handleInput(event: any, type?: any) {
+    this.onlyNumbersDirective.formatOnKeyUp();
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value;
     const keyPressed = inputElement.name;

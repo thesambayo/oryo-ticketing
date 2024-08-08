@@ -15,7 +15,7 @@ import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStat
 import { toast } from 'ngx-sonner';
 import { TicketsService } from '../../services/tickets.service';
 import { LeftPaddingPipe } from '../../../../libs/pipes/left-padding.pipe';
-import { StaffService } from '../../../core/services/staff.service';
+import { StaffService } from '../../../../libs/services/staff.service';
 
 @Component({
 	selector: 'oryo-create-ticket',

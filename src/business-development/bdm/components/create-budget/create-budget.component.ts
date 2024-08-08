@@ -22,7 +22,11 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { Budget, CreateUserBudgetPayload } from '../../models/bdm-item';
 import { toast } from 'ngx-sonner';
 import { BrnDialogRef } from '@spartan-ng/ui-dialog-brain';
-import { StaffService } from '../../../../help-desk/core/services/staff.service';
+import { StaffService } from '../../../../libs/services/staff.service';
+import { OnlyNumbersDirective } from '../view-bdm/components/directives/only-numbers.directive';
+import { Department, Staff } from '../../../../help-desk/core/models/staff';
+import { pipe, takeUntil } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'oryo-create-budget',
@@ -37,6 +41,7 @@ import { StaffService } from '../../../../help-desk/core/services/staff.service'
     HlmIconComponent,
     HlmInputDirective,
     HlmLabelDirective,
+    OnlyNumbersDirective,
 
     BrnSelectImports,
     HlmSelectImports,
@@ -48,19 +53,20 @@ export class CreateBudgetComponent {
   _fb = inject(FormBuilder);
   // _ticketsService = inject(TicketsService);
   _routes = inject(Router);
+  _staffService = inject(StaffService);
 
   _dialogRef = inject<BrnDialogRef<CreateUserBudgetPayload>>(BrnDialogRef);
 
+  bdmStaff = this._staffService.bdmStaff;
+//   bdmStaff$ = this._staffService.getStaff(Department.BUSINESS_DEVELOPMENT);
   isCreating = signal<boolean>(false);
-  staffList = inject(StaffService).staffList;
   retrievedPayload = JSON.parse(localStorage.getItem('userBudget') || '{}');
 
-  _user = [
-    { id: 1, name: 'Jide' },
-    { id: 2, name: 'Samuel' },
-    { id: 2, name: 'BJ' },
-    { id: 2, name: 'Victor' },
-  ];
+
+
+  ngOnInit() {}
+//   console.log(this.bdmStaff())
+// 	{{bdmStaff$ | async}}
 
   createCompantForm = this._fb.nonNullable.group({
     // customer details
@@ -69,6 +75,11 @@ export class CreateBudgetComponent {
     startDate: this._fb.nonNullable.control('', [Validators.required]),
     endDate: this._fb.nonNullable.control('', [Validators.required]),
   });
+
+//   getStaff() {
+
+// 	const 
+//   }
 
   onSubmit() {
     if (this.createCompantForm.invalid) {

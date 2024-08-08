@@ -40,7 +40,7 @@ import { lucideBell, lucideSearch, lucideMoveHorizontal, lucidePlus, lucideChevr
 import { Router } from '@angular/router';
 import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-item';
 import { PercentagePipe } from '../pipes/percentage.pipe';
-import { StaffService } from '../../help-desk/core/services/staff.service';
+import { StaffService } from '../../libs/services/staff.service';
 
 @Component({
   selector: 'oryo-report',

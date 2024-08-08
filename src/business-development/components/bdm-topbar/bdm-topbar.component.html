@@ -1,32 +1,31 @@
-<div class="flex items-center justify-between">
-    <div class="font-bold text-blue-900">
-      <p class="text-sm text-[#707EAE]">Hi {{_topbarDetails().staffName}}</p>
-      <h3 class="text-3xl">Business Development Module</h3>
-    </div>
-    <div class="flex items-center gap-x-2.5">
-      <!-- <div class="relative">
-              <hlm-icon size="sm" class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground" name="lucideSearch" />
-        <input
-          class="w-80 bg-white pl-8"
-          hlmInput
-          placeholder="Search"
-          type="Search"
-        />
-      </div> -->
-      <div
-        class="bg-white text-muted-foreground rounded-full size-8 flex items-center justify-center"
-      >
-        <hlm-icon size="sm" name="lucideBell" />
-      </div>
-			<hlm-avatar class="size-8">
-				<img
-					src=""
-					alt="spartan logo. Resembling a spartanic shield"
-					hlmAvatarImage
-				/>
-				<span class="bg-[#FD005B] text-white" hlmAvatarFallback>
-					{{_topbarDetails().staffName | initials}}
-				</span>
-			</hlm-avatar>
-    </div>
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+  <div class="mb-4 sm:mb-0">
+    <p class="text-sm text-[#707EAE]">Hi {{_topbarDetails().staffName}}</p>
+    <h3 class="text-2xl sm:text-3xl font-bold text-blue-900">Business Development Module</h3>
   </div>
+  <div class="flex items-center gap-2.5">
+    <!-- Search bar can be hidden on smaller screens or implemented with a different approach -->
+    <!-- <div class="relative hidden sm:block">
+            <hlm-icon size="sm" class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground" name="lucideSearch" />
+      <input
+        class="w-80 bg-white pl-8"
+        hlmInput
+        placeholder="Search"
+        type="Search"
+      />
+    </div> -->
+    <div class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center">
+      <hlm-icon size="sm" name="lucideBell" />
+    </div>
+    <hlm-avatar class="h-8 w-8">
+      <img
+        src=""
+        alt="spartan logo. Resembling a spartanic shield"
+        class="h-8 w-8 rounded-full"
+      />
+      <span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+        {{_topbarDetails().staffName | initials}}
+      </span>
+    </hlm-avatar>
+  </div>
+</div>
