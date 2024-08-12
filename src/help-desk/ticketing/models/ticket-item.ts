@@ -111,7 +111,7 @@ export interface CreateTicketItemPayload {
 	// minimum requirement to create a ticket above
 
 	category: string; // incident, problem etc [can be within list of registered values]
-	assignee: number; // when not-empty is only an oryo email
+	assignee?: number; // when not-empty is only an oryo email
 	// assignee?: string; // when not-empty is only an oryo email
 	// attachments?: string[]; later scatters
 	// should have a created by field that when not-empty is only an oryo email

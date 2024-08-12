@@ -9,8 +9,8 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnRadioComponent, BrnRadioGroupComponent } from '@spartan-ng/ui-radiogroup-brain';
 import { HlmRadioDirective, HlmRadioGroupDirective, HlmRadioIndicatorComponent } from '@spartan-ng/ui-radiogroup-helm';
-import { TicketsService } from '../ticketing/services/tickets.service';
-import { CreateTicketItemPayload, TicketItem, TicketItemPriority, TicketItemStatus } from '../ticketing/models/ticket-item';
+import { CreateTicketItemPayload, TicketItemPriority, TicketItemStatus } from '../help-desk/ticketing/models/ticket-item';
+import { TicketsService } from '../help-desk/ticketing/services/tickets.service';
 
 @Component({
 	selector: 'oryo-report-form',
@@ -56,10 +56,9 @@ export class ReportFormComponent {
 			reporterCompany: this.reportForm.value.company!,
 			subject: this.reportForm.value.subject!,
 			description: this.reportForm.value.description!,
-			category: "PROBLEM_MANAGEMENT",
-			assignee: 1,
-			priority: TicketItemPriority.HIGH,
-			status: TicketItemStatus.OPEN,
+			category: "PROBLEM_MANAGEMENT", // default
+			priority: TicketItemPriority.HIGH, // default
+			status: TicketItemStatus.OPEN, // default
 		};
 		this.isSendingEmail = true;
 		this._ticketsService.createTicket(payload).subscribe({

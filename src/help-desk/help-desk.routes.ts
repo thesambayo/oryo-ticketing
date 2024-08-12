@@ -20,10 +20,6 @@ export const helpDeskRoutes: Routes = [
 		]
 	},
 	{
-		path: 'report-form',
-		loadComponent: () => import('./report-form/report-form.component').then(m => m.ReportFormComponent)
-	},
-	{
 		path: 'internal-form',
 		loadComponent: () => import('./internal-form/internal-form.component').then(m => m.InternalFormComponent)
 	},

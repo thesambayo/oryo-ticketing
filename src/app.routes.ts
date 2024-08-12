@@ -16,6 +16,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./auth/activate-staff/activate-staff.component').then(m => m.ActivateStaffComponent),
 	},
 	{
+		path: 'report-form',
+		loadComponent: () => import('./report-form/report-form.component').then(m => m.ReportFormComponent)
+	},
+	{
 		path: 'help-desk',
 		loadChildren: () => import('./help-desk/help-desk.routes').then(m => m.helpDeskRoutes),
 		canActivate: [isLoggedInGuard]
