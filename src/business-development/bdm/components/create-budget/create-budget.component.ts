@@ -27,6 +27,7 @@ import { OnlyNumbersDirective } from '../view-bdm/components/directives/only-num
 import { Department, Staff } from '../../../../help-desk/core/models/staff';
 import { pipe, takeUntil } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { BudgetService } from '../services/budget.service';
 
 @Component({
   selector: 'oryo-create-budget',
@@ -54,6 +55,7 @@ export class CreateBudgetComponent {
   // _ticketsService = inject(TicketsService);
   _routes = inject(Router);
   _staffService = inject(StaffService);
+  _budgetService = inject(BudgetService)
 
   _dialogRef = inject<BrnDialogRef<CreateUserBudgetPayload>>(BrnDialogRef);
 
@@ -81,6 +83,11 @@ export class CreateBudgetComponent {
 // 	const 
 //   }
 
+removeCommas(numberString: string) {
+    return numberString.replace(/,/g, '');
+}
+
+
   onSubmit() {
     if (this.createCompantForm.invalid) {
       toast.error('Form is invalid. All fields are should be filled', {
@@ -90,52 +97,32 @@ export class CreateBudgetComponent {
 
     const payload: CreateUserBudgetPayload = {
       staffId: this.createCompantForm.controls.staffId.value,
-      budget: this.createCompantForm.controls.budget.value,
-      startDate: this.createCompantForm.controls.startDate.value,
-      endDate: this.createCompantForm.controls.endDate.value,
+      amount: parseFloat(this.removeCommas(this.createCompantForm.controls.budget.value)),
+	  createdBy: this._budgetService.getUser()|| 0,
+      startDate: new Date(this.createCompantForm.controls.startDate.value).toISOString(),
+      endDate: new Date(this.createCompantForm.controls.endDate.value).toISOString(),
     };
+	console.log(payload);
+
+	
 
     this.isCreating.set(true);
-    // Retrieve the existing array from localStorage or initialize it if it doesn't exist
-    let budgetsArray = JSON.parse(localStorage.getItem('userBudget') || '[]');
 
-    // Add the new payload to the array
-    budgetsArray.push(payload);
-
-    // Convert the array back to a JSON string
-    const budgetsArrayJson = JSON.stringify(budgetsArray);
-
-    // Save the updated array back to localStorage
-    localStorage.setItem('userBudget', budgetsArrayJson);
-
-    // Notify the user of success and close the dialog
-    this.isCreating.set(true);
-
-    if (payload) {
-      toast.success('Success in creation', {
-        id: 'valid-success',
-      });
-
-      this._dialogRef.close();
-
-      // Reset the creating state
-      this.isCreating.set(false);
-    }
-
-    // this._ticketsService.createTicket(payload).subscribe({
-    // 	next: (res) => {
-    // 		this.ticketCreated.emit();
-    // 		this.isCreatingTicket.set(false);
-    // 		this.openCreateTicketForm.set(false);
-    // 		this.sendEmail(res.data);
-    // 		toast.success("Ticket created successfully", {
-    // 			id: "create-ticket-form-success"
-    // 		});
-    // 	},
-    // 	error: (err) => {
-    // 		this.isCreatingTicket.set(false);
-    // 		console.log(err);
-    // 	}
-    // })
+    this._budgetService.createBudget(payload).subscribe({
+    	next: (res) => {
+    		toast.success("Budget created successfully", {
+    			id: "create-budget-form-success"
+    		});
+			this._dialogRef.close();
+			// Reset the creating state
+			this.isCreating.set(false);
+    	},
+    	error: (err) => {
+			// Reset the creating state
+			this.isCreating.set(false);
+			toast.error("Error submitting Budget", {id: "create-budget-error"});
+    		console.log(err);
+    	}
+    })
   }
 }

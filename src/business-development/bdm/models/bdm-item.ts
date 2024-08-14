@@ -46,7 +46,8 @@ export interface Won {
 
 export interface CreateUserBudgetPayload {
   staffId: number;
-  budget: string;
+  amount: number;
+  createdBy: number;
   startDate: string;
   endDate: string;
 }
