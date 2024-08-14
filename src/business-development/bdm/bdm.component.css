@@ -1,0 +1,8 @@
+.responsive-chart {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    min-width: 50vh; /* Make the section full width */
+  }
+  
+  .chart-container {
+    width: 2000px; /* Set a fixed width larger than the container */
+  }

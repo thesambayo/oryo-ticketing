@@ -41,6 +41,7 @@ import { Router } from '@angular/router';
 import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-item';
 import { PercentagePipe } from '../pipes/percentage.pipe';
 import { StaffService } from '../../libs/services/staff.service';
+import { BudgetService } from '../bdm/components/services/budget.service';
 
 @Component({
   selector: 'oryo-report',
@@ -115,77 +116,47 @@ export class ReportComponent implements OnInit {
   getStatusVariant = getStatusVariant;
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
-  staffList = inject(StaffService).staffList;
+  staffList = inject(StaffService).bdmStaff;
+  budget = inject(BudgetService)
+	_budget = signal<any[]>([]);
 
   isLoading = signal<boolean>(false);
   _report = signal<Report[]>([]);
   getView = signal<boolean>(false);
 
   ngOnInit(): void {
-    for (let i = 0; i < this.staffList.length; i++) {
-      // const element = this.staffList[i];
-      
-    }
-    this._report.set([
-      {
-        id: 1,
-        staffId: 12,
-        name: 'Jide',
-        budget: 20000000,
-        negotationBudget: 10000000,
-        leads: 7,
-        opportunity: 5,
-        won: 9,
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 2,
-        staffId: 13,
-        name: 'BJ',
-        budget: 50000000,
-        negotationBudget: 30000000,
-        leads: 7,
-        opportunity: 5,
-        won: 9,
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 3,
-        staffId: 14,
-        name: 'Samuel',
-        budget: 100000000,
-        negotationBudget: 70000000,
-        leads: 7,
-        opportunity: 5,
-        won: 9,
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 4,
-        staffId: 15,
-        name: 'Victor',
-        budget: 60000000,
-        negotationBudget: 30000000,
-        leads: 7,
-        opportunity: 5,
-        won: 9,
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-    ]);
+    this.getAllBudget()
+    
   }
 
+  getAllBudget() {
+		this.isLoading.set(true);
+		this.budget.getBudget().subscribe({
+			next: (res) => {
+				this.isLoading.set(false);
+        // console.log(res.data);
+        
+				this._budget.set(res.data);
+        this.checkBudget(14)
+        console.log(this.staffList());
+			},
+			error: () => {
+				this.isLoading.set(false);
+			}
+		})
+	}
+
+  checkBudget(id: any) {
+    const element = this._budget().find(element => id === element.assigned_staff.id.Int64);
+    if (element) {
+        return {
+            id: element.assigned_staff.id.Int64,
+            name: element.assigned_staff.name.String,
+            amount: element.amount,
+        };
+    }
+    return null;
+}
   onVeiw(e: any) {
     // this._router.navigate(['bdm', 'view-bdm']);
   }
