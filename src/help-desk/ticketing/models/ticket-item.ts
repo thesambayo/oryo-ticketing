@@ -1,9 +1,37 @@
-import { HlmBadgeVariant } from "@spartan-ng/ui-badge-helm";
+import { HlmBadgeVariant } from '@spartan-ng/ui-badge-helm';
 
 export interface NullableTime {
 	Time: string;
 	Valid: boolean;
 }
+export interface NullableString {
+	String: string;
+	Valid: boolean;
+}
+export interface NullableInt64 {
+	Int64: number;
+	Valid: boolean;
+}
+// export interface TicketItem {
+// 	id: number;
+// 	reporterName: string;
+// 	reporterEmail: string;
+// 	reporterCompany: string;
+// 	priority: TicketItemPriority;
+// 	status: TicketItemStatus;
+// 	category: string;
+// 	subject: string;
+// 	description: string;
+// 	expectedResolvedAt: NullableTime;
+// 	assigneeId: number;
+// 	assigneeName: string;
+// 	assigneeEmail: string;
+// 	createdAt: string;
+// 	updatedAt: string;
+// 	resolvedAt: NullableTime;
+// 	version: number;
+// }
+
 export interface TicketItem {
 	id: number;
 	reporterName: string;
@@ -15,12 +43,14 @@ export interface TicketItem {
 	subject: string;
 	description: string;
 	expectedResolvedAt: NullableTime;
-	assigneeId: number;
-	assigneeName: string;
-	assigneeEmail: string;
+	assignee: {
+		id: NullableInt64
+		email: NullableString
+		name: NullableString
+	},
 	createdAt: string;
 	updatedAt: string;
-	resolvedAt: NullableTime;
+	resolvedAt: NullableTime,
 	version: number;
 }
 
@@ -30,13 +60,6 @@ export enum TicketItemStatus {
 	CANCELLED = 'CANCELLED',
 	IN_PROGRESS = 'IN_PROGRESS',
 	RESOLVED = 'RESOLVED',
-	// OPEN = 1,
-	// CLOSED,
-	// CANCELLED,
-	// IN_PROGRESS, 
-	// RESOLVED 
-	// update db to send name instead of id
-
 }
 
 export const statusDisplay: { [key in TicketItemStatus]: string } = {

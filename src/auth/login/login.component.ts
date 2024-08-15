@@ -10,7 +10,7 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { StaffLoginPayload } from '../model/login-item';
 import { HlmSpinnerComponent } from '../../libs/ui/ui-spinner-helm/src/lib/hlm-spinner.component';
@@ -24,8 +24,10 @@ import { HlmSpinnerComponent } from '../../libs/ui/ui-spinner-helm/src/lib/hlm-s
 })
 export class LoginComponent {
 	_router = inject(Router);
+	_activatedRoute = inject(ActivatedRoute);
 	_loginService = inject(LoginService);
 
+	returnUrl: string = this._activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 	isLoggingIn: boolean = false;
 	loginForm = new FormGroup({
 		email: new FormControl('', [Validators.required, Validators.email]),
@@ -40,7 +42,7 @@ export class LoginComponent {
 		this._loginService.login(payload).subscribe({
 			next: (_res) => {
 				this.isLoggingIn = false;
-				this._router.navigateByUrl("/");
+				this._router.navigateByUrl(this.returnUrl);
 			},
 			error: () => {
 				this.isLoggingIn = false;

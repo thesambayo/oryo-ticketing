@@ -98,7 +98,7 @@ export class CreateTicketComponent {
 			subject: this.createTicketForm.controls.subject.value,
 			description: this.createTicketForm.controls.description.value,
 			category: this.createTicketForm.controls.category.value,
-			assignee: this.createTicketForm.controls.assignee.value!,
+			assignee: this.createTicketForm.controls.assignee.value,
 		}
 
 		this.isCreatingTicket.set(true);

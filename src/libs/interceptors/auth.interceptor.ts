@@ -15,15 +15,12 @@ function shouldSkip(requestURL: string) {
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-	console.log(req, "requests")
 	if (shouldSkip(req.url)) {
 		return next(req);
 	}
 
 	const loggedInStaff = inject(AuthService).getLoggedInStaff();
 	const authToken = loggedInStaff?.authentication_token?.token ?? "";
-	// Clone the request to add the authentication header.
-
 
 	const clonedReq = req.clone({
 		setHeaders: {

@@ -51,13 +51,13 @@ export class AssignTicketComponent implements OnChanges {
 	// component variables
 	isAssigningTicket = signal<boolean>(false);
 	assignTicketForm = this._fb.nonNullable.group({
-		assignee: this._fb.nonNullable.control<number | undefined>(this.ticket()?.assigneeId, Validators.required),
+		assignee: this._fb.nonNullable.control<number | undefined>(this.ticket()?.assignee.id.Valid ? this.ticket()?.assignee.id.Int64: undefined, Validators.required),
 	});
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (this.ticket()) {
 			this.assignTicketForm.patchValue({
-				assignee: this.ticket()?.assigneeId
+				assignee: this.ticket()?.assignee.id.Valid ? this.ticket()?.assignee.id.Int64: undefined
 			})
 		}
 	}

@@ -10,6 +10,7 @@ export const isLoggedInGuard: CanActivateFn = (route, state) => {
 		return true;
 	}
 
-	_router.navigateByUrl("/login");
+	_router.navigate(['login'], { queryParams: { returnUrl: state.url }});
+	// _router.navigateByUrl("/login", {queryParams: { returnUrl: state.url }});
   return false;
 };

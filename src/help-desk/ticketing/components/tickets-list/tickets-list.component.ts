@@ -100,7 +100,6 @@ import { TopbarService } from '../../../core/services/topbar.service';
 export class TicketsListComponent implements OnInit {
 	readonly TicketsStatuses = TicketItemStatus;
 	readonly TicketsPriorities = TicketItemPriority;
-
 	getStatusVariant = getStatusVariant;
 	getPriorityVariant = getPriorityVariant;
 	_topbarService = inject(TopbarService);
