@@ -1,3 +1,5 @@
+import { Staff } from "../../help-desk/core/models/staff";
+
 export interface StaffLoginPayload {
 	email: string;
 	password: string;
@@ -8,15 +10,6 @@ export interface StaffRestPayload {
 }
 
 export interface LoggedInStaff {
-	authentication_token: {
-		token: string;
-		expiry: string;
-	},
-	staff: {
-		id: number;
-		created_at: string;
-		name: string;
-		email: string;
-		activated: boolean;
-	}
+	authentication_token: string;
+	staff: Staff;
 }

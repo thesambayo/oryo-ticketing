@@ -6,7 +6,8 @@ import { AuthService } from '../services/auth.service';
 export const isLoggedInGuard: CanActivateFn = (route, state) => {
 	const _router = inject(Router);
 	const loggedInStaff = inject(AuthService).getLoggedInStaff();
-	if (loggedInStaff && isFuture(loggedInStaff.authentication_token.expiry)) {
+	// if (loggedInStaff && isFuture(loggedInStaff.authentication_token.expiry)) {
+	if (loggedInStaff && loggedInStaff.authentication_token) {
 		return true;
 	}
 

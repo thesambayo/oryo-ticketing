@@ -5,6 +5,7 @@ export interface Staff {
   email: string;
   activated: boolean;
   department: StaffDepartment;
+	permissions: string[];
 }
 
 export interface StaffDepartment {

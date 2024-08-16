@@ -12,6 +12,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent),
 	},
 	{
+		path: 'view/:id',
+		loadComponent: () => import('./help-desk/ticketing/components/view-ticket-details/view-ticket-details.component').then(m => m.ViewTicketDetailsComponent)
+	},
+	{
 		path: 'activate/:token',
 		loadComponent: () => import('./auth/activate-staff/activate-staff.component').then(m => m.ActivateStaffComponent),
 	},

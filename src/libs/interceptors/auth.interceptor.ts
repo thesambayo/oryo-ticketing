@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 const skippedURLs = [
 	"auth/login",
 	"auth/activate",
+	"/tickets/"
 ];
 
 // Function to check if the request URL contains any of the skipped URLs
@@ -20,7 +21,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 	}
 
 	const loggedInStaff = inject(AuthService).getLoggedInStaff();
-	const authToken = loggedInStaff?.authentication_token?.token ?? "";
+	const authToken = loggedInStaff?.authentication_token ?? "";
 
 	const clonedReq = req.clone({
 		setHeaders: {
