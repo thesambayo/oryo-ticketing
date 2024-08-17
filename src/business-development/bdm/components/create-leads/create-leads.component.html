@@ -17,18 +17,18 @@
 					<label hlmLabel for="companyName">
 						<span>Company Name</span>
 					</label>
-					<input hlmInput class="w-full" id="companyName" formControlName="name" />
+					<input hlmInput class="w-full" id="companyName" formControlName="name"  autocomplete="off" />
 				</div>
 				<div class="space-y-2">
 					<label hlmLabel for="companyName">
-						<span>Customer Name</span>
+						<span>Contact Name</span>
 					</label>
-					<input hlmInput class="w-full" id="companyName" formControlName="customerName" />
+					<input hlmInput class="w-full" id="companyName" formControlName="customerName"  autocomplete="off" />
 				</div>
 
 				<div class="space-y-2">
 					<label hlmLabel for="companyEmail">
-						<span>Email</span>
+						<span>Contact Email</span>
 					</label>
 					<input
 						class="w-full"
@@ -36,13 +36,14 @@
 						id="companyEmail"
 						type="email"
 						formControlName="email"
+						autocomplete="off"
 					/>
 				</div>
 
 
 				<div class="space-y-2">
 					<label hlmLabel for="companyEmail">
-						<span>Phone Number</span>
+						<span>Contact Phone number</span>
 					</label>
 					<input
 						class="w-full"
@@ -50,12 +51,13 @@
 						id="companyEmail"
 						type="tel"
 						formControlName="phone"
+						autocomplete="off"
 					/>
 				</div>
 
 				<div class="space-y-2">
 					<label hlmLabel for="companyEmail">
-						<span>Location</span>
+						<span>Contact Location</span>
 					</label>
 					<input
 						class="w-full"
@@ -63,6 +65,7 @@
 						id="companyEmail"
 						type="text"
 						formControlName="location"
+						autocomplete="off"
 					/>
 				</div>
 
@@ -70,13 +73,13 @@
 					<label hlmLabel for="companyEmail">
 						<span>Product Offered</span>
 					</label>
-					  <brn-select class="inline-block w-full" placeholder="Select" [multiple]="true" formControlName="pto">
-						<hlm-select-trigger class="w-56">
+					  <brn-select class="block w-full" placeholder="Select" [multiple]="true" formControlName="pto">
+						<hlm-select-trigger class="w-full">
 						  <hlm-select-value />
 						</hlm-select-trigger>
 						<hlm-select-content>
-							@for (item of _productOffered; track item.id) {
-								<hlm-option [value]="item.name">{{item.name}}</hlm-option>
+							@for (item of _productOffered; track item.value) {
+								<hlm-option [value]="item.value">{{item.label}}</hlm-option>
 							}
 						</hlm-select-content>
 					  </brn-select>

@@ -62,6 +62,7 @@ import { Lead, LeadStatus, getStatusVariant } from './models/bdm-item';
 import { HlmtDialogService } from './components/services/hlm-dialog.service';
 import { AgCharts } from 'ag-charts-angular';
 import { getData } from './bdm-data';
+import { LeadsService } from './components/services/leads.service';
 
 @Component({
   selector: 'oryo-bdm',
@@ -141,7 +142,8 @@ export class BdmComponent implements OnInit {
   isLoading = signal<boolean>(false);
   _leads = signal<Lead[]>([]);
   getView = signal<boolean>(false);
-  storedLeads = JSON.parse(localStorage.getItem('leads') || '[]');
+  leads = inject(LeadsService);
+  // _leads = signal<any[]>([]);
 
   options: any;
 
@@ -189,65 +191,22 @@ export class BdmComponent implements OnInit {
         },
       ],
     };
-    this._leads.set([
-      {
-        id: 1,
-        name: 'John INC',
-        email: 'johndoe@example.com',
-        customerName: 'John Doe',
-        phone: '08112345678',
-        location: 'Issue with login',
-        status: LeadStatus.OPPORTUNITY,
-        product_offered: 'Fleet Management',
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 2,
-        name: 'Jane INC',
-        email: 'janesmith@example.com',
-        customerName: 'Jane Smith',
-        phone: '08112345678',
-        location: 'Tech Solutions',
-        status: LeadStatus.PROJECT,
-        product_offered: 'Generator',
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 3,
-        name: 'Mike INC',
-        email: 'mikejohnson@example.com',
-        customerName: 'Mike Johnson',
-        phone: '08112345678',
-        location: 'Innovatech',
-        status: LeadStatus.LEAD,
-        product_offered: 'Vision',
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-      {
-        id: 4,
-        name: 'Emily INC',
-        email: 'emilydavis@example.com',
-        customerName: 'Emily Davis',
-        phone: '08112345678',
-        location: 'BizWorks',
-        status: LeadStatus.LEAD,
-        product_offered: 'Fuel',
-        created_by: '',
-        updated_by: '2024-07-01T10:30:00Z',
-        created_at: '2024-07-01T10:30:00Z',
-        updated_at: '',
-      },
-    ]);
+    this.getAllLeads()
   }
+  getAllLeads() {
+		this.isLoading.set(true);
+		this.leads.getLeads().subscribe({
+			next: (res) => {
+				this.isLoading.set(false);
+        console.log(res.data);
+        
+				this._leads.set(res.data);
+			},
+			error: () => {
+				this.isLoading.set(false);
+			}
+		})
+	}
 
   onVeiw(e: any) {
     this._log.setRes(e);

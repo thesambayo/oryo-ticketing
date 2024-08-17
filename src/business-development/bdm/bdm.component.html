@@ -95,46 +95,48 @@
     <div class="w-full overflow-x-auto bg-white rounded-xl">
       <hlm-table class="w-full min-w-[600px]"> <!-- min-width added for small screens -->
         <hlm-trow class="uppercase bg-gray-100">
-          <hlm-th class="min-w-[120px]">Company ID</hlm-th>
-          <hlm-th class="min-w-[150px]">Company Name</hlm-th>
-          <hlm-th class="min-w-[150px] hidden sm:flex">Customer Name</hlm-th> <!-- hidden on small screens -->
-          <hlm-th class="min-w-[150px] hidden sm:flex">PTO</hlm-th> <!-- hidden on small screens -->
-          <hlm-th class="min-w-[150px]">Status</hlm-th>
-          <hlm-th class="min-w-[100px]">Actions</hlm-th>
+          <hlm-th class="min-w-44">Company ID</hlm-th>
+          <hlm-th class="min-w-44">Company Name</hlm-th>
+          <hlm-th class="min-w-44 hidden sm:flex">Customer Name</hlm-th> <!-- hidden on small screens -->
+          <hlm-th class="min-w-44 hidden sm:flex">PTO</hlm-th> <!-- hidden on small screens -->
+          <hlm-th class="min-w-44">Status</hlm-th>
+          <hlm-th class="min-w-44">Actions</hlm-th>
         </hlm-trow>
     
         @if (isLoading()) {
         <hlm-caption class="m-0 py-10">
           <hlm-spinner class="size-5" />
         </hlm-caption>
-        } @else { @for (item of storedLeads; track item.id; let idx = $index ) {
+        } @else { @for (item of _leads(); track item.id; let idx = $index ) {
         <hlm-trow class="cursor-pointer hover:bg-gray-100" (click)="onVeiw(item)">
-          <hlm-td truncate class="font-medium min-w-[120px]">
+          <hlm-td truncate class="font-medium min-w-44">
             <p class="text-foreground font-medium">
-              BDM{{ idx | leftPadding : 6 }}
+              BDM{{ item.id | leftPadding : 6 }}
             </p>
             <p class="text-muted-foreground lowercase text-sm">
               {{ item.created_at | date : "dd/MM/yyyy h:mma" }}
             </p>
           </hlm-td>
-          <hlm-td class="min-w-[150px]">
+          <hlm-td class="min-w-44">
             <div class="flex flex-col items-start whitespace-nowrap">
-              <p class="text-foreground font-medium">{{ item.name }}</p>
+              <p class="text-foreground font-medium">{{ item.company }}</p>
               <p class="text-muted-foreground text-sm">{{ item.email }}</p>
             </div>
           </hlm-td>
-          <hlm-td class="min-w-[150px]"> <!-- hidden on small screens -->
-            <span class="truncate">{{ item.customerName }}</span>
+          <hlm-td class="min-w-44"> <!-- hidden on small screens -->
+            <span class="truncate">{{ item.name }}</span>
           </hlm-td>
-          <hlm-td class="min-w-[150px] hidden sm:flex"> <!-- hidden on small screens -->
-            <span class="truncate">{{ item.product_offered }}</span>
+          <hlm-td class="min-w-44 hidden sm:flex"> <!-- hidden on small screens -->
+            @for(itemss of item.productsOffered; track itemss; let idx = $index ){
+            <span class="truncate">{{ itemss  }} </span>, 
+            }
           </hlm-td>
-          <hlm-td class="min-w-[150px]">
+          <hlm-td class="min-w-44">
             <div hlmBadge [variant]="getStatusVariant(item.status)">
               {{ item.status }}
             </div>
           </hlm-td>
-          <hlm-td class="min-w-[100px]">
+          <hlm-td class="min-w-44">
             <button
               hlmBtn
               variant="ghost"

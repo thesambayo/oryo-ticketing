@@ -41,7 +41,14 @@ import { HlmRadioIndicatorComponent } from '../../../../libs/ui/ui-radiogroup-he
 import { HlmRadioDirective } from '../../../../libs/ui/ui-radiogroup-helm/src/lib/hlm-radio.directive';
 import { toast } from 'ngx-sonner';
 import { Router } from '@angular/router';
-import { Lead, LeadStatus } from '../../models/bdm-item';
+import {
+  CreateUserLeadsPayload,
+  Lead,
+  LeadStatus,
+  productsOfferedArray,
+} from '../../models/bdm-item';
+import { LeadsService } from '../services/leads.service';
+import { AuthService } from '../../../../libs/services/auth.service';
 
 @Component({
   selector: 'oryo-create-leads',
@@ -82,36 +89,23 @@ export class CreateLeadsComponent implements OnInit {
   showModal = input<boolean>(false);
   closeLeads = output();
   LeadsCreated = output();
+  // _dialogRef = inject<BrnDialogRef<CreateUserLeadsPayload>>(BrnDialogRef);
 
   // injects
+  _leadService = inject(LeadsService);
   _router = inject(Router);
+  _authService = inject(AuthService)
   private _fb = inject(FormBuilder);
 
   ngOnInit(): void {}
 
-  protected _productOffered = [
-    {
-      id: 1,
-      name: 'Fleet Management',
-    },
-    {
-      id: 2,
-      name: 'Vision',
-    },
-    {
-      id: 3,
-      name: 'Engine Control Module',
-    },
-    {
-      id: 4,
-      name: 'Fuel',
-    },
-  ];
+  protected _productOffered = productsOfferedArray;
 
   // component variables
   openCreateCompanyForm = signal(false);
   openCreateBranchForm = signal(false);
   isCreatingTicket = signal<boolean>(false);
+  isCreating = signal<boolean>(false);
 
   createCompantForm = this._fb.nonNullable.group({
     name: this._fb.nonNullable.control('', Validators.required),
@@ -122,7 +116,7 @@ export class CreateLeadsComponent implements OnInit {
     customerName: this._fb.nonNullable.control('', Validators.required),
     phone: this._fb.nonNullable.control('', Validators.required),
     location: this._fb.nonNullable.control('', Validators.required),
-    pto: this._fb.nonNullable.control('', Validators.required),
+    pto: this._fb.nonNullable.control([], Validators.required),
   });
 
   onSubmit() {
@@ -132,46 +126,40 @@ export class CreateLeadsComponent implements OnInit {
       });
     }
 
-    const payload: Lead = {
-      name: this.createCompantForm.controls.name.value,
+    const payload: CreateUserLeadsPayload = {
+      company: this.createCompantForm.controls.name.value,
+      name: this.createCompantForm.controls.customerName.value,
       email: this.createCompantForm.controls.email.value,
-      customerName: this.createCompantForm.controls.customerName.value,
-      phone: this.createCompantForm.controls.phone.value,
       location: this.createCompantForm.controls.location.value,
-      product_offered: this.createCompantForm.controls.pto.value,
-      id: 0,
+      phone: this.createCompantForm.controls.phone.value,
       status: LeadStatus.LEAD,
-      created_by: '',
-      updated_by: '',
-      created_at: new Date().toISOString(),
-      updated_at: '',
+      productsOffered: this.createCompantForm.controls.pto.value,
     };
-
     this.isCreatingTicket.set(true);
 
-    if (payload) {
-      // Check if 'leads' already exists in localStorage
-      let leadsArray = JSON.parse(localStorage.getItem('leads') || '[]');
+    this._leadService.createLeads(payload).subscribe({
+      next: (res) => {
+        toast.success('Lead created successfully', {
+          id: 'create-lead-form-success',
+        });
+        // Reset the creating state
+        this.isCreating.set(false);
 
-      // Add the new payload to the array
-      leadsArray.push(payload);
+        this.LeadsCreated.emit();
+        this.isCreatingTicket.set(false);
+        this.openCreateBranchForm.set(false);
+        this.openCreateCompanyForm.set(false);
+        window.location.reload();
+      },
+      error: (err) => {
+        // Reset the creating state
+        this.isCreating.set(false);
+        toast.error('Error submitting Budget', { id: 'create-budget-error' });
+        console.log(err);
+      },
+    });
 
-      // Convert the array back to a JSON string and save it in localStorage
-      localStorage.setItem('leads', JSON.stringify(leadsArray));
-
-      // Notify the user of success and proceed with other actions
-      toast.success('Lead successfully created and stored.', {
-        id: 'valid-success',
-      });
-
-      this.LeadsCreated.emit();
-      this.isCreatingTicket.set(false);
-      this.openCreateBranchForm.set(false);
-      this.openCreateCompanyForm.set(false);
-      this._router.navigate(['bdm', 'view-bdm']);
-    }
-
-	this.createCompantForm.reset()
+    this.createCompantForm.reset();
   }
 
   log(event: any) {

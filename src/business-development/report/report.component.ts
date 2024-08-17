@@ -1,5 +1,5 @@
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { HlmMenuModule } from '@spartan-ng/ui-menu-helm';
@@ -42,6 +42,7 @@ import { getStatusVariant, Lead, LeadStatus, Report } from '../bdm/models/bdm-it
 import { PercentagePipe } from '../pipes/percentage.pipe';
 import { StaffService } from '../../libs/services/staff.service';
 import { BudgetService } from '../bdm/components/services/budget.service';
+import { Department } from '../../help-desk/core/models/staff';
 
 @Component({
   selector: 'oryo-report',
@@ -116,7 +117,14 @@ export class ReportComponent implements OnInit {
   getStatusVariant = getStatusVariant;
   // getPriorityVariant = getPriorityVariant;
   _router = inject(Router);
-  staffList = inject(StaffService).bdmStaff;
+  bdmStaff = inject(StaffService);
+  staffList = computed(() =>
+    this.bdmStaff
+      .staffList()
+      .filter(
+        (staff) => staff.department.name === Department.BUSINESS_DEVELOPMENT
+      )
+  );
   budget = inject(BudgetService)
 	_budget = signal<any[]>([]);
 
@@ -137,8 +145,8 @@ export class ReportComponent implements OnInit {
         // console.log(res.data);
         
 				this._budget.set(res.data);
-        this.checkBudget(14)
-        console.log(this.staffList());
+        // this.checkBudget(14)
+        // console.log(this.staffList());
 			},
 			error: () => {
 				this.isLoading.set(false);
@@ -147,13 +155,15 @@ export class ReportComponent implements OnInit {
 	}
 
   checkBudget(id: any) {
-    const element = this._budget().find(element => id === element.assigned_staff.id.Int64);
-    if (element) {
-        return {
-            id: element.assigned_staff.id.Int64,
-            name: element.assigned_staff.name.String,
-            amount: element.amount,
-        };
+    if (this._budget()) {
+      const element = this._budget().find(element => id === element.assigned_staff.id.Int64);
+      if (element) {
+          return {
+              id: element.assigned_staff.id.Int64,
+              name: element.assigned_staff.name.String,
+              amount: element.amount,
+          };
+      }
     }
     return null;
 }
