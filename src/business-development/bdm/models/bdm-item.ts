@@ -2,12 +2,12 @@ import { HlmBadgeVariant } from '@spartan-ng/ui-badge-helm';
 
 export interface Lead {
   id: number;
-  name: string;
+  company: string;
   email: string;
-  customerName: string;
+  name: string;
   phone: string;
   location: string;
-  product_offered: string;
+  productsOffered: string;
   status: LeadStatus; // LEAD, OPPORTUNITY, KIV, PROJECT, NOT_INTERESTED, POC
   created_by: string;
   updated_by: string;
@@ -47,9 +47,18 @@ export interface Won {
 export interface CreateUserBudgetPayload {
   staffId: number;
   amount: number;
-  createdBy: number;
   startDate: string;
   endDate: string;
+}
+
+export interface CreateUserLeadsPayload {
+  company: string;
+  name: string;
+  email: string;
+  location: string;
+  phone: string;
+  status: LeadStatus;
+  productsOffered: ProductsOffered[];
 }
 export interface CreateActivityPayload {
   // with validation for BE
@@ -72,6 +81,8 @@ export enum LeadStatus {
   NOT_INTERESTED = 'NOT_INTERESTED',
   POC = 'POC',
 }
+
+// const products: productsOffered[] = [productsOffered.Engine_Control_Module, productsOffered.Fuel]
 
 export const statusDisplay: { [key in LeadStatus]: string } = {
   [LeadStatus.LEAD]: 'Open',
@@ -100,6 +111,36 @@ export function getStatusVariant(status: LeadStatus): HlmBadgeVariant {
       return 'warning';
   }
 }
+
+export enum ProductsOffered {
+  Fleet_Management = 'FLEET',
+  Vision = 'VISION',
+  Engine_Control_Module = 'ENGINE_GENERATOR_MODULE',
+  Fuel = 'FUEL',
+}
+
+export const productOfferedDisplay: { [key in ProductsOffered]: string } = {
+  [ProductsOffered.Fleet_Management]: 'Fleet',
+  [ProductsOffered.Engine_Control_Module]: 'Enginer control',
+  [ProductsOffered.Fuel]: 'Fuel',
+  [ProductsOffered.Vision]: 'Vision',
+};
+
+export const productsOfferedArray = [
+  {
+    value: ProductsOffered.Fleet_Management,
+    label: productOfferedDisplay[ProductsOffered.Fleet_Management]
+  },{
+    value: ProductsOffered.Vision,
+    label: productOfferedDisplay[ProductsOffered.Vision]
+  },{
+    value: ProductsOffered.Engine_Control_Module,
+    label: productOfferedDisplay[ProductsOffered.Engine_Control_Module]
+  },{
+    value: ProductsOffered.Fuel,
+    label: productOfferedDisplay[ProductsOffered.Fuel]
+  },
+]
 
 export interface Report {
   id: number;

@@ -164,7 +164,7 @@
                       <span>Company Name</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ _staff?.name }}</div>
+                    <div class="text-sm">{{ _staff?.company }}</div>
                     }@else {
                     <input
                       hlmInput
@@ -176,10 +176,10 @@
                   </div>
                   <div class="space-y-2">
                     <label hlmLabel for="companyName">
-                      <span>Customer Name</span>
+                      <span>Contact Name</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ _staff?.customerName }}</div>
+                    <div class="text-sm">{{ _staff?.name }}</div>
                     }@else {
                     <input
                       hlmInput
@@ -192,7 +192,7 @@
 
                   <div class="space-y-2">
                     <label hlmLabel for="companyEmail">
-                      <span>Email</span>
+                      <span>Contact Email</span>
                     </label>
                     @if (!isEditing()) {
                     <div class="text-sm">{{ _staff?.email }}</div>
@@ -208,7 +208,7 @@
                   </div>
                   <div class="space-y-2">
                     <label hlmLabel for="companyEmail">
-                      <span>Phone Number</span>
+                      <span>Contact Phone Number</span>
                     </label>
                     @if (!isEditing()) {
                     <div class="text-sm">{{ _staff?.phone }}</div>
@@ -225,7 +225,7 @@
 
                   <div class="space-y-2">
                     <label hlmLabel for="companyEmail">
-                      <span>Location</span>
+                      <span>Contact Location</span>
                     </label>
                     @if (!isEditing()) {
                     <div class="text-sm">
@@ -247,7 +247,9 @@
                       <span>Product Offered</span>
                     </label>
                     @if (!isEditing()) {
-                    <div class="text-sm">{{ _staff?.product_offered }}</div>
+                      @for(item of _staff?.productsOffered; track item; let idx = $index){
+                        <div class="text-sm">{{ item }}</div>
+                      }
                     }@else {
                     <brn-select
                       class="w-full"

@@ -55,6 +55,7 @@ import { HlmtDialogService } from '../services/hlm-dialog.service';
 import { AuthService } from '../../../../libs/services/auth.service';
 import { PrintInoviceComponent } from './components/print-inovice/print-inovice.component';
 import { HlmDialogService } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog.service';
+import { LeadsService } from '../services/leads.service';
 
 @Component({
   selector: 'oryo-view-bdm',
@@ -132,7 +133,11 @@ export class ViewBdmComponent implements OnInit {
   _location = inject(Location);
   _log = inject(HlmtDialogService);
   _hlmDialogService = inject(HlmDialogService);
+  leads = inject(LeadsService);
   _staff = this._log.getRes();
+
+
+
   protected _invoices = [
     {
       name: 'Olumide',
@@ -257,7 +262,23 @@ export class ViewBdmComponent implements OnInit {
         },
       ];
     }, 3000);
+    this.getALeads(1)
   }
+
+  getALeads(id: number) {
+		// this.isLoading.set(true);
+		this.leads.getALeads(id).subscribe({
+			next: (res) => {
+				// this.isLoading.set(false);
+        console.log(res.data);
+        
+				// this._leads.set(res.data);
+			},
+			error: () => {
+				// this.isLoading.set(false);
+			}
+		})
+	}
 
   getChanges() {
     this._loading.set(true);
@@ -402,10 +423,10 @@ export class ViewBdmComponent implements OnInit {
     const payload: Lead = {
       name: this.createCompantForm.controls.name.value,
       email: this.createCompantForm.controls.email.value,
-      customerName: this.createCompantForm.controls.customerName.value,
+      company: this.createCompantForm.controls.customerName.value,
       phone: this.createCompantForm.controls.phone.value,
       location: this.createCompantForm.controls.location.value,
-      product_offered: this.createCompantForm.controls.pto.value,
+      productsOffered: this.createCompantForm.controls.pto.value,
       id: 0,
       status: LeadStatus.KIV,
       created_by: '',
@@ -437,6 +458,10 @@ export class ViewBdmComponent implements OnInit {
 
     // Retrieve the existing array from localStorage or initialize it if it doesn't exist
     let itemsArray = JSON.parse(localStorage.getItem('items') || '[]');
+
+    // Add the new item to the array
+    console.log(itemsArray);
+    
 
     // Push the new item into the array
     itemsArray.push(newItem);
