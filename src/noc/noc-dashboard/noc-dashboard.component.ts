@@ -12,7 +12,7 @@ import {
   BrnPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-brain';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { lucideChevronsUpDown, lucideFileBarChart, lucideFilter } from '@ng-icons/lucide';
+import { lucideArrowLeft, lucideChevronsUpDown, lucideFileBarChart, lucideFilter } from '@ng-icons/lucide';
 import {
   BrnRadioComponent,
   BrnRadioGroupComponent,
@@ -38,6 +38,7 @@ import { CarGlobal, RefuelRecord, VehicleInfo } from '../noc.model';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuItemIconDirective, HlmMenuItemSubIndicatorComponent, HlmMenuLabelComponent, HlmMenuSeparatorComponent, HlmMenuShortcutComponent, HlmSubMenuComponent } from '@spartan-ng/ui-menu-helm';
+import { NocMainDashboardComponent } from "./noc-main-dashboard/noc-main-dashboard.component";
 
 @Component({
   selector: 'oryo-noc-dashboard',
@@ -45,23 +46,19 @@ import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuI
   imports: [
     FormsModule,
     NgClass,
-
     HlmIconComponent,
-
     BrnPopoverComponent,
     BrnPopoverTriggerDirective,
     BrnPopoverContentDirective,
     BrnPopoverCloseDirective,
     HlmPopoverContentDirective,
     HlmPopoverCloseDirective,
-
     BrnRadioGroupComponent,
     BrnRadioComponent,
     HlmRadioIndicatorComponent,
     HlmRadioDirective,
     HlmRadioGroupDirective,
     HlmSmallDirective,
-
     HlmPaginationDirective,
     HlmPaginationContentDirective,
     HlmPaginationItemDirective,
@@ -69,7 +66,6 @@ import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuI
     HlmPaginationNextComponent,
     HlmPaginationLinkDirective,
     HlmPaginationEllipsisComponent,
-
     HlmMenuComponent,
     HlmMenuGroupComponent,
     HlmMenuItemDirective,
@@ -80,26 +76,27 @@ import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuI
     HlmMenuShortcutComponent,
     HlmSubMenuComponent,
     BrnMenuTriggerDirective,
-
     HlmButtonDirective,
-  ],
+    NocMainDashboardComponent
+],
   providers: [provideIcons({ lucideChevronsUpDown, lucideFilter, 
-    lucideFileBarChart,})],
+    lucideFileBarChart,lucideArrowLeft})],
   templateUrl: './noc-dashboard.component.html',
   styleUrl: './noc-dashboard.component.css',
 })
 export class NocDashboardComponent implements OnInit {
-  selectedStatus: string = 'Total Vehicle';
+  selectedStatus: string = '';
   _router = inject(Router)
   _nocService = inject(NocService);
 	_log = signal<VehicleInfo[]>([]);
 	_global = signal<CarGlobal | null>(null);
 
+
   ngOnInit(): void {
     
     this._nocService.getCars().subscribe({
 			next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
 				this._log.set(res.data);
         
 			},
@@ -109,7 +106,7 @@ export class NocDashboardComponent implements OnInit {
     
     this._nocService.getCarsGlobal().subscribe({
 			next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
 				this._global.set(res.data);
         
 			},
@@ -120,8 +117,16 @@ export class NocDashboardComponent implements OnInit {
 
   onStatusChange(value: string) {
     this.selectedStatus = value;
-    console.log(`${value} is selected`);
+    // console.log(`${value} is selected`);
     // Perform other actions as needed
+  }
+  getGlobalValue(e: any) {
+    // console.log(e);
+    this.selectedStatus = e
+    // Perform other actions as needed
+  }
+  onBack() {
+    this.selectedStatus =''
   }
   onReport() {
     this._router.navigate(['noc', 'noc-clients']);

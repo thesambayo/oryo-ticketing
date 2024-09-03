@@ -1,11 +1,17 @@
 <div class="min-h-screen p-4">
   <!-- Header -->
   <div class="flex justify-between items-center mb-6 md:px-20">
-    <div class="flex items-center">
+    <div class="flex gap-x-5 items-start justify-center">
+        @if (selectedStatus) {
+            <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
+                <hlm-icon size="sm" name="lucideArrowLeft" />
+            </button>
+        }
       <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700">
         GLOBAL REPORT
       </h1>
     </div>
+   
     <div class="flex items-center">
       <button
         class="px-2 py-2 bg-transparent border border-C3D3E2 text-black rounded-lg flex justify-center items-center gap-1"
@@ -17,311 +23,322 @@
     </div>
   </div>
 
-  <!-- Global Report Cards -->
-  <div class="overflow-x-auto mb-6 md:ps-20">
-    <div class="flex space-x-4 bg-white p-3 rounded-lg">
-      <label
-        for="total"
-        [ngClass]="{ 'border-black': selectedStatus === 'Total Vehicle' }"
-        class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-      >
-        <input
-          id="total"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('Total Vehicle')"
-        />
-        <div class="bg-blue-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
+  @if (selectedStatus) {
+    <ng-container >
+        <!-- Global Report Cards -->
+      <div class="overflow-x-auto mb-6 md:ps-20">
+        <div class="flex space-x-4 bg-white p-3 rounded-lg">
+          <label
+            for="total"
+            [ngClass]="{ 'border-black': selectedStatus === 'Total Vehicle' }"
+            class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+          >
+            <input
+              id="total"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('Total Vehicle')"
+            />
+            <div class="bg-blue-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">Total Vehicle</p>
+              <p class="text-2xl font-bold">{{_global()?.totalVehicles}}</p>
+            </div>
+          </label>
+          <label
+            for="moving"
+            [ngClass]="{ 'border-black': selectedStatus === 'Moving Vehicles' }"
+            class="flex items-center bg-green-100 p-4 rounded-lg min-w-fit cursor-pointer border-2"
+          >
+            <input
+              id="moving"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('Moving Vehicles')"
+            />
+            <div class="bg-green-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">Moving Vehicles</p>
+              <p class="text-2xl font-bold">{{_global()?.movingVehicles}}</p>
+            </div>
+          </label>
+          <label
+            for="idle"
+            [ngClass]="{ 'border-black': selectedStatus === 'Idle Vehicle' }"
+            class="flex items-center bg-yellow-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+          >
+            <input
+              id="idle"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('Idle Vehicle')"
+            />
+            <div class="bg-yellow-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">Idle Vehicle</p>
+              <p class="text-2xl font-bold">{{_global()?.idleVehicles}}</p>
+            </div>
+          </label>
+          <label
+            for="off"
+            [ngClass]="{ 'border-black': selectedStatus === 'Ignition off' }"
+            class="flex items-center bg-purple-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+          >
+            <input
+              id="off"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('Ignition off')"
+            />
+            <div class="bg-purple-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">Ignition off</p>
+              <p class="text-2xl font-bold">{{_global()?.ignitionOffVehicles}}</p>
+            </div>
+          </label>
+          <label
+            for="disconnected"
+            [ngClass]="{ 'border-black': selectedStatus === 'Disconnected' }"
+            class="flex items-center bg-red-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+          >
+            <input
+              id="disconnected"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('Disconnected')"
+            />
+            <div class="bg-red-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">Disconnected</p>
+              <p class="text-2xl font-bold">{{_global()?.disconnectedVehicles}}</p>
+            </div>
+          </label>
+          <!-- <label
+            for="signal"
+            [ngClass]="{ 'border-black': selectedStatus === 'No Signal' }"
+            class="flex items-center bg-gray-200 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+          >
+            <input
+              id="signal"
+              type="radio"
+              name="vehicleStatus"
+              class="hidden peer"
+              (change)="onStatusChange('No Signal')"
+            />
+            <div class="bg-gray-500 p-3 rounded-lg">
+              <img src="/truck-fast.svg" alt="" />
+            </div>
+            <div class="ml-4">
+              <p class="text-sm text-gray-600">No Signal</p>
+              <p class="text-2xl font-bold">{{_global()?.}}</p>
+            </div>
+          </label> -->
         </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">Total Vehicle</p>
-          <p class="text-2xl font-bold">{{_global()?.totalVehicles}}</p>
+      </div>
+    
+      <!-- Table -->
+      <div class="flex justify-between items-center mb-6 md:px-20">
+        <div class="text-xs md:text-lg font-bold text-green-600">
+          Daily Issues Detected (50)
         </div>
-      </label>
-      <label
-        for="moving"
-        [ngClass]="{ 'border-black': selectedStatus === 'Moving Vehicles' }"
-        class="flex items-center bg-green-100 p-4 rounded-lg min-w-fit cursor-pointer border-2"
-      >
-        <input
-          id="moving"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('Moving Vehicles')"
-        />
-        <div class="bg-green-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">Moving Vehicles</p>
-          <p class="text-2xl font-bold">{{_global()?.movingVehicles}}</p>
-        </div>
-      </label>
-      <label
-        for="idle"
-        [ngClass]="{ 'border-black': selectedStatus === 'Idle Vehicle' }"
-        class="flex items-center bg-yellow-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-      >
-        <input
-          id="idle"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('Idle Vehicle')"
-        />
-        <div class="bg-yellow-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">Idle Vehicle</p>
-          <p class="text-2xl font-bold">{{_global()?.idleVehicles}}</p>
-        </div>
-      </label>
-      <label
-        for="off"
-        [ngClass]="{ 'border-black': selectedStatus === 'Ignition off' }"
-        class="flex items-center bg-purple-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-      >
-        <input
-          id="off"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('Ignition off')"
-        />
-        <div class="bg-purple-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">Ignition off</p>
-          <p class="text-2xl font-bold">{{_global()?.ignitionOffVehicles}}</p>
-        </div>
-      </label>
-      <label
-        for="disconnected"
-        [ngClass]="{ 'border-black': selectedStatus === 'Disconnected' }"
-        class="flex items-center bg-red-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-      >
-        <input
-          id="disconnected"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('Disconnected')"
-        />
-        <div class="bg-red-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">Disconnected</p>
-          <p class="text-2xl font-bold">{{_global()?.disconnectedVehicles}}</p>
-        </div>
-      </label>
-      <!-- <label
-        for="signal"
-        [ngClass]="{ 'border-black': selectedStatus === 'No Signal' }"
-        class="flex items-center bg-gray-200 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-      >
-        <input
-          id="signal"
-          type="radio"
-          name="vehicleStatus"
-          class="hidden peer"
-          (change)="onStatusChange('No Signal')"
-        />
-        <div class="bg-gray-500 p-3 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <div class="ml-4">
-          <p class="text-sm text-gray-600">No Signal</p>
-          <p class="text-2xl font-bold">{{_global()?.}}</p>
-        </div>
-      </label> -->
-    </div>
-  </div>
-
-  <!-- Table -->
-  <div class="flex justify-between items-center mb-6 md:px-20">
-    <div class="text-xs md:text-lg font-bold text-green-600">
-      Daily Issues Detected (50)
-    </div>
-    <div class="flex items-center space-x-4">
-      <button
-        hlmBtn
-        variant="outline"
-        class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
-        size="sm"
-      >
-        <hlm-icon class="size-3.5" name="lucideFilter" />
-        <span class="text-xs md:text-sm">Filter</span>
-      </button>
-      <brn-popover sideOffset="5" closeDelay="100">
-        <button
-          hlmBtn
-          variant="outline"
-          class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
-          size="sm"
-          brnPopoverTrigger
-        >
-          <hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
-          <span class="text-xs md:text-sm">Sort by</span>
-        </button>
-        <!-- <div
-          hlmPopoverContent
-          class="w-80 grid gap-4"
-          *brnPopoverContent="let ctx"
-        >
-          <div class="space-y-2">
-            <h4 class="font-medium leading-none">Sort by</h4>
-            <p class="text-sm text-muted-foreground">
-              Kindly select what you want to filter
-            </p>
-          </div>
-          <div class="grid gap-2">
-            <small hlmSmall class="font-semibold">Priority</small>
-            <brn-radio-group
-              class="mb-4 font-mono text-sm font-medium space-y-1"
-              hlm
+        <div class="flex items-center space-x-4">
+          <button
+            hlmBtn
+            variant="outline"
+            class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
+            size="sm"
+          >
+            <hlm-icon class="size-3.5" name="lucideFilter" />
+            <span class="text-xs md:text-sm">Filter</span>
+          </button>
+          <brn-popover sideOffset="5" closeDelay="100">
+            <button
+              hlmBtn
+              variant="outline"
+              class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
+              size="sm"
+              brnPopoverTrigger
             >
-              <brn-radio hlm value="URGENT">
-                <hlm-radio-indicator indicator />
-                Urgent
-              </brn-radio>
-              <brn-radio hlm value="HIGH">
-                <hlm-radio-indicator indicator />
-                High
-              </brn-radio>
-              <brn-radio hlm value="MEDIUM">
-                <hlm-radio-indicator indicator />
-                Medium
-              </brn-radio>
-              <brn-radio hlm value="LOW">
-                <hlm-radio-indicator indicator />
-                Low
-              </brn-radio>
-            </brn-radio-group>
-          </div>
-          <div class="flex gap-2">
-            <button hlmBtn brnPopoverClose variant="outline" class="gap-2 w-full">
-              Cancel
+              <hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
+              <span class="text-xs md:text-sm">Sort by</span>
             </button>
-            <button hlmBtn class="gap-2 w-full">Sort</button>
-          </div>
-        </div> -->
-      </brn-popover>
-    </div>
-  </div>
-  <div class="md:px-20 overflow-auto h-[45vh] md:max-h-[100vh]">
-    <table class="min-w-full">
-      <thead class="bg-white">
-        <tr class="border-b-8 border-b-gray-50">
-          <th
-            class="p-3 text-left text-sm font-semibold text-gray-600 rounded-l-full"
-          >
-            Truck Details
-          </th>
-          <th class="p-3 text-left text-sm font-semibold text-gray-600">
-            Driver iD
-          </th>
-          <th class="p-3 text-left text-sm font-semibold text-gray-600">
-            Distance
-          </th>
-          <th class="p-3 text-left text-sm font-semibold text-gray-600">
-            Fuel Level(%)
-          </th>
-          <th class="p-3 text-left text-sm font-semibold text-gray-600">
-            Battery level
-          </th>
-          <th class="p-3 text-left text-sm font-semibold text-gray-600">
-            Status
-          </th>
-          <th
-            class="p-3 text-left text-sm font-semibold text-gray-600 rounded-r-full"
-          >
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody class="">
-        <!-- Repeat this row for each entry -->
-         @for (item of _log(); track $index) {
-            <tr class="bg-white mb-4 border-b-8 border-b-gray-50">
-                <td class="p-3 text-sm text-gray-700 rounded-l-2xl">
-                  <div class="flex flex-row items-center justify-center gap-x-1">
-                    <div class="bg-DFEFE9 w-fit p-2 rounded-md">
-                      <img
-                        src="/truck.svg"
-                        alt=""
-                        class="h-6 w-6 inline-block"
-                      />
-                    </div>
-                    <div class="flex flex-col">
-                      <span class="">{{item.NN}}</span>
-                      <span class="text-gray-400">{{item.DV}}</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-3 text-sm text-gray-700">{{item.DN}}</td>
-                <td class="p-3 text-sm text-gray-700">{{item.OD}}km/h</td>
-                <td class="p-3 text-sm text-gray-700">{{item.FP}}</td>
-                <td class="p-3 text-sm text-gray-700">{{item.BL}}</td>
-                <td class="p-3 text-sm">
-                  <span class="bg-red-200 text-red-500 p-1 rounded-lg text-xs"
-                    >{{item.EN}}</span
-                  >
-                </td>
-                <td class="p-3 text-sm text-gray-700 rounded-r-2xl">
-                  <div class="flex items-center justify-center">
-                    <button hlmBtn class="bg-transparent text-black hover:bg-transparent" [brnMenuTriggerFor]="menu">...</button>
-                  </div>
-                  <ng-template #menu>
-                    <hlm-menu class="w-56">
-                      <hlm-menu-group>
-                        <button hlmMenuItem>
-                          <hlm-icon name="lucideFileBarChart" hlmMenuIcon />
-                          <span>Preview</span>
-                          <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
-                        </button>
-                      </hlm-menu-group>
-                    </hlm-menu>
-                  </ng-template>
-                </td>
-              </tr>
-         }
-        <!-- Repeat ends -->
-      </tbody>
-    </table>
-  </div>
-  <div
-    class="flex flex-col sm:flex-row md:justify-between items-center p-4 bg-gray-50 md:mx-20"
-  >
-    <p class="text-sm text-gray-600">Showing 1 to 10 of 50 entries</p>
-    <div>
-      <nav hlmPagination class="block justify-end mx-auto w-fit">
-        <ul hlmPaginationContent>
-          <li hlmPaginationItem>
-            <hlm-pagination-previous link="/components/menubar" />
-          </li>
-          <li hlmPaginationItem>
-            <a hlmPaginationLink link="#" isActive>1</a>
-          </li>
-          <li hlmPaginationItem>
-            <a hlmPaginationLink link="#">2</a>
-          </li>
-          <li hlmPaginationItem>
-            <a hlmPaginationLink link="#">3</a>
-          </li>
-          <li hlmPaginationItem>
-            <hlm-pagination-ellipsis />
-          </li>
-          <li hlmPaginationItem>
-            <hlm-pagination-next link="/components/popover" />
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+            <!-- <div
+              hlmPopoverContent
+              class="w-80 grid gap-4"
+              *brnPopoverContent="let ctx"
+            >
+              <div class="space-y-2">
+                <h4 class="font-medium leading-none">Sort by</h4>
+                <p class="text-sm text-muted-foreground">
+                  Kindly select what you want to filter
+                </p>
+              </div>
+              <div class="grid gap-2">
+                <small hlmSmall class="font-semibold">Priority</small>
+                <brn-radio-group
+                  class="mb-4 font-mono text-sm font-medium space-y-1"
+                  hlm
+                >
+                  <brn-radio hlm value="URGENT">
+                    <hlm-radio-indicator indicator />
+                    Urgent
+                  </brn-radio>
+                  <brn-radio hlm value="HIGH">
+                    <hlm-radio-indicator indicator />
+                    High
+                  </brn-radio>
+                  <brn-radio hlm value="MEDIUM">
+                    <hlm-radio-indicator indicator />
+                    Medium
+                  </brn-radio>
+                  <brn-radio hlm value="LOW">
+                    <hlm-radio-indicator indicator />
+                    Low
+                  </brn-radio>
+                </brn-radio-group>
+              </div>
+              <div class="flex gap-2">
+                <button hlmBtn brnPopoverClose variant="outline" class="gap-2 w-full">
+                  Cancel
+                </button>
+                <button hlmBtn class="gap-2 w-full">Sort</button>
+              </div>
+            </div> -->
+          </brn-popover>
+        </div>
+      </div>
+      <div class="md:px-20 overflow-auto h-[45vh] md:max-h-[100vh]">
+        <table class="min-w-full">
+          <thead class="bg-white">
+            <tr class="border-b-8 border-b-gray-50">
+              <th
+                class="p-3 text-left text-sm font-semibold text-gray-600 rounded-l-full"
+              >
+                Truck Details
+              </th>
+              <th class="p-3 text-left text-sm font-semibold text-gray-600">
+                Driver iD
+              </th>
+              <th class="p-3 text-left text-sm font-semibold text-gray-600">
+                Distance
+              </th>
+              <th class="p-3 text-left text-sm font-semibold text-gray-600">
+                Fuel Level(%)
+              </th>
+              <th class="p-3 text-left text-sm font-semibold text-gray-600">
+                Battery level
+              </th>
+              <th class="p-3 text-left text-sm font-semibold text-gray-600">
+                Status
+              </th>
+              <th
+                class="p-3 text-left text-sm font-semibold text-gray-600 rounded-r-full"
+              >
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="">
+            <!-- Repeat this row for each entry -->
+             @for (item of _log(); track $index) {
+                <tr class="bg-white mb-4 border-b-8 border-b-gray-50">
+                    <td class="p-3 text-sm text-gray-700 rounded-l-2xl">
+                      <div class="flex flex-row items-center justify-center gap-x-1">
+                        <div class="bg-DFEFE9 w-fit p-2 rounded-md">
+                          <img
+                            src="/truck.svg"
+                            alt=""
+                            class="h-6 w-6 inline-block"
+                          />
+                        </div>
+                        <div class="flex flex-col">
+                          <span class="">{{item.NN}}</span>
+                          <span class="text-gray-400">{{item.DV}}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3 text-sm text-gray-700">{{item.DN}}</td>
+                    <td class="p-3 text-sm text-gray-700">{{item.OD}}km/h</td>
+                    <td class="p-3 text-sm text-gray-700">{{item.FP}}</td>
+                    <td class="p-3 text-sm text-gray-700">{{item.BL}}</td>
+                    <td class="p-3 text-sm">
+                      <span class="bg-red-200 text-red-500 p-1 rounded-lg text-xs"
+                        >{{item.EN}}</span
+                      >
+                    </td>
+                    <td class="p-3 text-sm text-gray-700 rounded-r-2xl">
+                      <div class="flex items-center justify-center">
+                        <button hlmBtn class="bg-transparent text-black hover:bg-transparent" [brnMenuTriggerFor]="menu">...</button>
+                      </div>
+                      <ng-template #menu>
+                        <hlm-menu class="w-56">
+                          <hlm-menu-group>
+                            <button hlmMenuItem>
+                              <hlm-icon name="lucideFileBarChart" hlmMenuIcon />
+                              <span>Preview</span>
+                              <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+                            </button>
+                          </hlm-menu-group>
+                        </hlm-menu>
+                      </ng-template>
+                    </td>
+                  </tr>
+             }
+            <!-- Repeat ends -->
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="flex flex-col sm:flex-row md:justify-between items-center p-4 bg-gray-50 md:mx-20"
+      >
+        <p class="text-sm text-gray-600">Showing 1 to 10 of 50 entries</p>
+        <div>
+          <nav hlmPagination class="block justify-end mx-auto w-fit">
+            <ul hlmPaginationContent>
+              <li hlmPaginationItem>
+                <hlm-pagination-previous link="/components/menubar" />
+              </li>
+              <li hlmPaginationItem>
+                <a hlmPaginationLink link="#" isActive>1</a>
+              </li>
+              <li hlmPaginationItem>
+                <a hlmPaginationLink link="#">2</a>
+              </li>
+              <li hlmPaginationItem>
+                <a hlmPaginationLink link="#">3</a>
+              </li>
+              <li hlmPaginationItem>
+                <hlm-pagination-ellipsis />
+              </li>
+              <li hlmPaginationItem>
+                <hlm-pagination-next link="/components/popover" />
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      </ng-container>
+  }@else {
+
+    <ng-container>
+        <oryo-noc-main-dashboard (getGlobal)="getGlobalValue($event)"></oryo-noc-main-dashboard>
+      </ng-container>
+  }
+
+  
 </div>

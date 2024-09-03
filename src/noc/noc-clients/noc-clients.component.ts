@@ -62,7 +62,7 @@ export class NocClientsComponent implements OnInit {
     this._nocService.getCompanies().subscribe({
 			next: (res) => {
 				this._companies.set(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         
 			},
 			error: () => {
@@ -71,7 +71,7 @@ export class NocClientsComponent implements OnInit {
 
     this._nocService.getCarsGlobal().subscribe({
 			next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
 				this._global.set(res.data);
         
 			},
@@ -85,7 +85,7 @@ export class NocClientsComponent implements OnInit {
   }
   // Other component methods and properties'
   details(e?: any) {
-    console.log(e);
+    // console.log(e);
     
     const navigationExtras: NavigationExtras = {
       // relativeTo: this.route,
@@ -106,7 +106,7 @@ export class NocClientsComponent implements OnInit {
 
     dialogRef.closed$.subscribe((user) => {
       if (user) {
-        console.log('Selected user:', user);
+        // console.log('Selected user:', user);
       }
     });
   }
