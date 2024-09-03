@@ -18,15 +18,41 @@
     <div class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center">
       <hlm-icon size="sm" name="lucideBell" />
     </div>
-    <hlm-avatar class="h-8 w-8">
-      <img
-        src=""
-        alt="spartan logo. Resembling a spartanic shield"
-        class="h-8 w-8 rounded-full"
-      />
-      <span class="bg-[#FD005B] text-white" hlmAvatarFallback>
-        {{_topbarDetails().staffName | initials}}
-      </span>
-    </hlm-avatar>
+    <div class="">
+        <button hlmBtn class="bg-transparent hover:bg-transparent"  [brnMenuTriggerFor]="menu">
+            <hlm-avatar class="h-8 w-8">
+                <img
+                  src=""
+                  alt="spartan logo. Resembling a spartanic shield"
+                  class="h-8 w-8 rounded-full"
+                />
+                <span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+                  {{_topbarDetails().staffName | initials}}
+                </span>
+              </hlm-avatar>
+        </button>
+      </div>
   </div>
   </div>
+  
+  <ng-template #menu>
+    <hlm-menu class="w-56">
+      <hlm-menu-label>My Account</hlm-menu-label>
+      <hlm-menu-separator />
+      <hlm-menu-group>
+        <button hlmMenuItem>
+          <hlm-icon name="lucideUser" hlmMenuIcon />
+          <span>Profile</span>
+          <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+        </button>
+      </hlm-menu-group>
+
+      <hlm-menu-separator />
+
+      <button hlmMenuItem (click)="backbtn()">
+        <hlm-icon name="lucideLogOut" hlmMenuIcon />
+        <span>Main Menu</span>
+        <hlm-menu-shortcut>⇧⌘M</hlm-menu-shortcut>
+      </button>
+    </hlm-menu>
+  </ng-template>
