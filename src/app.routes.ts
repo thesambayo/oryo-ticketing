@@ -32,6 +32,11 @@ export const routes: Routes = [
 		path: 'bdm',
 		loadChildren: () => import('./business-development/bdm.routes').then(m => m.BusinessDevelopmentRoutes),
 		canActivate: [isLoggedInGuard]
+	},
+	{
+		path: 'noc',
+		loadChildren: () => import('./noc/noc.route').then(m => m.NocRoutes),
+		canActivate: [isLoggedInGuard]
 	}
 
 ];

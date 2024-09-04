@@ -1,0 +1,56 @@
+
+  
+
+  <hlm-dialog>
+    <button id="edit-profile" brnDialogTrigger hlmBtn class="px-4 py-2 bg-primary text-white rounded-md text-sm">+ Create Client</button>
+    <hlm-dialog-content class="min-w-[900px]" *brnDialogContent="let ctx">
+        <div class="w-full mx-auto p-6 bg-white rounded-lg ">
+            <!-- Logo and Upload Button -->
+            <div class="flex items-center justify-start mb-4">
+              <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                <!-- Placeholder for Profile Picture -->
+                <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.1 12 2.1 7.1 4.3 7.1 7.1 9.3 12 12 12zm0 2.7c-3.7 0-11.1 1.9-11.1 5.6v2.2h22.2v-2.2c0-3.7-7.4-5.6-11.1-5.6z"/>
+                </svg>
+              </div>
+              <input id="upload" type="file" name="" hidden>
+              <label for="upload">
+              <div class="ml-4 px-4 py-2 text-sm border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none">
+                Upload picture
+              </div>
+              </label>
+            </div>
+          
+            <!-- Form Fields -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Company Name</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Company Name">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Email">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Company Location</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Company Location">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                <input type="tel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Mobile Number">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Company ID</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Company ID">
+              </div>
+            </div>
+          
+            <!-- Create Button -->
+            <div class="flex justify-center w-full">
+              <button class="px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-green-700 focus:outline-none w-full">
+                Create
+              </button>
+            </div>
+          </div>
+    </hlm-dialog-content>
+  </hlm-dialog>
