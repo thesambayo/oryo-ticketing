@@ -1,0 +1,119 @@
+<div class="w-full overflow-x-auto bg-white rounded-xl">
+  <!--  -->
+  <div class="flex items-center justify-between p-4">
+    <button
+      hlmBtn
+      variant="outline"
+      class="gap-2 pointer-events-none border-none text-oryo-green"
+      size="sm"
+    >
+      <span>All Staff ({{ staffList().length }})</span>
+    </button>
+
+    <!-- <div class="relative">
+      <hlm-icon
+        size="sm"
+        class="absolute top-1/2 -translate-y-1/2 left-2.5 text-muted-foreground"
+        name="lucideSearch"
+      />
+      <input
+        hlmInput
+        class="w-96 pl-8 bg-muted"
+        placeholder="Search for reporter name..."
+        type="Search"
+      />
+    </div> -->
+
+    <div class="flex items-center justify-end gap-2.5">
+			<oryo-add-staff></oryo-add-staff>
+    </div>
+  </div>
+
+  <hlm-table class="w-full min-w-[500px]">
+    <!-- <hlm-caption>A list of your recent tickets.</hlm-caption> -->
+    <hlm-trow class="uppercase">
+      <hlm-th class="flex-1 min-w-40">Name</hlm-th>
+      <hlm-th class="flex-1 min-w-40">Email</hlm-th>
+      <hlm-th class="flex-1 min-w-40">Department</hlm-th>
+      <hlm-th class="flex-1 min-w-20">Status</hlm-th>
+      <!-- <hlm-th class="flex-1 min-w-20">Permissions</hlm-th> -->
+      <hlm-th class="flex-1 min-w-20">Created Date</hlm-th>
+      <hlm-th class="justify-start w-20">Actions</hlm-th>
+    </hlm-trow>
+		
+		@if (isLoading()) {
+			<hlm-caption class="m-0 py-10">
+				<hlm-spinner class="size-5" />
+			</hlm-caption>
+		} @else {
+			@for (staffItem of staffList(); track staffItem.id) {
+			<hlm-trow>
+				<hlm-td class="flex-1 min-w-40 flex flex-col items-start whitespace-nowrap">
+					<p class="text-foreground font-medium truncate">{{ staffItem.name }}</p>
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-40">
+					<span class="">{{ staffItem.email }}</span>
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-40">
+					<p class="text-sm uppercase tracking-tighter">
+						{{ staffItem.department.name }}
+					</p>
+				</hlm-td>
+				<hlm-td class="flex-1 min-w-20">
+					<span class="">{{ staffItem.activated ? "Active" : "Inactive" }}</span>
+				</hlm-td>
+				<!-- <hlm-td class="flex-1 min-w-20">
+					{{ staffItem.permissions.length }}
+			</hlm-td> -->
+				<hlm-td class="flex-1 min-w-20">
+						{{ staffItem.created_at | date }}
+				</hlm-td>
+				<hlm-td class="justify-start w-20">
+					<button
+						hlmBtn
+						align="center"
+						variant="ghost"
+						class="size-6 p-0.5"
+						[brnMenuTriggerFor]="menu"
+					>
+						<hlm-icon class="size-4" name="lucideEllipsisVertical" />
+					</button>
+					<ng-template #menu>
+						<hlm-menu>
+							<hlm-menu-group>
+								<button hlmMenuItem [routerLink]="'/help-desk/tickets/'+staffItem.id">View ticket</button>
+							</hlm-menu-group>
+							<hlm-menu-separator />
+
+							<button hlmMenuItem [brnMenuTriggerFor]="share">
+								Update status
+								<hlm-menu-item-sub-indicator />
+							</button>
+							<ng-template #share>
+								<hlm-sub-menu>
+									@if (!staffItem.activated) {
+										<button
+											hlmMenuItem
+											class="text-green-600 hover:text-green-600"
+										>
+											Re-invite
+										</button>
+									}
+										<button
+											hlmMenuItem
+											class="text-destructive hover:text-destructive"
+										>
+											Delete
+										</button>
+								</hlm-sub-menu>
+							</ng-template>
+						</hlm-menu>
+					</ng-template>
+				</hlm-td>
+			</hlm-trow>
+			} @empty {
+				<hlm-caption class="m-0 py-10">No staff found</hlm-caption>
+			}
+		}
+  </hlm-table>
+</div>

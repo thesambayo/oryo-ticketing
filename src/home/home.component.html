@@ -30,54 +30,25 @@
     </h1>
     <p class="text-lg">Kindly choose your preferred module</p>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 h-[calc(100vh-276px)] overflow-y-auto">
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-      <img
-        src="../../noc-dashboard-icon.svg"
-        alt="NOC Dashboard"
-        class="mx-auto mb-4"
-      />
-      <h2 class="text-xl font-medium">NOC Dashboard</h2>
-    </div>
-    <div
-			[routerLink]="['/help-desk']"
-			class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer"
-		>
-      <img
-        src="../../service-desk-icon.svg"
-        alt="Service Desk Module"
-        class="mx-auto mb-4"
-      />
-      <h2 class="text-xl font-medium">Service Desk Module</h2>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-      <img
-        src="../../finance-icon.svg"
-        alt="Finance & Procurement"
-        class="mx-auto mb-4"
-      />
-      <h2 class="text-xl font-medium">Procurement</h2>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer"
-    [routerLink]="['/bdm']" routerLinkActive="router-link-active" >
-      <img
-        src="../../business-development-icon.svg"
-        alt="Business Development"
-        class="mx-auto mb-4"
-      />
-      <h2 class="text-xl font-medium">Business Development</h2>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-      <img src="../../hr-icon.svg" alt="HR Module" class="mx-auto mb-4" />
-      <h2 class="text-xl font-medium">HR Module</h2>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer">
-      <img
-        src="../../project-management-icon.svg"
-        alt="Project Management"
-        class="mx-auto mb-4"
-      />
-      <h2 class="text-xl font-medium">Project Management</h2>
-    </div>
+  <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 p-5 overflow-y-auto">
+
+		@for (item of modules; track item.title) {
+			<div
+				class="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer"
+				(click)="handleRoute(item.route, item.comingSoon)"
+			>
+				<img
+					[src]="item.img"
+					[alt]="item.title"
+					class="mx-auto mb-4"
+				/>
+				<h2 class="text-lg font-medium">
+					<span>{{item.title}}</span>
+					<!-- @if (item.comingSoon) {
+						<span class="text-xs text-muted-foreground ml-2">(coming soon)</span>
+					} -->
+				</h2>
+			</div>
+		}
   </div>
 </div>
