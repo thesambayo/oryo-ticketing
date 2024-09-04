@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { HlmButtonDirective } from '../../../../libs/ui/ui-button-helm/src/lib/hlm-button.directive';
 import { HlmDialogDescriptionDirective } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-description.directive';
 import { HlmDialogHeaderComponent } from '../../../../libs/ui/ui-dialog-helm/src/lib/hlm-dialog-header.component';
@@ -55,20 +55,22 @@ export class CreateBudgetComponent {
   // _ticketsService = inject(TicketsService);
   _routes = inject(Router);
   _staffService = inject(StaffService);
-  _budgetService = inject(BudgetService)
+  _budgetService = inject(BudgetService);
 
   _dialogRef = inject<BrnDialogRef<CreateUserBudgetPayload>>(BrnDialogRef);
-
-  bdmStaff = this._staffService.bdmStaff;
-//   bdmStaff$ = this._staffService.getStaff(Department.BUSINESS_DEVELOPMENT);
+  bdmStaff = computed(() =>
+    this._staffService
+      .staffList()
+      .filter(
+        (staff) => staff.department.name === Department.BUSINESS_DEVELOPMENT
+      )
+  );
   isCreating = signal<boolean>(false);
   retrievedPayload = JSON.parse(localStorage.getItem('userBudget') || '{}');
 
-
-
   ngOnInit() {}
-//   console.log(this.bdmStaff())
-// 	{{bdmStaff$ | async}}
+  //   console.log(this.bdmStaff())
+  // 	{{bdmStaff$ | async}}
 
   createCompantForm = this._fb.nonNullable.group({
     // customer details
@@ -78,15 +80,14 @@ export class CreateBudgetComponent {
     endDate: this._fb.nonNullable.control('', [Validators.required]),
   });
 
-//   getStaff() {
+  //   getStaff() {
 
-// 	const 
-//   }
+  // 	const
+  //   }
 
-removeCommas(numberString: string) {
+  removeCommas(numberString: string) {
     return numberString.replace(/,/g, '');
-}
-
+  }
 
   onSubmit() {
     if (this.createCompantForm.invalid) {
@@ -97,32 +98,35 @@ removeCommas(numberString: string) {
 
     const payload: CreateUserBudgetPayload = {
       staffId: this.createCompantForm.controls.staffId.value,
-      amount: parseFloat(this.removeCommas(this.createCompantForm.controls.budget.value)),
-	  createdBy: this._budgetService.getUser()|| 0,
-      startDate: new Date(this.createCompantForm.controls.startDate.value).toISOString(),
-      endDate: new Date(this.createCompantForm.controls.endDate.value).toISOString(),
+      amount: parseFloat(
+        this.removeCommas(this.createCompantForm.controls.budget.value)
+      ),
+      startDate: new Date(
+        this.createCompantForm.controls.startDate.value
+      ).toISOString(),
+      endDate: new Date(
+        this.createCompantForm.controls.endDate.value
+      ).toISOString(),
     };
-	console.log(payload);
-
-	
+    console.log(payload);
 
     this.isCreating.set(true);
 
     this._budgetService.createBudget(payload).subscribe({
-    	next: (res) => {
-    		toast.success("Budget created successfully", {
-    			id: "create-budget-form-success"
-    		});
-			this._dialogRef.close();
-			// Reset the creating state
-			this.isCreating.set(false);
-    	},
-    	error: (err) => {
-			// Reset the creating state
-			this.isCreating.set(false);
-			toast.error("Error submitting Budget", {id: "create-budget-error"});
-    		console.log(err);
-    	}
-    })
+      next: (res) => {
+        toast.success('Budget created successfully', {
+          id: 'create-budget-form-success',
+        });
+        this._dialogRef.close();
+        // Reset the creating state
+        this.isCreating.set(false);
+      },
+      error: (err) => {
+        // Reset the creating state
+        this.isCreating.set(false);
+        toast.error('Error submitting Budget', { id: 'create-budget-error' });
+        console.log(err);
+      },
+    });
   }
 }

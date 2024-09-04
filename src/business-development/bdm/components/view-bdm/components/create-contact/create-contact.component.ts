@@ -91,10 +91,10 @@ export class CreateContactComponent {
 		const payload: Lead = {
 			name: this.createCompantForm.controls.name.value,
 			email: this.createCompantForm.controls.email.value,
-			customerName: this.createCompantForm.controls.customerName.value,
+			company: this.createCompantForm.controls.customerName.value,
 			phone: this.createCompantForm.controls.phone.value,
 			location: this.createCompantForm.controls.location.value,
-			product_offered: this.createCompantForm.controls.pto.value,
+			productsOffered: this.createCompantForm.controls.pto.value,
 			id: 0,
 			status: LeadStatus.KIV,
 			created_by: '',

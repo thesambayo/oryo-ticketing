@@ -34,8 +34,8 @@ export const routes: Routes = [
 		canActivate: [isLoggedInGuard]
 	},
 	{
-		path: 'staff',
-		loadChildren: () => import('./staff-management/staff-management.routes').then(m => m.staffManagementRoutes),
+		path: 'noc',
+		loadChildren: () => import('./noc/noc.route').then(m => m.NocRoutes),
 		canActivate: [isLoggedInGuard]
 	}
 

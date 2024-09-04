@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiResponse } from '../models/model';
 import { Department, Staff } from '../../help-desk/core/models/staff';
@@ -14,9 +14,15 @@ export class StaffService {
   _http = inject(HttpClient);
 
   staffList = toSignal(this.getStaff(), { initialValue: [] as Staff[] });
-  bdmStaff = toSignal(this.getStaff(Department.BUSINESS_DEVELOPMENT), {
-    initialValue: [],
-  });
+  bdmStaff = computed(() =>
+    this.staffList()
+      .filter(
+        (staff) => staff.department.name === Department.BUSINESS_DEVELOPMENT
+      )
+  );
+  // bdmStaff = toSignal(this.getStaff(Department.BUSINESS_DEVELOPMENT), {
+  //   initialValue: [],
+  // });
 
   getStaff(department?: Department) {
     const params = department
