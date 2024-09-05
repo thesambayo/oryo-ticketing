@@ -5,7 +5,7 @@
             <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
                 <hlm-icon size="sm" name="lucideArrowLeft" />
             </button>
-            <div class="text-lg font-bold text-primary">All Clients ({{ _companies().length}})</div>
+            <div class="text-lg font-bold text-primary">All Clients ({{ companies().length}})</div>
         </div>
       <div class="flex items-center space-x-4">
         <button hlmBtn variant="outline" 
@@ -76,7 +76,7 @@
      <div class=" overflow-auto h-[610px] md:max-h-[700px]">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           <!-- Card Item -->
-           @for (item of _companies(); track $index) {
+           @for (item of companies(); track $index) {
             <div class="bg-white p-6 rounded-lg relative cursor-pointer" (click)="details(item.id)">
               <div class="absolute top-5 right-5">
                 <div class="bg-gray-200 text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center relative">
@@ -95,19 +95,19 @@
                 <div class="grid grid-cols-2 gap-4">
                   <div>
                     <p class="text-sm text-A3AED0">Total Vehicles</p>
-                    <p class="text-lg font-bold">{{_global()?.totalVehicles}}</p>
+                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.totalVehicles}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Moving Vehicles</p>
-                    <p class="text-lg font-bold">{{_global()?.movingVehicles}}</p>
+                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.movingVehicles}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Idle Vehicles</p>
-                    <p class="text-lg font-bold">{{_global()?.idleVehicles}}</p>
+                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.idleVehicles}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Ignition Off</p>
-                    <p class="text-lg font-bold">{{_global()?.ignitionOffVehicles}}</p>
+                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.ignitionOffVehicles}}</p>
                   </div>
                 </div>
               }@else {

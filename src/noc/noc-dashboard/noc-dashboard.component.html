@@ -45,7 +45,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">Total Vehicle</p>
-              <p class="text-2xl font-bold">{{_global()?.totalVehicles}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.totalVehicles}}</p>
             </div>
           </label>
           <label
@@ -65,7 +65,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">Moving Vehicles</p>
-              <p class="text-2xl font-bold">{{_global()?.movingVehicles}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.movingVehicles}}</p>
             </div>
           </label>
           <label
@@ -85,7 +85,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">Idle Vehicle</p>
-              <p class="text-2xl font-bold">{{_global()?.idleVehicles}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.idleVehicles}}</p>
             </div>
           </label>
           <label
@@ -105,7 +105,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">Ignition off</p>
-              <p class="text-2xl font-bold">{{_global()?.ignitionOffVehicles}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.ignitionOffVehicles}}</p>
             </div>
           </label>
           <label
@@ -125,7 +125,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">Disconnected</p>
-              <p class="text-2xl font-bold">{{_global()?.disconnectedVehicles}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.disconnectedVehicles}}</p>
             </div>
           </label>
           <!-- <label
@@ -145,7 +145,7 @@
             </div>
             <div class="ml-4">
               <p class="text-sm text-gray-600">No Signal</p>
-              <p class="text-2xl font-bold">{{_global()?.}}</p>
+              <p class="text-2xl font-bold">{{vehiclesGlobalReports()?.}}</p>
             </div>
           </label> -->
         </div>
@@ -255,7 +255,7 @@
           </thead>
           <tbody class="">
             <!-- Repeat this row for each entry -->
-             @for (item of _log(); track $index) {
+             @for (item of vehicles(); track $index) {
                 <tr class="bg-white mb-4 border-b-8 border-b-gray-50">
                     <td class="p-3 text-sm text-gray-700 rounded-l-2xl">
                       <div class="flex flex-row items-center justify-center gap-x-1">
@@ -336,7 +336,10 @@
   }@else {
 
     <ng-container>
-        <oryo-noc-main-dashboard (getGlobal)="getGlobalValue($event)"></oryo-noc-main-dashboard>
+      <oryo-noc-main-dashboard
+				(getGlobal)="getGlobalValue($event)"
+			>
+			</oryo-noc-main-dashboard>
       </ng-container>
   }
 

@@ -34,8 +34,8 @@ export class HomeComponent {
 		{
 			title: "NOC Dashboard",
 			img: "noc-dashboard-icon.svg",
-			route: "",
-			comingSoon: true,
+			route: "/noc",
+			comingSoon: false,
 		},
 		{
 			title: "Service Desk Module",

@@ -153,24 +153,6 @@ export class NocClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const navigation = this._router.getCurrentNavigation();
-    console.log(navigation?.extras?.state);
-    
-    if (navigation?.extras?.state) {
-      console.log(navigation.extras.state['details']);
-      const details = navigation.extras.state['details']
-      this._nocService.getClient(details).subscribe({
-        next: (res) => {
-          console.log(res.data);
-          this._details.set(res.data);
-          
-        },
-        error: () => {
-        }
-      })
-      return
-    }else {
-      // this.onBack()
-    }
   }
 
   onStatusChange(value: string) {

@@ -67,14 +67,6 @@ export class AddStaffComponent {
 	openCreateTicketForm = signal(false);
 	isCreatingTicket = signal<boolean>(false);
 
-// 	{
-//     "name": "Dami lola",
-//     "email": "dami.lola@oryoltd.com",
-//     "password": "Pa55word@10",
-//     "permissions": ["bdm:manager", "staff:manager"],
-//     "departmentId": 4
-// }
-
 	addStaffForm = this._fb.nonNullable.group({
 		name: this._fb.nonNullable.control('', Validators.required),
 		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),

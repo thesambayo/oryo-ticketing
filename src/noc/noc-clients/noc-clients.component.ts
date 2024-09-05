@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideArrowLeft,
@@ -22,8 +22,7 @@ import {
 } from '@spartan-ng/ui-popover-helm';
 import { ContactComponent } from '../noc-client-details/contact/contact.component';
 import { CreateComponent } from "../noc-client-details/create/create.component";
-import { NocService } from '../services/noc.service';
-import { CarGlobal, Companies, RefuelRecord } from '../noc.model';
+import { VehiclesStore } from '../../store/vehicles.store';
 
 @Component({
   selector: 'oryo-noc-clients',
@@ -51,33 +50,15 @@ import { CarGlobal, Companies, RefuelRecord } from '../noc.model';
   styleUrl: './noc-clients.component.css',
 })
 export class NocClientsComponent implements OnInit {
-  _router = inject(Router);
-  route = inject(ActivatedRoute);
-  _hlmDialogService = inject(HlmDialogService);
-  _nocService = inject(NocService)
-	_companies = signal<Companies[]>([]);
-	_global = signal<CarGlobal | null>(null);
+  private _router = inject(Router);
+	private _vehiclesStore = inject(VehiclesStore);
+  private _hlmDialogService = inject(HlmDialogService);
+
+	companies = this._vehiclesStore.clients;
+	vehiclesGlobalReports = this._vehiclesStore.globalReports;
 
   ngOnInit(): void {
-    this._nocService.getCompanies().subscribe({
-			next: (res) => {
-				this._companies.set(res.data);
-        // console.log(res.data);
-        
-			},
-			error: () => {
-			}
-		})
-
-    this._nocService.getCarsGlobal().subscribe({
-			next: (res) => {
-        // console.log(res.data);
-				this._global.set(res.data);
-        
-			},
-			error: () => {
-			}
-		})
+		// this._vehiclesStore.loadAllClients();
   }
   onBack() {
     // Perform action to navigate back to previous page

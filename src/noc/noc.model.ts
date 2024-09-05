@@ -134,6 +134,7 @@ export interface RefuelRecord {
 }
 
 export interface VehicleInfo {
+	companyId: number;
   /**
    * @name DV
    * @description device id
@@ -339,7 +340,7 @@ export interface VehicleInfo {
   TDS: number;
 }
 
-export interface CarGlobal {
+export interface VehiclesGlobalReport {
   totalVehicles: number;
   movingVehicles: number;
   idleVehicles: number;
@@ -353,9 +354,4 @@ export enum NocStatus {
   Ignition_off = 'IN_PROGRESS',
   Disconnected = 'Disconnected',
   No_Signal = 'No_Signal',
-}
-
-export interface Companies {
-  id: number;
-  companyName: string;
 }

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   HlmPopoverContentDirective,
@@ -33,12 +33,11 @@ import {
   HlmPaginationEllipsisComponent,
 } from '@spartan-ng/ui-pagination-helm';
 import { Router } from '@angular/router';
-import { NocService } from '../services/noc.service';
-import { CarGlobal, RefuelRecord, VehicleInfo } from '../noc.model';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuItemIconDirective, HlmMenuItemSubIndicatorComponent, HlmMenuLabelComponent, HlmMenuSeparatorComponent, HlmMenuShortcutComponent, HlmSubMenuComponent } from '@spartan-ng/ui-menu-helm';
 import { NocMainDashboardComponent } from "./noc-main-dashboard/noc-main-dashboard.component";
+import { VehiclesStore } from '../../store/vehicles.store';
 
 @Component({
   selector: 'oryo-noc-dashboard',
@@ -85,43 +84,22 @@ import { NocMainDashboardComponent } from "./noc-main-dashboard/noc-main-dashboa
   styleUrl: './noc-dashboard.component.css',
 })
 export class NocDashboardComponent implements OnInit {
+	private _router = inject(Router)
+	private _vehiclesStore = inject(VehiclesStore);
+	
   selectedStatus: string = '';
-  _router = inject(Router)
-  _nocService = inject(NocService);
-	_log = signal<VehicleInfo[]>([]);
-	_global = signal<CarGlobal | null>(null);
+	vehicles = this._vehiclesStore.vehicles;
+	vehiclesGlobalReports = this._vehiclesStore.globalReports;
 
 
   ngOnInit(): void {
-    
-    this._nocService.getCars().subscribe({
-			next: (res) => {
-        // console.log(res.data);
-				this._log.set(res.data);
-        
-			},
-			error: () => {
-			}
-		})
-    
-    this._nocService.getCarsGlobal().subscribe({
-			next: (res) => {
-        // console.log(res.data);
-				this._global.set(res.data);
-        
-			},
-			error: () => {
-			}
-		})
   }
 
   onStatusChange(value: string) {
     this.selectedStatus = value;
-    // console.log(`${value} is selected`);
     // Perform other actions as needed
   }
   getGlobalValue(e: any) {
-    // console.log(e);
     this.selectedStatus = e
     // Perform other actions as needed
   }

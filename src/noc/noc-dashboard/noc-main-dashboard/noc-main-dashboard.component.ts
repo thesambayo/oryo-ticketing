@@ -1,6 +1,5 @@
-import { Component, inject, OnInit, output, signal } from '@angular/core';
-import { CarGlobal } from '../../noc.model';
-import { NocService } from '../../services/noc.service';
+import { Component, inject, output } from '@angular/core';
+import { VehiclesStore } from '../../../store/vehicles.store';
 
 @Component({
   selector: 'oryo-noc-main-dashboard',
@@ -9,25 +8,13 @@ import { NocService } from '../../services/noc.service';
   templateUrl: './noc-main-dashboard.component.html',
   styleUrl: './noc-main-dashboard.component.css'
 })
-export class NocMainDashboardComponent implements OnInit {
-
-  _nocService = inject(NocService);
-	_global = signal<CarGlobal | null>(null);
+export class NocMainDashboardComponent {
+	private _vehiclesStore = inject(VehiclesStore);
+	vehiclesGlobalReports = this._vehiclesStore.globalReports;
+	noSignalVehicles = this._vehiclesStore.noSignalVehicles;
 
 	// declare input and outputs
 	getGlobal = output();
-
-  ngOnInit(): void {
-    this._nocService.getCarsGlobal().subscribe({
-			next: (res) => {
-        // console.log(res.data);
-				this._global.set(res.data);
-        
-			},
-			error: () => {
-			}
-		})
-  }
 
   getGlobalValue(e:any) {
     this.getGlobal.emit(e)
