@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -40,7 +40,7 @@ import { NocMainDashboardComponent } from "../noc-main-dashboard/noc-main-dashbo
 import { VehiclesStore } from '../../store/vehicles.store';
 
 @Component({
-  selector: 'oryo-noc-dashboard',
+  selector: 'oryo-noc-client-report-list',
   standalone: true,
   imports: [
     FormsModule,
@@ -76,31 +76,31 @@ import { VehiclesStore } from '../../store/vehicles.store';
     HlmSubMenuComponent,
     BrnMenuTriggerDirective,
     HlmButtonDirective,
-    NocMainDashboardComponent,
-		DatePipe
+    NocMainDashboardComponent
 ],
   providers: [provideIcons({ lucideChevronsUpDown, lucideFilter, 
     lucideFileBarChart,lucideArrowLeft})],
-  templateUrl: './noc-dashboard.component.html',
-  styleUrl: './noc-dashboard.component.css',
+  templateUrl: './noc-client-report-list.component.html',
+  styleUrl: './noc-client-report-list.component.css',
 })
-export class NocDashboardComponent implements OnInit {
+export class NocClientReportListComponent implements OnInit {
 	private _router = inject(Router);
 	private _activatedRoute = inject(ActivatedRoute);
 	private _vehiclesStore = inject(VehiclesStore);
 	
   selectedStatus: string = 'any';
+	// vehiclesReports = this._vehiclesStore.vehiclesReports;
+	// vehiclesGlobalReports = this._vehiclesStore.globalReports;
 	nonReportingVehicles = this._vehiclesStore.nonReportingVehicles;
-	selectedCompanyNonReportingVehicles = this._vehiclesStore.selectedCompanyNonReportVehicles;
 
 
   ngOnInit(): void {
+		this._vehiclesStore.loadNonReportingVehicles();
 		this.selectedStatus = this._activatedRoute.snapshot.params['status']
   }
 
-  selectReportingCompanyId(value: number) {
-		console.log(value)
-    this._vehiclesStore.setSelectedCompanyVehiclesId(value);
+  onStatusChange(value: string) {
+    this.selectedStatus = value;
     // Perform other actions as needed
   }
   getGlobalValue(e: any) {

@@ -3,31 +3,55 @@ import { patchState, signalStore, withComputed, withHooks, withMethods, withStat
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { VehiclesService } from './vehicles.service';
 import { pipe, tap, switchMap, catchError } from 'rxjs';
-import { VehiclesGlobalReport, VehicleInfo } from '../noc/noc.model';
+import { VehiclesGlobalReport, VehicleReport, ClientVehicle } from '../noc/noc.model';
+
+// export interface VehiclesClient {
+// 	id: number;
+// 	altId: number;
+// 	companyName: string;
+// 	totalVehicles: number;
+// }
 
 export interface VehiclesClient {
 	id: number;
-	altId: number;
-	companyName: string;
-	totalVehicles: number;
+	company_name: string;
+	wfl_id: number;
+	alternate_wfl_id: {
+		Int64: number;
+		Valid: boolean;
+	};
+	total_vehicles: number;
+	wfl_username: string;
+	wfl_password: string;
+	created_at: string;
+	updated_at: string;
+	version: number;
 }
 
 export interface VehiclesState {
 	clients: VehiclesClient[];
-	vehicles: VehicleInfo[];
+	vehiclesReports: VehicleReport[];
+	companyVehicles: ClientVehicle[];
 	globalReports: VehiclesGlobalReport | null;
+	nonReportingVehicles: ClientVehicle[];
 	loadingClients: boolean;
 	loadingVehicles: boolean;
 	loadingGlobalReports: boolean;
+	loadingCompanyVehicles: boolean;
+	selectedCompanyVehiclesId: number | null;
 }
 
 const initialState: VehiclesState = {
 	clients: [],
-	vehicles: [],
+	vehiclesReports: [],
+	companyVehicles: [],
+	nonReportingVehicles: [],
 	globalReports: null,
 	loadingClients: false,
 	loadingVehicles: false,
 	loadingGlobalReports: false,
+	loadingCompanyVehicles: false,
+	selectedCompanyVehiclesId: null
 }
 
 export const VehiclesStore = signalStore(
@@ -35,13 +59,19 @@ export const VehiclesStore = signalStore(
 	withState(initialState),
 	withComputed((store) => ({
 		totalVehiclesFromAllClients: computed(() =>
-			store.clients().reduce((sum, client) => sum + client.totalVehicles, 0)
+			store.clients().reduce((sum, client) => sum + client.total_vehicles, 0)
 		),
-		noSignalVehicles: computed(() => {
-			const totalVehicles = store.clients().reduce((sum, client) => sum + client.totalVehicles, 0);
+		// noSignalVehicles: computed(() => {
+		// 	const totalVehicles = store.clients().reduce((sum, client) => sum + client.total_vehicles, 0);
 
-			const totalReportingVehicles = store.globalReports()?.totalVehicles ?? 0;
-			return totalVehicles - totalReportingVehicles;
+		// 	const totalReportingVehicles = store.globalReports()?.total_vehicles ?? 0;
+		// 	return totalVehicles - totalReportingVehicles;
+		// }),
+		selectedCompanyVehicles: computed(() => {
+			return store.companyVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId())
+		}),
+		selectedCompanyNonReportVehicles: computed(() => {
+			return store.nonReportingVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId())
 		})
 	})),
 
@@ -63,11 +93,11 @@ export const VehiclesStore = signalStore(
 			),
 
 			/** get all vehicles for all clients */
-			loadAllVehicles: rxMethod<void>(
+			loadAllVehiclesReports: rxMethod<void>(
 				pipe(
 					tap((_args) => patchState(store, { loadingVehicles: true })),
-					switchMap(() => _vehiclesService.getVehicles()),
-					tap((res) => patchState(store, { vehicles: res.data, loadingVehicles: false })),
+					switchMap(() => _vehiclesService.getAllVehiclesReports()),
+					tap((res) => patchState(store, { vehiclesReports: res.data, loadingVehicles: false })),
 					catchError((err) => {
 						patchState(store, { loadingVehicles: false });
 						console.log(err, "error")
@@ -90,13 +120,52 @@ export const VehiclesStore = signalStore(
 				)
 			),
 
+			/** get vehicles for vehicles */
+			loadCompaniesVehicles: rxMethod<void>(
+				pipe(
+					tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
+					switchMap(() => _vehiclesService.getCompanyVehicles()),
+					tap((res) => patchState(store, { companyVehicles: res.data, loadingCompanyVehicles: false })),
+					catchError((err) => {
+						patchState(store, { loadingCompanyVehicles: false });
+						console.log(err, "error")
+						throw new Error(err);
+					})
+				)
+			),
+
+			loadNonReportingVehicles: rxMethod<void>(
+				pipe(
+					// tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
+					switchMap(() => _vehiclesService.getNonReportingVehicles()),
+					tap((res) => patchState(store, { nonReportingVehicles: res.data })),
+					catchError((err) => {
+						// patchState(store, { loadingCompanyVehicles: false });
+						console.log(err, "error")
+						throw new Error(err);
+					})
+				)
+			),
+
+			// changeFirstName(firstName: string) {
+			// 	patchState(store, { firstName });
+			// },
+
+
+			setSelectedCompanyVehiclesId(companyId: number): void {
+				console.log(companyId)
+				patchState(store, { selectedCompanyVehiclesId: companyId });
+				// patchState(store, (state) => ({ filter: { ...state.filter, query } }));
+			},
+
 		})
 	),
 	withHooks((store) => ({
 		onInit: () => {
 			store.loadAllClients();
 			store.loadGlobalReports();
-			store.loadAllVehicles();
+			store.loadAllVehiclesReports();
+			store.loadNonReportingVehicles();
 		},
 		// onDestroy() {
 		//   console.log('firstName on destroy', firstName());

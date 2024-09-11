@@ -1,0 +1,162 @@
+<div class="min-h-screen p-4">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-6 md:px-20">
+    <div class="flex gap-x-5 items-start justify-center">
+            <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
+                <hlm-icon size="sm" name="lucideArrowLeft" />
+            </button>
+      <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700">
+        {{selectedStatus}}
+      </h1>
+    </div>
+   
+    <div class="flex items-center">
+      <button
+        class="px-2 py-2 bg-transparent border border-C3D3E2 text-black rounded-lg flex justify-center items-center gap-1"
+        (click)="onReport()"
+      >
+        <img src="/document-text.svg" alt="" />
+        <span class="text-xs">Clients Report</span>
+      </button>
+    </div>
+  </div>
+
+
+		<!-- Global Report Cards -->
+	<div class="overflow-x-auto mb-6 md:ps-20">
+		<div class="flex space-x-4 bg-white p-3 rounded-lg">
+			@for (item of nonReportingVehicles(); track $index) {
+				<label
+				for="total"
+				class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+			>
+				<input
+					id="total"
+					type="radio"
+					name="vehicleStatus"
+					class="hidden peer"
+					(change)="onStatusChange('Total Vehicle')"
+				/>
+				<div class="bg-blue-500 p-3 rounded-lg">
+					<img src="/truck-fast.svg" alt="" />
+				</div>
+				<div class="ml-4">
+					<p class="text-sm text-gray-600">{{item.company_name}}</p>
+					<p class="text-2xl font-bold">{{item.vehicles.length}}</p>
+				</div>
+			</label>
+			}
+		</div>
+	</div>
+
+	<!-- Table -->
+	<!-- <div class="flex justify-between items-center mb-6 md:px-20">
+		<div class="text-xs md:text-lg font-bold text-green-600">
+			Daily Issues Detected (50)
+		</div>
+		<div class="flex items-center space-x-4">
+			<button
+				hlmBtn
+				variant="outline"
+				class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
+				size="sm"
+			>
+				<hlm-icon class="size-3.5" name="lucideFilter" />
+				<span class="text-xs md:text-sm">Filter</span>
+			</button>
+			<brn-popover sideOffset="5" closeDelay="100">
+				<button
+					hlmBtn
+					variant="outline"
+					class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
+					size="sm"
+					brnPopoverTrigger
+				>
+					<hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
+					<span class="text-xs md:text-sm">Sort by</span>
+				</button>
+			</brn-popover>
+		</div>
+	</div>
+	<div class="md:px-20 overflow-auto h-[45vh] md:max-h-[100vh]">
+		<table class="min-w-full">
+			<thead class="bg-white">
+				<tr class="border-b-8 border-b-gray-50">
+					<th
+						class="p-3 text-left text-sm font-semibold text-gray-600 rounded-l-full"
+					>
+						Truck Details
+					</th>
+					<th class="p-3 text-left text-sm font-semibold text-gray-600">
+						Driver iD
+					</th>
+					<th class="p-3 text-left text-sm font-semibold text-gray-600">
+						Distance
+					</th>
+					<th class="p-3 text-left text-sm font-semibold text-gray-600">
+						Fuel Level(%)
+					</th>
+					<th class="p-3 text-left text-sm font-semibold text-gray-600">
+						Battery level
+					</th>
+					<th class="p-3 text-left text-sm font-semibold text-gray-600">
+						Status
+					</th>
+					<th
+						class="p-3 text-left text-sm font-semibold text-gray-600 rounded-r-full"
+					>
+						Actions
+					</th>
+				</tr>
+			</thead>
+			<tbody class="">
+				 @for (item of vehiclesReports(); track $index) {
+						<tr class="bg-white mb-4 border-b-8 border-b-gray-50">
+								<td class="p-3 text-sm text-gray-700 rounded-l-2xl">
+									<div class="flex flex-row items-center justify-center gap-x-1">
+										<div class="bg-DFEFE9 w-fit p-2 rounded-md">
+											<img
+												src="/truck.svg"
+												alt=""
+												class="h-6 w-6 inline-block"
+											/>
+										</div>
+										<div class="flex flex-col">
+											<span class="">{{item.NN}}</span>
+											<span class="text-gray-400">{{item.DV}}</span>
+										</div>
+									</div>
+								</td>
+								<td class="p-3 text-sm text-gray-700">{{item.DN}}</td>
+								<td class="p-3 text-sm text-gray-700">{{item.OD}}km/h</td>
+								<td class="p-3 text-sm text-gray-700">{{item.FP}}</td>
+								<td class="p-3 text-sm text-gray-700">{{item.BL}}</td>
+								<td class="p-3 text-sm">
+									<span class="bg-red-200 text-red-500 p-1 rounded-lg text-xs"
+										>{{item.EN}}</span
+									>
+								</td>
+								<td class="p-3 text-sm text-gray-700 rounded-r-2xl">
+									<div class="flex items-center justify-center">
+										<button hlmBtn class="bg-transparent text-black hover:bg-transparent" [brnMenuTriggerFor]="menu">...</button>
+									</div>
+									<ng-template #menu>
+										<hlm-menu class="w-56">
+											<hlm-menu-group>
+												<button hlmMenuItem>
+													<hlm-icon name="lucideFileBarChart" hlmMenuIcon />
+													<span>Preview</span>
+													<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+												</button>
+											</hlm-menu-group>
+										</hlm-menu>
+									</ng-template>
+								</td>
+							</tr>
+				 }
+			</tbody>
+		</table>
+	</div> -->
+	
+
+</div>

@@ -1,7 +1,7 @@
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideChevronsUpDown,
@@ -69,7 +69,8 @@ import {
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 import { ContactComponent } from './contact/contact.component';
 import { NocService } from '../services/noc.service';
-import { VehicleInfo } from '../noc.model';
+import { VehicleReport } from '../noc.model';
+import { VehiclesStore } from '../../store/vehicles.store';
 
 @Component({
   selector: 'oryo-noc-client-details',
@@ -77,6 +78,7 @@ import { VehicleInfo } from '../noc.model';
   imports: [
     FormsModule,
     NgClass,
+		DatePipe,
 
     HlmIconComponent,
 
@@ -144,15 +146,18 @@ export class NocClientDetailsComponent implements OnInit {
   _hlmDialogService = inject(HlmDialogService);
   _nocService = inject(NocService);
 	_details = signal<any[]>([]);
+	private _vehiclesStore = inject(VehiclesStore);
 
   selectedStatus: string = 'Disconnected';
+	companyId: string = inject(ActivatedRoute).snapshot.params["id"];
+	selectedCompanyVehicles = this._vehiclesStore.selectedCompanyVehicles;
+
   onBack() {
-    // Perform action to navigate back to previous page
     this._router.navigate(['noc', 'noc-clients']);
   }
 
   ngOnInit(): void {
-    const navigation = this._router.getCurrentNavigation();
+		this._vehiclesStore.setSelectedCompanyVehiclesId(Number(this.companyId));
   }
 
   onStatusChange(value: string) {

@@ -7,14 +7,23 @@ export const NocRoutes: Routes = [
 		children: [
 			{
 				path: '',
-				loadComponent: () => import('./noc-dashboard/noc-dashboard.component').then(m => m.NocDashboardComponent)
+				loadComponent: () => import('./noc-main-dashboard/noc-main-dashboard.component').then(m => m.NocMainDashboardComponent)
+			},
+			{
+				path: 'reports/:status',
+				children: [
+					{
+						path: "",
+						loadComponent: () => import('./noc-dashboard/noc-dashboard.component').then(m => m.NocDashboardComponent)
+					},
+				]
 			},
 			{
 				path: 'noc-clients',
 				loadComponent: () => import('./noc-clients/noc-clients.component').then(m => m.NocClientsComponent)
 			},
 			{
-				path: 'details',
+				path: 'details/:id',
 				loadChildren: () => import('./noc-client-details/noc-client-details.route').then(m => m.DetailsRoutes)
 			},
 		// 	{

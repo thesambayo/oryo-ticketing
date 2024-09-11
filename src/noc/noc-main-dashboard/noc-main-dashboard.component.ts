@@ -1,5 +1,6 @@
 import { Component, inject, output } from '@angular/core';
-import { VehiclesStore } from '../../../store/vehicles.store';
+import { VehiclesStore } from '../../store/vehicles.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'oryo-noc-main-dashboard',
@@ -9,15 +10,12 @@ import { VehiclesStore } from '../../../store/vehicles.store';
   styleUrl: './noc-main-dashboard.component.css'
 })
 export class NocMainDashboardComponent {
+	private _router = inject(Router);
 	private _vehiclesStore = inject(VehiclesStore);
 	vehiclesGlobalReports = this._vehiclesStore.globalReports;
-	noSignalVehicles = this._vehiclesStore.noSignalVehicles;
-
-	// declare input and outputs
-	getGlobal = output();
 
   getGlobalValue(e:any) {
-    this.getGlobal.emit(e)
+		this._router.navigateByUrl("/noc/reports/"+e)
   }
 
 }

@@ -2,72 +2,72 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       <div
 				class="bg-blue-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Total Vehicle')"
+				(click)="getGlobalValue('total')"
 			>
         <div class="bg-blue-500 text-white p-2 rounded-full">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Total Vehicles</h2>
         <p class="text-4xl font-bold mt-2">
-					{{noSignalVehicles() + (vehiclesGlobalReports()?.totalVehicles ?? 0)}}
+					{{vehiclesGlobalReports()?.total_vehicles ?? 0}}
 				</p>
+      </div>
+
+			      <div
+				class="bg-red-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+				(click)="getGlobalValue('reporting')"
+			>
+        <div class="bg-red-500 text-white p-2 rounded-lg">
+          <img src="/truck-fast.svg" alt="" />
+        </div>
+        <h2 class="text-gray-600 text-lg mt-4">Reporting</h2>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.reporting_vehicles}}</p>
       </div>
   
       <div
 				class="bg-green-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Moving Vehicles')"
+				(click)="getGlobalValue('moving')"
 			>
         <div class="bg-green-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Moving Vehicles</h2>
         <p class="text-4xl font-bold mt-2">
-					{{vehiclesGlobalReports()?.movingVehicles}}
+					{{vehiclesGlobalReports()?.moving_vehicles}}
 				</p>
       </div>
   
       <div
 				class="bg-yellow-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Idle Vehicle')"
+				(click)="getGlobalValue('idle')"
 			>
         <div class="bg-yellow-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Idle Vehicle</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idleVehicles}}</p>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idle_vehicles}}</p>
       </div>
   
       <div
 				class="bg-purple-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Ignition off')"
+				(click)="getGlobalValue('ignition_off')"
 			>
         <div class="bg-purple-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Ignition off</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignitionOffVehicles}}</p>
-      </div>
-  
-      <div
-				class="bg-red-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Disconnected')"
-			>
-        <div class="bg-red-500 text-white p-2 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <h2 class="text-gray-600 text-lg mt-4">Disconnected</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.disconnectedVehicles}}</p>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignition_off_vehicles}}</p>
       </div>
   
       <div
 				class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('Total Vehicle')"
+				(click)="getGlobalValue('non_reporting')"
 			>
         <div class="bg-gray-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">No Signal</h2>
-        <p class="text-4xl font-bold mt-2">{{noSignalVehicles() }}</p>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.non_reporting_vehicles }}</p>
       </div>
     </div>
   </div>

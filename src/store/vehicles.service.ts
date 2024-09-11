@@ -2,24 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ApiResponse } from '../libs/models/model';
 import { VehiclesClient } from './vehicles.store';
-import { VehicleInfo, VehiclesGlobalReport } from '../noc/noc.model';
+import { ClientVehicle, VehicleReport, VehiclesGlobalReport } from '../noc/noc.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehiclesService {
-	apiURL = ' http://localhost:6200';
+	nodeApiURL = ' http://localhost:6200';
+	apiURL = environment.localApiURL;
 	_http = inject(HttpClient);
 
   getVehiclesClients() {
-		return this._http.get<ApiResponse<VehiclesClient[]>>(`${this.apiURL}/cars/clients`)
+		return this._http.get<ApiResponse<VehiclesClient[]>>(`${this.apiURL}/clients`)
 	}
 
-	getVehicles() {
-		return this._http.get<ApiResponse<VehicleInfo[]>>(`${this.apiURL}/cars`)
+	getAllVehiclesReports() {
+		return this._http.get<ApiResponse<VehicleReport[]>>(`${this.apiURL}/latest-reports`)
+	}
+
+	getCompanyVehicles() {
+		return this._http.get<ApiResponse<ClientVehicle[]>>(`${this.apiURL}/clients-vehicles`)
 	}
 
 	getVehiclesGlobalReports() {
-		return this._http.get<ApiResponse<VehiclesGlobalReport>>(`${this.apiURL}/cars/global-reports`)
+		return this._http.get<ApiResponse<VehiclesGlobalReport>>(`${this.apiURL}/global-reports`)
+	}
+
+	getNonReportingVehicles() {
+		return this._http.get<ApiResponse<ClientVehicle[]>>(`${this.apiURL}/non-reporting-vehicles`)
 	}
 }

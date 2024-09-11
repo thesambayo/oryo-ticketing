@@ -76,8 +76,8 @@
      <div class=" overflow-auto h-[610px] md:max-h-[700px]">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           <!-- Card Item -->
-           @for (item of companies(); track $index) {
-            <div class="bg-white p-6 rounded-lg relative cursor-pointer" (click)="details(item.id)">
+           @for (company of companies(); track $index) {
+            <div class="bg-white p-6 rounded-lg relative cursor-pointer" (click)="details(company.id)">
               <div class="absolute top-5 right-5">
                 <div class="bg-gray-200 text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center relative">
                   <span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 absolute" style="top: -13px; right: -9px;">12</span>
@@ -87,49 +87,29 @@
               <div class="flex items-start flex-col mb-4">
                 <img class="w-12 h-12 rounded-full mr-4" src="/bua-logo.svg" alt="Logo">
                 <div>
-                  <h4 class="text-md font-bold">{{item.companyName}}</h4>
-                  <p class="text-sm text-A3AED0">{{'info@'}}{{(item.companyName.toLowerCase())}}{{'.com'}}</p>
+                  <h4 class="text-md font-bold">{{company.company_name}}</h4>
+                  <p class="text-sm text-A3AED0">{{'info@'}}{{(company.company_name.toLowerCase())}}{{'.com'}}</p>
                 </div>
               </div>
-              @if($index === 0){
+
                 <div class="grid grid-cols-2 gap-4">
                   <div>
                     <p class="text-sm text-A3AED0">Total Vehicles</p>
-                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.totalVehicles}}</p>
+                    <p class="text-lg font-bold">{{company.total_vehicles}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Moving Vehicles</p>
-                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.movingVehicles}}</p>
+                    <p class="text-lg font-bold">{{0}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Idle Vehicles</p>
-                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.idleVehicles}}</p>
+                    <p class="text-lg font-bold">{{0}}</p>
                   </div>
                   <div>
                     <p class="text-sm text-A3AED0">Ignition Off</p>
-                    <p class="text-lg font-bold">{{vehiclesGlobalReports()?.ignitionOffVehicles}}</p>
+                    <p class="text-lg font-bold">{{0}}</p>
                   </div>
                 </div>
-              }@else {
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <p class="text-sm text-A3AED0">Total Vehicles</p>
-                  <p class="text-lg font-bold">0</p>
-                </div>
-                <div>
-                  <p class="text-sm text-A3AED0">Moving Vehicles</p>
-                  <p class="text-lg font-bold">0</p>
-                </div>
-                <div>
-                  <p class="text-sm text-A3AED0">Idle Vehicles</p>
-                  <p class="text-lg font-bold">0</p>
-                </div>
-                <div>
-                  <p class="text-sm text-A3AED0">Ignition Off</p>
-                  <p class="text-lg font-bold">0</p>
-                </div>
-              </div>
-              }
             </div>
            }
           

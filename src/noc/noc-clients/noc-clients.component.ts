@@ -23,6 +23,7 @@ import {
 import { ContactComponent } from '../noc-client-details/contact/contact.component';
 import { CreateComponent } from "../noc-client-details/create/create.component";
 import { VehiclesStore } from '../../store/vehicles.store';
+import { NocService } from '../services/noc.service';
 
 @Component({
   selector: 'oryo-noc-clients',
@@ -51,31 +52,23 @@ import { VehiclesStore } from '../../store/vehicles.store';
 })
 export class NocClientsComponent implements OnInit {
   private _router = inject(Router);
+	private _NocService = inject(NocService);
 	private _vehiclesStore = inject(VehiclesStore);
   private _hlmDialogService = inject(HlmDialogService);
 
 	companies = this._vehiclesStore.clients;
 	vehiclesGlobalReports = this._vehiclesStore.globalReports;
 
-  ngOnInit(): void {
-		// this._vehiclesStore.loadAllClients();
-  }
+	cars: any[] = [];
+
+  ngOnInit(): void {}
+
   onBack() {
-    // Perform action to navigate back to previous page
     this._router.navigate(['/noc']);
   }
   // Other component methods and properties'
-  details(e?: any) {
-    // console.log(e);
-    
-    const navigationExtras: NavigationExtras = {
-      // relativeTo: this.route,
-      state: {
-        details: e,
-      },
-    };
-    // Perform action to navigate to client details page
-    this._router.navigate(['noc', 'details'], navigationExtras);
+  details(e: number) {
+		this._router.navigateByUrl("/noc/details/"+e);
   }
 
   openDynamicComponent(e?: any) {
