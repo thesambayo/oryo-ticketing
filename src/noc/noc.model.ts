@@ -213,13 +213,14 @@ export interface VehiclesGlobalReport {
 	non_reporting_vehicles: number;
 	reporting_vehicles: number;
 }
-export enum NocStatus {
-	Total_Vehicle = 'TotalVehicle',
-	Moving_Vehicles = 'MovingVehicles',
-	Idle_Vehicle = 'CANCELLED',
-	Ignition_off = 'IN_PROGRESS',
-	Disconnected = 'Disconnected',
-	No_Signal = 'No_Signal',
+
+export enum VehicleStatus {
+	total_vehicles = "total_vehicles",
+	reporting_vehicles = "reporting_vehicles",
+	non_reporting_vehicles = "non_reporting_vehicles",
+	moving_vehicles = "moving_vehicles",
+	idle_vehicles = "idle_vehicles",
+	ignition_off_vehicles = "ignition_off_vehicles",
 }
 
 export interface VehicleData {

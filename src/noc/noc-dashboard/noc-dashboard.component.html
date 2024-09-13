@@ -5,8 +5,8 @@
             <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
                 <hlm-icon size="sm" name="lucideArrowLeft" />
             </button>
-      <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700">
-        {{selectedStatus}}
+      <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700 first-letter:capitalize">
+        {{selectedStatus|removeUnderscore}}
       </h1>
     </div>
    

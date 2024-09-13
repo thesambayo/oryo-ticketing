@@ -1,21 +1,29 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { VehiclesStore } from '../../store/vehicles.store';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
+import { VehicleStatus } from '../noc.model';
+
+
 
 @Component({
-  selector: 'oryo-noc-main-dashboard',
-  standalone: true,
-  imports: [],
-  templateUrl: './noc-main-dashboard.component.html',
-  styleUrl: './noc-main-dashboard.component.css'
+	selector: 'oryo-noc-main-dashboard',
+	standalone: true,
+	imports: [
+		DecimalPipe
+	],
+	templateUrl: './noc-main-dashboard.component.html',
+	styleUrl: './noc-main-dashboard.component.css'
 })
 export class NocMainDashboardComponent {
+	readonly VehicleStatuses = VehicleStatus;
+
 	private _router = inject(Router);
 	private _vehiclesStore = inject(VehiclesStore);
 	vehiclesGlobalReports = this._vehiclesStore.globalReports;
 
-  getGlobalValue(e:any) {
-		this._router.navigateByUrl("/noc/reports/"+e)
-  }
+	viewVehiclesReportByStatus(status: VehicleStatus) {
+		this._router.navigate(["/noc/reports"], {queryParams: {status}})
+	}
 
 }

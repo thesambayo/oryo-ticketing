@@ -38,6 +38,8 @@ import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { HlmMenuComponent, HlmMenuGroupComponent, HlmMenuItemDirective, HlmMenuItemIconDirective, HlmMenuItemSubIndicatorComponent, HlmMenuLabelComponent, HlmMenuSeparatorComponent, HlmMenuShortcutComponent, HlmSubMenuComponent } from '@spartan-ng/ui-menu-helm';
 import { NocMainDashboardComponent } from "../noc-main-dashboard/noc-main-dashboard.component";
 import { VehiclesStore } from '../../store/vehicles.store';
+import { VehicleStatus } from '../noc.model';
+import { RemoveUnderscorePipe } from '../../libs/pipes/remove-underscore.pipe';
 
 @Component({
   selector: 'oryo-noc-dashboard',
@@ -77,7 +79,8 @@ import { VehiclesStore } from '../../store/vehicles.store';
     BrnMenuTriggerDirective,
     HlmButtonDirective,
     NocMainDashboardComponent,
-		DatePipe
+		DatePipe,
+		RemoveUnderscorePipe
 ],
   providers: [provideIcons({ lucideChevronsUpDown, lucideFilter, 
     lucideFileBarChart,lucideArrowLeft})],
@@ -86,30 +89,24 @@ import { VehiclesStore } from '../../store/vehicles.store';
 })
 export class NocDashboardComponent implements OnInit {
 	private _router = inject(Router);
-	private _activatedRoute = inject(ActivatedRoute);
 	private _vehiclesStore = inject(VehiclesStore);
+	private _activatedRoute = inject(ActivatedRoute);
 	
-  selectedStatus: string = 'any';
+  selectedStatus = this._activatedRoute.snapshot.queryParamMap.get("status") as VehicleStatus ?? VehicleStatus.reporting_vehicles;
 	nonReportingVehicles = this._vehiclesStore.nonReportingVehicles;
 	selectedCompanyNonReportingVehicles = this._vehiclesStore.selectedCompanyNonReportVehicles;
 
 
   ngOnInit(): void {
-		this.selectedStatus = this._activatedRoute.snapshot.params['status']
   }
 
   selectReportingCompanyId(value: number) {
-		console.log(value)
     this._vehiclesStore.setSelectedCompanyVehiclesId(value);
     // Perform other actions as needed
   }
-  getGlobalValue(e: any) {
-    this.selectedStatus = e
-    // Perform other actions as needed
-  }
+
   onBack() {
 		this._router.navigateByUrl("/noc")
-    this.selectedStatus =''
   }
   onReport() {
     this._router.navigate(['noc', 'noc-clients']);

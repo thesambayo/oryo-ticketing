@@ -10,7 +10,7 @@ export const NocRoutes: Routes = [
 				loadComponent: () => import('./noc-main-dashboard/noc-main-dashboard.component').then(m => m.NocMainDashboardComponent)
 			},
 			{
-				path: 'reports/:status',
+				path: 'reports',
 				children: [
 					{
 						path: "",

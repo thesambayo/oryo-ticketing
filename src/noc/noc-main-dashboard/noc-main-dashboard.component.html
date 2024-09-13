@@ -2,72 +2,72 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       <div
 				class="bg-blue-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('total')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.total_vehicles)"
 			>
         <div class="bg-blue-500 text-white p-2 rounded-full">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Total Vehicles</h2>
         <p class="text-4xl font-bold mt-2">
-					{{vehiclesGlobalReports()?.total_vehicles ?? 0}}
+					{{vehiclesGlobalReports()?.total_vehicles | number}}
 				</p>
       </div>
 
 			      <div
 				class="bg-red-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('reporting')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.reporting_vehicles)"
 			>
         <div class="bg-red-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">Reporting</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.reporting_vehicles}}</p>
+        <h2 class="text-gray-600 text-lg mt-4">Reporting Vehicles</h2>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.reporting_vehicles| number}}</p>
       </div>
   
       <div
 				class="bg-green-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('moving')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.moving_vehicles)"
 			>
         <div class="bg-green-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
         <h2 class="text-gray-600 text-lg mt-4">Moving Vehicles</h2>
         <p class="text-4xl font-bold mt-2">
-					{{vehiclesGlobalReports()?.moving_vehicles}}
+					{{vehiclesGlobalReports()?.moving_vehicles| number}}
 				</p>
       </div>
   
       <div
 				class="bg-yellow-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('idle')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.idle_vehicles)"
 			>
         <div class="bg-yellow-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">Idle Vehicle</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idle_vehicles}}</p>
+        <h2 class="text-gray-600 text-lg mt-4">Idle Vehicles</h2>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idle_vehicles| number}}</p>
       </div>
   
       <div
 				class="bg-purple-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('ignition_off')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.ignition_off_vehicles)"
 			>
         <div class="bg-purple-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">Ignition off</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignition_off_vehicles}}</p>
+        <h2 class="text-gray-600 text-lg mt-4">Ignition off Vehicles</h2>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignition_off_vehicles| number}}</p>
       </div>
   
       <div
 				class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-				(click)="getGlobalValue('non_reporting')"
+				(click)="viewVehiclesReportByStatus(VehicleStatuses.non_reporting_vehicles)"
 			>
         <div class="bg-gray-500 text-white p-2 rounded-lg">
           <img src="/truck-fast.svg" alt="" />
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">No Signal</h2>
-        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.non_reporting_vehicles }}</p>
+        <h2 class="text-gray-600 text-lg mt-4">No Signal Vehicles</h2>
+        <p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.non_reporting_vehicles | number }}</p>
       </div>
     </div>
   </div>

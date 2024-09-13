@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 })
 export class VehiclesService {
 	nodeApiURL = ' http://localhost:6200';
-	apiURL = environment.localApiURL;
+	apiURL = environment.apiURL;
 	_http = inject(HttpClient);
 
   getVehiclesClients() {
