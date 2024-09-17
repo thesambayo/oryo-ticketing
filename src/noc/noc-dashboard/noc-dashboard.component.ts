@@ -2,35 +2,35 @@ import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  HlmPopoverContentDirective,
-  HlmPopoverCloseDirective,
+	HlmPopoverContentDirective,
+	HlmPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-helm';
 import {
-  BrnPopoverComponent,
-  BrnPopoverTriggerDirective,
-  BrnPopoverContentDirective,
-  BrnPopoverCloseDirective,
+	BrnPopoverComponent,
+	BrnPopoverTriggerDirective,
+	BrnPopoverContentDirective,
+	BrnPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-brain';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { lucideArrowLeft, lucideChevronsUpDown, lucideFileBarChart, lucideFilter } from '@ng-icons/lucide';
+import { lucideArrowLeft, lucideChevronsUpDown, lucideFileBarChart, lucideFilter, lucideEllipsis } from '@ng-icons/lucide';
 import {
-  BrnRadioComponent,
-  BrnRadioGroupComponent,
+	BrnRadioComponent,
+	BrnRadioGroupComponent,
 } from '@spartan-ng/ui-radiogroup-brain';
 import {
-  HlmRadioIndicatorComponent,
-  HlmRadioDirective,
-  HlmRadioGroupDirective,
+	HlmRadioIndicatorComponent,
+	HlmRadioDirective,
+	HlmRadioGroupDirective,
 } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 import {
-  HlmPaginationDirective,
-  HlmPaginationContentDirective,
-  HlmPaginationItemDirective,
-  HlmPaginationPreviousComponent,
-  HlmPaginationNextComponent,
-  HlmPaginationLinkDirective,
-  HlmPaginationEllipsisComponent,
+	HlmPaginationDirective,
+	HlmPaginationContentDirective,
+	HlmPaginationItemDirective,
+	HlmPaginationPreviousComponent,
+	HlmPaginationNextComponent,
+	HlmPaginationLinkDirective,
+	HlmPaginationEllipsisComponent,
 } from '@spartan-ng/ui-pagination-helm';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
@@ -42,73 +42,76 @@ import { VehicleStatus } from '../noc.model';
 import { RemoveUnderscorePipe } from '../../libs/pipes/remove-underscore.pipe';
 
 @Component({
-  selector: 'oryo-noc-dashboard',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgClass,
-    HlmIconComponent,
-    BrnPopoverComponent,
-    BrnPopoverTriggerDirective,
-    BrnPopoverContentDirective,
-    BrnPopoverCloseDirective,
-    HlmPopoverContentDirective,
-    HlmPopoverCloseDirective,
-    BrnRadioGroupComponent,
-    BrnRadioComponent,
-    HlmRadioIndicatorComponent,
-    HlmRadioDirective,
-    HlmRadioGroupDirective,
-    HlmSmallDirective,
-    HlmPaginationDirective,
-    HlmPaginationContentDirective,
-    HlmPaginationItemDirective,
-    HlmPaginationPreviousComponent,
-    HlmPaginationNextComponent,
-    HlmPaginationLinkDirective,
-    HlmPaginationEllipsisComponent,
-    HlmMenuComponent,
-    HlmMenuGroupComponent,
-    HlmMenuItemDirective,
-    HlmMenuItemIconDirective,
-    HlmMenuItemSubIndicatorComponent,
-    HlmMenuLabelComponent,
-    HlmMenuSeparatorComponent,
-    HlmMenuShortcutComponent,
-    HlmSubMenuComponent,
-    BrnMenuTriggerDirective,
-    HlmButtonDirective,
-    NocMainDashboardComponent,
+	selector: 'oryo-noc-dashboard',
+	standalone: true,
+	imports: [
+		FormsModule,
+		NgClass,
+		HlmIconComponent,
+		BrnPopoverComponent,
+		BrnPopoverTriggerDirective,
+		BrnPopoverContentDirective,
+		BrnPopoverCloseDirective,
+		HlmPopoverContentDirective,
+		HlmPopoverCloseDirective,
+		BrnRadioGroupComponent,
+		BrnRadioComponent,
+		HlmRadioIndicatorComponent,
+		HlmRadioDirective,
+		HlmRadioGroupDirective,
+		HlmSmallDirective,
+		HlmPaginationDirective,
+		HlmPaginationContentDirective,
+		HlmPaginationItemDirective,
+		HlmPaginationPreviousComponent,
+		HlmPaginationNextComponent,
+		HlmPaginationLinkDirective,
+		HlmPaginationEllipsisComponent,
+		HlmMenuComponent,
+		HlmMenuGroupComponent,
+		HlmMenuItemDirective,
+		HlmMenuItemIconDirective,
+		HlmMenuItemSubIndicatorComponent,
+		HlmMenuLabelComponent,
+		HlmMenuSeparatorComponent,
+		HlmMenuShortcutComponent,
+		HlmSubMenuComponent,
+		BrnMenuTriggerDirective,
+		HlmButtonDirective,
+		NocMainDashboardComponent,
 		DatePipe,
 		RemoveUnderscorePipe
-],
-  providers: [provideIcons({ lucideChevronsUpDown, lucideFilter, 
-    lucideFileBarChart,lucideArrowLeft})],
-  templateUrl: './noc-dashboard.component.html',
-  styleUrl: './noc-dashboard.component.css',
+	],
+	providers: [provideIcons({
+		lucideChevronsUpDown, lucideFilter,
+		lucideFileBarChart, lucideArrowLeft, lucideEllipsis
+	})],
+	templateUrl: './noc-dashboard.component.html',
+	styleUrl: './noc-dashboard.component.css',
 })
 export class NocDashboardComponent implements OnInit {
 	private _router = inject(Router);
 	private _vehiclesStore = inject(VehiclesStore);
 	private _activatedRoute = inject(ActivatedRoute);
-	
-  selectedStatus = this._activatedRoute.snapshot.queryParamMap.get("status") as VehicleStatus ?? VehicleStatus.reporting_vehicles;
-	nonReportingVehicles = this._vehiclesStore.nonReportingVehicles;
-	selectedCompanyNonReportingVehicles = this._vehiclesStore.selectedCompanyNonReportVehicles;
+
+	selectedStatus = this._activatedRoute.snapshot.queryParamMap.get("status") as VehicleStatus ?? VehicleStatus.reporting_vehicles;
+	vehiclesByStatus = this._vehiclesStore.vehiclesByStatus;
+	selectedCompanyVehiclesByStatus = this._vehiclesStore.selectedCompanyVehiclesByStatus;
 
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this._vehiclesStore.loadVehiclesByStatus(this.selectedStatus);
+	}
 
-  selectReportingCompanyId(value: number) {
-    this._vehiclesStore.setSelectedCompanyVehiclesId(value);
-    // Perform other actions as needed
-  }
+	selectReportingCompanyId(value: number) {
+		this._vehiclesStore.setSelectedCompanyVehiclesId(value);
+		// Perform other actions as needed
+	}
 
-  onBack() {
-		this._router.navigateByUrl("/noc")
-  }
-  onReport() {
-    this._router.navigate(['noc', 'noc-clients']);
-  }
+	onBack() {
+		this._router.navigateByUrl("/noc");
+	}
+	onReport() {
+		this._router.navigateByUrl("/noc/clients");
+	}
 }

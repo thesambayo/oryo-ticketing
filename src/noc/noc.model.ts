@@ -225,37 +225,41 @@ export enum VehicleStatus {
 
 export interface VehicleData {
 	id: number;
-	plate_number: string;
-	battery_voltage: number;
-	no_of_pallets: number;
-	no_of_tanks: number;
-	calibrated_main_tank_capacity: number;
-	calibrated_reserve_tank_capacity: number;
-	device_name: string;
-	device_type: string;
-	device_imei: string;
-	device_serial_no: string;
-	sim_number: string;
-	sim_serial_number: string;
-	camera_imei: string;
-	camera_serial_no: string;
-	camera_sim_number: string;
-	camera_sim_serial_number: string;
-	tracker_sim_number: string;
-	tracker_sim_serial_number: string;
-	rfid_id_tank_one: string;
-	rfid_id_tank_two: string;
-	created_at: string;
-	updated_at: string;
-	date_of_installation_completion: string;
-	date_of_WFL_config_completion: string;
-	installation_remarks: string;
-	version: number;
-	vehicles_client_id: number;
+  plate_number: string;
+  nick_name: string;
+  vehicle_type: string;
+  fuel_type: string;
+  main_tank_capacity: number;
+  reserve_tank_capacity: number;
+  battery_voltage: number;
+  no_of_pallets: number;
+  no_of_tanks: number;
+  client_fleet_group: string;
+  rfid_id_tag_one: string;
+  rfid_id_tag_two: string;
+  device_imei: string;
+  device_name: string;
+  device_type: string;
+  device_serial_no: string;
+  sim_number: string;
+  sim_serial_number: string;
+  tracker_sim_number: string;
+  tracker_sim_serial_number: string;
+  camera_imei: string;
+  camera_serial_no: string;
+  camera_sim_number: string;
+  camera_sim_serial_number: string;
+  date_of_installation_completion: string;
+  date_of_WFL_config_completion: string;
+  installation_remarks: string;
+  created_at: string;
+  updated_at: string;
+  version: number;
+  vehicles_client_id: number;
 }
 
 export interface ClientVehicle {
-	"id": number;
-	"company_name": string;
+	id: number;
+	company_name: string;
 	vehicles: VehicleData[];
 }

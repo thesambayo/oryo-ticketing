@@ -1,120 +1,120 @@
-<div class="min-h-screen  p-6  md:px-40 overflow-y-auto">
-    <!-- Header Section -->
-    <div class="flex flex-col gap-2 md:flex-row md:justify-between items-start mb-6">
-        <div class="flex gap-x-5 items-start justify-center">
-            <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
-                <hlm-icon size="sm" name="lucideArrowLeft" />
-            </button>
-            <div class="text-lg font-bold text-primary">All Clients ({{ companies().length}})</div>
-        </div>
-      <div class="flex items-center space-x-4">
-        <button hlmBtn variant="outline" 
-        class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md" 
-        size="sm">
-         <hlm-icon class="size-3.5" name="lucideFilter" />
-         <span class="text-xs md:text-sm">Filter</span>
-       </button>
-       <brn-popover sideOffset="5" closeDelay="100">
-         <button
-           hlmBtn
-           variant="outline"
-           class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
-           size="sm"
-           brnPopoverTrigger
-         >
-           <hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
-           <span class="text-xs md:text-sm">Sort by</span>
-         </button>
-         <!-- <div
-           hlmPopoverContent
-           class="w-80 grid gap-4"
-           *brnPopoverContent="let ctx"
-         >
-           <div class="space-y-2">
-             <h4 class="font-medium leading-none">Sort by</h4>
-             <p class="text-sm text-muted-foreground">
-               Kindly select what you want to filter
-             </p>
-           </div>
-           <div class="grid gap-2">
-             <small hlmSmall class="font-semibold">Priority</small>
-             <brn-radio-group
-               class="mb-4 font-mono text-sm font-medium space-y-1"
-               hlm
-             >
-               <brn-radio hlm value="URGENT">
-                 <hlm-radio-indicator indicator />
-                 Urgent
-               </brn-radio>
-               <brn-radio hlm value="HIGH">
-                 <hlm-radio-indicator indicator />
-                 High
-               </brn-radio>
-               <brn-radio hlm value="MEDIUM">
-                 <hlm-radio-indicator indicator />
-                 Medium
-               </brn-radio>
-               <brn-radio hlm value="LOW">
-                 <hlm-radio-indicator indicator />
-                 Low
-               </brn-radio>
-             </brn-radio-group>
-           </div>
-           <div class="flex gap-2">
-             <button hlmBtn brnPopoverClose variant="outline" class="gap-2 w-full">
-               Cancel
-             </button>
-             <button hlmBtn class="gap-2 w-full">Sort</button>
-           </div>
-         </div> -->
-       </brn-popover>
-       <oryo-create></oryo-create>
-     </div>
-    </div>
-  
-    <!-- Cards Grid -->
-     <div class=" overflow-auto h-[610px] md:max-h-[700px]">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-          <!-- Card Item -->
-           @for (company of companies(); track $index) {
-            <div class="bg-white p-6 rounded-lg relative cursor-pointer" (click)="details(company.id)">
-              <div class="absolute top-5 right-5">
-                <div class="bg-gray-200 text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center relative">
-                  <span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 absolute" style="top: -13px; right: -9px;">12</span>
-                  <hlm-icon size="sm" name="lucideBell" />
-                </div>
-              </div>
-              <div class="flex items-start flex-col mb-4">
-                <img class="w-12 h-12 rounded-full mr-4" src="/bua-logo.svg" alt="Logo">
-                <div>
-                  <h4 class="text-md font-bold">{{company.company_name}}</h4>
-                  <p class="text-sm text-A3AED0">{{'info@'}}{{(company.company_name.toLowerCase())}}{{'.com'}}</p>
-                </div>
-              </div>
+<div class="min-h-screen p-6 md:px-10 overflow-y-auto">
+	<!-- Header Section -->
+<div class="flex flex-col gap-2 md:flex-row md:justify-between items-start mb-6">
+	<div class="flex gap-x-5 items-start justify-center">
+		<button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
+			<hlm-icon size="sm" name="lucideArrowLeft" />
+		</button>
+		<div class="text-lg font-bold text-primary">All Clients ({{ companies().length}})</div>
+	</div>
+		<!-- <div class="flex items-center space-x-4">
+			<button hlmBtn variant="outline" 
+			class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md" 
+			size="sm">
+			 <hlm-icon class="size-3.5" name="lucideFilter" />
+			 <span class="text-xs md:text-sm">Filter</span>
+		 </button>
+		 <brn-popover sideOffset="5" closeDelay="100">
+			 <button
+				 hlmBtn
+				 variant="outline"
+				 class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
+				 size="sm"
+				 brnPopoverTrigger
+			 >
+				 <hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
+				 <span class="text-xs md:text-sm">Sort by</span>
+			 </button>
+			 <div
+				 hlmPopoverContent
+				 class="w-80 grid gap-4"
+				 *brnPopoverContent="let ctx"
+			 >
+				 <div class="space-y-2">
+					 <h4 class="font-medium leading-none">Sort by</h4>
+					 <p class="text-sm text-muted-foreground">
+						 Kindly select what you want to filter
+					 </p>
+				 </div>
+				 <div class="grid gap-2">
+					 <small hlmSmall class="font-semibold">Priority</small>
+					 <brn-radio-group
+						 class="mb-4 font-mono text-sm font-medium space-y-1"
+						 hlm
+					 >
+						 <brn-radio hlm value="URGENT">
+							 <hlm-radio-indicator indicator />
+							 Urgent
+						 </brn-radio>
+						 <brn-radio hlm value="HIGH">
+							 <hlm-radio-indicator indicator />
+							 High
+						 </brn-radio>
+						 <brn-radio hlm value="MEDIUM">
+							 <hlm-radio-indicator indicator />
+							 Medium
+						 </brn-radio>
+						 <brn-radio hlm value="LOW">
+							 <hlm-radio-indicator indicator />
+							 Low
+						 </brn-radio>
+					 </brn-radio-group>
+				 </div>
+				 <div class="flex gap-2">
+					 <button hlmBtn brnPopoverClose variant="outline" class="gap-2 w-full">
+						 Cancel
+					 </button>
+					 <button hlmBtn class="gap-2 w-full">Sort</button>
+				 </div>
+			 </div>
+		 </brn-popover>
+		 <oryo-create></oryo-create>
+	 </div> -->
+</div>
 
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <p class="text-sm text-A3AED0">Total Vehicles</p>
-                    <p class="text-lg font-bold">{{company.total_vehicles}}</p>
-                  </div>
-                  <div>
-                    <p class="text-sm text-A3AED0">Moving Vehicles</p>
-                    <p class="text-lg font-bold">{{0}}</p>
-                  </div>
-                  <div>
-                    <p class="text-sm text-A3AED0">Idle Vehicles</p>
-                    <p class="text-lg font-bold">{{0}}</p>
-                  </div>
-                  <div>
-                    <p class="text-sm text-A3AED0">Ignition Off</p>
-                    <p class="text-lg font-bold">{{0}}</p>
-                  </div>
-                </div>
-            </div>
-           }
-          
-          <!-- Repeat the above card for other clients -->
-        </div>
-     </div>
-  </div>
-  
+	<!-- Cards Grid -->
+	<div class=" overflow-auto h-[610px] md:max-h-[700px]">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+			<!-- Card Item -->
+			@for (company of companies(); track $index) {
+				<div class="bg-white p-6 rounded-lg relative cursor-pointer" (click)="goToClientDetails(company.id)">
+					<!-- <div class="absolute top-5 right-5">
+						<div class="bg-gray-200 text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center relative">
+							<span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 absolute" style="top: -13px; right: -9px;">12</span>
+							<hlm-icon size="sm" name="lucideBell" />
+						</div>
+					</div> -->
+					<div class="flex items-start flex-col mb-4">
+						<img class="size-12 rounded-full mr-4" src="/bua-logo.svg" alt="Logo">
+						<div>
+							<h4 class="text-md font-bold">{{company.company_name}}</h4>
+							<p class="text-sm text-muted-foreground">
+								{{'info@'}}{{(company.company_name.toLowerCase())}}{{'.com'}}
+							</p>
+						</div>
+					</div>
+
+					<!-- <div class="grid grid-cols-2 gap-4"> -->
+					<div class="grid">
+						<div class="flex items-center gap-2">
+							<p class="text-sm text-muted-foreground"> {{company.total_vehicles}} Total sensors</p>
+							<!-- <p class="text-lg font-bold">{{company.total_vehicles}}</p> -->
+						</div>
+						<!-- <div>
+							<p class="text-sm text-muted-foreground">Moving Vehicles</p>
+							<p class="text-lg font-bold">{{0}}</p>
+						</div>
+						<div>
+							<p class="text-sm text-muted-foreground">Idle Vehicles</p>
+							<p class="text-lg font-bold">{{0}}</p>
+						</div>
+						<div>
+							<p class="text-sm text-muted-foreground">Ignition Off</p>
+							<p class="text-lg font-bold">{{0}}</p>
+						</div> -->
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

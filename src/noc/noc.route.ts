@@ -19,21 +19,22 @@ export const NocRoutes: Routes = [
 				]
 			},
 			{
-				path: 'noc-clients',
-				loadComponent: () => import('./noc-clients/noc-clients.component').then(m => m.NocClientsComponent)
+				path: 'clients',
+				children: [
+					{
+						path: "",
+						loadComponent: () => import('./noc-clients/noc-clients.component').then(m => m.NocClientsComponent)
+					},
+					{
+						path: ":id",
+						loadChildren: () => import('./noc-client-details/noc-client-details.route').then(m => m.DetailsRoutes)
+					}
+				]
 			},
-			{
-				path: 'details/:id',
-				loadChildren: () => import('./noc-client-details/noc-client-details.route').then(m => m.DetailsRoutes)
-			},
-		// 	{
-		// 		path: 'report',
-		// 		loadComponent: () => import('./report/report.component').then(m => m.ReportComponent)
-		// 	},
-		// 	{
-		// 		path: 'budget',
-		// 		loadComponent: () => import('./budget/budget.component').then(m => m.BudgetComponent)
-		// 	},
+			// {
+			// 	path: 'details/:id',
+			// 	loadChildren: () => import('./noc-client-details/noc-client-details.route').then(m => m.DetailsRoutes)
+			// },
 		]
 	},
 

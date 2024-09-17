@@ -2,7 +2,7 @@ import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { VehiclesService } from './vehicles.service';
-import { pipe, tap, switchMap, catchError } from 'rxjs';
+import { pipe, tap, switchMap, catchError, distinctUntilChanged } from 'rxjs';
 import { VehiclesGlobalReport, VehicleReport, ClientVehicle } from '../noc/noc.model';
 
 // export interface VehiclesClient {
@@ -33,11 +33,12 @@ export interface VehiclesState {
 	vehiclesReports: VehicleReport[];
 	companyVehicles: ClientVehicle[];
 	globalReports: VehiclesGlobalReport | null;
-	nonReportingVehicles: ClientVehicle[];
+	vehiclesByStatus: ClientVehicle[];
 	loadingClients: boolean;
 	loadingVehicles: boolean;
 	loadingGlobalReports: boolean;
 	loadingCompanyVehicles: boolean;
+	loadingVehiclesByStatus: boolean;
 	selectedCompanyVehiclesId: number | null;
 }
 
@@ -45,12 +46,13 @@ const initialState: VehiclesState = {
 	clients: [],
 	vehiclesReports: [],
 	companyVehicles: [],
-	nonReportingVehicles: [],
+	vehiclesByStatus: [],
 	globalReports: null,
 	loadingClients: false,
 	loadingVehicles: false,
 	loadingGlobalReports: false,
 	loadingCompanyVehicles: false,
+	loadingVehiclesByStatus: false,
 	selectedCompanyVehiclesId: null
 }
 
@@ -61,17 +63,11 @@ export const VehiclesStore = signalStore(
 		totalVehiclesFromAllClients: computed(() =>
 			store.clients().reduce((sum, client) => sum + client.total_vehicles, 0)
 		),
-		// noSignalVehicles: computed(() => {
-		// 	const totalVehicles = store.clients().reduce((sum, client) => sum + client.total_vehicles, 0);
-
-		// 	const totalReportingVehicles = store.globalReports()?.total_vehicles ?? 0;
-		// 	return totalVehicles - totalReportingVehicles;
-		// }),
 		selectedCompanyVehicles: computed(() => {
 			return store.companyVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId())
 		}),
-		selectedCompanyNonReportVehicles: computed(() => {
-			return store.nonReportingVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId())
+		selectedCompanyVehiclesByStatus: computed(() => {
+			return store.vehiclesByStatus().find((dd) => dd.id === store.selectedCompanyVehiclesId())
 		})
 	})),
 
@@ -123,6 +119,8 @@ export const VehiclesStore = signalStore(
 			/** get vehicles for vehicles */
 			loadCompaniesVehicles: rxMethod<void>(
 				pipe(
+					// takeUntil(timer(50000)),
+					distinctUntilChanged(),
 					tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
 					switchMap(() => _vehiclesService.getCompanyVehicles()),
 					tap((res) => patchState(store, { companyVehicles: res.data, loadingCompanyVehicles: false })),
@@ -134,26 +132,22 @@ export const VehiclesStore = signalStore(
 				)
 			),
 
-			loadNonReportingVehicles: rxMethod<void>(
+			loadVehiclesByStatus: rxMethod<string>(
 				pipe(
-					// tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
-					switchMap(() => _vehiclesService.getNonReportingVehicles()),
-					tap((res) => patchState(store, { nonReportingVehicles: res.data })),
+					distinctUntilChanged(),
+					tap(() => patchState(store, { loadingVehiclesByStatus: true })),
+					switchMap((statusArg) => _vehiclesService.getVehiclesByStatus(statusArg)),
+					tap((res) => patchState(store, { vehiclesByStatus: res.data, loadingVehiclesByStatus: false })),
 					catchError((err) => {
-						// patchState(store, { loadingCompanyVehicles: false });
+						patchState(store, { loadingVehiclesByStatus: false });
 						console.log(err, "error")
 						throw new Error(err);
 					})
 				)
 			),
 
-			// changeFirstName(firstName: string) {
-			// 	patchState(store, { firstName });
-			// },
-
 
 			setSelectedCompanyVehiclesId(companyId: number): void {
-				console.log(companyId)
 				patchState(store, { selectedCompanyVehiclesId: companyId });
 				// patchState(store, (state) => ({ filter: { ...state.filter, query } }));
 			},
@@ -164,8 +158,9 @@ export const VehiclesStore = signalStore(
 		onInit: () => {
 			store.loadAllClients();
 			store.loadGlobalReports();
-			store.loadAllVehiclesReports();
-			store.loadNonReportingVehicles();
+			store.loadCompaniesVehicles();
+			// store.loadAllVehiclesReports();
+			// store.loadNonReportingVehicles();
 		},
 		// onDestroy() {
 		//   console.log('firstName on destroy', firstName());

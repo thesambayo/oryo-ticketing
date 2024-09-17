@@ -6,14 +6,14 @@ import { ClientVehicle, VehicleReport, VehiclesGlobalReport } from '../noc/noc.m
 import { environment } from '../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class VehiclesService {
 	nodeApiURL = ' http://localhost:6200';
 	apiURL = environment.apiURL;
 	_http = inject(HttpClient);
 
-  getVehiclesClients() {
+	getVehiclesClients() {
 		return this._http.get<ApiResponse<VehiclesClient[]>>(`${this.apiURL}/clients`)
 	}
 
@@ -27,6 +27,10 @@ export class VehiclesService {
 
 	getVehiclesGlobalReports() {
 		return this._http.get<ApiResponse<VehiclesGlobalReport>>(`${this.apiURL}/global-reports`)
+	}
+
+	getVehiclesByStatus(status = "total_vehicles") {
+		return this._http.get<ApiResponse<ClientVehicle[]>>(`${this.apiURL}/vehicles?status=` + status)
 	}
 
 	getNonReportingVehicles() {

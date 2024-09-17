@@ -22,6 +22,7 @@ import {
   lucideUser,
   lucideCircle,
   lucideFileBarChart,
+	lucideEllipsis,
 } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmDialogService } from '@spartan-ng/ui-dialog-helm';
@@ -69,7 +70,7 @@ import {
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 import { ContactComponent } from './contact/contact.component';
 import { NocService } from '../services/noc.service';
-import { VehicleReport } from '../noc.model';
+import { VehicleReport, VehicleStatus } from '../noc.model';
 import { VehiclesStore } from '../../store/vehicles.store';
 
 @Component({
@@ -136,43 +137,35 @@ import { VehiclesStore } from '../../store/vehicles.store';
       lucideMail,
       lucideMessageSquare,
       lucideFileBarChart,
+			lucideEllipsis
     }),
   ],
   templateUrl: './noc-client-details.component.html',
   styleUrl: './noc-client-details.component.css',
 })
 export class NocClientDetailsComponent implements OnInit {
-  _router = inject(Router);
-  _hlmDialogService = inject(HlmDialogService);
-  _nocService = inject(NocService);
-	_details = signal<any[]>([]);
+	readonly VehicleStatuses = VehicleStatus;
+
+  private _router = inject(Router);
+  private _hlmDialogService = inject(HlmDialogService);
 	private _vehiclesStore = inject(VehiclesStore);
 
-  selectedStatus: string = 'Disconnected';
+  selectedStatus: VehicleStatus = VehicleStatus.total_vehicles;
 	companyId: string = inject(ActivatedRoute).snapshot.params["id"];
 	selectedCompanyVehicles = this._vehiclesStore.selectedCompanyVehicles;
 
   onBack() {
-    this._router.navigate(['noc', 'noc-clients']);
+		this._router.navigateByUrl("/noc/clients");
   }
 
   ngOnInit(): void {
 		this._vehiclesStore.setSelectedCompanyVehiclesId(Number(this.companyId));
   }
 
-  onStatusChange(value: string) {
+  handleSelectedStatusChange(value: VehicleStatus) {
     this.selectedStatus = value;
     console.log(`${value} is selected`);
     // Perform other actions as needed
-  }
-  onReport(e?: any){
-    const navigationExtras: NavigationExtras = {
-      // relativeTo: this.route,
-      state: {
-        details: e
-      },
-    };
-    this._router.navigate(['noc', 'details','details-report'], navigationExtras);
   }
 
   openDynamicComponent(e?: any) {

@@ -1,6 +1,6 @@
-<div class="min-h-screen p-4">
+<div class="h-full flex flex-col p-4 md:px-10">
   <!-- Header -->
-  <div class="flex justify-between items-center mb-6 md:px-20">
+  <div class="flex justify-between items-center mb-6 shrink-0">
     <div class="flex gap-x-5 items-start justify-center">
             <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
                 <hlm-icon size="sm" name="lucideArrowLeft" />
@@ -12,8 +12,8 @@
    
     <div class="flex items-center">
       <button
+			(click)="onReport()"
         class="px-2 py-2 bg-transparent border border-C3D3E2 text-black rounded-lg flex justify-center items-center gap-1"
-        (click)="onReport()"
       >
         <img src="/document-text.svg" alt="" />
         <span class="text-xs">Clients Report</span>
@@ -23,173 +23,133 @@
 
 
 		<!-- Global Report Cards -->
-	<div class="overflow-x-auto mb-6 md:ps-20">
+	<div class="overflow-x-auto mb-6 shrink-0">
 		<div class="flex space-x-4 bg-white p-3 rounded-lg">
-			@for (item of nonReportingVehicles(); track $index) {
+			@for (item of vehiclesByStatus(); track $index) {
 				<div
-				(click)="selectReportingCompanyId(item.id)"
-				for="total"
-				class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
-			>
-				<div class="bg-blue-500 p-3 rounded-lg">
-					<img src="/truck-fast.svg" alt="" />
+					(click)="selectReportingCompanyId(item.id)"
+					class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+				>
+					<div class="bg-blue-500 p-3 rounded-lg">
+						<img src="/truck-fast.svg" alt="" />
+					</div>
+					<div class="ml-4">
+						<p class="text-sm text-gray-600">{{item.company_name}}</p>
+						<p class="text-2xl font-bold">{{item.vehicles.length}}</p>
+					</div>
 				</div>
-				<div class="ml-4">
-					<p class="text-sm text-gray-600">{{item.company_name}}</p>
-					<p class="text-2xl font-bold">{{item.vehicles.length}}</p>
-				</div>
-			</div>
 			}
 		</div>
 	</div>
-
-	<!-- Table -->
-	<div class="flex justify-between items-center mb-6 md:px-20">
-		<div class="text-xs md:text-lg font-bold text-green-600">
-			 ({{selectedCompanyNonReportingVehicles()?.vehicles?.length}})
-		</div>
-		<div class="flex items-center space-x-4">
-			<button
-				hlmBtn
-				variant="outline"
-				class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
-				size="sm"
-			>
-				<hlm-icon class="size-3.5" name="lucideFilter" />
-				<span class="text-xs md:text-sm">Filter</span>
-			</button>
-			<brn-popover sideOffset="5" closeDelay="100">
-				<button
-					hlmBtn
-					variant="outline"
-					class="flex gap-1 justify-center items-center px-2 py-2 bg-white text-gray-700 rounded-md"
-					size="sm"
-					brnPopoverTrigger
-				>
-					<hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
-					<span class="text-xs md:text-sm">Sort by</span>
-				</button>
-			</brn-popover>
-		</div>
-	</div>
-
-	@if (selectedCompanyNonReportingVehicles()?.id) {
-		<div class="md:px-20 overflow-auto h-[45vh] md:max-h-[100vh]">
-			<table class="min-w-full">
-				<thead class="bg-white">
-					<tr class="border-b-8 border-b-gray-50">
-						<th class="p-3 text-left text-sm font-semibold text-gray-600 rounded-l-full">
-							Truck Details
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							No of tanks
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							Battery voltage
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							Main tank
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							Reserve tank
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							Device Installed
-						</th>
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							SIM Info
-						</th>
 	
-						<th class="p-3 text-left text-sm font-semibold text-gray-600">
-							Installation date
-						</th>
-						<th
-							class="p-3 text-left text-sm font-semibold text-gray-600 rounded-r-full"
+
+	@let selectedCompanyVehicles = selectedCompanyVehiclesByStatus();
+	@if (selectedCompanyVehicles) {
+		<section class="flex-1">
+			<div class="flex justify-between items-center mb-6">
+				<div class="text-xs md:text-lg font-bold text-green-600">
+					({{selectedCompanyVehicles.vehicles.length}})
+				</div>
+				<div class="flex items-center space-x-4">
+					<button
+						hlmBtn
+						size="sm"
+						variant="outline"
+						class="flex gap-1 justify-center items-center px-2 py-2 bg-background"
+					>
+						<hlm-icon class="size-3.5" name="lucideFilter" />
+						<span class="text-xs md:text-sm">Filter</span>
+					</button>
+					<brn-popover sideOffset="5" closeDelay="100">
+						<button
+							hlmBtn
+							variant="outline"
+							class="flex gap-1 justify-center items-center px-2 py-2 bg-background"
+							size="sm"
+							brnPopoverTrigger
 						>
-							Actions
-						</th>
-					</tr>
-				</thead>
-				<tbody class="">
-					 @for (item of selectedCompanyNonReportingVehicles()?.vehicles; track $index) {
-						<tr class="bg-white mb-4 border-b-8 border-b-gray-50">
-							<td class="p-3 text-sm text-gray-700 rounded-l-2xl">
-								<div class="flex flex-row items-center justify-center gap-x-1">
-									<div class="bg-DFEFE9 w-fit p-2 rounded-md">
-										<img
-											src="/truck.svg"
-											alt=""
-											class="size-6 inline-block"
-										/>
-									</div>
-									<div class="flex flex-col">
-										<span class="">{{item.plate_number}}</span>
-										<!-- <span class="text-gray-400">Plate XRTWST</span> -->
-									</div>
-								</div>
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.no_of_tanks}}
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.battery_voltage}}V
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.calibrated_main_tank_capacity}} litres
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.calibrated_reserve_tank_capacity}} litres
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.device_name}}
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								<div class="flex flex-col">
-									<span class="">
-										@if (item.sim_number) {
-											{{'+'+item.sim_number}}
-										} @else if (item.tracker_sim_number) {
-											{{'+'+item.tracker_sim_number}}
-										} @else {
-											----
-										}
-									</span>
-									<span class="text-gray-400">
-										@if (item.sim_serial_number) {
-											{{item.sim_serial_number}}
-										} @else if (item.tracker_sim_serial_number) {
-											{{item.tracker_sim_serial_number}}
-										} @else {
-											----
-										}
-									</span>
-								</div>
-							</td>
-							<td class="p-3 text-sm text-gray-700">
-								{{item.date_of_installation_completion | date}}
-							</td>
-							<td class="p-3 text-sm text-gray-700 rounded-r-2xl">
-								<div class="flex items-center justify-center">
-									<button hlmBtn class="bg-transparent text-black hover:bg-transparent">...</button>
-									<!-- <button hlmBtn class="bg-transparent text-black hover:bg-transparent" [brnMenuTriggerFor]="menu">...</button> -->
-								</div>
-								<ng-template #menu>
-									<hlm-menu class="w-56">
-										<hlm-menu-group>
-											<button hlmMenuItem>
-												<hlm-icon name="lucideFileBarChart" hlmMenuIcon />
-												<span>Preview</span>
-												<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+							<hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
+							<span class="text-xs md:text-sm">Sort by</span>
+						</button>
+					</brn-popover>
+				</div>
+			</div>
+
+			<!-- Table -->
+			<div class="mx-1 rounded-md border">
+				<div class="relative w-full overflow-auto h-[500px] md:max-h-[100vh]">
+					<table class="w-full caption-bottom text-sm">
+						<thead class="bg-background [&_tr]:border-b">
+							<tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Nickname
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Plate number
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Vehicle type
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Fleet group
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Fuel type
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Device imei
+								</th>
+								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+									Actions
+								</th>
+							</tr>
+						</thead>
+						<tbody class="[&_tr:last-child]:border-0">
+							@for (item of selectedCompanyVehicles.vehicles; track $index) {
+								<tr class="bg-background border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										<span class="">{{item.nick_name}}</span>
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										{{item.plate_number}}
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										{{item.vehicle_type}}
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										{{item.client_fleet_group}}
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										{{item.fuel_type}}
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										{{item.device_imei}}
+									</td>
+									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
+										<div class="flex items-center justify-center">
+											<button hlmBtn variant="ghost" class="size-6 p-0.5" align="end" [brnMenuTriggerFor]="menu">
+												<hlm-icon class="w-4 h-4" name="lucideEllipsis" />
 											</button>
-										</hlm-menu-group>
-									</hlm-menu>
-								</ng-template>
-							</td>
-						</tr>
-					 }
-				</tbody>
-			</table>
-		</div>
+										</div>
+										<ng-template #menu>
+											<hlm-menu class="w-56">
+												<hlm-menu-group>
+													<button hlmMenuItem>
+														<hlm-icon name="lucideFileBarChart" hlmMenuIcon />
+														<span>Preview</span>
+														<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
+													</button>
+												</hlm-menu-group>
+											</hlm-menu>
+										</ng-template>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
 	}
 	
 

@@ -91,11 +91,11 @@ export class NocClientReportListComponent implements OnInit {
   selectedStatus: string = 'any';
 	// vehiclesReports = this._vehiclesStore.vehiclesReports;
 	// vehiclesGlobalReports = this._vehiclesStore.globalReports;
-	nonReportingVehicles = this._vehiclesStore.nonReportingVehicles;
+	nonReportingVehicles = this._vehiclesStore.vehiclesByStatus;
 
 
   ngOnInit(): void {
-		this._vehiclesStore.loadNonReportingVehicles();
+		// this._vehiclesStore.loadNonReportingVehicles();
 		this.selectedStatus = this._activatedRoute.snapshot.params['status']
   }
 
@@ -112,6 +112,6 @@ export class NocClientReportListComponent implements OnInit {
     this.selectedStatus =''
   }
   onReport() {
-    this._router.navigate(['noc', 'noc-clients']);
+		this._router.navigateByUrl("/noc/clients");
   }
 }
