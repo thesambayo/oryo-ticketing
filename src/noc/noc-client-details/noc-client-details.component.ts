@@ -22,7 +22,7 @@ import {
   lucideUser,
   lucideCircle,
   lucideFileBarChart,
-	lucideEllipsis,
+  lucideEllipsis,
 } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmDialogService } from '@spartan-ng/ui-dialog-helm';
@@ -79,7 +79,7 @@ import { VehiclesStore } from '../../store/vehicles.store';
   imports: [
     FormsModule,
     NgClass,
-		DatePipe,
+    DatePipe,
 
     HlmIconComponent,
 
@@ -137,29 +137,29 @@ import { VehiclesStore } from '../../store/vehicles.store';
       lucideMail,
       lucideMessageSquare,
       lucideFileBarChart,
-			lucideEllipsis
+      lucideEllipsis,
     }),
   ],
   templateUrl: './noc-client-details.component.html',
   styleUrl: './noc-client-details.component.css',
 })
 export class NocClientDetailsComponent implements OnInit {
-	readonly VehicleStatuses = VehicleStatus;
+  readonly VehicleStatuses = VehicleStatus;
 
   private _router = inject(Router);
   private _hlmDialogService = inject(HlmDialogService);
-	private _vehiclesStore = inject(VehiclesStore);
+  private _vehiclesStore = inject(VehiclesStore);
 
-  selectedStatus: VehicleStatus = VehicleStatus.total_vehicles;
-	companyId: string = inject(ActivatedRoute).snapshot.params["id"];
-	selectedCompanyVehicles = this._vehiclesStore.selectedCompanyVehicles;
+  selectedStatus: VehicleStatus = VehicleStatus.total_sensors;
+  companyId: string = inject(ActivatedRoute).snapshot.params['id'];
+  selectedCompanyVehicles = this._vehiclesStore.selectedCompanyVehicles;
 
   onBack() {
-		this._router.navigateByUrl("/noc/clients");
+    this._router.navigateByUrl('/noc/clients');
   }
 
   ngOnInit(): void {
-		this._vehiclesStore.setSelectedCompanyVehiclesId(Number(this.companyId));
+    this._vehiclesStore.setSelectedCompanyVehiclesId(Number(this.companyId));
   }
 
   handleSelectedStatusChange(value: VehicleStatus) {
