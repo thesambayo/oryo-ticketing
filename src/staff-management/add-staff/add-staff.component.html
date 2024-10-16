@@ -1,178 +1,213 @@
 <!-- (stateChanged)="handleOpenCreateFormDialog($event)" -->
 <hlm-dialog
-		[state]="openCreateTicketForm() ? 'open' : 'closed'"
-		(stateChanged)="$event === 'closed' && openCreateTicketForm.set(false)"
-		>
-	<button hlmBtn class="gap-2" size="sm" (click)="openCreateTicketForm.set(true)">
-		<hlm-icon class="size-4" name="lucidePlus" />
-		<span>Add new staff</span>
-	</button>
-	<!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
+  [state]="openCreateTicketForm() ? 'open' : 'closed'"
+  (stateChanged)="$event === 'closed' && openCreateTicketForm.set(false)"
+>
+  <button
+    hlmBtn
+    class="gap-2"
+    size="sm"
+    (click)="openCreateTicketForm.set(true)"
+  >
+    <hlm-icon class="size-4" name="lucidePlus" />
+    <span>Add new staff</span>
+  </button>
+  <!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
 		<hlm-icon class="size-3.5" name="lucidePlus" />
 		<span>Create ticket {{ openCreateTicketForm() }}</span>
 	</button> -->
-	<hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
-		<hlm-dialog-header>
-			<h3 hlmDialogTitle>New staff form</h3>
-		</hlm-dialog-header>
+  <hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>New staff form</h3>
+    </hlm-dialog-header>
 
-		<form class="space-y-4" [formGroup]="addStaffForm" (ngSubmit)="onSubmit()">
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-				<div class="space-y-2">
-					<label hlmLabel for="reporterName">
-						<span>Reporter's name</span>
-					</label>
-					<input hlmInput class="w-full" id="reporterName" formControlName="reporterName" />
-				</div>
+    <form class="space-y-4" [formGroup]="addStaffForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="space-y-2">
+          <label hlmLabel for="reporterName">
+            <span>Reporter's name</span>
+          </label>
+          <input
+            hlmInput
+            class="w-full"
+            id="reporterName"
+            formControlName="reporterName"
+          />
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="reporterEmail">
-						<span>Email</span>
-					</label>
-					<input
-						class="w-full"
-						hlmInput
-						id="reporterEmail"
-						type="email"
-						formControlName="reporterEmail"
-					/>
-				</div>
+        <div class="space-y-2">
+          <label hlmLabel for="reporterEmail">
+            <span>Email</span>
+          </label>
+          <input
+            class="w-full"
+            hlmInput
+            id="reporterEmail"
+            type="email"
+            formControlName="reporterEmail"
+          />
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="reporterCompany">
-						<span>Company name</span>
-					</label>
-					<input
-						class="w-full"
-						hlmInput
-						id="reporterCompany"
-						formControlName="reporterCompany"
-					/>
-				</div>
+        <div class="space-y-2">
+          <label hlmLabel for="reporterCompany">
+            <span>Company name</span>
+          </label>
+          <input
+            class="w-full"
+            hlmInput
+            id="reporterCompany"
+            formControlName="reporterCompany"
+          />
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="category"> Category </label>
-					<brn-select
-						class="block"
-						formControlName="category"
-						placeholder="Select an option"
-					>
-						<hlm-select-trigger class="w-full">
-							<hlm-select-value />
-						</hlm-select-trigger>
-						<hlm-select-content>
-							<hlm-option value="PROBLEM_MANAGEMENT"> Problem Management </hlm-option>
-							<hlm-option value="INCIDENT_MANAGEMENT"> Incident Management </hlm-option>
-							<hlm-option value="CHANGE_MANAGEMENT"> Change Management </hlm-option>
-						</hlm-select-content>
-					</brn-select>
-				</div>
+        <div class="space-y-2">
+          <label hlmLabel for="category"> Category </label>
+          <brn-select
+            class="block"
+            formControlName="category"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option value="PROBLEM_MANAGEMENT">
+                Problem Management
+              </hlm-option>
+              <hlm-option value="INCIDENT_MANAGEMENT">
+                Incident Management
+              </hlm-option>
+              <hlm-option value="CHANGE_MANAGEMENT">
+                Change Management
+              </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="subject">Support task issue</label>
-					<brn-radio-group
-						id="subject"
-						class="mb-4 font-mono text-sm font-medium space-y-0.5"
-						formControlName="subject"
-						hlm
-					>
-						<brn-radio hlm value="Missing fuel logs">
-							<hlm-radio-indicator indicator />
-							Fuel logs
-						</brn-radio>
-						<brn-radio hlm value="Missing truck locations">
-							<hlm-radio-indicator indicator />
-							Truck locations
-						</brn-radio>
-						<brn-radio hlm value="Tank reports">
-							<hlm-radio-indicator indicator />
-							Tank reports
-						</brn-radio>
-						<brn-radio hlm value="AI cameras">
-							<hlm-radio-indicator indicator />
-							AI cameras
-						</brn-radio>
-						<brn-radio hlm value="GPS tracking">
-							<hlm-radio-indicator indicator />
-							GPS tracking
-						</brn-radio>
-						<brn-radio hlm value="Decommission">
-							<hlm-radio-indicator indicator />
-							Decommission
-						</brn-radio>
-					</brn-radio-group>
-				</div>
-				<div class="space-y-2">
-					<label hlmLabel for="description">Description</label>
-					<textarea
-						hlmInput
-						formControlName="description"
-						id="description"
-						class="min-h-32 w-full"
-						placeholder="Describe the issue you're facing"
-					></textarea>
-				</div>
+        <div class="space-y-2">
+          <label hlmLabel for="subject">Support task issue</label>
+          <brn-radio-group
+            id="subject"
+            class="mb-4 font-mono text-sm font-medium space-y-0.5"
+            formControlName="subject"
+            hlm
+          >
+            <brn-radio hlm value="Missing fuel logs">
+              <hlm-radio-indicator indicator />
+              Fuel logs
+            </brn-radio>
+            <brn-radio hlm value="Missing truck locations">
+              <hlm-radio-indicator indicator />
+              Truck locations
+            </brn-radio>
+            <brn-radio hlm value="Tank reports">
+              <hlm-radio-indicator indicator />
+              Tank reports
+            </brn-radio>
+            <brn-radio hlm value="AI cameras">
+              <hlm-radio-indicator indicator />
+              AI cameras
+            </brn-radio>
+            <brn-radio hlm value="GPS tracking">
+              <hlm-radio-indicator indicator />
+              GPS tracking
+            </brn-radio>
+            <brn-radio hlm value="Decommission">
+              <hlm-radio-indicator indicator />
+              Decommission
+            </brn-radio>
+          </brn-radio-group>
+        </div>
+        <div class="space-y-2">
+          <label hlmLabel for="description">Description</label>
+          <textarea
+            hlmInput
+            formControlName="description"
+            id="description"
+            class="min-h-32 w-full"
+            placeholder="Describe the issue you're facing"
+          ></textarea>
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="status"> Status </label>
-					<brn-select
-						class="block"
-						formControlName="status"
-						placeholder="Select an option"
-					>
-						<hlm-select-trigger class="w-full">
-							<hlm-select-value />
-						</hlm-select-trigger>
-						<hlm-select-content>
-							<hlm-option [value]="TicketsStatuses.OPEN"> Open </hlm-option>
-							<hlm-option [value]="TicketsStatuses.IN_PROGRESS"> In Progress </hlm-option>
-							<hlm-option [value]="TicketsStatuses.RESOLVED"> Resolved </hlm-option>
-							<hlm-option [value]="TicketsStatuses.CLOSED"> Closed </hlm-option>
-							<hlm-option [value]="TicketsStatuses.CANCELLED"> Cancelled </hlm-option>
-						</hlm-select-content>
-					</brn-select>
-				</div>
+        <div class="space-y-2">
+          <label hlmLabel for="status"> Status </label>
+          <brn-select
+            class="block"
+            formControlName="status"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option [value]="TicketsStatuses.OPEN"> Open </hlm-option>
+              <hlm-option [value]="TicketsStatuses.IN_PROGRESS">
+                In Progress
+              </hlm-option>
+              <hlm-option [value]="TicketsStatuses.RESOLVED">
+                Resolved
+              </hlm-option>
+              <hlm-option [value]="TicketsStatuses.CLOSED"> Closed </hlm-option>
+              <hlm-option [value]="TicketsStatuses.CANCELLED">
+                Cancelled
+              </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
 
-				<div class="space-y-2">
-					<label hlmLabel for="priority"> Priority </label>
-					<brn-select
-						class="block"
-						formControlName="priority"
-						placeholder="Select an option"
-					>
-						<hlm-select-trigger class="w-full">
-							<hlm-select-value />
-						</hlm-select-trigger>
-						<hlm-select-content>
-							<hlm-option [value]="TicketsPriorities.URGENT"> Urgent </hlm-option>
-							<hlm-option [value]="TicketsPriorities.HIGH"> High </hlm-option>
-							<hlm-option [value]="TicketsPriorities.MEDIUM"> Medium </hlm-option>
-							<hlm-option [value]="TicketsPriorities.LOW"> Low </hlm-option>
-						</hlm-select-content>
-					</brn-select>
-				</div>
-				<div class="space-y-2 col-span-2">
-					<label hlmLabel for="assignee"> Assign to </label>
-					<brn-select class="block" placeholder="Select a staff" formControlName="assignee">
-						<hlm-select-trigger class="w-full">
-							<hlm-select-value />
-						</hlm-select-trigger>
-						<hlm-select-content>
-							@for (staff of staffList(); track staff.email) {
-								<hlm-option [value]="staff.id">
-									<span>{{staff.name}}</span>
-								</hlm-option>
-							}
-						</hlm-select-content>
-					</brn-select>
-				</div>
-			</div>
+        <div class="space-y-2">
+          <label hlmLabel for="priority"> Priority </label>
+          <brn-select
+            class="block"
+            formControlName="priority"
+            placeholder="Select an option"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              <hlm-option [value]="TicketsPriorities.URGENT">
+                Urgent
+              </hlm-option>
+              <hlm-option [value]="TicketsPriorities.HIGH"> High </hlm-option>
+              <hlm-option [value]="TicketsPriorities.MEDIUM">
+                Medium
+              </hlm-option>
+              <hlm-option [value]="TicketsPriorities.LOW"> Low </hlm-option>
+            </hlm-select-content>
+          </brn-select>
+        </div>
+        <div class="space-y-2 col-span-2">
+          <label hlmLabel for="assignee"> Assign to </label>
+          <brn-select
+            class="block"
+            placeholder="Select a staff"
+            formControlName="assignee"
+          >
+            <hlm-select-trigger class="w-full">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              @for (staff of staffList(); track staff.email) {
+                <hlm-option [value]="staff.id">
+                  <span>{{ staff.name }}</span>
+                </hlm-option>
+              }
+            </hlm-select-content>
+          </brn-select>
+        </div>
+      </div>
 
-			<hlm-dialog-footer>
-				<button hlmBtn type="submit" class="w-full" [disabled]="addStaffForm.invalid || isCreatingTicket()">
-					{{ isCreatingTicket() ? "Loading..." : "Create" }}
-				</button>
-			</hlm-dialog-footer>
-		</form>
-	</hlm-dialog-content>
+      <hlm-dialog-footer>
+        <button
+          hlmBtn
+          type="submit"
+          class="w-full"
+          [disabled]="addStaffForm.invalid || isCreatingTicket()"
+        >
+          {{ isCreatingTicket() ? "Loading..." : "Create" }}
+        </button>
+      </hlm-dialog-footer>
+    </form>
+  </hlm-dialog-content>
 </hlm-dialog>

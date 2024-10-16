@@ -56,6 +56,7 @@ import { NocMainDashboardComponent } from '../noc-main-dashboard/noc-main-dashbo
 import { VehiclesStore } from '../../store/vehicles.store';
 import { VehicleStatus } from '../noc.model';
 import { RemoveUnderscorePipe } from '../../libs/pipes/remove-underscore.pipe';
+import { SensorsTableComponent } from '../components/sensors-table/sensors-table.component';
 
 @Component({
   selector: 'oryo-noc-dashboard',
@@ -97,6 +98,7 @@ import { RemoveUnderscorePipe } from '../../libs/pipes/remove-underscore.pipe';
     NocMainDashboardComponent,
     DatePipe,
     RemoveUnderscorePipe,
+		SensorsTableComponent
   ],
   providers: [
     provideIcons({
@@ -135,7 +137,7 @@ export class NocDashboardComponent implements OnInit {
   onBack() {
     this._router.navigateByUrl('/noc');
   }
-  onReport() {
+  routeToClientsView() {
     this._router.navigateByUrl('/noc/clients');
   }
 }

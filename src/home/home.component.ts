@@ -38,32 +38,8 @@ export class HomeComponent {
 			comingSoon: false,
 		},
 		{
-			title: "Service Desk Module",
-			img: "../../service-desk-icon.svg",
-			route: "/help-desk",
-			comingSoon: false,
-		},
-		{
 			title: "Procurement",
 			img: "../../finance-icon.svg",
-			route: "",
-			comingSoon: true,
-		},
-		{
-			title: "Business Development",
-			img: "../../business-development-icon.svg",
-			route: "/bdm",
-			comingSoon: false,
-		},
-		{
-			title: "HR Module",
-			img: "../../hr-icon.svg",
-			route: "",
-			comingSoon: true,
-		},
-		{
-			title: "Project Management",
-			img: "../../project-management-icon.svg",
 			route: "",
 			comingSoon: true,
 		},

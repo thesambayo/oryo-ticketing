@@ -6,9 +6,9 @@ import { HlmToasterComponent } from '@spartan-ng/ui-sonner-helm';
   selector: 'oryo-root',
   standalone: true,
   template: `
-		<router-outlet />
-		<hlm-toaster position="top-right" richColors />
-	`,
+    <router-outlet />
+    <hlm-toaster position="top-right" richColors />
+  `,
   imports: [RouterOutlet, HlmToasterComponent],
 })
 export class AppComponent {

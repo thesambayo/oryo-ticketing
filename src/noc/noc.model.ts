@@ -1,3 +1,63 @@
+export interface VehiclesGlobalReport {
+  total_vehicles: number;
+  moving_vehicles: number;
+  idle_vehicles: number;
+  ignition_off_vehicles: number;
+  non_reporting_vehicles: number;
+  reporting_vehicles: number;
+}
+
+export enum VehicleStatus {
+  total_sensors = 'total',
+  reporting_sensors = 'reporting',
+  non_reporting_sensors = 'non_reporting',
+  moving_sensors = 'moving',
+  idle_sensors = 'idle',
+  ignition_off_sensors = 'ignition_off',
+}
+
+export interface VehicleData {
+  id: number;
+  plate_number: string;
+  nick_name: string;
+  vehicle_type: string;
+  fuel_type: string;
+  main_tank_capacity: number;
+  reserve_tank_capacity: number;
+  battery_voltage: number;
+  no_of_pallets: number;
+  no_of_tanks: number;
+  client_fleet_group: string;
+  rfid_id_tag_one: string;
+  rfid_id_tag_two: string;
+  device_imei: string;
+  device_name: string;
+  device_type: string;
+  device_serial_no: string;
+  sim_number: string;
+  sim_serial_number: string;
+  tracker_sim_number: string;
+  tracker_sim_serial_number: string;
+  camera_imei: string;
+  camera_serial_no: string;
+  camera_sim_number: string;
+  camera_sim_serial_number: string;
+  date_of_installation_completion: string;
+  date_of_WFL_config_completion: string;
+  installation_remarks: string;
+  created_at: string;
+  updated_at: string;
+  version: number;
+  vehicles_client_id: number;
+}
+
+export interface ClientVehicle {
+  id: number;
+  company_name: string;
+  vehicles: VehicleData[];
+}
+
+
 export interface VehicleReport {
   companyId: number;
   /**
@@ -203,63 +263,4 @@ export interface VehicleReport {
    * @example 0
    */
   TDS: number;
-}
-
-export interface VehiclesGlobalReport {
-  total_vehicles: number;
-  moving_vehicles: number;
-  idle_vehicles: number;
-  ignition_off_vehicles: number;
-  non_reporting_vehicles: number;
-  reporting_vehicles: number;
-}
-
-export enum VehicleStatus {
-  total_sensors = 'total',
-  reporting_sensors = 'reporting',
-  non_reporting_sensors = 'non_reporting',
-  moving_sensors = 'moving',
-  idle_sensors = 'idle',
-  ignition_off_sensors = 'ignition_off',
-}
-
-export interface VehicleData {
-  id: number;
-  plate_number: string;
-  nick_name: string;
-  vehicle_type: string;
-  fuel_type: string;
-  main_tank_capacity: number;
-  reserve_tank_capacity: number;
-  battery_voltage: number;
-  no_of_pallets: number;
-  no_of_tanks: number;
-  client_fleet_group: string;
-  rfid_id_tag_one: string;
-  rfid_id_tag_two: string;
-  device_imei: string;
-  device_name: string;
-  device_type: string;
-  device_serial_no: string;
-  sim_number: string;
-  sim_serial_number: string;
-  tracker_sim_number: string;
-  tracker_sim_serial_number: string;
-  camera_imei: string;
-  camera_serial_no: string;
-  camera_sim_number: string;
-  camera_sim_serial_number: string;
-  date_of_installation_completion: string;
-  date_of_WFL_config_completion: string;
-  installation_remarks: string;
-  created_at: string;
-  updated_at: string;
-  version: number;
-  vehicles_client_id: number;
-}
-
-export interface ClientVehicle {
-  id: number;
-  company_name: string;
-  vehicles: VehicleData[];
 }

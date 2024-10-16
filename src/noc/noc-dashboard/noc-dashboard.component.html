@@ -6,18 +6,15 @@
                 <hlm-icon size="sm" name="lucideArrowLeft" />
             </button>
       <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700 first-letter:capitalize">
-        {{selectedStatus|removeUnderscore}}
+        {{selectedStatus|removeUnderscore}} sensors
       </h1>
     </div>
-   
+
     <div class="flex items-center">
-      <button
-			(click)="onReport()"
-        class="px-2 py-2 bg-transparent border border-C3D3E2 text-black rounded-lg flex justify-center items-center gap-1"
-      >
-        <img src="/document-text.svg" alt="" />
-        <span class="text-xs">Clients Report</span>
-      </button>
+			<button hlmBtn variant="outline" class="bg-background" align="end" (click)="routeToClientsView()">
+				<img src="/document-text.svg" alt="" />
+        <span class="text-xs">Clients</span>
+			</button>
     </div>
   </div>
 
@@ -28,9 +25,13 @@
 			@for (item of vehiclesByStatus(); track $index) {
 				<div
 					(click)="selectReportingCompanyId(item.id)"
-					class="flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer border-2"
+					class="transition-colors flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer"
+					[ngClass]="{'bg-green-100': item.id === selectedCompanyVehiclesByStatus()?.id}"
 				>
-					<div class="bg-blue-500 p-3 rounded-lg">
+					<div
+						class="bg-blue-500 p-3 rounded-lg"
+						[ngClass]="{'bg-green-500': item.id === selectedCompanyVehiclesByStatus()?.id}"
+					>
 						<img src="/truck-fast.svg" alt="" />
 					</div>
 					<div class="ml-4">
@@ -46,109 +47,11 @@
 	@let selectedCompanyVehicles = selectedCompanyVehiclesByStatus();
 	@if (selectedCompanyVehicles) {
 		<section class="flex-1">
-			<div class="flex justify-between items-center mb-6">
-				<div class="text-xs md:text-lg font-bold text-green-600">
-					({{selectedCompanyVehicles.vehicles.length}})
-				</div>
-				<div class="flex items-center space-x-4">
-					<button
-						hlmBtn
-						size="sm"
-						variant="outline"
-						class="flex gap-1 justify-center items-center px-2 py-2 bg-background"
-					>
-						<hlm-icon class="size-3.5" name="lucideFilter" />
-						<span class="text-xs md:text-sm">Filter</span>
-					</button>
-					<brn-popover sideOffset="5" closeDelay="100">
-						<button
-							hlmBtn
-							variant="outline"
-							class="flex gap-1 justify-center items-center px-2 py-2 bg-background"
-							size="sm"
-							brnPopoverTrigger
-						>
-							<hlm-icon class="size-3.5" name="lucideChevronsUpDown" />
-							<span class="text-xs md:text-sm">Sort by</span>
-						</button>
-					</brn-popover>
-				</div>
-			</div>
-
 			<!-- Table -->
-			<div class="mx-1 rounded-md border">
-				<div class="relative w-full overflow-auto h-[500px] md:max-h-[100vh]">
-					<table class="w-full caption-bottom text-sm">
-						<thead class="bg-background [&_tr]:border-b">
-							<tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Nickname
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Plate number
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Vehicle type
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Fleet group
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Fuel type
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Device imei
-								</th>
-								<th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-									Actions
-								</th>
-							</tr>
-						</thead>
-						<tbody class="[&_tr:last-child]:border-0">
-							@for (item of selectedCompanyVehicles.vehicles; track $index) {
-								<tr class="bg-background border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										<span class="">{{item.nick_name}}</span>
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										{{item.plate_number}}
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										{{item.vehicle_type}}
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										{{item.client_fleet_group}}
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										{{item.fuel_type}}
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										{{item.device_imei}}
-									</td>
-									<td class="p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]">
-										<div class="flex items-center justify-center">
-											<button hlmBtn variant="ghost" class="size-6 p-0.5" align="end" [brnMenuTriggerFor]="menu">
-												<hlm-icon class="w-4 h-4" name="lucideEllipsis" />
-											</button>
-										</div>
-										<ng-template #menu>
-											<hlm-menu class="w-56">
-												<hlm-menu-group>
-													<button hlmMenuItem>
-														<hlm-icon name="lucideFileBarChart" hlmMenuIcon />
-														<span>Preview</span>
-														<hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
-													</button>
-												</hlm-menu-group>
-											</hlm-menu>
-										</ng-template>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-			</div>
+			 <oryo-sensors-table
+			 	[_sensorsList]="selectedCompanyVehicles.vehicles"
+			>
+			 </oryo-sensors-table>
 		</section>
 	}
 	

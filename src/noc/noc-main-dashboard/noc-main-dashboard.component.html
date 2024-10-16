@@ -4,82 +4,232 @@
       <hlm-spinner />
     </div>
   } @else {
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-      <div
-        class="bg-blue-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-        (click)="viewVehiclesReportByStatus(VehicleStatuses.total_sensors)"
-      >
-        <div class="bg-blue-500 text-white p-2 rounded-full">
-          <img src="/truck-fast.svg" alt="" />
+    <section class="space-y-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div
+          class="bg-blue-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+          (click)="viewVehiclesReportByStatus(VehicleStatuses.total_sensors)"
+        >
+          <div class="bg-blue-500 text-white p-2 rounded-full">
+            <img src="/truck-fast.svg" alt="" />
+          </div>
+          <h2 class="text-gray-600 text-lg mt-4">Total sensors</h2>
+          <p class="text-4xl font-bold mt-2">
+            {{ vehiclesGlobalReports()?.total_vehicles | number }}
+          </p>
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">Total sensors</h2>
-        <p class="text-4xl font-bold mt-2">
-          {{ vehiclesGlobalReports()?.total_vehicles | number }}
-        </p>
+
+        <div
+          class="bg-red-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+          (click)="
+            viewVehiclesReportByStatus(VehicleStatuses.reporting_sensors)
+          "
+        >
+          <div class="bg-red-500 text-white p-2 rounded-lg">
+            <img src="/truck-fast.svg" alt="" />
+          </div>
+          <h2 class="text-gray-600 text-lg mt-4">Reporting sensors</h2>
+          <p class="text-4xl font-bold mt-2">
+            {{ vehiclesGlobalReports()?.reporting_vehicles | number }}
+          </p>
+        </div>
+
+        <!-- <div
+						class="bg-green-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+						(click)="viewVehiclesReportByStatus(VehicleStatuses.moving_vehicles)"
+					>
+						<div class="bg-green-500 text-white p-2 rounded-lg">
+							<img src="/truck-fast.svg" alt="" />
+						</div>
+						<h2 class="text-gray-600 text-lg mt-4">Moving sensors</h2>
+						<p class="text-4xl font-bold mt-2">
+							{{vehiclesGlobalReports()?.moving_vehicles| number}}
+						</p>
+					</div> -->
+
+        <!-- <div
+						class="bg-yellow-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+						(click)="viewVehiclesReportByStatus(VehicleStatuses.idle_vehicles)"
+					>
+						<div class="bg-yellow-500 text-white p-2 rounded-lg">
+							<img src="/truck-fast.svg" alt="" />
+						</div>
+						<h2 class="text-gray-600 text-lg mt-4">Idle sensors</h2>
+						<p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idle_vehicles| number}}</p>
+					</div> -->
+
+        <!-- <div
+						class="bg-purple-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+						(click)="viewVehiclesReportByStatus(VehicleStatuses.ignition_off_vehicles)"
+					>
+						<div class="bg-purple-500 text-white p-2 rounded-lg">
+							<img src="/truck-fast.svg" alt="" />
+						</div>
+						<h2 class="text-gray-600 text-lg mt-4">Ignition off sensors</h2>
+						<p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignition_off_vehicles| number}}</p>
+					</div> -->
+
+        <div
+          class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
+          (click)="
+            viewVehiclesReportByStatus(VehicleStatuses.non_reporting_sensors)
+          "
+        >
+          <div class="bg-gray-500 text-white p-2 rounded-lg">
+            <img src="/truck-fast.svg" alt="" />
+          </div>
+          <h2 class="text-gray-600 text-lg mt-4">No Signal sensors</h2>
+          <p class="text-4xl font-bold mt-2">
+            {{ vehiclesGlobalReports()?.non_reporting_vehicles | number }}
+          </p>
+        </div>
       </div>
 
-      <div
-        class="bg-red-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-        (click)="viewVehiclesReportByStatus(VehicleStatuses.reporting_sensors)"
-      >
-        <div class="bg-red-500 text-white p-2 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
+      <form [formGroup]="createCompantForm" (ngSubmit)="onSubmit()">
+        <h4 class="text-lg font-semibold mb-3">Generate reports</h4>
+        <div class="flex items-center gap-5">
+          <!--  -->
+          <div class="flex flex-col space-y-2">
+            <label hlmLabel for="companyWlfId">
+              <span>Name</span>
+            </label>
+            <brn-select
+              class="inline-block"
+              placeholder="Select client"
+              formControlName="companyWlfId"
+            >
+              <hlm-select-trigger id="companyWlfId" class="w-56">
+                <hlm-select-value />
+              </hlm-select-trigger>
+              <hlm-select-content>
+                <hlm-option value="all">All</hlm-option>
+                @for (company of companies(); track company.id) {
+                  <hlm-option [value]="company.wfl_id">{{
+                    company.company_name
+                  }}</hlm-option>
+                }
+              </hlm-select-content>
+            </brn-select>
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="flex flex-col space-y-2">
+            <label hlmLabel for="sensorStatus">
+              <span>Sensor Status</span>
+            </label>
+            <brn-select
+              class="inline-block"
+              placeholder="Select status"
+              formControlName="sensorStatus"
+            >
+              <hlm-select-trigger id="sensorStatus" class="w-56">
+                <hlm-select-value />
+              </hlm-select-trigger>
+              <hlm-select-content>
+                <hlm-option [value]="VehicleStatuses.total_sensors"
+                  >All sensors</hlm-option
+                >
+                <hlm-option [value]="VehicleStatuses.reporting_sensors"
+                  >Reporting sensors</hlm-option
+                >
+                <hlm-option [value]="VehicleStatuses.non_reporting_sensors">
+                  Non reporting sensors
+                </hlm-option>
+              </hlm-select-content>
+            </brn-select>
+          </div>
+          <!--  -->
+          <div class="space-y-0.5">
+            <label hlmLabel for="startDate">
+              <span>Start Date</span>
+            </label>
+            <input
+              hlmInput
+              id="startDate"
+              placeholder="Start date"
+              type="date"
+              formControlName="startDate"
+              (change)="createCompantForm.controls.endDate.enable()"
+            />
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="">
+            <label hlmLabel for="endDate">
+              <span>End Date</span>
+            </label>
+            <input
+              hlmInput
+              id="endDate"
+              placeholder="End date"
+              type="date"
+              formControlName="endDate"
+              [min]="createCompantForm.controls.startDate.value"
+            />
+          </div>
+          <!--  -->
+          <button
+            hlmBtn
+            size="lg"
+            align="end"
+            [disabled]="createCompantForm.invalid"
+          >
+            <span class="text-xs">Generate</span>
+          </button>
         </div>
-        <h2 class="text-gray-600 text-lg mt-4">Reporting sensors</h2>
-        <p class="text-4xl font-bold mt-2">
-          {{ vehiclesGlobalReports()?.reporting_vehicles | number }}
-        </p>
-      </div>
-
-      <!-- <div
-					class="bg-green-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-					(click)="viewVehiclesReportByStatus(VehicleStatuses.moving_vehicles)"
-				>
-					<div class="bg-green-500 text-white p-2 rounded-lg">
-						<img src="/truck-fast.svg" alt="" />
-					</div>
-					<h2 class="text-gray-600 text-lg mt-4">Moving sensors</h2>
-					<p class="text-4xl font-bold mt-2">
-						{{vehiclesGlobalReports()?.moving_vehicles| number}}
-					</p>
-				</div> -->
-
-      <!-- <div
-					class="bg-yellow-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-					(click)="viewVehiclesReportByStatus(VehicleStatuses.idle_vehicles)"
-				>
-					<div class="bg-yellow-500 text-white p-2 rounded-lg">
-						<img src="/truck-fast.svg" alt="" />
-					</div>
-					<h2 class="text-gray-600 text-lg mt-4">Idle sensors</h2>
-					<p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.idle_vehicles| number}}</p>
-				</div> -->
-
-      <!-- <div
-					class="bg-purple-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-					(click)="viewVehiclesReportByStatus(VehicleStatuses.ignition_off_vehicles)"
-				>
-					<div class="bg-purple-500 text-white p-2 rounded-lg">
-						<img src="/truck-fast.svg" alt="" />
-					</div>
-					<h2 class="text-gray-600 text-lg mt-4">Ignition off sensors</h2>
-					<p class="text-4xl font-bold mt-2">{{vehiclesGlobalReports()?.ignition_off_vehicles| number}}</p>
-				</div> -->
-
-      <div
-        class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-start cursor-pointer"
-        (click)="
-          viewVehiclesReportByStatus(VehicleStatuses.non_reporting_sensors)
-        "
-      >
-        <div class="bg-gray-500 text-white p-2 rounded-lg">
-          <img src="/truck-fast.svg" alt="" />
-        </div>
-        <h2 class="text-gray-600 text-lg mt-4">No Signal sensors</h2>
-        <p class="text-4xl font-bold mt-2">
-          {{ vehiclesGlobalReports()?.non_reporting_vehicles | number }}
-        </p>
-      </div>
-    </div>
+      </form>
+    </section>
   }
+
+  <div class="mt-10 overflow-y-scroll h-[400px]">
+    <h4 class="text-lg font-semibold mb-3">Generated reports response</h4>
+    <div class="accordion-container">
+      @for (report of generatedReportsResponse; track report.id) {
+        @let reporting_sensors =
+          this.lastGeneratedPayload?.sensorStatus === "reporting"
+            ? report.vehicles.length
+            : report.total_vehicles - report.vehicles.length;
+        @let non_reporting_sensors =
+          this.lastGeneratedPayload?.sensorStatus === "reporting"
+            ? report.total_vehicles - report.vehicles.length
+            : report.vehicles.length;
+        <ng-container>
+          <button
+            [id]="$index"
+            class="accordion flex justify-between items-center"
+            (click)="openAccordion($event)"
+          >
+            <p class="pointer-events-none">
+              <span class="text-lg font-medium">{{ report.company_name }}</span>
+              <span>{{ reporting_sensors }} online.</span>
+              <span>{{ non_reporting_sensors }} offline</span>
+            </p>
+
+            <button
+              hlmBtn
+              size="icon"
+              variant="outline"
+              (click)="downloadAsCSV(report, $event)"
+            >
+              <hlm-icon size="sm" name="lucideFileDown" />
+            </button>
+          </button>
+          <div class="panel">
+            <div class="flex flex-col gap-3">
+              @for (sensor of report.vehicles; track sensor.plate_number) {
+                <div class="flex justify-around">
+                  <span>{{ sensor.nick_name }}</span>
+                  <span>{{ sensor.plate_number }}</span>
+                  <span>{{ sensor.fuel_type }}</span>
+                </div>
+              }
+            </div>
+            <span> </span>
+          </div>
+        </ng-container>
+      }
+    </div>
+  </div>
 </div>
