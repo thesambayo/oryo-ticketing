@@ -3,7 +3,7 @@
 import { Environment } from "./interface";
 
 export const environment: Environment = {
-	name: "default",
+	name: "mock",
 	production: false,
 	useMocks: true,
 	enableAnalytics: false,

@@ -3,9 +3,9 @@
 import { Environment } from "./interface";
 
 export const environment: Environment = {
-	name: "default",
+	name: "local",
 	production: false,
-	useMocks: true,
+	useMocks: false,
 	enableAnalytics: false,
-	apiURL: "https://api-operations-staging.oryoltd.org/v1",
+	apiURL: "http://localhost:5800/v1",
 };

@@ -4,8 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=5500",
-    "build": "rm -rf dist && ng build --configuration production",
-    "watch": "ng build --watch --configuration development",
+		"start:mock": "npm start -- --configuration=mock",
+		"start:local": "npm start -- --configuration=local",
+    "build:staging": "rm -rf dist && ng build --configuration staging",
+    "build:prod": "rm -rf dist && ng build --configuration production",
+    "watch": "ng build --watch --configuration staging",
     "test": "ng test"
   },
   "private": true,

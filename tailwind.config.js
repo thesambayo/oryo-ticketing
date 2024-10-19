@@ -7,7 +7,7 @@ module.exports = {
     './src/**/*.{html,ts}',
     // './src/index.html',
     // './src/app/**/*.{html,ts}',
-    // './src/libs/ui/**/*.{html,ts}',
+    // './src/shared/ui/**/*.{html,ts}',
   ],
 	theme: {
 		container: {
