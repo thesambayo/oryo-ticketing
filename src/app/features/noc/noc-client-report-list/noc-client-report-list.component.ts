@@ -88,7 +88,7 @@ export class NocClientReportListComponent implements OnInit {
 	private _activatedRoute = inject(ActivatedRoute);
 	private _vehiclesStore = inject(VehiclesStore);
 	
-  selectedStatus: string = 'any';
+  selectedStatus = 'any';
 	// vehiclesReports = this._vehiclesStore.vehiclesReports;
 	// vehiclesGlobalReports = this._vehiclesStore.globalReports;
 	nonReportingVehicles = this._vehiclesStore.vehiclesByStatus;

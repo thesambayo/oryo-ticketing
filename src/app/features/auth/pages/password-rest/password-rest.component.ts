@@ -30,7 +30,7 @@ export class PasswordRestComponent {
     return null;
   }
 
-	isLoggingIn: boolean = false;
+	isLoggingIn = false;
   
 	loginForm = new FormGroup({
 		currentPassword: new FormControl('', Validators.required),

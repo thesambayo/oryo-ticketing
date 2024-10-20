@@ -4,12 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=5500",
-		"start:mock": "npm start -- --configuration=mock",
-		"start:local": "npm start -- --configuration=local",
+    "start:mock": "npm start -- --configuration=mock",
+    "start:local": "npm start -- --configuration=local",
     "build:staging": "rm -rf dist && ng build --configuration staging",
     "build:prod": "rm -rf dist && ng build --configuration production",
     "watch": "ng build --watch --configuration staging",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -67,7 +69,11 @@
     "@angular/compiler-cli": "^18.1.1",
     "@spartan-ng/cli": "^0.0.1-alpha.359",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "18.3.1",
     "autoprefixer": "^10.4.19",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -75,9 +81,12 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.38",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0",
     "tailwind-merge": "^2.2.0",
     "tailwindcss": "^3.4.4",
     "tailwindcss-animate": "^1.0.6",
-    "typescript": "~5.5.3"
+    "typescript": "~5.5.3",
+    "typescript-eslint": "8.2.0"
   }
 }

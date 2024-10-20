@@ -1,12 +1,11 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideChevronsUpDown,
   lucideFilter,
-  lucideBell,
   lucideArrowLeft,
   lucidePhoneCall,
   lucideCode,
@@ -69,8 +68,7 @@ import {
 } from '@spartan-ng/ui-radiogroup-helm';
 import { HlmSmallDirective } from '@spartan-ng/ui-typography-helm';
 import { ContactComponent } from './contact/contact.component';
-import { NocService } from '../services/noc.service';
-import { VehicleReport, VehicleStatus } from '../noc.model';
+import { VehicleStatus } from '../noc.model';
 import { VehiclesStore } from '../../../store/vehicles.store';
 
 @Component({

@@ -14,7 +14,6 @@ import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { toast } from 'ngx-sonner';
 import { LeftPaddingPipe } from '../../../shared/pipes/left-padding.pipe';
-import { StaffService } from '../../../shared/services/staff.service';
 
 @Component({
   selector: 'oryo-add-staff',

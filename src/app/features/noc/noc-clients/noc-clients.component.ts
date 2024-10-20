@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import {
 	lucideArrowLeft,
@@ -9,7 +9,6 @@ import {
 	lucideFilter,
 } from '@ng-icons/lucide';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmDialogService } from '@spartan-ng/ui-dialog-helm';
 import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
 import {
 	BrnPopoverComponent,
@@ -21,10 +20,8 @@ import {
 	HlmPopoverContentDirective,
 	HlmPopoverCloseDirective,
 } from '@spartan-ng/ui-popover-helm';
-import { ContactComponent } from '../noc-client-details/contact/contact.component';
 import { CreateComponent } from "../noc-client-details/create/create.component";
 import { VehiclesStore } from '../../../store/vehicles.store';
-import { NocService } from '../services/noc.service';
 
 @Component({
 	selector: 'oryo-noc-clients',

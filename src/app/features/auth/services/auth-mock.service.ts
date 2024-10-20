@@ -15,7 +15,7 @@ export class AuthMockService implements AuthService {
 	readonly _http = inject(HttpClient);
 	readonly _storageService = inject(StorageService);
 
-	login(data: StaffLoginPayload) {
+	login(_data: StaffLoginPayload) {
 		return mockResponse<ApiResponse<LoggedInStaff>>(() => {
 			this._storageService.storeLoggedInStaffDetails(loginItem1.data);
 			return loginItem1

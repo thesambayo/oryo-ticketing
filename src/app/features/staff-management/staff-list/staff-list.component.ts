@@ -1,5 +1,5 @@
 import { NgClass, DatePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { lucideBell, lucideSearch, lucideEllipsisVertical, lucidePlus, lucideChevronsUpDown, lucideFilter } from '@ng-icons/lucide';
@@ -77,7 +77,7 @@ import { LeftPaddingPipe } from '../../../shared/pipes/left-padding.pipe';
   templateUrl: './staff-list.component.html',
   styleUrl: './staff-list.component.css'
 })
-export class StaffListComponent {
+export class StaffListComponent implements OnInit {
 	_topbarService = inject(TopbarService);
 	_staffService = inject(StaffService);
 	staffList = this._staffService.staffList;

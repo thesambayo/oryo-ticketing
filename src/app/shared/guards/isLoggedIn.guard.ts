@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { isFuture } from 'date-fns'
+// import { isFuture } from 'date-fns'
 import { StorageService } from '../../core/services/storage.service';
 
 export const isLoggedInGuard: CanActivateFn = (route, state) => {

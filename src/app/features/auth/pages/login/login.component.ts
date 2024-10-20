@@ -37,7 +37,7 @@ export class LoginComponent {
 	readonly operationsList = OperationsList;
 
 	returnUrl: string = this._activatedRoute.snapshot.queryParams['returnUrl'] || '/';
-	isLoggingIn: boolean = false;
+	isLoggingIn = false;
 
 	loginForm = new FormGroup({
 		email: new FormControl("", {

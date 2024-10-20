@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 	standalone: true
 })
 export class LeftPaddingPipe implements PipeTransform {
-	transform(value: string | number, length: number, padCharacter: string = '0'): string {
+	transform(value: string | number, length: number, padCharacter = '0'): string {
 		let processedValue = typeof value === 'number' ? String(value) : value;
 		if (processedValue.length >= length) {
 			return processedValue;

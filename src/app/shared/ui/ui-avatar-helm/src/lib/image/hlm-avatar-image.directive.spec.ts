@@ -7,7 +7,7 @@ import { HlmAvatarImageDirective } from './hlm-avatar-image.directive';
 	standalone: true,
 	imports: [HlmAvatarImageDirective],
 	template: `
-		<img hlmAvatarImage [class]="userCls" />
+		<img hlmAvatarImage alt="" [class]="userCls" />
 	`,
 })
 class HlmMockComponent {
