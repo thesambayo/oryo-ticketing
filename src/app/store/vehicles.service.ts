@@ -71,6 +71,7 @@ export class VehiclesService {
   // 	return this._http.get<ApiResponse<ClientVehicle[]>>(`${this.apiURL}/non-reporting-vehicles`)
   // }
 
+	// this function can be included in convert to CSV function
   getHeadersToCSV(allowedHeaders: Record<string, string>[]): string {
     let headerString = '';
     allowedHeaders.forEach((header) => {

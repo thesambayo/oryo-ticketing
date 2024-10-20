@@ -6,8 +6,8 @@ import {
 	withRouterConfig,
 } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from '../shared/interceptors/auth.interceptor';
-import { errorsInterceptor } from '../shared/interceptors/errors.interceptor';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { errorsInterceptor } from './interceptors/errors.interceptor';
 
 export interface CoreOptions {
 	routes: Routes;
