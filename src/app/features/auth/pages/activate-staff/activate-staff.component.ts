@@ -75,7 +75,7 @@ export class ActivateStaffComponent {
 		};
 
 		this._authService.activateStaffAccount(payload).subscribe({
-			next: (_res) => {
+			next: () => {
 				this.isActivatingStaff.set(false);
 				toast.success("Your account has been activated succesfully.", {
 					id: "valid-accountActivation",

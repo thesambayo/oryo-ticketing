@@ -15,6 +15,7 @@ export class AuthMockService implements AuthService {
 	readonly _http = inject(HttpClient);
 	readonly _storageService = inject(StorageService);
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	login(_data: StaffLoginPayload) {
 		return mockResponse<ApiResponse<LoggedInStaff>>(() => {
 			this._storageService.storeLoggedInStaffDetails(loginItem1.data);
@@ -22,7 +23,10 @@ export class AuthMockService implements AuthService {
 		}, 300);
 	}
 
-	activateStaffAccount(data: ActivateStaffAccountPayload) {
-		return this._http.put<ApiResponse<LoggedInStaff>>(`${this.apiURL}/auth/activate`, data);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	activateStaffAccount(_data: ActivateStaffAccountPayload) {
+		return mockResponse<ApiResponse<LoggedInStaff>>(() => {
+			return loginItem1;
+		}, 300);
 	}
 }

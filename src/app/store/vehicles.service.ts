@@ -70,10 +70,8 @@ export class VehiclesService {
 		let str = "";
 		const headerString = this.getHeadersToCSV(allowedHeaders);
 
-		for (let i = 0; i < objArray.length; i++) {
-			const record = objArray[i];
+		for (const record of objArray) {
 			let line = "";
-
 			allowedHeaders.forEach((header) => {
 				const headerkey = Object.keys(header)[0];
 				const headerColumnValue = record[headerkey];
@@ -86,6 +84,7 @@ export class VehiclesService {
 		return headerString + "\r\n" + str;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	exportCSVFile(headers: any[], items: any[], fileTitle: string): void {
 		const csv = this.convertToCSV(items, headers);
 		const exportedFilename = fileTitle + ".csv" || "export.csv";

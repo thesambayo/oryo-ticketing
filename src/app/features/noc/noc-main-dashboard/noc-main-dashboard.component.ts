@@ -1,15 +1,15 @@
 import { Component, inject } from "@angular/core";
-import { VehiclesStore } from "../../../store/vehicles.store";
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { DecimalPipe } from "@angular/common";
-import { VehicleData, VehicleStatus } from "../noc.model";
 import { HlmSpinnerComponent } from "@spartan-ng/ui-spinner-helm";
 import { HlmSelectImports } from "@spartan-ng/ui-select-helm";
 import { BrnSelectImports } from "@spartan-ng/ui-select-brain";
 import { HlmButtonDirective } from "@spartan-ng/ui-button-helm";
 import { HlmInputDirective } from "@spartan-ng/ui-input-helm";
 import { HlmLabelDirective } from "@spartan-ng/ui-label-helm";
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { VehicleData, VehicleStatus } from "../noc.model";
+import { VehiclesStore } from "../../../store/vehicles.store";
 import { VehiclesService } from "../../../store/vehicles.service";
 import {
 	HlmAccordionContentDirective,
@@ -132,6 +132,7 @@ export class NocMainDashboardComponent {
 		if (!accordionsContainer) return;
 
 		const accordions = accordionsContainer.querySelectorAll(".accordion");
+		// eslint-disable-next-line @typescript-eslint/prefer-for-of
 		for (let index = 0; index < accordions.length; index++) {
 			const accordionItem = accordions[index];
 			const panel = accordionItem.nextElementSibling as HTMLElement;

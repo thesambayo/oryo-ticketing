@@ -46,7 +46,7 @@ export class LoginComponent {
 			password: this.loginForm.controls.password.value,
 		};
 		this._authService.login(payload).subscribe({
-			next: (_res) => {
+			next: () => {
 				this.isLoggingIn = false;
 				this._router.navigateByUrl(this.returnUrl);
 			},
