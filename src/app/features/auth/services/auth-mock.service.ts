@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
-import { AuthService } from "./auth.service";
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from "./auth.service";
 import { environment } from "../../../../environments/environment";
 import { ApiResponse } from "../../../core/models/api-data";
 import { StorageService } from "../../../core/services/storage.service";
@@ -18,8 +18,8 @@ export class AuthMockService implements AuthService {
 	login(_data: StaffLoginPayload) {
 		return mockResponse<ApiResponse<LoggedInStaff>>(() => {
 			this._storageService.storeLoggedInStaffDetails(loginItem1.data);
-			return loginItem1
-		}, 300)
+			return loginItem1;
+		}, 300);
 	}
 
 	activateStaffAccount(data: ActivateStaffAccountPayload) {

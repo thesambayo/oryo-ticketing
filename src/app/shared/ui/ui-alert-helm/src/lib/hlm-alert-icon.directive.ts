@@ -1,8 +1,8 @@
-import { Directive, inject } from '@angular/core';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+import { Directive, inject } from "@angular/core";
+import { HlmIconComponent } from "@spartan-ng/ui-icon-helm";
 
 @Directive({
-	selector: '[hlmAlertIcon]',
+	selector: "[hlmAlertIcon]",
 	standalone: true,
 })
 export class HlmAlertIconDirective {
@@ -10,6 +10,6 @@ export class HlmAlertIconDirective {
 
 	constructor() {
 		if (!this._icon) return;
-		this._icon.size = 'sm';
+		this._icon.size = "sm";
 	}
 }

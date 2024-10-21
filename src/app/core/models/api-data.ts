@@ -8,6 +8,5 @@ export interface ApiResponse<T> {
 		first_page: number;
 		last_page: number;
 		total_records: number;
-	}
-
+	};
 }

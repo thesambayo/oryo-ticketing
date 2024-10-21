@@ -1,28 +1,22 @@
 <!-- (stateChanged)="handleOpenCreateFormDialog($event)" -->
 <hlm-dialog
-  [state]="openCreateTicketForm() ? 'open' : 'closed'"
-  (stateChanged)="$event === 'closed' && openCreateTicketForm.set(false)"
->
-  <button
-    hlmBtn
-    class="gap-2"
-    size="sm"
-    (click)="openCreateTicketForm.set(true)"
-  >
-    <hlm-icon class="size-4" name="lucidePlus" />
-    <span>Add new staff</span>
-  </button>
-  <!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
+	[state]="openCreateTicketForm() ? 'open' : 'closed'"
+	(stateChanged)="$event === 'closed' && openCreateTicketForm.set(false)">
+	<button hlmBtn class="gap-2" size="sm" (click)="openCreateTicketForm.set(true)">
+		<hlm-icon class="size-4" name="lucidePlus" />
+		<span>Add new staff</span>
+	</button>
+	<!-- <button hlmBtn brnDialogTrigger class="gap-2" size="sm">
 		<hlm-icon class="size-3.5" name="lucidePlus" />
 		<span>Create ticket {{ openCreateTicketForm() }}</span>
 	</button> -->
-  <hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
-    <hlm-dialog-header>
-      <h3 hlmDialogTitle>New staff form</h3>
-    </hlm-dialog-header>
+	<hlm-dialog-content class="w-screen max-w-2xl" *brnDialogContent="let ctx">
+		<hlm-dialog-header>
+			<h3 hlmDialogTitle>New staff form</h3>
+		</hlm-dialog-header>
 
-    <form class="space-y-4" [formGroup]="addStaffForm" (ngSubmit)="onSubmit()">
-      <!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+		<form class="space-y-4" [formGroup]="addStaffForm" (ngSubmit)="onSubmit()">
+			<!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="space-y-2">
           <label hlmLabel for="reporterName">
             <span>Reporter's name</span>
@@ -198,16 +192,11 @@
         </div>
       </div> -->
 
-      <hlm-dialog-footer>
-        <button
-          hlmBtn
-          type="submit"
-          class="w-full"
-          [disabled]="addStaffForm.invalid || isCreatingTicket()"
-        >
-          {{ isCreatingTicket() ? "Loading..." : "Create" }}
-        </button>
-      </hlm-dialog-footer>
-    </form>
-  </hlm-dialog-content>
+			<hlm-dialog-footer>
+				<button hlmBtn type="submit" class="w-full" [disabled]="addStaffForm.invalid || isCreatingTicket()">
+					{{ isCreatingTicket() ? "Loading..." : "Create" }}
+				</button>
+			</hlm-dialog-footer>
+		</form>
+	</hlm-dialog-content>
 </hlm-dialog>

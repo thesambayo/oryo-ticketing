@@ -1,13 +1,8 @@
-import { provideZoneChangeDetection } from '@angular/core';
-import {
-	Routes,
-	provideRouter,
-	withInMemoryScrolling,
-	withRouterConfig,
-} from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './interceptors/auth.interceptor';
-import { errorsInterceptor } from './interceptors/errors.interceptor';
+import { provideZoneChangeDetection } from "@angular/core";
+import { Routes, provideRouter, withInMemoryScrolling, withRouterConfig } from "@angular/router";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { authInterceptor } from "./interceptors/auth.interceptor";
+import { errorsInterceptor } from "./interceptors/errors.interceptor";
 
 export interface CoreOptions {
 	routes: Routes;
@@ -19,17 +14,15 @@ export function provideCore({ routes }: CoreOptions) {
 		provideRouter(
 			routes,
 			withRouterConfig({
-				onSameUrlNavigation: 'reload',
+				onSameUrlNavigation: "reload",
 			}),
 			// withComponentInputBinding(),
 			withInMemoryScrolling({
-				anchorScrolling: 'enabled',
-				scrollPositionRestoration: 'enabled',
-			}),
+				anchorScrolling: "enabled",
+				scrollPositionRestoration: "enabled",
+			})
 		),
-		provideHttpClient(
-			withInterceptors([authInterceptor, errorsInterceptor]),
-		),
+		provideHttpClient(withInterceptors([authInterceptor, errorsInterceptor])),
 
 		// other 3rd party libraries providers like NgRx, provideStore()
 

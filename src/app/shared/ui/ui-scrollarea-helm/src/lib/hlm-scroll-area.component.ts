@@ -6,13 +6,13 @@ import {
 	booleanAttribute,
 	computed,
 	signal,
-} from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
-import type { ClassValue } from 'clsx';
-import { NgScrollbarModule } from 'ngx-scrollbar';
+} from "@angular/core";
+import { hlm } from "@spartan-ng/ui-core";
+import type { ClassValue } from "clsx";
+import { NgScrollbarModule } from "ngx-scrollbar";
 
 @Component({
-	selector: 'hlm-scroll-area',
+	selector: "hlm-scroll-area",
 	standalone: true,
 	imports: [NgScrollbarModule],
 	template: `
@@ -26,34 +26,33 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 				'--scrollbar-padding': '1px',
 				'--scrollbar-thumb-color': 'hsl(var(--border)',
 				'--scrollbar-thumb-hover-color': 'hsl(var(--border)',
-				'--scrollbar-size': '7px'
-			}"
-		>
+				'--scrollbar-size': '7px',
+			}">
 			<ng-content />
 		</ng-scrollbar>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	host: {
-		'[class]': '_computedClass()',
+		"[class]": "_computedClass()",
 	},
 })
 export class HlmScrollAreaComponent {
-	protected readonly _computedClass = computed(() => hlm('block', this._class()));
+	protected readonly _computedClass = computed(() => hlm("block", this._class()));
 
 	@Input()
 	set class(value: ClassValue) {
 		this._class.set(value);
 	}
 
-	private readonly _class = signal<ClassValue>('');
+	private readonly _class = signal<ClassValue>("");
 
 	@Input()
-	set track(value: 'vertical' | 'horizontal' | 'all') {
+	set track(value: "vertical" | "horizontal" | "all") {
 		this._track.set(value);
 	}
 
-	protected readonly _track = signal<'vertical' | 'horizontal' | 'all'>('all');
+	protected readonly _track = signal<"vertical" | "horizontal" | "all">("all");
 
 	@Input({ transform: booleanAttribute })
 	set autoHeightDisabled(value: boolean) {
@@ -70,9 +69,9 @@ export class HlmScrollAreaComponent {
 	protected readonly _autoWidthDisabled = signal(true);
 
 	@Input()
-	set visibility(value: 'hover' | 'always' | 'native') {
+	set visibility(value: "hover" | "always" | "native") {
 		this._visibility.set(value);
 	}
 
-	protected readonly _visibility = signal<'hover' | 'always' | 'native'>('native');
+	protected readonly _visibility = signal<"hover" | "always" | "native">("native");
 }

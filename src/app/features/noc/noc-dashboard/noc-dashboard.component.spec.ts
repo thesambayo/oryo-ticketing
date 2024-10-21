@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NocDashboardComponent } from './noc-dashboard.component';
+import { NocDashboardComponent } from "./noc-dashboard.component";
 
-describe('NocDashboardComponent', () => {
-  let component: NocDashboardComponent;
-  let fixture: ComponentFixture<NocDashboardComponent>;
+describe("NocDashboardComponent", () => {
+	let component: NocDashboardComponent;
+	let fixture: ComponentFixture<NocDashboardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [NocDashboardComponent]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [NocDashboardComponent],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(NocDashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(NocDashboardComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

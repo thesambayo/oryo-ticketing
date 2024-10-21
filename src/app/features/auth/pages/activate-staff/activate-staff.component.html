@@ -4,55 +4,49 @@
 -->
 
 <div class="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md space-y-8">
-    <div>
-      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight">
-        Activate Your Account
-      </h2>
-      <p class="mt-2 text-center text-sm text-muted-foreground">Set a new password to activate your account.</p>
-    </div>
-    <form class="space-y-4" [formGroup]="activateStaffForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label hlmLabel for="password">
-          New Password
-        </label>
-        <input
+	<div class="w-full max-w-md space-y-8">
+		<div>
+			<h2 class="mt-6 text-center text-3xl font-bold tracking-tight">Activate Your Account</h2>
+			<p class="mt-2 text-center text-sm text-muted-foreground">
+				Set a new password to activate your account.
+			</p>
+		</div>
+		<form class="space-y-4" [formGroup]="activateStaffForm" (ngSubmit)="onSubmit()">
+			<div>
+				<label hlmLabel for="password">New Password</label>
+				<input
 					hlmInput
 					class="w-full"
-          id="password"
-          type="password"
-          autocomplete="new-password"
-          placeholder="New Password"
-          formControlName="password"
-        />
-      </div>
-      <div>
-        <label hlmLabel for="confirmPassword">
-          Confirm Password
-        </label>
-        <input
+					id="password"
+					type="password"
+					autocomplete="new-password"
+					placeholder="New Password"
+					formControlName="password" />
+			</div>
+			<div>
+				<label hlmLabel for="confirmPassword">Confirm Password</label>
+				<input
 					hlmInput
 					class="w-full"
-          id="confirmPassword"
-          type="password"
-          autocomplete="new-password"
-          placeholder="Confirm Password"
-          formControlName="confirmPassword"
-        />
-      </div>
-      <div>
-        <button
-					hlmBtn type="submit" class="w-full"
-					[disabled]="activateStaffForm.invalid || isActivatingStaff()"
-				>
-				@if (isActivatingStaff()) {
-          <hlm-spinner size="xs" />
-          } @else {
-          <span>Activate Account</span>
-          }
-          
-        </button>
-      </div>
-    </form>
-  </div>
+					id="confirmPassword"
+					type="password"
+					autocomplete="new-password"
+					placeholder="Confirm Password"
+					formControlName="confirmPassword" />
+			</div>
+			<div>
+				<button
+					hlmBtn
+					type="submit"
+					class="w-full"
+					[disabled]="activateStaffForm.invalid || isActivatingStaff()">
+					@if (isActivatingStaff()) {
+						<hlm-spinner size="xs" />
+					} @else {
+						<span>Activate Account</span>
+					}
+				</button>
+			</div>
+		</form>
+	</div>
 </div>

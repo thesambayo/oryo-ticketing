@@ -1,9 +1,9 @@
-import { computed, inject } from '@angular/core';
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { VehiclesService } from './vehicles.service';
-import { pipe, tap, switchMap, catchError, distinctUntilChanged } from 'rxjs';
-import { VehiclesGlobalReport, VehicleReport, ClientVehicle } from '../features/noc/noc.model';
+import { computed, inject } from "@angular/core";
+import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
+import { rxMethod } from "@ngrx/signals/rxjs-interop";
+import { VehiclesService } from "./vehicles.service";
+import { pipe, tap, switchMap, catchError, distinctUntilChanged } from "rxjs";
+import { VehiclesGlobalReport, VehicleReport, ClientVehicle } from "../features/noc/noc.model";
 
 // export interface VehiclesClient {
 // 	id: number;
@@ -53,107 +53,102 @@ const initialState: VehiclesState = {
 	loadingGlobalReports: false,
 	loadingCompanyVehicles: false,
 	loadingVehiclesByStatus: false,
-	selectedCompanyVehiclesId: null
-}
+	selectedCompanyVehiclesId: null,
+};
 
 export const VehiclesStore = signalStore(
-	{ providedIn: 'root' },
+	{ providedIn: "root" },
 	withState(initialState),
 	withComputed((store) => ({
 		totalVehiclesFromAllClients: computed(() =>
 			store.clients().reduce((sum, client) => sum + client.total_vehicles, 0)
 		),
 		selectedCompanyVehicles: computed(() => {
-			return store.companyVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId())
+			return store.companyVehicles().find((dd) => dd.id === store.selectedCompanyVehiclesId());
 		}),
 		selectedCompanyVehiclesByStatus: computed(() => {
-			return store.vehiclesByStatus().find((dd) => dd.id === store.selectedCompanyVehiclesId())
-		})
+			return store.vehiclesByStatus().find((dd) => dd.id === store.selectedCompanyVehiclesId());
+		}),
 	})),
 
-	withMethods(
-		(store, _vehiclesService = inject(VehiclesService)) => ({
+	withMethods((store, _vehiclesService = inject(VehiclesService)) => ({
+		/** get all clients that are provided with vehicles */
+		loadAllClients: rxMethod<void>(
+			pipe(
+				tap((_args) => patchState(store, { loadingClients: true })),
+				switchMap(() => _vehiclesService.getVehiclesClients()),
+				tap((res) => patchState(store, { clients: res.data, loadingClients: false })),
+				catchError((err) => {
+					patchState(store, { loadingClients: false });
+					console.log(err, "error");
+					throw new Error(err);
+				})
+			)
+		),
 
-			/** get all clients that are provided with vehicles */
-			loadAllClients: rxMethod<void>(
-				pipe(
-					tap((_args) => patchState(store, { loadingClients: true })),
-					switchMap(() => _vehiclesService.getVehiclesClients()),
-					tap((res) => patchState(store, { clients: res.data, loadingClients: false })),
-					catchError((err) => {
-						patchState(store, { loadingClients: false });
-						console.log(err, "error")
-						throw new Error(err);
-					})
-				)
-			),
+		/** get all vehicles for all clients */
+		loadAllVehiclesReports: rxMethod<void>(
+			pipe(
+				tap((_args) => patchState(store, { loadingVehicles: true })),
+				switchMap(() => _vehiclesService.getAllVehiclesReports()),
+				tap((res) => patchState(store, { vehiclesReports: res.data, loadingVehicles: false })),
+				catchError((err) => {
+					patchState(store, { loadingVehicles: false });
+					console.log(err, "error");
+					throw new Error(err);
+				})
+			)
+		),
 
-			/** get all vehicles for all clients */
-			loadAllVehiclesReports: rxMethod<void>(
-				pipe(
-					tap((_args) => patchState(store, { loadingVehicles: true })),
-					switchMap(() => _vehiclesService.getAllVehiclesReports()),
-					tap((res) => patchState(store, { vehiclesReports: res.data, loadingVehicles: false })),
-					catchError((err) => {
-						patchState(store, { loadingVehicles: false });
-						console.log(err, "error")
-						throw new Error(err);
-					})
-				)
-			),
+		/** get global reports for vehicles */
+		loadGlobalReports: rxMethod<void>(
+			pipe(
+				tap((_args) => patchState(store, { loadingGlobalReports: true })),
+				switchMap(() => _vehiclesService.getVehiclesGlobalReports()),
+				tap((res) => patchState(store, { globalReports: res.data, loadingGlobalReports: false })),
+				catchError((err) => {
+					patchState(store, { loadingGlobalReports: false });
+					console.log(err, "error");
+					throw new Error(err);
+				})
+			)
+		),
 
-			/** get global reports for vehicles */
-			loadGlobalReports: rxMethod<void>(
-				pipe(
-					tap((_args) => patchState(store, { loadingGlobalReports: true })),
-					switchMap(() => _vehiclesService.getVehiclesGlobalReports()),
-					tap((res) => patchState(store, { globalReports: res.data, loadingGlobalReports: false })),
-					catchError((err) => {
-						patchState(store, { loadingGlobalReports: false });
-						console.log(err, "error")
-						throw new Error(err);
-					})
-				)
-			),
+		/** get vehicles for vehicles */
+		loadCompaniesVehicles: rxMethod<void>(
+			pipe(
+				// takeUntil(timer(50000)),
+				distinctUntilChanged(),
+				tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
+				switchMap(() => _vehiclesService.getCompanyVehicles()),
+				tap((res) => patchState(store, { companyVehicles: res.data, loadingCompanyVehicles: false })),
+				catchError((err) => {
+					patchState(store, { loadingCompanyVehicles: false });
+					console.log(err, "error");
+					throw new Error(err);
+				})
+			)
+		),
 
-			/** get vehicles for vehicles */
-			loadCompaniesVehicles: rxMethod<void>(
-				pipe(
-					// takeUntil(timer(50000)),
-					distinctUntilChanged(),
-					tap((_args) => patchState(store, { loadingCompanyVehicles: true })),
-					switchMap(() => _vehiclesService.getCompanyVehicles()),
-					tap((res) => patchState(store, { companyVehicles: res.data, loadingCompanyVehicles: false })),
-					catchError((err) => {
-						patchState(store, { loadingCompanyVehicles: false });
-						console.log(err, "error")
-						throw new Error(err);
-					})
-				)
-			),
+		loadVehiclesByStatus: rxMethod<string>(
+			pipe(
+				distinctUntilChanged(),
+				tap(() => patchState(store, { loadingVehiclesByStatus: true })),
+				switchMap((statusArg) => _vehiclesService.getVehiclesByStatus(statusArg)),
+				tap((res) => patchState(store, { vehiclesByStatus: res.data, loadingVehiclesByStatus: false })),
+				catchError((err) => {
+					patchState(store, { loadingVehiclesByStatus: false });
+					console.log(err, "error");
+					throw new Error(err);
+				})
+			)
+		),
 
-			loadVehiclesByStatus: rxMethod<string>(
-				pipe(
-					distinctUntilChanged(),
-					tap(() => patchState(store, { loadingVehiclesByStatus: true })),
-					switchMap((statusArg) => _vehiclesService.getVehiclesByStatus(statusArg)),
-					tap((res) => patchState(store, { vehiclesByStatus: res.data, loadingVehiclesByStatus: false })),
-					catchError((err) => {
-						patchState(store, { loadingVehiclesByStatus: false });
-						console.log(err, "error")
-						throw new Error(err);
-					})
-				)
-			),
-
-
-			setSelectedCompanyVehiclesId(companyId: number): void {
-				patchState(store, { selectedCompanyVehiclesId: companyId });
-				// patchState(store, (state) => ({ filter: { ...state.filter, query } }));
-			},
-
-		})
-	),
+		setSelectedCompanyVehiclesId(companyId: number): void {
+			patchState(store, { selectedCompanyVehiclesId: companyId });
+			// patchState(store, (state) => ({ filter: { ...state.filter, query } }));
+		},
+	})),
 	withHooks((store) => ({
 		onInit: () => {
 			store.loadAllClients();
@@ -166,4 +161,4 @@ export const VehiclesStore = signalStore(
 		//   console.log('firstName on destroy', firstName());
 		// },
 	}))
-)
+);

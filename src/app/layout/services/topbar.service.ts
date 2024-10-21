@@ -1,5 +1,5 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { StorageService } from '../../core/services/storage.service';
+import { inject, Injectable, signal } from "@angular/core";
+import { StorageService } from "../../core/services/storage.service";
 
 interface TopbarDetails {
 	title: string;
@@ -8,22 +8,20 @@ interface TopbarDetails {
 }
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: "root",
 })
 export class TopbarService {
 	_authService = inject(StorageService);
 	topbarDetails = signal<TopbarDetails>({
 		title: "",
 		staffName: this._authService.getLoggedInStaff()?.staff.name ?? "",
-		backRoute: undefined
+		backRoute: undefined,
 	});
-
 
 	updateTopbarDetails(details: Omit<TopbarDetails, "staffName">) {
 		this.topbarDetails.update((value) => ({
 			...value,
-			...details
-		}))
+			...details,
+		}));
 	}
-
 }

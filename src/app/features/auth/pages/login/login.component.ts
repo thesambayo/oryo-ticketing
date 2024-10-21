@@ -1,33 +1,23 @@
-import { CommonModule } from '@angular/common';
-import {
-	Component,
-	inject,
-} from '@angular/core';
-import {
-	FormControl,
-	FormGroup,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StaffLoginPayload } from '../../models/login-item';
-import { HlmSpinnerComponent } from '../../../../shared/ui/ui-spinner-helm/src/lib/hlm-spinner.component';
-import { OperationsList } from './login.constants';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
-import { AuthService } from '../../services/auth.service';
-import { environment } from '../../../../../environments/environment';
-import { AuthHttpService } from '../../services/auth-http.service';
-import { AuthMockService } from '../../services/auth-mock.service';
+import { CommonModule } from "@angular/common";
+import { Component, inject } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { StaffLoginPayload } from "../../models/login-item";
+import { HlmSpinnerComponent } from "../../../../shared/ui/ui-spinner-helm/src/lib/hlm-spinner.component";
+import { OperationsList } from "./login.constants";
+import { HlmIconComponent } from "@spartan-ng/ui-icon-helm";
+import { AuthService } from "../../services/auth.service";
+import { environment } from "../../../../../environments/environment";
+import { AuthHttpService } from "../../services/auth-http.service";
+import { AuthMockService } from "../../services/auth-mock.service";
 
 @Component({
-	selector: 'oryo-login',
-	templateUrl: './login.component.html',
-	styleUrl: './login.component.css',
+	selector: "oryo-login",
+	templateUrl: "./login.component.html",
+	styleUrl: "./login.component.css",
 	standalone: true,
 	imports: [CommonModule, ReactiveFormsModule, HlmSpinnerComponent, HlmIconComponent],
-	providers: [
-		{ provide: AuthService, useClass: environment.useMocks ? AuthMockService: AuthHttpService }
-	]
+	providers: [{ provide: AuthService, useClass: environment.useMocks ? AuthMockService : AuthHttpService }],
 })
 export class LoginComponent {
 	readonly _router = inject(Router);
@@ -36,7 +26,7 @@ export class LoginComponent {
 
 	readonly operationsList = OperationsList;
 
-	returnUrl: string = this._activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+	returnUrl: string = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 	isLoggingIn = false;
 
 	loginForm = new FormGroup({
@@ -46,7 +36,7 @@ export class LoginComponent {
 		}),
 		password: new FormControl("", {
 			nonNullable: true,
-			validators: [Validators.required]
+			validators: [Validators.required],
 		}),
 	});
 
@@ -62,7 +52,7 @@ export class LoginComponent {
 			},
 			error: () => {
 				this.isLoggingIn = false;
-			}
+			},
 		});
 	}
 }

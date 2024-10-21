@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { BrnTooltipDirective } from '@spartan-ng/ui-tooltip-brain';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
+import { BrnTooltipDirective } from "@spartan-ng/ui-tooltip-brain";
 
 @Component({
-	selector: 'hlm-tooltip',
+	selector: "hlm-tooltip",
 	standalone: true,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [],
 	providers: [],
 	host: {
-		'[style]': '{display: "contents"}',
+		"[style]": '{display: "contents"}',
 	},
 	hostDirectives: [BrnTooltipDirective],
 	template: `

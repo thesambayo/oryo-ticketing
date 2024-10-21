@@ -1,7 +1,7 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { inject } from "@angular/core";
+import { CanActivateFn, Router } from "@angular/router";
 // import { isFuture } from 'date-fns'
-import { StorageService } from '../../core/services/storage.service';
+import { StorageService } from "../../core/services/storage.service";
 
 export const isLoggedInGuard: CanActivateFn = (route, state) => {
 	const _router = inject(Router);
@@ -11,7 +11,7 @@ export const isLoggedInGuard: CanActivateFn = (route, state) => {
 		return true;
 	}
 
-	_router.navigate(['login'], { queryParams: { returnUrl: state.url }});
+	_router.navigate(["login"], { queryParams: { returnUrl: state.url } });
 	// _router.navigateByUrl("/login", {queryParams: { returnUrl: state.url }});
-  return false;
+	return false;
 };

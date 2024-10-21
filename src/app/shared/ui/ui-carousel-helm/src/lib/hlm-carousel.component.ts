@@ -9,25 +9,25 @@ import {
 	computed,
 	input,
 	signal,
-} from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
-import type { ClassValue } from 'clsx';
+} from "@angular/core";
+import { hlm } from "@spartan-ng/ui-core";
+import type { ClassValue } from "clsx";
 import {
 	EmblaCarouselDirective,
 	type EmblaEventType,
 	type EmblaOptionsType,
 	type EmblaPluginType,
-} from 'embla-carousel-angular';
+} from "embla-carousel-angular";
 
 @Component({
-	selector: 'hlm-carousel',
+	selector: "hlm-carousel",
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
 	host: {
-		'[class]': '_computedClass()',
-		role: 'region',
-		'aria-roledescription': 'carousel',
+		"[class]": "_computedClass()",
+		role: "region",
+		"aria-roledescription": "carousel",
 	},
 	imports: [EmblaCarouselDirective],
 	template: `
@@ -37,8 +37,7 @@ import {
 			[plugins]="plugins()"
 			[options]="emblaOptions()"
 			[subscribeToEvents]="['init', 'select', 'reInit']"
-			(emblaChange)="onEmblaEvent($event)"
-		>
+			(emblaChange)="onEmblaEvent($event)">
 			<ng-content select="hlm-carousel-content" />
 		</div>
 		<ng-content />
@@ -47,16 +46,16 @@ import {
 export class HlmCarouselComponent {
 	@ViewChild(EmblaCarouselDirective) protected emblaCarousel?: EmblaCarouselDirective;
 
-	_userClass = input<ClassValue>('', { alias: 'class' });
-	protected _computedClass = computed(() => hlm('relative', this._userClass()));
+	_userClass = input<ClassValue>("", { alias: "class" });
+	protected _computedClass = computed(() => hlm("relative", this._userClass()));
 
-	orientation = input<'horizontal' | 'vertical'>('horizontal');
-	options: InputSignal<Omit<EmblaOptionsType, 'axis'> | undefined> = input();
+	orientation = input<"horizontal" | "vertical">("horizontal");
+	options: InputSignal<Omit<EmblaOptionsType, "axis"> | undefined> = input();
 	plugins: InputSignal<EmblaPluginType[]> = input([] as EmblaPluginType[]);
 
 	protected emblaOptions: Signal<EmblaOptionsType> = computed(() => ({
 		...this.options(),
-		axis: this.orientation() === 'horizontal' ? 'x' : 'y',
+		axis: this.orientation() === "horizontal" ? "x" : "y",
 	}));
 
 	private _canScrollPrev = signal(false);
@@ -71,18 +70,18 @@ export class HlmCarouselComponent {
 			return;
 		}
 
-		if (event === 'select' || event === 'init' || event === 'reInit') {
+		if (event === "select" || event === "init" || event === "reInit") {
 			this._canScrollPrev.set(emblaApi.canScrollPrev());
 			this._canScrollNext.set(emblaApi.canScrollNext());
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
+	@HostListener("keydown", ["$event"])
 	protected onKeydown(event: KeyboardEvent) {
-		if (event.key === 'ArrowLeft') {
+		if (event.key === "ArrowLeft") {
 			event.preventDefault();
 			this.emblaCarousel?.scrollPrev();
-		} else if (event.key === 'ArrowRight') {
+		} else if (event.key === "ArrowRight") {
 			event.preventDefault();
 			this.emblaCarousel?.scrollNext();
 		}

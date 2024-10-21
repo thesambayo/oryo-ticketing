@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from "@angular/common";
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -10,29 +10,29 @@ import {
 	computed,
 	inject,
 	signal,
-} from '@angular/core';
-import { type IconName, NgIconComponent } from '@ng-icons/core';
-import { hlm } from '@spartan-ng/ui-core';
-import { cva } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
+} from "@angular/core";
+import { type IconName, NgIconComponent } from "@ng-icons/core";
+import { hlm } from "@spartan-ng/ui-core";
+import { cva } from "class-variance-authority";
+import type { ClassValue } from "clsx";
 
-const DEFINED_SIZES = ['xs', 'sm', 'base', 'lg', 'xl', 'none'] as const;
+const DEFINED_SIZES = ["xs", "sm", "base", "lg", "xl", "none"] as const;
 
 type DefinedSizes = (typeof DEFINED_SIZES)[number];
 
-export const iconVariants = cva('inline-flex', {
+export const iconVariants = cva("inline-flex", {
 	variants: {
 		variant: {
-			xs: 'size-4',
-			sm: 'size-5',
-			base: 'size-6',
-			lg: 'size-8',
-			xl: 'size-12',
-			none: '',
+			xs: "size-4",
+			sm: "size-5",
+			base: "size-6",
+			lg: "size-8",
+			xl: "size-12",
+			none: "",
 		} satisfies Record<DefinedSizes, string>,
 	},
 	defaultVariants: {
-		variant: 'base',
+		variant: "base",
 	},
 });
 
@@ -46,7 +46,7 @@ const isDefinedSize = (size: IconSize): size is DefinedSizes => {
 const TAILWIND_H_W_PATTERN = /\b(h-\d+|w-\d+)\b/g;
 
 @Component({
-	selector: 'hlm-icon',
+	selector: "hlm-icon",
 	standalone: true,
 	imports: [NgIconComponent],
 	encapsulation: ViewEncapsulation.None,
@@ -57,11 +57,10 @@ const TAILWIND_H_W_PATTERN = /\b(h-\d+|w-\d+)\b/g;
 			[size]="ngIconSize()"
 			[name]="_name()"
 			[color]="_color()"
-			[strokeWidth]="_strokeWidth()"
-		/>
+			[strokeWidth]="_strokeWidth()" />
 	`,
 	host: {
-		'[class]': '_computedClass()',
+		"[class]": "_computedClass()",
 	},
 })
 export class HlmIconComponent implements OnDestroy {
@@ -70,22 +69,25 @@ export class HlmIconComponent implements OnDestroy {
 
 	private _mutObs?: MutationObserver;
 
-	private readonly _hostClasses = signal<string>('');
+	private readonly _hostClasses = signal<string>("");
 
-	protected readonly _name = signal<IconName | string>('');
-	protected readonly _size = signal<IconSize>('base');
+	protected readonly _name = signal<IconName | string>("");
+	protected readonly _size = signal<IconSize>("base");
 	protected readonly _color = signal<string | undefined>(undefined);
 	protected readonly _strokeWidth = signal<string | number | undefined>(undefined);
-	protected readonly userCls = signal<ClassValue>('');
-	protected readonly ngIconSize = computed(() => (isDefinedSize(this._size()) ? '100%' : (this._size() as string)));
-	protected readonly ngIconCls = signal<ClassValue>('');
+	protected readonly userCls = signal<ClassValue>("");
+	protected readonly ngIconSize = computed(() =>
+		isDefinedSize(this._size()) ? "100%" : (this._size() as string)
+	);
+	protected readonly ngIconCls = signal<ClassValue>("");
 
 	protected readonly _computedClass = computed(() => {
 		const size: IconSize = this._size();
 		const hostClasses = this._hostClasses();
 		const userCls = this.userCls();
-		const variant = isDefinedSize(size) ? size : 'none';
-		const classes = variant === 'none' && size === 'none' ? hostClasses : hostClasses.replace(TAILWIND_H_W_PATTERN, '');
+		const variant = isDefinedSize(size) ? size : "none";
+		const classes =
+			variant === "none" && size === "none" ? hostClasses : hostClasses.replace(TAILWIND_H_W_PATTERN, "");
 		return hlm(iconVariants({ variant }), userCls, classes);
 	});
 
@@ -93,8 +95,8 @@ export class HlmIconComponent implements OnDestroy {
 		if (isPlatformBrowser(this._platformId)) {
 			this._mutObs = new MutationObserver((mutations: MutationRecord[]) => {
 				mutations.forEach((mutation: MutationRecord) => {
-					if (mutation.attributeName !== 'class') return;
-					this._hostClasses.set((mutation.target as Node & { className?: string })?.className ?? '');
+					if (mutation.attributeName !== "class") return;
+					this._hostClasses.set((mutation.target as Node & { className?: string })?.className ?? "");
 				});
 			});
 			this._mutObs.observe(this._host.nativeElement, {

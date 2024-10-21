@@ -1,9 +1,8 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { toast } from 'ngx-sonner';
-
+import { HttpErrorResponse, HttpInterceptorFn } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { Router } from "@angular/router";
+import { catchError } from "rxjs";
+import { toast } from "ngx-sonner";
 
 function convertObjectToString(obj: Record<string, string>) {
 	const result = [];
@@ -11,17 +10,17 @@ function convertObjectToString(obj: Record<string, string>) {
 	for (const [key, value] of Object.entries(obj)) {
 		result.push(`${key}: ${value}`);
 	}
-	return result.join(', ');
+	return result.join(", ");
 }
 
 function checkForErrorMessage(err: any, originalMessage: string): string {
 	let message = "";
 	if (err instanceof HttpErrorResponse) {
 		const error = err.error.error;
-		if (typeof error === 'object') {
+		if (typeof error === "object") {
 			message = convertObjectToString(err.error.error);
 		}
-		if (typeof error === 'string') {
+		if (typeof error === "string") {
 			message = err.error.error;
 		}
 	}
@@ -39,17 +38,20 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
 			if (errorStatus >= 400 && errorStatus < 500) {
 				switch (errorStatus) {
 					case 401: // unauthorized
-					errorMessage = checkForErrorMessage(err, "You are unauthorized to continue, login again or report");
+						errorMessage = checkForErrorMessage(
+							err,
+							"You are unauthorized to continue, login again or report"
+						);
 						toast.error(errorMessage, {
-							id: "session-expired"
-						})
+							id: "session-expired",
+						});
 						_router.navigateByUrl("/login");
 						break;
 					default: // other 4xx errors
 						errorMessage = checkForErrorMessage(err, "Bad request");
 						toast.error(errorMessage, {
-							id: "bad-request"
-						})
+							id: "bad-request",
+						});
 						break;
 				}
 			}
@@ -58,8 +60,8 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
 			if (errorStatus >= 500) {
 				errorMessage = "Something went wrong, please try again or report";
 				toast.error(errorMessage, {
-					id: "backend-error"
-				})
+					id: "backend-error",
+				});
 			}
 
 			throw new Error(err);

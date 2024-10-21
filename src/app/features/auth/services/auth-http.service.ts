@@ -14,11 +14,10 @@ export class AuthHttpService implements AuthService {
 	readonly _http = inject(HttpClient);
 	readonly _storageService = inject(StorageService);
 
-
 	login(data: StaffLoginPayload) {
-		return this._http.post<ApiResponse<LoggedInStaff>>(`${this.apiURL}/auth/login`, data).pipe(
-			tap((res) => this._storageService.storeLoggedInStaffDetails(res.data)),
-		);
+		return this._http
+			.post<ApiResponse<LoggedInStaff>>(`${this.apiURL}/auth/login`, data)
+			.pipe(tap((res) => this._storageService.storeLoggedInStaffDetails(res.data)));
 	}
 
 	activateStaffAccount(data: ActivateStaffAccountPayload) {

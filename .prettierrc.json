@@ -4,9 +4,10 @@
   "singleQuote": false,
   "semi": true,
   "bracketSpacing": true,
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "trailingComma": "es5",
   "bracketSameLine": true,
-  "printWidth": 100,
-  "endOfLine": "auto"
+  "printWidth": 110,
+  "endOfLine": "auto",
+	"htmlWhitespaceSensitivity": "ignore"
 }

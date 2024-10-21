@@ -1,102 +1,71 @@
 <main class="flex items-center justify-center min-h-screen">
-  <div class="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div class="p-8 rounded-lg hidden md:block">
-      <div
-        class="rounded-lg w-fit h-fit text-background py-1 px-1.5 text-sm"
-        style="background: linear-gradient(90deg, #088158 50%, #22c55e 108.59%)"
-      >
-        <span> Oryo Operations </span>
-      </div>
-      <h1 class="text-2xl font-bold text-foreground mb-4">
-        Oryo Operations & Service Delivery
-      </h1>
-      <p class="text-secondary-foreground mb-4 text-base">
-        Sign in to access modules that enhance your operations
-      </p>
-      <ul class="space-y-3 text-secondary-foreground">
+	<div class="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+		<div class="p-8 rounded-lg hidden md:block">
+			<div
+				class="rounded-lg w-fit h-fit text-background py-1 px-1.5 text-sm"
+				style="background: linear-gradient(90deg, #088158 50%, #22c55e 108.59%)">
+				<span>Oryo Operations</span>
+			</div>
+			<h1 class="text-2xl font-bold text-foreground mb-4">Oryo Operations & Service Delivery</h1>
+			<p class="text-secondary-foreground mb-4 text-base">
+				Sign in to access modules that enhance your operations
+			</p>
+			<ul class="space-y-3 text-secondary-foreground">
 				@for (operation of operationsList; track $index) {
 					<li class="flex items-start gap-2">
 						<hlm-icon class="size-6 text-primary" name="lucideCheck" />
 						{{ operation }}
 					</li>
 				}
-      </ul>
-    </div>
+			</ul>
+		</div>
 
-    <!-- 2 -->
-    <div class="bg-background p-8 px-20 shadow-md rounded-lg">
-      <div class="flex items-center justify-center relative">
-        <img
-          src="app-icon.png"
-          alt="app-icon"
-          class="absolute top-1/2 left-1/2 -translate-y-full -translate-x-1/2 size-16 mb-5"
-        />
-      </div>
-      <h2 class="text-2xl text-center font-bold text-foreground mb-4">
-        Welcome Onboard
-      </h2>
-      <p class="text-sm text-center font-normal text-foreground mb-4">
-        Sign into your account
-      </p>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label
-            hlmLabel
-            for="email"
-            class="block font-semibold mb-2"
-          >
-						Email
-					</label>
-          <input
-            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            hlmInput
-            id="email"
-            type="email"
-            formControlName="email"
-						required
-          />
-        </div>
-        <div class="mb-4">
-          <label
-            hlmLabel
-            for="password"
-            class="block font-semibold mb-2"
-          >
-						Password
-					</label>
-          <input
-            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            hlmInput
-            type="password"
-            id="password"
-            formControlName="password"
-						required
-          />
-        </div>
-        <div class="flex items-center justify-between mb-4">
-          <div>
-            <input
-              type="checkbox"
-              id="remember"
-              class="mr-2 ring-primary checked:bg-primary"
-            />
-            <label for="remember" class="text-gray-600">
-							Keep me logged in
-						</label>
-          </div>
-          <a href="#" class="text-primary">Forgot Password?</a>
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-primary text-white p-3 rounded-lg font-semibold"
-        >
-          @if (isLoggingIn) {
-          <hlm-spinner size="xs" />
-          } @else {
-          <span>Sign In</span>
-          }
-        </button>
-      </form>
-    </div>
-  </div>
+		<!-- 2 -->
+		<div class="bg-background p-8 px-20 shadow-md rounded-lg">
+			<div class="flex items-center justify-center relative">
+				<img
+					src="app-icon.png"
+					alt="app-icon"
+					class="absolute top-1/2 left-1/2 -translate-y-full -translate-x-1/2 size-16 mb-5" />
+			</div>
+			<h2 class="text-2xl text-center font-bold text-foreground mb-4">Welcome Onboard</h2>
+			<p class="text-sm text-center font-normal text-foreground mb-4">Sign into your account</p>
+			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+				<div class="mb-4">
+					<label hlmLabel for="email" class="block font-semibold mb-2">Email</label>
+					<input
+						class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+						hlmInput
+						id="email"
+						type="email"
+						formControlName="email"
+						required />
+				</div>
+				<div class="mb-4">
+					<label hlmLabel for="password" class="block font-semibold mb-2">Password</label>
+					<input
+						class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+						hlmInput
+						type="password"
+						id="password"
+						formControlName="password"
+						required />
+				</div>
+				<div class="flex items-center justify-between mb-4">
+					<div>
+						<input type="checkbox" id="remember" class="mr-2 ring-primary checked:bg-primary" />
+						<label for="remember" class="text-gray-600">Keep me logged in</label>
+					</div>
+					<a href="#" class="text-primary">Forgot Password?</a>
+				</div>
+				<button type="submit" class="w-full bg-primary text-white p-3 rounded-lg font-semibold">
+					@if (isLoggingIn) {
+						<hlm-spinner size="xs" />
+					} @else {
+						<span>Sign In</span>
+					}
+				</button>
+			</form>
+		</div>
+	</div>
 </main>

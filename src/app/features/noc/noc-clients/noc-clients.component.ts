@@ -1,30 +1,27 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { provideIcons } from '@ng-icons/core';
+import { Component, inject, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { provideIcons } from "@ng-icons/core";
 import {
 	lucideArrowLeft,
 	lucideBell,
 	lucideChevronsUpDown,
 	lucideEllipsis,
 	lucideFilter,
-} from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
+} from "@ng-icons/lucide";
+import { HlmButtonDirective } from "@spartan-ng/ui-button-helm";
+import { HlmIconComponent } from "@spartan-ng/ui-icon-helm";
 import {
 	BrnPopoverComponent,
 	BrnPopoverTriggerDirective,
 	BrnPopoverContentDirective,
 	BrnPopoverCloseDirective,
-} from '@spartan-ng/ui-popover-brain';
-import {
-	HlmPopoverContentDirective,
-	HlmPopoverCloseDirective,
-} from '@spartan-ng/ui-popover-helm';
+} from "@spartan-ng/ui-popover-brain";
+import { HlmPopoverContentDirective, HlmPopoverCloseDirective } from "@spartan-ng/ui-popover-helm";
 import { CreateComponent } from "../noc-client-details/create/create.component";
-import { VehiclesStore } from '../../../store/vehicles.store';
+import { VehiclesStore } from "../../../store/vehicles.store";
 
 @Component({
-	selector: 'oryo-noc-clients',
+	selector: "oryo-noc-clients",
 	standalone: true,
 	imports: [
 		HlmIconComponent,
@@ -35,7 +32,7 @@ import { VehiclesStore } from '../../../store/vehicles.store';
 		HlmPopoverContentDirective,
 		HlmPopoverCloseDirective,
 		HlmButtonDirective,
-		CreateComponent
+		CreateComponent,
 	],
 	providers: [
 		provideIcons({
@@ -43,11 +40,11 @@ import { VehiclesStore } from '../../../store/vehicles.store';
 			lucideFilter,
 			lucideBell,
 			lucideArrowLeft,
-			lucideEllipsis
+			lucideEllipsis,
 		}),
 	],
-	templateUrl: './noc-clients.component.html',
-	styleUrl: './noc-clients.component.css',
+	templateUrl: "./noc-clients.component.html",
+	styleUrl: "./noc-clients.component.css",
 })
 export class NocClientsComponent implements OnInit {
 	private _router = inject(Router);
@@ -59,10 +56,10 @@ export class NocClientsComponent implements OnInit {
 
 	cars: any[] = [];
 
-	ngOnInit(): void { }
+	ngOnInit(): void {}
 
 	onBack() {
-		this._router.navigate(['/noc']);
+		this._router.navigate(["/noc"]);
 	}
 	// Other component methods and properties'
 	goToClientDetails(clientId: number) {
@@ -82,6 +79,4 @@ export class NocClientsComponent implements OnInit {
 	// 		}
 	// 	});
 	// }
-
-
 }

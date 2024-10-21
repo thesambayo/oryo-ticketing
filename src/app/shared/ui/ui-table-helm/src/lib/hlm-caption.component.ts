@@ -7,19 +7,19 @@ import {
 	effect,
 	inject,
 	input,
-} from '@angular/core';
-import { hlm } from '@spartan-ng/ui-core';
-import type { ClassValue } from 'clsx';
-import { HlmTableComponent } from '../index';
+} from "@angular/core";
+import { hlm } from "@spartan-ng/ui-core";
+import type { ClassValue } from "clsx";
+import { HlmTableComponent } from "../index";
 
 let captionIdSequence = 0;
 
 @Component({
-	selector: 'hlm-caption',
+	selector: "hlm-caption",
 	standalone: true,
 	host: {
-		'[class]': '_computedClass()',
-		'[id]': 'id()',
+		"[class]": "_computedClass()",
+		"[id]": "id()",
 	},
 	template: `
 		<ng-content />
@@ -33,13 +33,13 @@ export class HlmCaptionComponent {
 	protected readonly id = input<string | null | undefined>(`${captionIdSequence++}`);
 
 	public readonly hidden = input(false, { transform: booleanAttribute });
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
+	public readonly userClass = input<ClassValue>("", { alias: "class" });
 	protected readonly _computedClass = computed(() =>
 		hlm(
-			'text-center block mt-4 text-sm text-muted-foreground',
-			this.hidden() ? 'sr-only' : 'order-last',
-			this.userClass(),
-		),
+			"text-center block mt-4 text-sm text-muted-foreground",
+			this.hidden() ? "sr-only" : "order-last",
+			this.userClass()
+		)
 	);
 
 	constructor() {
@@ -49,7 +49,7 @@ export class HlmCaptionComponent {
 				if (!this._table) return;
 				this._table.labeledBy.set(id);
 			},
-			{ allowSignalWrites: true },
+			{ allowSignalWrites: true }
 		);
 	}
 }

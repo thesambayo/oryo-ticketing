@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, forwardRef } from '@angular/core';
-import { BrnDialogComponent } from '@spartan-ng/ui-dialog-brain';
-import { BrnSheetComponent, BrnSheetOverlayComponent } from '@spartan-ng/ui-sheet-brain';
-import { HlmSheetOverlayDirective } from './hlm-sheet-overlay.directive';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, forwardRef } from "@angular/core";
+import { BrnDialogComponent } from "@spartan-ng/ui-dialog-brain";
+import { BrnSheetComponent, BrnSheetOverlayComponent } from "@spartan-ng/ui-sheet-brain";
+import { HlmSheetOverlayDirective } from "./hlm-sheet-overlay.directive";
 
 @Component({
-	selector: 'hlm-sheet',
+	selector: "hlm-sheet",
 	standalone: true,
 	imports: [BrnSheetOverlayComponent, HlmSheetOverlayDirective],
 	providers: [
@@ -23,7 +23,7 @@ import { HlmSheetOverlayDirective } from './hlm-sheet-overlay.directive';
 	`,
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	exportAs: 'hlmSheet',
+	exportAs: "hlmSheet",
 })
 export class HlmSheetComponent extends BrnSheetComponent {
 	constructor() {

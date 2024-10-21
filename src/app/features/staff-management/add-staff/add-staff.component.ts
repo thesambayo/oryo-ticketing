@@ -1,24 +1,35 @@
-import { Component, inject, output, signal } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { lucidePlus } from '@ng-icons/lucide';
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { BrnDialogTriggerDirective, BrnDialogContentDirective } from '@spartan-ng/ui-dialog-brain';
-import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogHeaderComponent, HlmDialogFooterComponent, HlmDialogTitleDirective, HlmDialogDescriptionDirective } from '@spartan-ng/ui-dialog-helm';
-import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
-import { BrnRadioGroupComponent, BrnRadioComponent } from '@spartan-ng/ui-radiogroup-brain';
-import { HlmRadioIndicatorComponent, HlmRadioDirective, HlmRadioGroupDirective } from '@spartan-ng/ui-radiogroup-helm';
-import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
-import { toast } from 'ngx-sonner';
-import { LeftPaddingPipe } from '../../../shared/pipes/left-padding.pipe';
+import { Component, inject, output, signal } from "@angular/core";
+import { ReactiveFormsModule, FormBuilder, Validators } from "@angular/forms";
+import { provideIcons } from "@ng-icons/core";
+import { lucidePlus } from "@ng-icons/lucide";
+import { HlmButtonDirective } from "@spartan-ng/ui-button-helm";
+import { BrnDialogTriggerDirective, BrnDialogContentDirective } from "@spartan-ng/ui-dialog-brain";
+import {
+	HlmDialogComponent,
+	HlmDialogContentComponent,
+	HlmDialogHeaderComponent,
+	HlmDialogFooterComponent,
+	HlmDialogTitleDirective,
+	HlmDialogDescriptionDirective,
+} from "@spartan-ng/ui-dialog-helm";
+import { HlmIconComponent } from "@spartan-ng/ui-icon-helm";
+import { HlmInputDirective } from "@spartan-ng/ui-input-helm";
+import { HlmLabelDirective } from "@spartan-ng/ui-label-helm";
+import { BrnRadioGroupComponent, BrnRadioComponent } from "@spartan-ng/ui-radiogroup-brain";
+import {
+	HlmRadioIndicatorComponent,
+	HlmRadioDirective,
+	HlmRadioGroupDirective,
+} from "@spartan-ng/ui-radiogroup-helm";
+import { BrnSelectImports } from "@spartan-ng/ui-select-brain";
+import { HlmSelectImports } from "@spartan-ng/ui-select-helm";
+import { toast } from "ngx-sonner";
+import { LeftPaddingPipe } from "../../../shared/pipes/left-padding.pipe";
 
 @Component({
-  selector: 'oryo-add-staff',
-  standalone: true,
-  imports: [
+	selector: "oryo-add-staff",
+	standalone: true,
+	imports: [
 		HlmButtonDirective,
 		HlmIconComponent,
 		HlmInputDirective,
@@ -42,42 +53,40 @@ import { LeftPaddingPipe } from '../../../shared/pipes/left-padding.pipe';
 		BrnSelectImports,
 		HlmSelectImports,
 		ReactiveFormsModule,
-		LeftPaddingPipe
+		LeftPaddingPipe,
 	],
 	providers: [provideIcons({ lucidePlus })],
-  templateUrl: './add-staff.component.html',
-  styleUrl: './add-staff.component.css'
+	templateUrl: "./add-staff.component.html",
+	styleUrl: "./add-staff.component.css",
 })
 export class AddStaffComponent {
-
 	// declare input and outputs
 	ticketCreated = output();
 
 	// injects
 	_fb = inject(FormBuilder);
 	addStaffForm = this._fb.nonNullable.group({
-		name: this._fb.nonNullable.control('', Validators.required),
-		email: this._fb.nonNullable.control('', [Validators.required, Validators.email]),
-		department: this._fb.nonNullable.control('', Validators.required),
+		name: this._fb.nonNullable.control("", Validators.required),
+		email: this._fb.nonNullable.control("", [Validators.required, Validators.email]),
+		department: this._fb.nonNullable.control("", Validators.required),
 	});
 
 	// component variables
 	openCreateTicketForm = signal(false);
 	isCreatingTicket = signal<boolean>(false);
 
-
 	onSubmit() {
 		if (this.addStaffForm.invalid) {
 			toast.error("Form is invalid. All fields are should be filled", {
-				id: "invalid-add-staff-form"
-			})
+				id: "invalid-add-staff-form",
+			});
 		}
 
 		const payload: any = {
 			name: this.addStaffForm.controls.name.value,
 			email: this.addStaffForm.controls.email.value,
 			department: this.addStaffForm.controls.department.value,
-		}
+		};
 
 		// this.isCreatingTicket.set(true);
 		// this._ticketsService.createTicket(payload).subscribe({
@@ -95,5 +104,4 @@ export class AddStaffComponent {
 		// 	}
 		// })
 	}
-
 }

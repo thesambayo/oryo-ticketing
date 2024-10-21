@@ -1,59 +1,52 @@
 <div class="h-full flex flex-col p-4 md:px-10">
-  <!-- Header -->
-  <div class="flex justify-between items-center mb-6 shrink-0">
-    <div class="flex gap-x-5 items-start justify-center">
-            <button class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center" (click)="onBack()">
-                <hlm-icon size="sm" name="lucideArrowLeft" />
-            </button>
-      <h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700 first-letter:capitalize">
-        {{selectedStatus|removeUnderscore}} sensors
-      </h1>
-    </div>
+	<!-- Header -->
+	<div class="flex justify-between items-center mb-6 shrink-0">
+		<div class="flex gap-x-5 items-start justify-center">
+			<button
+				class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center"
+				(click)="onBack()">
+				<hlm-icon size="sm" name="lucideArrowLeft" />
+			</button>
+			<h1 class="ml-4 text-sm md:text-2xl font-bold text-gray-700 first-letter:capitalize">
+				{{ selectedStatus | removeUnderscore }} sensors
+			</h1>
+		</div>
 
-    <div class="flex items-center">
+		<div class="flex items-center">
 			<button hlmBtn variant="outline" class="bg-background" align="end" (click)="routeToClientsView()">
 				<img src="/document-text.svg" alt="" />
-        <span class="text-xs">Clients</span>
+				<span class="text-xs">Clients</span>
 			</button>
-    </div>
-  </div>
+		</div>
+	</div>
 
-
-		<!-- Global Report Cards -->
+	<!-- Global Report Cards -->
 	<div class="overflow-x-auto mb-6 shrink-0">
 		<div class="flex space-x-4 bg-white p-3 rounded-lg">
 			@for (item of vehiclesByStatus(); track $index) {
 				<div
 					(click)="selectReportingCompanyId(item.id)"
 					class="transition-colors flex items-center bg-blue-100 p-4 rounded-lg min-w-[200px] cursor-pointer"
-					[ngClass]="{'bg-green-100': item.id === selectedCompanyVehiclesByStatus()?.id}"
-				>
+					[ngClass]="{ 'bg-green-100': item.id === selectedCompanyVehiclesByStatus()?.id }">
 					<div
 						class="bg-blue-500 p-3 rounded-lg"
-						[ngClass]="{'bg-green-500': item.id === selectedCompanyVehiclesByStatus()?.id}"
-					>
+						[ngClass]="{ 'bg-green-500': item.id === selectedCompanyVehiclesByStatus()?.id }">
 						<img src="/truck-fast.svg" alt="" />
 					</div>
 					<div class="ml-4">
-						<p class="text-sm text-gray-600">{{item.company_name}}</p>
-						<p class="text-2xl font-bold">{{item.vehicles.length}}</p>
+						<p class="text-sm text-gray-600">{{ item.company_name }}</p>
+						<p class="text-2xl font-bold">{{ item.vehicles.length }}</p>
 					</div>
 				</div>
 			}
 		</div>
 	</div>
-	
 
 	@let selectedCompanyVehicles = selectedCompanyVehiclesByStatus();
 	@if (selectedCompanyVehicles) {
 		<section class="flex-1">
 			<!-- Table -->
-			 <oryo-sensors-table
-			 	[_sensorsList]="selectedCompanyVehicles.vehicles"
-			>
-			 </oryo-sensors-table>
+			<oryo-sensors-table [_sensorsList]="selectedCompanyVehicles.vehicles"></oryo-sensors-table>
 		</section>
 	}
-	
-
 </div>

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, forwardRef } from '@angular/core';
-import { BrnDialogComponent, BrnDialogOverlayComponent } from '@spartan-ng/ui-dialog-brain';
-import { HlmDialogOverlayDirective } from './hlm-dialog-overlay.directive';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, forwardRef } from "@angular/core";
+import { BrnDialogComponent, BrnDialogOverlayComponent } from "@spartan-ng/ui-dialog-brain";
+import { HlmDialogOverlayDirective } from "./hlm-dialog-overlay.directive";
 
 @Component({
-	selector: 'hlm-dialog',
+	selector: "hlm-dialog",
 	standalone: true,
 	imports: [BrnDialogComponent, BrnDialogOverlayComponent, HlmDialogOverlayDirective],
 	providers: [
@@ -18,7 +18,7 @@ import { HlmDialogOverlayDirective } from './hlm-dialog-overlay.directive';
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None,
-	exportAs: 'hlmDialog',
+	exportAs: "hlmDialog",
 })
 export class HlmDialogComponent extends BrnDialogComponent {
 	constructor() {

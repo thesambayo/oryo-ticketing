@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PasswordRestComponent } from './password-rest.component';
+import { PasswordRestComponent } from "./password-rest.component";
 
-describe('PasswordRestComponent', () => {
-  let component: PasswordRestComponent;
-  let fixture: ComponentFixture<PasswordRestComponent>;
+describe("PasswordRestComponent", () => {
+	let component: PasswordRestComponent;
+	let fixture: ComponentFixture<PasswordRestComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PasswordRestComponent]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [PasswordRestComponent],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(PasswordRestComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(PasswordRestComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });
