@@ -9,11 +9,11 @@ export const spinnerVariants = cva("inline-block", {
 			default: "animate-spin [&>svg]:text-foreground/30 [&>svg]:fill-accent",
 		},
 		size: {
-			xs: "h-4 w-4",
-			sm: "h-6 w-6",
+			xs: "size-4",
+			sm: "size-6",
 			default: "size-8 ",
-			lg: "w-12 h-12",
-			xl: "w-16 h-16",
+			lg: "size-12",
+			xl: "size-16",
 		},
 	},
 	defaultVariants: {

@@ -10,7 +10,7 @@ import type { ClassValue } from "clsx";
 	providers: [provideIcons({ lucideChevronRight })],
 	imports: [HlmIconComponent],
 	template: `
-		<hlm-icon size="none" class="w-full h-full" name="lucideChevronRight" />
+		<hlm-icon size="none" class="size-full" name="lucideChevronRight" />
 	`,
 	host: {
 		"[class]": "_computedClass()",
@@ -18,5 +18,5 @@ import type { ClassValue } from "clsx";
 })
 export class HlmMenuItemSubIndicatorComponent {
 	public readonly userClass = input<ClassValue>("", { alias: "class" });
-	protected _computedClass = computed(() => hlm("inline-block ml-auto h-4 w-4", this.userClass()));
+	protected _computedClass = computed(() => hlm("inline-block ml-auto size-4", this.userClass()));
 }

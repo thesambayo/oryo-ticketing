@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { StaffLoginPayload } from "../../models/login-item";
 import { HlmSpinnerComponent } from "../../../../shared/ui/ui-spinner-helm/src/lib/hlm-spinner.component";
@@ -21,6 +21,7 @@ import { AuthMockService } from "../../services/auth-mock.service";
 })
 export class LoginComponent {
 	readonly _router = inject(Router);
+	readonly _fb = inject(FormBuilder);
 	readonly _authService = inject(AuthService);
 	readonly _activatedRoute = inject(ActivatedRoute);
 
@@ -29,15 +30,9 @@ export class LoginComponent {
 	returnUrl: string = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 	isLoggingIn = false;
 
-	loginForm = new FormGroup({
-		email: new FormControl("", {
-			nonNullable: true,
-			validators: [Validators.required, Validators.email],
-		}),
-		password: new FormControl("", {
-			nonNullable: true,
-			validators: [Validators.required],
-		}),
+	loginForm = this._fb.nonNullable.group({
+		email: this._fb.nonNullable.control("", [Validators.required, Validators.email]),
+		password: this._fb.nonNullable.control("", Validators.required),
 	});
 
 	onSubmit() {

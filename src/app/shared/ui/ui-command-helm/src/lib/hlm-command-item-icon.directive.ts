@@ -19,5 +19,5 @@ export class HlmCommandItemIconDirective {
 	}
 
 	public readonly userClass = input<ClassValue>("", { alias: "class" });
-	protected _computedClass = computed(() => hlm("mr-2 h-4 w-4", this.userClass()));
+	protected _computedClass = computed(() => hlm("mr-2 size-4", this.userClass()));
 }

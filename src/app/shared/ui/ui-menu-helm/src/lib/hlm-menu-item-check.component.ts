@@ -10,7 +10,7 @@ import type { ClassValue } from "clsx";
 	providers: [provideIcons({ lucideCheck })],
 	imports: [HlmIconComponent],
 	template: `
-		<!-- Using 1rem for size to mimick h-4 w-4 -->
+		<!-- Using 1rem for size to mimick size-4 -->
 		<hlm-icon size="1rem" name="lucideCheck" />
 	`,
 	host: {
@@ -21,7 +21,7 @@ export class HlmMenuItemCheckComponent {
 	public readonly userClass = input<ClassValue>("", { alias: "class" });
 	protected _computedClass = computed(() =>
 		hlm(
-			"group-[.checked]:opacity-100 opacity-0 absolute left-2 flex h-3.5 w-3.5 items-center justify-center",
+			"group-[.checked]:opacity-100 opacity-0 absolute left-2 flex size-3.5 items-center justify-center",
 			this.userClass()
 		)
 	);

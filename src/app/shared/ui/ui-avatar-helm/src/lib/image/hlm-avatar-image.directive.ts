@@ -16,7 +16,5 @@ export class HlmAvatarImageDirective {
 	canShow = inject(BrnAvatarImageDirective).canShow;
 
 	public readonly userClass = input<ClassValue>("", { alias: "class" });
-	protected _computedClass = computed(() =>
-		hlm("aspect-square object-cover h-full w-full", this.userClass())
-	);
+	protected _computedClass = computed(() => hlm("aspect-square object-cover size-full", this.userClass()));
 }

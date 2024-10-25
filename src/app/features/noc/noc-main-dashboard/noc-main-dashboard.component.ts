@@ -68,10 +68,10 @@ export class NocMainDashboardComponent {
 	private _router = inject(Router);
 	private _vehiclesStore = inject(VehiclesStore);
 	private _vehiclesService = inject(VehiclesService);
-	vehiclesGlobalReports = this._vehiclesStore.globalReports;
-	loadingGlobalReports = this._vehiclesStore.loadingGlobalReports;
 
+	vehiclesGlobalReports = this._vehiclesStore.globalReports;
 	companies = this._vehiclesStore.clients;
+	loadingGlobalReports = this._vehiclesStore.loadingGlobalReports;
 
 	createCompantForm = this._fb.nonNullable.group({
 		companyWlfId: this._fb.nonNullable.control(0, Validators.required),

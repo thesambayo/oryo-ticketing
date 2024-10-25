@@ -32,6 +32,7 @@ export class ActivateStaffComponent {
 
 	token = signal<string | null>(inject(ActivatedRoute).snapshot.paramMap.get("token"));
 	isActivatingStaff = signal<boolean>(false);
+
 	activateStaffForm = this._fb.nonNullable.group({
 		password: this._fb.nonNullable.control("", Validators.required),
 		confirmPassword: this._fb.nonNullable.control("", Validators.required),

@@ -19,5 +19,5 @@ import { HlmPaginationLinkDirective } from "./hlm-pagination-link.directive";
 export class HlmPaginationEllipsisComponent {
 	public readonly class = input("");
 
-	protected _computedClass = computed(() => hlm("flex h-9 w-9 items-center justify-center", this.class()));
+	protected _computedClass = computed(() => hlm("flex size-9 items-center justify-center", this.class()));
 }

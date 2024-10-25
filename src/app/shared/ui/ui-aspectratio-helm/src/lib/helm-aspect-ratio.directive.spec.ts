@@ -67,6 +67,6 @@ describe("HelmAspectRatioDirective", () => {
 		fixture.detectChanges();
 
 		const img = fixture.nativeElement.querySelector("img") as HTMLImageElement;
-		expect(img.classList.toString()).toBe("absolute w-full h-full object-cover");
+		expect(img.classList.toString()).toBe("absolute size-fullobject-cover");
 	});
 });

@@ -42,11 +42,11 @@ import { Router } from "@angular/router";
 		HlmAvatarImageDirective,
 		HlmAvatarComponent,
 		HlmAvatarFallbackDirective,
-		HlmIconComponent,
 		InitialsPipe,
+		HlmButtonDirective,
+		HlmIconComponent,
 
 		BrnMenuTriggerDirective,
-
 		HlmMenuComponent,
 		HlmSubMenuComponent,
 		HlmMenuItemDirective,
@@ -56,11 +56,8 @@ import { Router } from "@angular/router";
 		HlmMenuSeparatorComponent,
 		HlmMenuItemIconDirective,
 		HlmMenuGroupComponent,
-
-		HlmButtonDirective,
-		HlmIconComponent,
 	],
-	providers: [
+	viewProviders: [
 		provideIcons({
 			lucideBell,
 			lucideUser,

@@ -1,6 +1,6 @@
-<div class="flex justify-between items-center p-6 bg-white shadow-md">
+<div class="flex justify-between items-center p-6 bg-background shadow-md">
 	<div>
-		<img src="../../main-logo.svg" alt="" class="w-24" />
+		<img src="main-logo.svg" alt="main oryo logo" class="w-24" />
 		<!-- <span class="text-2xl font-bold text-green-600">RYO</> -->
 	</div>
 
@@ -15,14 +15,14 @@
         type="Search"
       />
     </div> -->
-		<div class="bg-white text-muted-foreground rounded-full h-8 w-8 flex items-center justify-center">
+		<div class="bg-background text-muted-foreground rounded-full size-8 flex items-center justify-center">
 			<hlm-icon size="sm" name="lucideBell" />
 		</div>
 		<div class="">
 			<button hlmBtn class="bg-transparent hover:bg-transparent" [brnMenuTriggerFor]="menu">
-				<hlm-avatar class="h-8 w-8">
-					<img src="" alt="spartan logo. Resembling a spartanic shield" class="h-8 w-8 rounded-full" />
-					<span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+				<hlm-avatar class="size-8">
+					<img src="" alt="logged in user avatar" class="size-8 rounded-full" />
+					<span class="bg-destructive text-background" hlmAvatarFallback>
 						{{ _topbarDetails().staffName | initials }}
 					</span>
 				</hlm-avatar>

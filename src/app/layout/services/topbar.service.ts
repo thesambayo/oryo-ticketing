@@ -1,20 +1,15 @@
 import { inject, Injectable, signal } from "@angular/core";
+import { TopbarDetails } from "../models/topbar";
 import { StorageService } from "../../core/services/storage.service";
-
-interface TopbarDetails {
-	title: string;
-	staffName: string;
-	backRoute?: string;
-}
 
 @Injectable({
 	providedIn: "root",
 })
 export class TopbarService {
-	_authService = inject(StorageService);
+	readonly _storageService = inject(StorageService);
 	topbarDetails = signal<TopbarDetails>({
 		title: "",
-		staffName: this._authService.getLoggedInStaff()?.staff.name ?? "",
+		staffName: this._storageService.getLoggedInStaff()?.staff.name ?? "",
 		backRoute: undefined,
 	});
 

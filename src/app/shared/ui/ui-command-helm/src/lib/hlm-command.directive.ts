@@ -13,7 +13,7 @@ export class HlmCommandDirective {
 	public readonly userClass = input<ClassValue>("", { alias: "class" });
 	protected _computedClass = computed(() =>
 		hlm(
-			"flex h-full w-full flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground",
+			"flex size-full flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground",
 			this.userClass()
 		)
 	);
